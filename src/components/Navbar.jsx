@@ -19,7 +19,7 @@ import { motion } from 'framer-motion';
 const navigationItems = [
   {
     label: 'Tokenization',
-    items: ['Overview', 'Asset Classes', 'Process', 'Benefits'],
+    items: ['Asset Tokenization Hub', 'Gold Tokenization Hub', 'Real Estate', 'Art & Collectibles', 'Commodities', 'Carbon Credits', 'Private Equity', 'Other Asset Classes'],
   },
   {
     label: 'Visualize',

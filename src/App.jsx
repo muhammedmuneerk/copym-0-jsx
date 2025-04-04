@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Blockchains />
+        <Blockchains/>
         <Features />
         <GlobalMarkets />
         <Metrics />
