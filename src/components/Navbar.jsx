@@ -20,7 +20,16 @@ import { motion } from 'framer-motion';
 const navigationItems = [
   {
     label: 'Tokenization',
-    items: ['Asset Tokenization Hub', 'Gold Tokenization Hub', 'Real Estate', 'Art & Collectibles', 'Commodities', 'Carbon Credits', 'Private Equity', 'Other Asset Classes'],
+    items: [
+      { label: 'Asset Tokenization Hub', to: '/tokenization' },
+      'Gold Tokenization Hub',
+      'Real Estate',
+      'Art & Collectibles',
+      'Commodities',
+      'Carbon Credits',
+      'Private Equity',
+      'Other Asset Classes'
+    ],
   },
   {
     label: 'Visualize',
@@ -125,11 +134,13 @@ export default function Navbar() {
                     >
                       {item.items.map((subItem) => (
                         <MenuItem
-                          key={subItem}
+                          key={typeof subItem === 'string' ? subItem : subItem.label}
                           onClick={handleMenuClose}
                           className="hover:text-primary"
+                          component={typeof subItem === 'object' && subItem.to ? Link : undefined}
+                          to={typeof subItem === 'object' ? subItem.to : undefined}
                         >
-                          {subItem}
+                          {typeof subItem === 'string' ? subItem : subItem.label}
                         </MenuItem>
                       ))}
                     </Menu>
@@ -195,9 +206,15 @@ export default function Navbar() {
                   {item.items && (
                     <List className="pl-4">
                       {item.items.map((subItem) => (
-                        <ListItem key={subItem} className="block">
+                        <ListItem
+                          key={typeof subItem === 'string' ? subItem : subItem.label}
+                          className="block"
+                          component={typeof subItem === 'object' && subItem.to ? Link : undefined}
+                          to={typeof subItem === 'object' ? subItem.to : undefined}
+                          onClick={() => item.to && setMobileMenuOpen(false)}
+                        >
                           <ListItemText
-                            primary={subItem}
+                            primary={typeof subItem === 'string' ? subItem : subItem.label}
                             className="text-text-secondary"
                           />
                         </ListItem>
