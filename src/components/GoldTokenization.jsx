@@ -18,7 +18,7 @@ const GoldTokenization = () => {
   const renderTokenDistributionChart = () => {
     // Chart data
     const totalColumns = 10;
-    const totalRows = 7;
+    const totalRows = 10;
     const soldPercentage = 72;
     
     // Calculate how many cells should be filled (gold color)
