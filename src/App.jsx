@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Blockchains from './components/Blockchains';
@@ -6,17 +7,29 @@ import Features from './components/Features';
 import GlobalMarkets from './components/GlobalMarkets';
 import Metrics from './components/Metrics';
 import Footer from './components/Footer';
+import Marketplace from './components/Marketplace';
+
+function HomePage() {
+  return (
+    <>
+      <Hero />
+      <Blockchains/>
+      <Features />
+      <GlobalMarkets />
+      <Metrics />
+    </>
+  );
+}
 
 function App() {
   return (
     <Box className="min-h-screen bg-background text-text-primary">
       <Navbar />
       <main>
-        <Hero />
-        <Blockchains/>
-        <Features />
-        <GlobalMarkets />
-        <Metrics />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/marketplace" element={<Marketplace />} />
+        </Routes>
       </main>
       <Footer />
     </Box>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   AppBar,
   Container,
@@ -30,6 +31,7 @@ const navigationItems = [
   },
   {
     label: 'Marketplace',
+    to: '/marketplace',
   },
   {
     label: 'Developers',
@@ -73,8 +75,10 @@ export default function Navbar() {
             transition={{ duration: 0.5 }}
           >
             <Typography
+              component={Link}
+              to="/"
               variant="h6"
-              className="font-bold text-2xl tracking-tight flex items-center"
+              className="font-bold text-2xl tracking-tight flex items-center no-underline text-inherit"
             >
               <Box
                 component="span"
@@ -131,12 +135,23 @@ export default function Navbar() {
                     </Menu>
                   </>
                 ) : (
-                  <Button
-                    color="inherit"
-                    className="text-text-secondary hover:text-white"
-                  >
-                    {item.label}
-                  </Button>
+                  item.to ? (
+                    <Button
+                      component={Link}
+                      to={item.to}
+                      color="inherit"
+                      className="text-text-secondary hover:text-white"
+                    >
+                      {item.label}
+                    </Button>
+                  ) : (
+                    <Button
+                      color="inherit"
+                      className="text-text-secondary hover:text-white"
+                    >
+                      {item.label}
+                    </Button>
+                  )
                 )}
               </Box>
             ))}
@@ -166,7 +181,13 @@ export default function Navbar() {
           >
             <List>
               {navigationItems.map((item) => (
-                <ListItem key={item.label} className="block">
+                <ListItem 
+                  key={item.label} 
+                  className="block"
+                  component={item.to ? Link : 'div'}
+                  to={item.to}
+                  onClick={() => item.to && setMobileMenuOpen(false)}
+                >
                   <ListItemText
                     primary={item.label}
                     className="text-white"
