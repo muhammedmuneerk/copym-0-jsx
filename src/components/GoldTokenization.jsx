@@ -14,6 +14,38 @@ import {
 const GoldTokenization = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
+  // Function to render an accurate token distribution chart
+  const renderTokenDistributionChart = () => {
+    // Chart data
+    const totalColumns = 10;
+    const totalRows = 7;
+    const soldPercentage = 72;
+    
+    // Calculate how many cells should be filled (gold color)
+    const totalCells = totalColumns * totalRows;
+    const filledCells = Math.round((soldPercentage / 100) * totalCells);
+    
+    // Create the grid cells
+    const cells = [];
+    let cellCounter = 0;
+    
+    for (let row = 0; row < totalRows; row++) {
+      for (let col = 0; col < totalColumns; col++) {
+        cellCounter++;
+        cells.push(
+          <div 
+            key={`${row}-${col}`}
+            className={`h-4 rounded-sm ${
+              cellCounter <= filledCells ? "bg-yellow-500" : "bg-gray-600"
+            }`}
+          />
+        );
+      }
+    }
+    
+    return cells;
+  };
+
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Header Section */}
@@ -128,20 +160,9 @@ const GoldTokenization = () => {
                         </p>
                       </div>
                       
-                      {/* Token Distribution Chart */}
+                      {/* Updated Token Distribution Chart */}
                       <div className="grid grid-cols-10 gap-1 mb-1">
-                        {Array(10).fill().map((_, i) => (
-                          <div key={i} className="grid grid-cols-7 gap-1">
-                            {Array(7).fill().map((_, j) => (
-                              <div 
-                                key={j} 
-                                className={`h-4 rounded-sm ${
-                                  i < 7 || (i === 7 && j < 2) ? "bg-yellow-500" : "bg-gray-600"
-                                }`} 
-                              />
-                            ))}
-                          </div>
-                        ))}
+                        {renderTokenDistributionChart()}
                       </div>
                       
                       <div className="flex justify-between mt-1">
