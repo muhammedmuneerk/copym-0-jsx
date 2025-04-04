@@ -9,6 +9,7 @@ import Metrics from './components/Metrics';
 import Footer from './components/Footer';
 import Marketplace from './components/Marketplace';
 import TokenizationHub from './components/TokenizationHub';
+import GoldTokenization from './components/GoldTokenization';
 
 function HomePage() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/tokenization" element={<TokenizationHub />} />
+          <Route path="/tokenization/gold/" element={<GoldTokenization />} />
         </Routes>
       </main>
       <Footer />

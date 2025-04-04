@@ -22,7 +22,7 @@ const navigationItems = [
     label: 'Tokenization',
     items: [
       { label: 'Asset Tokenization Hub', to: '/tokenization' },
-      'Gold Tokenization Hub',
+      { label:'Gold Tokenization Hub', to: '/tokenization/gold' },
       'Real Estate',
       'Art & Collectibles',
       'Commodities',
