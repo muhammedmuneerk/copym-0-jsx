@@ -23,12 +23,18 @@ const navigationItems = [
     items: [
       { label: 'Asset Tokenization Hub', to: '/tokenization' },
       { label:'Gold Tokenization Hub', to: '/tokenization/gold' },
-      'Real Estate',
-      'Art & Collectibles',
-      'Commodities',
-      'Carbon Credits',
-      'Private Equity',
-      'Other Asset Classes'
+      { label:'Real Estate', to: '/tokenization/real-estate' },
+      { label:'Art & Collectibles', to: '/tokenization/art' },
+      { label:'Commodities', to: '/tokenization/Commodities' },
+      { label:'Carbon Credits', to: '/tokenization/carbon-credits' },
+      { label:'Private Equity',to: '/tokenization/private-equity' },
+      { label:'Other Asset Classes', to: '/tokenization/other-assets' },
+      
+      
+      
+      
+      
+      
     ],
   },
   {

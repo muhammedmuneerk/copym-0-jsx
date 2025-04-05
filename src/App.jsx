@@ -10,6 +10,12 @@ import Footer from './components/Footer';
 import Marketplace from './components/Marketplace';
 import TokenizationHub from './components/TokenizationHub';
 import GoldTokenization from './components/GoldTokenization';
+import RealEstateTokenization from './components/RealEstateTokenization';
+import ArtTokenization from './components/ArtTokenization';
+import CommoditiesTokenization from './components/CommoditiesTokenization';
+import CarbonCreditsTokenization from './components/CarbonCreditsTokenization';
+import PrivateEquityTokenization from './components/PrivateEquityTokenization';
+import DiverseAssetTokenization from './components/DiverseAssetTokenization';
 
 function HomePage() {
   return (
@@ -33,6 +39,12 @@ function App() {
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/tokenization" element={<TokenizationHub />} />
           <Route path="/tokenization/gold/" element={<GoldTokenization />} />
+          <Route path="/tokenization/real-estate/" element={<RealEstateTokenization />} />
+          <Route path="/tokenization/art" element={< ArtTokenization />} />
+          <Route path="/tokenization/Commodities" element={< CommoditiesTokenization />} />
+          <Route path="/tokenization/carbon-credits" element={< CarbonCreditsTokenization />} />
+          <Route path="/tokenization/private-equity" element={< PrivateEquityTokenization />} />
+          <Route path="/tokenization/other-assets" element={< DiverseAssetTokenization />} />
         </Routes>
       </main>
       <Footer />
