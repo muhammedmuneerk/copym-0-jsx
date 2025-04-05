@@ -16,7 +16,7 @@ const ArtTokenization = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 mt-20">
         <Typography variant="h2" component="h1" className="text-4xl md:text-5xl font-bold mb-2">
           Art Tokenization
         </Typography>
