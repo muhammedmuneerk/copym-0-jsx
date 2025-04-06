@@ -162,7 +162,7 @@ export default function Marketplace() {
         {/* Header Section */}
         <Typography
           variant="h1"
-          className="text-4xl md:text-5xl font-bold text-center mb-4 mt-8"
+          className="text-4xl md:text-5xl font-bold text-center mb-4 mt-20"
           sx={{ color: "#00ff85", fontFamily: "'Orbitron', sans-serif" }}
         >
           Asset Tokenization Marketplace

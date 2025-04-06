@@ -31,23 +31,23 @@ const navigationItems = [
       { label: "Other Asset Classes", to: "/tokenization/other-assets" },
     ],
   },
-  {
-    label: "Visualize",
-  },
-  {
-    label: "Platform",
-    items: ["Features", "Security", "Compliance", "Integration"],
-  },
+  // {
+  //   label: "Visualize",
+  // },
+  // {
+  //   label: "Platform",
+  //   items: ["Features", "Security", "Compliance", "Integration"],
+  // },
   {
     label: "Marketplace",
     to: "/marketplace",
   },
-  {
-    label: "Developers",
-  },
-  {
-    label: "Custom Tokenization Engines",
-  },
+  // {
+  //   label: "Developers",
+  // },
+  // {
+  //   label: "Custom Tokenization Engines",
+  // },
 ];
 
 export default function Navbar() {
