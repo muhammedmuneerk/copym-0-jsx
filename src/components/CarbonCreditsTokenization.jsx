@@ -24,9 +24,9 @@ const CarbonCreditsTokenization = () => {
             Democratize Environmental Investment
           </p>
         </div>
-        <div className="bg-gray-800/50 p-2 rounded-full">
+        {/* <div className="bg-gray-800/50 p-2 rounded-full">
           <GpsFixed className="text-gray-300" />
-        </div>
+        </div> */}
       </div>
 
       {/* Divider Line */}

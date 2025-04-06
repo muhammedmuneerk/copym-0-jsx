@@ -12,7 +12,7 @@ import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 
 const DiverseAssetTokenization = () => {
   return (
-    <div className="bg-gradient-to-r from-black via-gray-900 to-black min-h-screen text-white">
+    <div className="bg-gradient-to-r from-black via-gray-900 to-black min-h-screen text-white pt-10" >
       {/* Header Section */}
       <div className="container mx-auto px-6 py-8 flex items-center gap-4 mt-20">
         <div className="bg-green-900/50 p-3 rounded-lg">
@@ -26,9 +26,9 @@ const DiverseAssetTokenization = () => {
             Tokenize Beyond Traditional Boundaries
           </p>
         </div>
-        <div className="bg-gray-800/50 p-2 rounded-full">
+        {/* <div className="bg-gray-800/50 p-2 rounded-full">
           <GpsFixed className="text-gray-300" />
-        </div>
+        </div> */}
       </div>
 
       {/* Divider Line */}
