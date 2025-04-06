@@ -58,24 +58,26 @@ export default function GlobalMarkets() {
         </motion.div>
 
         <Box className="relative mb-16">
-          {/* World Map Visualization */}
-          <Box
+          
+          {/* World Map Visualization ---> (comment line) */}
+          {/* <Box
             className="w-full aspect-[2/1] rounded-xl overflow-hidden"
             sx={{
               background: "rgba(18, 19, 26, 0.5)",
               backdropFilter: "blur(10px)",
               border: "1px solid rgba(255, 255, 255, 0.1)",
             }}
-          >
-            {/* Replace with actual interactive map component */}
-            <Box
+          > */}
+          
+            {/* Replace with actual interactive map component ---> (comment line) */} 
+            {/* <Box
               className="absolute inset-0"
               sx={{
                 background:
                   "radial-gradient(circle at center, rgba(0, 255, 133, 0.2) 0%, rgba(10, 11, 13, 0) 70%)",
               }}
             />
-          </Box>
+          </Box> */}
 
           {/* Connection Lines */}
           <motion.div

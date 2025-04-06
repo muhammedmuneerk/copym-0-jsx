@@ -48,14 +48,11 @@ export default function Footer() {
                 variant="h6"
                 className="font-bold text-2xl tracking-tight flex items-center mb-4"
               >
-                <Box
-                  component="span"
-                  className="w-6 h-6 mr-2 rounded bg-primary"
-                  sx={{
-                    boxShadow: "0 0 20px rgba(0, 255, 133, 0.5)",
-                  }}
-                />
-                COPYM
+                <img
+                src="/assets/icons/logo-svg.svg"
+                alt="Binance"
+                className="w-20 h-10 sm:w-30 sm:h-15 md:w-36 md:h-16 lg:w-48 lg:h-20 xl:w-50 xl:h-20"
+              />
               </Typography>
               <Typography
                 variant="body2"
