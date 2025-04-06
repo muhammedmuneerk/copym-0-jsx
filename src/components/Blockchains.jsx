@@ -38,14 +38,14 @@ const blockchains = [
     name: "Cardano",
     // description: "Full support for Cardano ecosystem",
     logo: (
-      <img src="/assets/icons/cardano-removebg-circle.png" alt="Binance" className="w-10 h-10" />
+      <img src="/assets/icons/cardano-removebg-circle.png" alt="Cardano" className="w-10 h-10" />
     ),
   },
   {
     name: "Optimism",
     // description: "Full support for Optimism ecosystem",
     logo: (
-      <img src="/assets/icons/optimism-removebg.png" alt="Binance" className="w-9 h-9" />
+      <img src="/assets/icons/optimism-removebg.png" alt="Optimism" className="w-9 h-9" />
     ),
   },
 ];

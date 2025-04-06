@@ -91,8 +91,8 @@ export default function Navbar() {
             >
               <img
                 src="/assets/icons/logo-svg.svg"
-                alt="Binance"
-                className="w-20 h-10 sm:w-30 sm:h-15 md:w-36 md:h-16 lg:w-48 lg:h-20 xl:w-60 xl:h-24"
+                alt="COPYM"
+                className="w-20 h-10 sm:w-30 sm:h-15 md:w-36 md:h-16 lg:w-48 lg:h-20 xl:w-50 xl:h-20"
               />
             </Typography>
           </motion.div>
