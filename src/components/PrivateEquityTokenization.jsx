@@ -1,10 +1,15 @@
 import React from "react";
-import { Box, Typography, Container, Grid } from "@mui/material";
+import { Box, Typography, Container, Grid, useMediaQuery, useTheme } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import LockIcon from "@mui/icons-material/Lock";
 import PublicIcon from "@mui/icons-material/Public";
 
 const PrivateEquityTokenization = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('lg'));
+
   return (
     <Box
       sx={{
@@ -13,7 +18,7 @@ const PrivateEquityTokenization = () => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        marginTop: "80px",
+        marginTop: { xs: "60px", sm: "70px", md: "80px" },
       }}
     >
       {/* Gradient divider line at the top */}
@@ -26,8 +31,18 @@ const PrivateEquityTokenization = () => {
       />
 
       {/* Hero Section */}
-      <Box sx={{ pt: 6, pb: 12, pl: 12 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+      <Box sx={{ 
+        pt: { xs: 3, sm: 4, md: 6 }, 
+        pb: { xs: 6, sm: 8, md: 12 }, 
+        pl: { xs: 3, sm: 6, md: 12 },
+        pr: { xs: 3, sm: 6, md: 12 },
+      }}>
+        <Box sx={{ 
+          display: "flex", 
+          alignItems: { xs: "flex-start", sm: "center" }, 
+          gap: { xs: 2, sm: 3 },
+          flexDirection: { xs: "column", sm: "row" }
+        }}>
           {/* 3D Stack Icon */}
           <Box
             sx={{
@@ -37,8 +52,8 @@ const PrivateEquityTokenization = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              width: "80px",
-              height: "80px",
+              width: { xs: "60px", sm: "70px", md: "80px" },
+              height: { xs: "60px", sm: "70px", md: "80px" },
             }}
           >
             <svg
@@ -105,7 +120,7 @@ const PrivateEquityTokenization = () => {
               variant="h1"
               sx={{
                 fontWeight: 600,
-                fontSize: "3rem",
+                fontSize: { xs: "1.8rem", sm: "2.4rem", md: "3rem" },
                 fontFamily: '"Chakra Petch", sans-serif',
                 letterSpacing: "0.02em",
                 mb: 0.5,
@@ -120,6 +135,7 @@ const PrivateEquityTokenization = () => {
                 color: "#e0e0ff",
                 fontWeight: 400,
                 opacity: 0.9,
+                fontSize: { xs: "1rem", sm: "1.2rem", md: "1.5rem" },
               }}
             >
               Unlock New Investment Horizons
@@ -129,38 +145,56 @@ const PrivateEquityTokenization = () => {
       </Box>
 
       {/* Main Content */}
-      <Box sx={{ px: 8, mb: 8 }}>
+      <Box sx={{ 
+        px: { xs: 2, sm: 4, md: 8 }, 
+        mb: { xs: 4, sm: 6, md: 8 }
+      }}>
         {/* Title */}
         <Typography
           variant="h2"
           sx={{
             fontWeight: 600,
-            fontSize: "2.5rem",
+            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
             fontFamily: '"Chakra Petch", sans-serif',
             background: "linear-gradient(90deg, #a855f7 0%, #d946ef 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            mb: 6,
-            ml: 4,
+            mb: { xs: 3, sm: 4, md: 6 },
+            ml: { xs: 2, sm: 3, md: 4 },
           }}
         >
           Revolutionize Private Equity Investment
         </Typography>
 
         {/* Features Grid - Completely restructured to match image */}
-        <Box sx={{ display: "flex", px: 4, gap: 4 }}>
+        <Box sx={{ 
+          display: "flex", 
+          px: { xs: 1, sm: 2, md: 4 }, 
+          gap: { xs: 2, sm: 3, md: 4 },
+          flexDirection: { xs: "column", md: "row" }
+        }}>
           {/* Left side: Two columns of feature cards */}
           <Box
-            sx={{ flex: "2", display: "flex", flexDirection: "column", gap: 4 }}
+            sx={{ 
+              flex: "2", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: { xs: 2, sm: 3, md: 4 }
+            }}
           >
             {/* Top row with two cards side by side */}
-            <Box sx={{ display: "flex", gap: 4, height: "240px" }}>
+            <Box sx={{ 
+              display: "flex", 
+              gap: { xs: 2, sm: 3, md: 4 }, 
+              height: { xs: "auto", md: "240px" },
+              flexDirection: { xs: "column", sm: "row" }
+            }}>
               {/* Increased Liquidity Card */}
               <Box
                 sx={{
                   backgroundColor: "#0e192d",
                   borderRadius: "16px",
-                  p: 4,
+                  p: { xs: 3, md: 4 },
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
@@ -168,7 +202,7 @@ const PrivateEquityTokenization = () => {
               >
                 <TrendingUpIcon
                   sx={{
-                    fontSize: 48,
+                    fontSize: { xs: 36, md: 48 },
                     color: "#a855f7",
                     mb: 2,
                   }}
@@ -178,7 +212,7 @@ const PrivateEquityTokenization = () => {
                   sx={{
                     fontWeight: 600,
                     fontFamily: '"Chakra Petch", sans-serif',
-                    fontSize: "1.5rem",
+                    fontSize: { xs: "1.2rem", sm: "1.3rem", md: "1.5rem" },
                     mb: 2,
                   }}
                 >
@@ -198,7 +232,7 @@ const PrivateEquityTokenization = () => {
                 sx={{
                   backgroundColor: "#0e192d",
                   borderRadius: "16px",
-                  p: 4,
+                  p: { xs: 3, md: 4 },
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
@@ -206,7 +240,7 @@ const PrivateEquityTokenization = () => {
               >
                 <LockIcon
                   sx={{
-                    fontSize: 48,
+                    fontSize: { xs: 36, md: 48 },
                     color: "#a855f7",
                     mb: 2,
                   }}
@@ -216,7 +250,7 @@ const PrivateEquityTokenization = () => {
                   sx={{
                     fontWeight: 600,
                     fontFamily: '"Chakra Petch", sans-serif',
-                    fontSize: "1.5rem",
+                    fontSize: { xs: "1.2rem", sm: "1.3rem", md: "1.5rem" },
                     mb: 2,
                   }}
                 >
@@ -236,16 +270,16 @@ const PrivateEquityTokenization = () => {
               sx={{
                 backgroundColor: "#0e192d",
                 borderRadius: "16px",
-                p: 4,
-                height: "240px",
-                width: "360px",
+                p: { xs: 3, md: 4 },
+                height: { xs: "auto", md: "240px" },
+                width: { xs: "100%", md: "360px" },
                 display: "flex",
                 flexDirection: "column",
               }}
             >
               <PublicIcon
                 sx={{
-                  fontSize: 48,
+                  fontSize: { xs: 36, md: 48 },
                   color: "#a855f7",
                   mb: 2,
                 }}
@@ -255,7 +289,7 @@ const PrivateEquityTokenization = () => {
                 sx={{
                   fontWeight: 600,
                   fontFamily: '"Chakra Petch", sans-serif',
-                  fontSize: "1.5rem",
+                  fontSize: { xs: "1.2rem", sm: "1.3rem", md: "1.5rem" },
                   mb: 2,
                 }}
               >
@@ -273,11 +307,11 @@ const PrivateEquityTokenization = () => {
           {/* Right Side: Tokenizable Types Panel */}
           <Box
             sx={{
-              flex: "1",
+              flex: { xs: "none", md: "1" },
               background:
                 "linear-gradient(135deg, rgba(138, 43, 226, 0.4) 0%, rgba(255, 0, 255, 0.2) 100%)",
               borderRadius: "16px",
-              p: 4,
+              p: { xs: 3, md: 4 },
               display: "flex",
               flexDirection: "column",
             }}
@@ -287,8 +321,9 @@ const PrivateEquityTokenization = () => {
               sx={{
                 fontWeight: 600,
                 fontFamily: '"Chakra Petch", sans-serif',
-                mb: 4,
+                mb: { xs: 3, md: 4 },
                 color: "#e0e0ff",
+                fontSize: { xs: "1.3rem", sm: "1.5rem", md: "1.75rem" },
               }}
             >
               Tokenizable Private Equity Types
@@ -298,102 +333,107 @@ const PrivateEquityTokenization = () => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 3,
+                gap: { xs: 2, sm: 2.5, md: 3 },
                 mt: 2,
                 flex: 1,
                 justifyContent: "space-around",
               }}
             >
               {/* Type Pills - Arranged exactly as in the image */}
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <Box
                   sx={{
                     background:
                       "linear-gradient(90deg, #8A2BE2 0%, #FF00FF 100%)",
                     borderRadius: "50px",
-                    py: 1.5,
-                    px: 3,
+                    py: { xs: 1, md: 1.5 },
+                    px: { xs: 2, md: 3 },
                     display: "inline-block",
                     textAlign: "center",
                     fontWeight: 500,
-                    fontSize: "0.95rem",
-                    whiteSpace: "nowrap",
+                    fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
+                    whiteSpace: { xs: "normal", sm: "nowrap" },
+                    maxWidth: { xs: "100%", sm: "auto" },
                   }}
                 >
                   Venture Capital Funds
                 </Box>
               </Box>
 
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "flex-end" } }}>
                 <Box
                   sx={{
                     background:
                       "linear-gradient(90deg, #8A2BE2 0%, #FF00FF 100%)",
                     borderRadius: "50px",
-                    py: 1.5,
-                    px: 3,
+                    py: { xs: 1, md: 1.5 },
+                    px: { xs: 2, md: 3 },
                     display: "inline-block",
                     textAlign: "center",
                     fontWeight: 500,
-                    fontSize: "0.95rem",
-                    whiteSpace: "nowrap",
+                    fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
+                    whiteSpace: { xs: "normal", sm: "nowrap" },
+                    maxWidth: { xs: "100%", sm: "auto" },
                   }}
                 >
                   Private Business Equity
                 </Box>
               </Box>
 
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <Box
                   sx={{
                     background:
                       "linear-gradient(90deg, #8A2BE2 0%, #FF00FF 100%)",
                     borderRadius: "50px",
-                    py: 1.5,
-                    px: 3,
+                    py: { xs: 1, md: 1.5 },
+                    px: { xs: 2, md: 3 },
                     display: "inline-block",
                     textAlign: "center",
                     fontWeight: 500,
-                    fontSize: "0.95rem",
-                    whiteSpace: "nowrap",
+                    fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
+                    whiteSpace: { xs: "normal", sm: "nowrap" },
+                    maxWidth: { xs: "100%", sm: "auto" },
                   }}
                 >
                   Private Debt
                 </Box>
               </Box>
 
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "flex-end" } }}>
                 <Box
                   sx={{
                     background:
                       "linear-gradient(90deg, #8A2BE2 0%, #FF00FF 100%)",
                     borderRadius: "50px",
-                    py: 1.5,
-                    px: 3,
+                    py: { xs: 1, md: 1.5 },
+                    px: { xs: 2, md: 3 },
                     display: "inline-block",
                     textAlign: "center",
                     fontWeight: 500,
-                    fontSize: "0.95rem",
-                    whiteSpace: "nowrap",
+                    fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
+                    whiteSpace: { xs: "normal", sm: "nowrap" },
+                    maxWidth: { xs: "100%", sm: "auto" },
                   }}
                 >
                   Revenue Sharing Agreements
                 </Box>
               </Box>
 
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <Box
                   sx={{
                     background:
                       "linear-gradient(90deg, #8A2BE2 0%, #FF00FF 100%)",
                     borderRadius: "50px",
-                    py: 1.5,
-                    px: 3,
+                    py: { xs: 1, md: 1.5 },
+                    px: { xs: 2, md: 3 },
                     display: "inline-block",
                     textAlign: "center",
                     fontWeight: 500,
-                    fontSize: "0.95rem",
-                    whiteSpace: "nowrap",
+                    fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
+                    whiteSpace: { xs: "normal", sm: "nowrap" },
+                    maxWidth: { xs: "100%", sm: "auto" },
                   }}
                 >
                   Growth Equity Investments
