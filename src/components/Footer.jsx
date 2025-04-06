@@ -1,5 +1,5 @@
-import { Container, Typography, Box, Button } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Container, Typography, Box, Button } from "@mui/material";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
@@ -13,10 +13,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="text-center mb-24"
         >
-          <Typography
-            variant="h2"
-            className="text-4xl md:text-5xl mb-4"
-          >
+          <Typography variant="h2" className="text-4xl md:text-5xl mb-4">
             Ready to Transform Your Assets?
           </Typography>
           <Typography
@@ -55,7 +52,7 @@ export default function Footer() {
                   component="span"
                   className="w-6 h-6 mr-2 rounded bg-primary"
                   sx={{
-                    boxShadow: '0 0 20px rgba(0, 255, 133, 0.5)',
+                    boxShadow: "0 0 20px rgba(0, 255, 133, 0.5)",
                   }}
                 />
                 COPYM
@@ -64,18 +61,22 @@ export default function Footer() {
                 variant="body2"
                 className="text-text-secondary max-w-sm"
               >
-                The complete ecosystem for tokenizing, managing, and trading real-world assets.
-                Built for enterprises, accessible to everyone.
+                The complete ecosystem for tokenizing, managing, and trading
+                real-world assets. Built for enterprises, accessible to
+                everyone.
               </Typography>
             </Box>
 
             {/* Quick Links */}
             <Box>
-              <Typography variant="overline" className="text-primary font-medium block mb-4">
+              <Typography
+                variant="overline"
+                className="text-primary font-medium block mb-4"
+              >
                 Quick Links
               </Typography>
               <Box className="flex flex-col gap-2">
-                {['About', 'Features', 'Documentation', 'Blog'].map((link) => (
+                {["About", "Features", "Documentation", "Blog"].map((link) => (
                   <Typography
                     key={link}
                     variant="body2"
@@ -89,11 +90,19 @@ export default function Footer() {
 
             {/* Resources */}
             <Box>
-              <Typography variant="overline" className="text-primary font-medium block mb-4">
+              <Typography
+                variant="overline"
+                className="text-primary font-medium block mb-4"
+              >
                 Resources
               </Typography>
               <Box className="flex flex-col gap-2">
-                {['API Reference', 'Help Center', 'Privacy Policy', 'Terms of Service'].map((link) => (
+                {[
+                  "API Reference",
+                  "Help Center",
+                  "Privacy Policy",
+                  "Terms of Service",
+                ].map((link) => (
                   <Typography
                     key={link}
                     variant="body2"
@@ -108,7 +117,10 @@ export default function Footer() {
 
           {/* Copyright */}
           <Box className="mt-12 pt-6 border-t border-white/10">
-            <Typography variant="body2" className="text-text-secondary text-center">
+            <Typography
+              variant="body2"
+              className="text-text-secondary text-center"
+            >
               © 2024 Copym. All rights reserved.
             </Typography>
           </Box>
@@ -119,9 +131,10 @@ export default function Footer() {
       <Box
         className="absolute inset-0 pointer-events-none"
         sx={{
-          background: 'radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)',
+          background:
+            "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
         }}
       />
     </Box>
   );
-} 
+}

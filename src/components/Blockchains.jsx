@@ -1,31 +1,31 @@
-import { Container, Typography, Box, Grid } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Container, Typography, Box, Grid } from "@mui/material";
+import { motion } from "framer-motion";
 
 const blockchains = [
   {
-    name: 'Solana',
-    description: 'Full support for Solana ecosystem',
-    logo: '🌟', // Replace with actual logo
+    name: "Solana",
+    description: "Full support for Solana ecosystem",
+    logo: "🌟", // Replace with actual logo
   },
   {
-    name: 'Polygon',
-    description: 'Full support for Polygon ecosystem',
-    logo: '🔷', // Replace with actual logo
+    name: "Polygon",
+    description: "Full support for Polygon ecosystem",
+    logo: "🔷", // Replace with actual logo
   },
   {
-    name: 'Binance',
-    description: 'Full support for Binance ecosystem',
-    logo: '🟡', // Replace with actual logo
+    name: "Binance",
+    description: "Full support for Binance ecosystem",
+    logo: "🟡", // Replace with actual logo
   },
   {
-    name: 'Cardano',
-    description: 'Full support for Cardano ecosystem',
-    logo: '🔵', // Replace with actual logo
+    name: "Cardano",
+    description: "Full support for Cardano ecosystem",
+    logo: "🔵", // Replace with actual logo
   },
   {
-    name: 'Optimism',
-    description: 'Full support for Optimism ecosystem',
-    logo: '🔴', // Replace with actual logo
+    name: "Optimism",
+    description: "Full support for Optimism ecosystem",
+    logo: "🔴", // Replace with actual logo
   },
 ];
 
@@ -40,19 +40,17 @@ export default function Blockchains() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Typography
-            variant="h2"
-            className="text-4xl md:text-5xl mb-4"
-          >
-            Unified Access to{' '}
+          <Typography variant="h2" className="text-4xl md:text-5xl mb-4">
+            Unified Access to{" "}
             <span className="text-primary">All Major Blockchains</span>
           </Typography>
           <Typography
             variant="body1"
             className="text-text-secondary max-w-2xl mx-auto"
           >
-            Tokenize assets on your preferred blockchain. Copym provides seamless integration
-            with all major networks through a single, unified platform.
+            Tokenize assets on your preferred blockchain. Copym provides
+            seamless integration with all major networks through a single,
+            unified platform.
           </Typography>
         </motion.div>
 
@@ -66,15 +64,15 @@ export default function Blockchains() {
                 viewport={{ once: true }}
                 className="bg-background-paper rounded-lg p-6 text-center h-full flex flex-col items-center justify-center"
                 style={{
-                  background: 'rgba(18, 19, 26, 0.5)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: "rgba(18, 19, 26, 0.5)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
                 }}
               >
                 <Box
                   className="w-16 h-16 mb-4 rounded-full flex items-center justify-center text-3xl"
                   sx={{
-                    background: 'rgba(255, 255, 255, 0.1)',
+                    background: "rgba(255, 255, 255, 0.1)",
                   }}
                 >
                   {blockchain.logo}
@@ -94,10 +92,11 @@ export default function Blockchains() {
         <Box
           className="absolute inset-0 pointer-events-none"
           sx={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)',
+            background:
+              "radial-gradient(circle at 50% 50%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
           }}
         />
       </Container>
     </Box>
   );
-} 
+}

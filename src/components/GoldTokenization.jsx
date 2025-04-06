@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   ArrowForward,
   KeyboardArrowLeft,
@@ -8,8 +8,8 @@ import {
   Language,
   Security,
   AccountBalance,
-  ArrowRightAlt
-} from '@mui/icons-material';
+  ArrowRightAlt,
+} from "@mui/icons-material";
 
 const GoldTokenization = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -20,20 +20,20 @@ const GoldTokenization = () => {
     const totalColumns = 10;
     const totalRows = 10;
     const soldPercentage = 72;
-    
+
     // Calculate how many cells should be filled (gold color)
     const totalCells = totalColumns * totalRows;
     const filledCells = Math.round((soldPercentage / 100) * totalCells);
-    
+
     // Create the grid cells
     const cells = [];
     let cellCounter = 0;
-    
+
     for (let row = 0; row < totalRows; row++) {
       for (let col = 0; col < totalColumns; col++) {
         cellCounter++;
         cells.push(
-          <div 
+          <div
             key={`${row}-${col}`}
             className={`h-4 rounded-sm ${
               cellCounter <= filledCells ? "bg-yellow-500" : "bg-gray-600"
@@ -42,7 +42,7 @@ const GoldTokenization = () => {
         );
       }
     }
-    
+
     return cells;
   };
 
@@ -50,10 +50,15 @@ const GoldTokenization = () => {
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Header Section */}
       <div className="container mx-auto py-16 px-4 md:px-12 mt-20">
-        <h1 className="text-4xl md:text-5xl font-bold mb-2">Gold Tokenization</h1>
-        <h2 className="text-xl md:text-2xl text-gray-300 mb-4">Democratizing Gold Investment Through Blockchain</h2>
+        <h1 className="text-4xl md:text-5xl font-bold mb-2">
+          Gold Tokenization
+        </h1>
+        <h2 className="text-xl md:text-2xl text-gray-300 mb-4">
+          Democratizing Gold Investment Through Blockchain
+        </h2>
         <p className="text-gray-400 text-lg mb-8 max-w-2xl">
-          Transform your approach to gold investing with fractional ownership, enhanced liquidity, and transparent trading
+          Transform your approach to gold investing with fractional ownership,
+          enhanced liquidity, and transparent trading
         </p>
         <div className="flex flex-wrap gap-4">
           <button className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-md font-medium transition">
@@ -70,9 +75,12 @@ const GoldTokenization = () => {
         <div className="container mx-auto px-4 md:px-12">
           <div className="flex flex-col lg:flex-row">
             <div className="lg:w-1/2 mb-10 lg:mb-0">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Revolutionize Gold Investment</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Revolutionize Gold Investment
+              </h2>
               <p className="text-gray-400 mb-6">
-                Unlock the potential of gold through blockchain-powered fractional ownership
+                Unlock the potential of gold through blockchain-powered
+                fractional ownership
               </p>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -81,7 +89,9 @@ const GoldTokenization = () => {
                   <div className="text-yellow-500 mb-4">
                     <AccountBalance fontSize="large" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Fractional Gold Ownership</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    Fractional Gold Ownership
+                  </h3>
                   <p className="text-gray-400">
                     Invest in premium gold assets with lower entry barriers
                   </p>
@@ -103,7 +113,9 @@ const GoldTokenization = () => {
                   <div className="text-gray-500 mb-4">
                     <Language fontSize="large" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Global Accessibility</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    Global Accessibility
+                  </h3>
                   <p className="text-gray-400">
                     Trade gold tokens from anywhere in the world
                   </p>
@@ -119,7 +131,9 @@ const GoldTokenization = () => {
                     <div className="flex justify-between items-center">
                       <div>
                         <h3 className="text-2xl font-bold">Royal Gold Vault</h3>
-                        <p className="text-gray-300">Swiss Secure Vault • 99.99% Pure Gold</p>
+                        <p className="text-gray-300">
+                          Swiss Secure Vault • 99.99% Pure Gold
+                        </p>
                       </div>
                       <div className="flex">
                         <button className="bg-gray-800 bg-opacity-30 p-2 rounded-full mr-2">
@@ -156,68 +170,91 @@ const GoldTokenization = () => {
                       <div className="flex justify-between mb-2">
                         <p className="text-gray-400">Token Distribution</p>
                         <p className="text-gray-300">
-                          Token Price <span className="text-yellow-500">$100</span>
+                          Token Price{" "}
+                          <span className="text-yellow-500">$100</span>
                         </p>
                       </div>
-                      
+
                       {/* Updated Token Distribution Chart */}
                       <div className="grid grid-cols-10 gap-1 mb-1">
                         {renderTokenDistributionChart()}
                       </div>
-                      
+
                       <div className="flex justify-between mt-1">
                         <p className="text-sm text-yellow-500">72% Sold</p>
                         <p className="text-sm text-gray-400">28% Available</p>
                       </div>
                     </div>
 
-                    <button 
+                    <button
                       className="flex justify-between items-center w-full bg-gray-700 hover:bg-gray-600 p-3 rounded-md mb-4"
                       onClick={() => setIsDetailsOpen(!isDetailsOpen)}
                     >
                       <span className="font-medium">Gold Asset Details</span>
-                      <ExpandMore className={`transform transition-transform ${isDetailsOpen ? 'rotate-180' : ''}`} />
+                      <ExpandMore
+                        className={`transform transition-transform ${
+                          isDetailsOpen ? "rotate-180" : ""
+                        }`}
+                      />
                     </button>
 
                     {isDetailsOpen && (
                       <div className="bg-gray-700 -mt-4 mb-4 p-4 rounded-b-md">
                         <div className="grid grid-cols-2 gap-4 mb-4">
                           <div>
-                            <p className="text-gray-400 text-sm">Total Weight</p>
+                            <p className="text-gray-400 text-sm">
+                              Total Weight
+                            </p>
                             <p className="text-gray-200">500 kg</p>
                           </div>
                           <div>
-                            <p className="text-gray-400 text-sm">Expected Returns</p>
+                            <p className="text-gray-400 text-sm">
+                              Expected Returns
+                            </p>
                             <p className="text-gray-200">6.5% annual</p>
                           </div>
                         </div>
-                        
+
                         <div className="mb-4">
-                          <p className="text-gray-400 text-sm mb-1">Certification</p>
+                          <p className="text-gray-400 text-sm mb-1">
+                            Certification
+                          </p>
                           <div className="flex items-center">
                             <div className="w-4 h-4 rounded-full bg-green-500 mr-2"></div>
-                            <p className="text-gray-200">LBMA Good Delivery Standard</p>
+                            <p className="text-gray-200">
+                              LBMA Good Delivery Standard
+                            </p>
                           </div>
                         </div>
-                        
+
                         <div>
-                          <p className="text-gray-400 text-sm mb-2">Tokenization Benefits</p>
+                          <p className="text-gray-400 text-sm mb-2">
+                            Tokenization Benefits
+                          </p>
                           <ul className="space-y-2">
                             <li className="flex items-start">
                               <span className="text-yellow-500 mr-2">→</span>
-                              <span className="text-gray-200">Fractional ownership starting from $100</span>
+                              <span className="text-gray-200">
+                                Fractional ownership starting from $100
+                              </span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-yellow-500 mr-2">→</span>
-                              <span className="text-gray-200">Secure vault storage</span>
+                              <span className="text-gray-200">
+                                Secure vault storage
+                              </span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-yellow-500 mr-2">→</span>
-                              <span className="text-gray-200">Transparent ownership records</span>
+                              <span className="text-gray-200">
+                                Transparent ownership records
+                              </span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-yellow-500 mr-2">→</span>
-                              <span className="text-gray-200">Easy liquidity</span>
+                              <span className="text-gray-200">
+                                Easy liquidity
+                              </span>
                             </li>
                           </ul>
                         </div>
@@ -270,7 +307,8 @@ const GoldTokenization = () => {
       <div className="py-16">
         <div className="container mx-auto px-4 md:px-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">
-            Benefits of <span className="text-yellow-500">Gold Tokenization</span>
+            Benefits of{" "}
+            <span className="text-yellow-500">Gold Tokenization</span>
           </h2>
           <p className="text-gray-400 mb-10">
             Discover the advantages of investing in tokenized gold assets
@@ -279,7 +317,9 @@ const GoldTokenization = () => {
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* For Investors */}
             <div className="bg-gray-800 p-8 rounded-lg text-left">
-              <h3 className="text-2xl font-bold text-yellow-500 mb-6">For Investors</h3>
+              <h3 className="text-2xl font-bold text-yellow-500 mb-6">
+                For Investors
+              </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <Check className="text-yellow-500 mr-2 mt-1" />
@@ -302,7 +342,9 @@ const GoldTokenization = () => {
 
             {/* For Gold Owners */}
             <div className="bg-gray-800 p-8 rounded-lg text-left">
-              <h3 className="text-2xl font-bold text-yellow-500 mb-6">For Gold Owners</h3>
+              <h3 className="text-2xl font-bold text-yellow-500 mb-6">
+                For Gold Owners
+              </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <Check className="text-yellow-500 mr-2 mt-1" />
@@ -329,9 +371,12 @@ const GoldTokenization = () => {
       {/* Final CTA Section */}
       <div className="py-16 bg-gray-800 bg-opacity-50">
         <div className="container mx-auto px-4 md:px-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Invest in Tokenized Gold?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to Invest in Tokenized Gold?
+          </h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join the future of gold investment with our secure, transparent, and accessible platform
+            Join the future of gold investment with our secure, transparent, and
+            accessible platform
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button className="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-3 rounded-md font-medium transition">

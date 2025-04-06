@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 import {
   Container,
   Typography,
@@ -12,85 +12,97 @@ import {
   Button,
   FormControl,
   InputLabel,
-} from '@mui/material';
+} from "@mui/material";
 
 const mockAssets = [
   {
     id: 1,
-    title: 'Premium Office Building',
-    category: 'Real Estate',
-    location: 'New York, USA',
-    expectedRoi: '8.5%',
+    title: "Premium Office Building",
+    category: "Real Estate",
+    location: "New York, USA",
+    expectedRoi: "8.5%",
     price: 250000,
     availableTokens: 750,
     totalTokens: 1000,
-    image: 'placeholder',
+    image: "placeholder",
   },
   {
     id: 2,
-    title: 'Digital Art Collection',
-    category: 'Art',
-    location: 'Digital',
-    expectedRoi: 'Variable',
+    title: "Digital Art Collection",
+    category: "Art",
+    location: "Digital",
+    expectedRoi: "Variable",
     price: 15000,
     availableTokens: 65,
     totalTokens: 100,
-    image: 'placeholder',
+    image: "placeholder",
   },
   {
     id: 3,
-    title: 'Gold Reserve',
-    category: 'Commodities',
-    location: 'Secure Vault, Switzerland',
-    expectedRoi: '5.2%',
+    title: "Gold Reserve",
+    category: "Commodities",
+    location: "Secure Vault, Switzerland",
+    expectedRoi: "5.2%",
     price: 50000,
     availableTokens: 320,
     totalTokens: 500,
-    image: 'placeholder',
+    image: "placeholder",
   },
   {
     id: 4,
-    title: 'Solar Farm Project',
-    category: 'Infrastructure',
-    location: 'Arizona, USA',
-    expectedRoi: '7.3%',
+    title: "Solar Farm Project",
+    category: "Infrastructure",
+    location: "Arizona, USA",
+    expectedRoi: "7.3%",
     price: 120000,
     availableTokens: 1800,
     totalTokens: 2000,
-    image: 'placeholder',
+    image: "placeholder",
   },
   {
     id: 5,
-    title: 'Tech Startup Equity',
-    category: 'Startups',
-    location: 'San Francisco, USA',
-    expectedRoi: 'High Risk/Reward',
+    title: "Tech Startup Equity",
+    category: "Startups",
+    location: "San Francisco, USA",
+    expectedRoi: "High Risk/Reward",
     price: 75000,
     availableTokens: 210,
     totalTokens: 300,
-    image: 'placeholder',
+    image: "placeholder",
   },
   {
     id: 6,
-    title: 'Luxury Apartment Complex',
-    category: 'Real Estate',
-    location: 'Miami, USA',
-    expectedRoi: '6.8%',
+    title: "Luxury Apartment Complex",
+    category: "Real Estate",
+    location: "Miami, USA",
+    expectedRoi: "6.8%",
     price: 350000,
     availableTokens: 1200,
     totalTokens: 1500,
-    image: 'placeholder',
+    image: "placeholder",
   },
 ];
 
-const categories = ['All Categories', 'Real Estate', 'Art', 'Commodities', 'Infrastructure', 'Startups'];
-const sortOptions = ['Latest', 'ROI', 'Price: Low to High', 'Price: High to Low'];
+const categories = [
+  "All Categories",
+  "Real Estate",
+  "Art",
+  "Commodities",
+  "Infrastructure",
+  "Startups",
+];
+const sortOptions = [
+  "Latest",
+  "ROI",
+  "Price: Low to High",
+  "Price: High to Low",
+];
 
 export default function Marketplace() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [priceRange, setPriceRange] = useState([0, 1000000]);
-  const [sortBy, setSortBy] = useState('Latest');
+  const [sortBy, setSortBy] = useState("Latest");
 
   // Format price for display
   const formatPrice = (value) => {
@@ -103,37 +115,36 @@ export default function Marketplace() {
       .filter((asset) => {
         // Search filter
         const searchLower = searchQuery.toLowerCase();
-        const matchesSearch = 
+        const matchesSearch =
           asset.title.toLowerCase().includes(searchLower) ||
           asset.location.toLowerCase().includes(searchLower) ||
           asset.category.toLowerCase().includes(searchLower);
 
         // Category filter
-        const matchesCategory = 
-          selectedCategory === 'All Categories' || 
+        const matchesCategory =
+          selectedCategory === "All Categories" ||
           asset.category === selectedCategory;
 
         // Price range filter
-        const matchesPriceRange = 
-          asset.price >= priceRange[0] && 
-          asset.price <= priceRange[1];
+        const matchesPriceRange =
+          asset.price >= priceRange[0] && asset.price <= priceRange[1];
 
         return matchesSearch && matchesCategory && matchesPriceRange;
       })
       .sort((a, b) => {
         switch (sortBy) {
-          case 'Price: Low to High':
+          case "Price: Low to High":
             return a.price - b.price;
-          case 'Price: High to Low':
+          case "Price: High to Low":
             return b.price - a.price;
-          case 'ROI':
+          case "ROI":
             // Convert ROI strings to numbers for comparison
             const getROIValue = (roi) => {
-              if (roi === 'Variable' || roi === 'High Risk/Reward') return -1;
-              return parseFloat(roi.replace('%', ''));
+              if (roi === "Variable" || roi === "High Risk/Reward") return -1;
+              return parseFloat(roi.replace("%", ""));
             };
             return getROIValue(b.expectedRoi) - getROIValue(a.expectedRoi);
-          case 'Latest':
+          case "Latest":
           default:
             return b.id - a.id; // Assuming higher IDs are more recent
         }
@@ -152,7 +163,7 @@ export default function Marketplace() {
         <Typography
           variant="h1"
           className="text-4xl md:text-5xl font-bold text-center mb-4 mt-8"
-          sx={{ color: '#00ff85', fontFamily: "'Orbitron', sans-serif" }}
+          sx={{ color: "#00ff85", fontFamily: "'Orbitron', sans-serif" }}
         >
           Asset Tokenization Marketplace
         </Typography>
@@ -160,8 +171,9 @@ export default function Marketplace() {
           variant="body1"
           className="text-text-secondary text-center max-w-3xl mx-auto mb-12"
         >
-          Discover and invest in tokenized assets across various categories. Each asset is
-          fractionally divided, allowing for smaller investment thresholds.
+          Discover and invest in tokenized assets across various categories.
+          Each asset is fractionally divided, allowing for smaller investment
+          thresholds.
         </Typography>
 
         {/* Search and Filter Section */}
@@ -173,9 +185,9 @@ export default function Marketplace() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               sx={{
-                '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'rgba(18, 19, 26, 0.5)',
-                  backdropFilter: 'blur(10px)',
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "rgba(18, 19, 26, 0.5)",
+                  backdropFilter: "blur(10px)",
                 },
               }}
             />
@@ -187,8 +199,8 @@ export default function Marketplace() {
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 sx={{
-                  backgroundColor: 'rgba(18, 19, 26, 0.5)',
-                  backdropFilter: 'blur(10px)',
+                  backgroundColor: "rgba(18, 19, 26, 0.5)",
+                  backdropFilter: "blur(10px)",
                 }}
               >
                 {categories.map((category) => (
@@ -202,7 +214,8 @@ export default function Marketplace() {
           <Grid item xs={12} md={3}>
             <Box sx={{ px: 2 }}>
               <Typography gutterBottom>
-                Price Range: {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
+                Price Range: {formatPrice(priceRange[0])} -{" "}
+                {formatPrice(priceRange[1])}
               </Typography>
               <Slider
                 value={priceRange}
@@ -213,11 +226,11 @@ export default function Marketplace() {
                 valueLabelDisplay="auto"
                 valueLabelFormat={formatPrice}
                 sx={{
-                  '& .MuiSlider-thumb': {
-                    color: '#00ff85',
+                  "& .MuiSlider-thumb": {
+                    color: "#00ff85",
                   },
-                  '& .MuiSlider-track': {
-                    color: '#00ff85',
+                  "& .MuiSlider-track": {
+                    color: "#00ff85",
                   },
                 }}
               />
@@ -230,8 +243,8 @@ export default function Marketplace() {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 sx={{
-                  backgroundColor: 'rgba(18, 19, 26, 0.5)',
-                  backdropFilter: 'blur(10px)',
+                  backgroundColor: "rgba(18, 19, 26, 0.5)",
+                  backdropFilter: "blur(10px)",
                 }}
               >
                 {sortOptions.map((option) => (
@@ -256,15 +269,15 @@ export default function Marketplace() {
               <Box
                 className="rounded-lg overflow-hidden"
                 sx={{
-                  backgroundColor: 'rgba(18, 19, 26, 0.5)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: "rgba(18, 19, 26, 0.5)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
                 }}
               >
                 {/* Asset Image */}
                 <Box
                   className="w-full aspect-video bg-gray-800 flex items-center justify-center"
-                  sx={{ backgroundColor: 'rgba(18, 19, 26, 0.8)' }}
+                  sx={{ backgroundColor: "rgba(18, 19, 26, 0.8)" }}
                 >
                   <Typography>Asset Image Placeholder</Typography>
                 </Box>
@@ -275,8 +288,8 @@ export default function Marketplace() {
                     <span
                       className="inline-block px-2 py-1 rounded text-sm"
                       style={{
-                        backgroundColor: 'rgba(0, 255, 133, 0.1)',
-                        color: '#00ff85',
+                        backgroundColor: "rgba(0, 255, 133, 0.1)",
+                        color: "#00ff85",
                       }}
                     >
                       {asset.category}
@@ -285,40 +298,47 @@ export default function Marketplace() {
                   <Typography variant="h6" className="mb-2">
                     {asset.title}
                   </Typography>
-                  <Typography variant="body2" className="text-text-secondary mb-2">
+                  <Typography
+                    variant="body2"
+                    className="text-text-secondary mb-2"
+                  >
                     Location: {asset.location}
                   </Typography>
-                  <Typography variant="body2" className="text-text-secondary mb-2">
+                  <Typography
+                    variant="body2"
+                    className="text-text-secondary mb-2"
+                  >
                     Expected ROI: {asset.expectedRoi}
                   </Typography>
                   <Box className="mb-3">
-                    <Typography variant="body2" className="text-text-secondary mb-1">
-                      Available: {asset.availableTokens}/{asset.totalTokens} tokens
+                    <Typography
+                      variant="body2"
+                      className="text-text-secondary mb-1"
+                    >
+                      Available: {asset.availableTokens}/{asset.totalTokens}{" "}
+                      tokens
                     </Typography>
                     <LinearProgress
                       variant="determinate"
                       value={(asset.availableTokens / asset.totalTokens) * 100}
                       sx={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        '& .MuiLinearProgress-bar': {
-                          backgroundColor: '#00ff85',
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "#00ff85",
                         },
                       }}
                     />
                   </Box>
                   <Box className="flex items-center justify-between">
-                    <Typography
-                      variant="h6"
-                      sx={{ color: '#00ff85' }}
-                    >
+                    <Typography variant="h6" sx={{ color: "#00ff85" }}>
                       ${asset.price.toLocaleString()}
                     </Typography>
                     <Button
                       variant="contained"
                       sx={{
-                        backgroundColor: '#00ff85',
-                        '&:hover': {
-                          backgroundColor: '#00cc6a',
+                        backgroundColor: "#00ff85",
+                        "&:hover": {
+                          backgroundColor: "#00cc6a",
                         },
                       }}
                     >
@@ -333,4 +353,4 @@ export default function Marketplace() {
       </Container>
     </Box>
   );
-} 
+}

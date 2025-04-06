@@ -1,6 +1,6 @@
-import { Container, Typography, Button, Box } from '@mui/material';
-import { motion } from 'framer-motion';
-import { KeyboardArrowDown } from '@mui/icons-material';
+import { Container, Typography, Button, Box } from "@mui/material";
+import { motion } from "framer-motion";
+import { KeyboardArrowDown } from "@mui/icons-material";
 
 export default function Hero() {
   return (
@@ -21,25 +21,22 @@ export default function Hero() {
               variant="h1"
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
             >
-              The Complete Ecosystem for{' '}
+              The Complete Ecosystem for{" "}
               <Box component="span" className="block">
-                <Box
-                  component="span"
-                  className="text-primary"
-                >
+                <Box component="span" className="text-primary">
                   Real World Asset
-                </Box>{' '}
+                </Box>{" "}
                 Tokenization
               </Box>
             </Typography>
-            
+
             <Typography
               variant="body1"
               className="text-text-secondary mb-12 max-w-3xl mx-auto text-lg"
             >
-              One unified platform for tokenizing, managing, and trading any real-world asset
-              class. Access all the tools, networks, and liquidity you need in a single
-              ecosystem.
+              One unified platform for tokenizing, managing, and trading any
+              real-world asset class. Access all the tools, networks, and
+              liquidity you need in a single ecosystem.
             </Typography>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -69,16 +66,18 @@ export default function Hero() {
             duration: 0.5,
             delay: 1,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: "reverse",
           }}
         >
           <Typography
             variant="button"
             className="text-text-secondary flex flex-col items-center cursor-pointer"
-            onClick={() => window.scrollTo({
-              top: window.innerHeight,
-              behavior: 'smooth'
-            })}
+            onClick={() =>
+              window.scrollTo({
+                top: window.innerHeight,
+                behavior: "smooth",
+              })
+            }
           >
             Discover More
             <KeyboardArrowDown className="mt-2" />
@@ -87,4 +86,4 @@ export default function Hero() {
       </Container>
     </Box>
   );
-} 
+}

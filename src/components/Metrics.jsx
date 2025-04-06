@@ -1,36 +1,46 @@
-import { Container, Typography, Box, Grid } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Container, Typography, Box, Grid } from "@mui/material";
+import { motion } from "framer-motion";
 
 const metrics = [
   {
-    value: '1.3B',
-    label: 'Assets Tokenized',
-    growth: '+42%',
-    period: 'year-over-year'
+    value: "1.3B",
+    label: "Assets Tokenized",
+    growth: "+42%",
+    period: "year-over-year",
   },
   {
-    value: '50K',
-    label: 'Active Users',
-    growth: '+78%',
-    period: 'year-over-year'
+    value: "50K",
+    label: "Active Users",
+    growth: "+78%",
+    period: "year-over-year",
   },
   {
-    value: '5',
-    label: 'Blockchain Networks',
-    growth: '+3',
-    period: 'this year'
+    value: "5",
+    label: "Blockchain Networks",
+    growth: "+3",
+    period: "this year",
   },
   {
-    value: '2M',
-    label: 'Transactions',
-    growth: '+53%',
-    period: 'year-over-year'
-  }
+    value: "2M",
+    label: "Transactions",
+    growth: "+53%",
+    period: "year-over-year",
+  },
 ];
 
 const monthlyData = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
 export default function Metrics() {
@@ -53,7 +63,8 @@ export default function Metrics() {
           variant="body1"
           className="text-text-secondary text-center mb-16 max-w-2xl mx-auto"
         >
-          Powering the global tokenization economy with enterprise-grade infrastructure
+          Powering the global tokenization economy with enterprise-grade
+          infrastructure
         </Typography>
 
         <Grid container spacing={4} className="mb-24">
@@ -69,7 +80,10 @@ export default function Metrics() {
                 <Typography variant="h2" className="text-5xl mb-2">
                   {metric.value}
                 </Typography>
-                <Typography variant="body1" className="text-text-secondary mb-2">
+                <Typography
+                  variant="body1"
+                  className="text-text-secondary mb-2"
+                >
                   {metric.label}
                 </Typography>
                 <Typography variant="body2" className="text-primary">
@@ -106,4 +120,4 @@ export default function Metrics() {
       </Container>
     </Box>
   );
-} 
+}
