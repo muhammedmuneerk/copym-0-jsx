@@ -578,72 +578,88 @@ export default function TokenizationHub() {
           </Typography>
 
           <Box className="mb-8">
-            <Stepper
-              activeStep={activeStep}
-              alternativeLabel
+  <Stepper
+    activeStep={activeStep}
+    alternativeLabel
+    sx={{
+      width: '100%',
+      '@media (max-width: 600px)': {
+        width: '100%',
+        overflowX: 'auto',
+        padding: '0 8px',
+        '& .MuiStep-root': {
+          minWidth: '80px', // Minimum width for each step on mobile
+        }
+      },
+      '& .MuiStepLabel-label': {
+        color: 'text.secondary',
+        fontFamily: "'Orbitron', sans-serif",
+        fontSize: '0.9rem',
+        marginTop: '8px',
+        '&.Mui-active': {
+          color: '#00ff85',
+          textShadow: '0 0 10px rgba(0, 255, 133, 0.5)',
+        },
+        '@media (max-width: 600px)': {
+          fontSize: '0.7rem',
+        }
+      },
+      '& .MuiStepConnector-line': {
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+      },
+    }}
+  >
+    {tokenizationSteps.map((step, index) => (
+      <Step key={step.label}>
+        <StepLabel
+          StepIconComponent={() => (
+            <IconButton
+              onClick={() => handleStepClick(index)}
               sx={{
-                '& .MuiStepLabel-label': {
-                  color: 'text.secondary',
-                  fontFamily: "'Orbitron', sans-serif",
-                  fontSize: '0.9rem',
-                  marginTop: '8px',
-                  '&.Mui-active': {
-                    color: '#00ff85',
-                    textShadow: '0 0 10px rgba(0, 255, 133, 0.5)',
-                  },
+                width: 48,
+                height: 48,
+                '@media (max-width: 600px)': {
+                  width: 36,
+                  height: 36,
                 },
-                '& .MuiStepConnector-line': {
-                  borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                backgroundColor: activeStep >= index
+                  ? 'rgba(0, 255, 133, 0.1)'
+                  : 'rgba(255, 255, 255, 0.1)',
+                color: activeStep >= index
+                  ? '#00ff85'
+                  : 'rgba(255, 255, 255, 0.5)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 255, 133, 0.2)',
+                  transform: 'translateY(-2px)',
+                },
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: -2,
+                  left: -2,
+                  right: -2,
+                  bottom: -2,
+                  borderRadius: '14px',
+                  border: '1px solid',
+                  borderColor: activeStep >= index
+                    ? 'rgba(0, 255, 133, 0.3)'
+                    : 'transparent',
+                  transition: 'all 0.3s ease',
                 },
               }}
             >
-              {tokenizationSteps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepLabel
-                    StepIconComponent={() => (
-                      <IconButton
-                        onClick={() => handleStepClick(index)}
-                        sx={{
-                          width: 48,
-                          height: 48,
-                          borderRadius: '12px',
-                          backgroundColor: activeStep >= index
-                            ? 'rgba(0, 255, 133, 0.1)'
-                            : 'rgba(255, 255, 255, 0.1)',
-                          color: activeStep >= index
-                            ? '#00ff85'
-                            : 'rgba(255, 255, 255, 0.5)',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            backgroundColor: 'rgba(0, 255, 133, 0.2)',
-                            transform: 'translateY(-2px)',
-                          },
-                          '&::before': {
-                            content: '""',
-                            position: 'absolute',
-                            top: -2,
-                            left: -2,
-                            right: -2,
-                            bottom: -2,
-                            borderRadius: '14px',
-                            border: '1px solid',
-                            borderColor: activeStep >= index
-                              ? 'rgba(0, 255, 133, 0.3)'
-                              : 'transparent',
-                            transition: 'all 0.3s ease',
-                          },
-                        }}
-                      >
-                        {getStepIcon(step.label)}
-                      </IconButton>
-                    )}
-                  >
-                    {step.label}
-                  </StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
+              {getStepIcon(step.label)}
+            </IconButton>
+          )}
+        >
+          {step.label}
+        </StepLabel>
+      </Step>
+    ))}
+  </Stepper>
+</Box>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
