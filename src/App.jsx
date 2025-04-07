@@ -16,6 +16,7 @@ import CommoditiesTokenization from "./components/CommoditiesTokenization";
 import CarbonCreditsTokenization from "./components/CarbonCreditsTokenization";
 import PrivateEquityTokenization from "./components/PrivateEquityTokenization";
 import DiverseAssetTokenization from "./components/DiverseAssetTokenization";
+import ScrollToTop from "./components/ScrollToTop";
 
 function HomePage() {
   return (
@@ -32,6 +33,7 @@ function HomePage() {
 function App() {
   return (
     <Box className="min-h-screen bg-background text-text-primary">
+      <ScrollToTop />
       <Navbar />
       <main>
         <Routes>
