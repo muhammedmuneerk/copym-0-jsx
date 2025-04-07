@@ -10,9 +10,9 @@ import {
 
 const CarbonCreditsTokenization = () => {
   return (
-    <div className="bg-gradient-to-r from-black via-gray-900 to-black min-h-screen text-white">
+    <div className="bg-gradient-to-r from-black via-gray-900 to-black min-h-screen text-white pt-20">
       {/* Header Section */}
-      <div className="container mx-auto px-6 py-8 flex items-center gap-4 mt-20">
+      <div className="container mx-auto px-6 py-8 flex items-center gap-4 pt-20 ">
         <div className="bg-green-900/50 p-3 rounded-lg">
           <Spa className="text-green-400" fontSize="large" />
         </div>

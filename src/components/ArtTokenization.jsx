@@ -23,9 +23,9 @@ const ArtTokenization = () => {
   const [artworkDetails, setArtworkDetails] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gray-900 text-white pt-20">
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16 mt-20">
+      <div className="container mx-auto px-4 py-16 pt-20">
         <Typography
           variant="h2"
           component="h1"

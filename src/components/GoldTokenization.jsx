@@ -47,9 +47,9 @@ const GoldTokenization = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="bg-gray-900 text-white min-h-screen pt-20">
       {/* Header Section */}
-      <div className="container mx-auto py-16 px-4 md:px-12 mt-20">
+      <div className="container mx-auto py-20 px-4 md:px-12 pt-20 ">
         <h1 className="text-4xl md:text-5xl font-bold mb-2">
           Gold Tokenization
         </h1>

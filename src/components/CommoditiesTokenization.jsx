@@ -17,7 +17,7 @@ const CommoditiesTokenization = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white mt-20">
+    <div className="min-h-screen bg-gray-900 text-white pt-20">
       {/* Hero Section */}
       <section className="px-8 py-16 md:px-16 lg:px-24">
         <h1 className="text-4xl md:text-5xl font-bold mb-2">

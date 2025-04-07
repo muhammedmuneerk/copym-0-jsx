@@ -18,17 +18,11 @@ const PrivateEquityTokenization = () => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        marginTop: { xs: "60px", sm: "70px", md: "80px" },
+        paddingTop: { xs: "60px", sm: "70px", md: "80px" },
       }}
     >
-      {/* Gradient divider line at the top */}
-      <Box
-        sx={{
-          height: "2px",
-          background: "linear-gradient(90deg, #0CC7B4 0%, #2B6DEF 100%)",
-          width: "100%",
-        }}
-      />
+      
+     
 
       {/* Hero Section */}
       <Box sx={{ 
@@ -125,6 +119,7 @@ const PrivateEquityTokenization = () => {
                 letterSpacing: "0.02em",
                 mb: 0.5,
                 lineHeight: 1.2,
+                
               }}
             >
               Private Equity Tokenization
@@ -144,6 +139,15 @@ const PrivateEquityTokenization = () => {
         </Box>
       </Box>
 
+        {/* Gradient divider line at the top */}
+      <Box
+        sx={{
+          height: "2px",
+          background: "linear-gradient(90deg, #0CC7B4 0%, #2B6DEF 100%)",
+          width: "100%",
+        }}
+      />
+
       {/* Main Content */}
       <Box sx={{ 
         px: { xs: 2, sm: 4, md: 8 }, 
@@ -161,6 +165,7 @@ const PrivateEquityTokenization = () => {
             WebkitTextFillColor: "transparent",
             mb: { xs: 3, sm: 4, md: 6 },
             ml: { xs: 2, sm: 3, md: 4 },
+            pt: { xs: 10, sm: 10, md: 10 },
           }}
         >
           Revolutionize Private Equity Investment
