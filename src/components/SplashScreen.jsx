@@ -51,9 +51,16 @@ const SplashScreen = () => {
 
     const tagline = "Welcome to The future of tokenization.";
 
+    // Adjust the vertical shift amount based on device size
+    const verticalShift = isMobile
+        ? "-mt-16" // More shift on mobile
+        : isTablet
+            ? "-mt-12" // Medium shift on tablet
+            : "-mt-8"; // Small shift on desktop
+
     return (
         <Box className="h-screen w-full text-text-primary flex flex-col items-center justify-center bg-gradient-to-r from-[#0f0f0f] via-[#1a1a2e] to-[#16213e] animate-gradient bg-[length:300%_300%]">
-            <div className="flex items-center justify-center h-full">
+            <div className={`flex items-center justify-center ${verticalShift}`}>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
