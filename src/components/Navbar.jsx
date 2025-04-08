@@ -101,6 +101,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu when location changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
+
   const handleMenuOpen = (event, label) => {
     setMenuAnchor(event.currentTarget);
     setActiveMenu(label);
@@ -109,6 +114,10 @@ export default function Navbar() {
   const handleMenuClose = () => {
     setMenuAnchor(null);
     setActiveMenu("");
+  };
+
+  const handleMobileItemClick = () => {
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -320,23 +329,39 @@ export default function Navbar() {
                         initial="closed"
                         animate="open"
                       >
-                        <ListItem
-                          className="block"
-                          component={item.to ? Link : "div"}
-                          to={item.to}
-                          onClick={() => item.to && setMobileMenuOpen(false)}
-                        >
-                          <ListItemText
-                            primary={item.label}
-                            className="text-white"
-                            sx={{
-                              "& .MuiTypography-root": {
-                                fontSize: "1.1rem",
-                                fontWeight: 500,
-                              },
-                            }}
-                          />
-                        </ListItem>
+                        {item.to ? (
+                          <ListItem
+                            button
+                            component={Link}
+                            to={item.to}
+                            onClick={handleMobileItemClick}
+                          >
+                            <ListItemText
+                              primary={item.label}
+                              className="text-white"
+                              sx={{
+                                "& .MuiTypography-root": {
+                                  fontSize: "1.1rem",
+                                  fontWeight: 500,
+                                },
+                              }}
+                            />
+                          </ListItem>
+                        ) : (
+                          <ListItem>
+                            <ListItemText
+                              primary={item.label}
+                              className="text-white"
+                              sx={{
+                                "& .MuiTypography-root": {
+                                  fontSize: "1.1rem",
+                                  fontWeight: 500,
+                                },
+                              }}
+                            />
+                          </ListItem>
+                        )}
+                        
                         {item.items && (
                           <List className="pl-4">
                             {item.items.map((subItem, j) => (
@@ -348,7 +373,7 @@ export default function Navbar() {
                                 animate="open"
                               >
                                 <ListItem
-                                  className="block"
+                                  button
                                   component={
                                     typeof subItem === "object" && subItem.to
                                       ? Link
@@ -357,7 +382,7 @@ export default function Navbar() {
                                   to={
                                     typeof subItem === "object" ? subItem.to : undefined
                                   }
-                                  onClick={() => item.to && setMobileMenuOpen(false)}
+                                  onClick={handleMobileItemClick}
                                   sx={{
                                     "&:hover": {
                                       backgroundColor: "rgba(255, 255, 255, 0.05)",
