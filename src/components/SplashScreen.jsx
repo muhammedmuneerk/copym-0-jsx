@@ -67,7 +67,7 @@ const SplashScreen = () => {
                     transition={{ duration: 1, ease: "easeOut" }}
                     src="/assets/icons/logo-svg.svg"
                     alt="COPYM"
-                    className={`mx-auto ${logoSize}`}
+                    className={`mx-auto my-auto ${logoSize}`}
                 />
 
                 {/* Word-by-word reveal */}
