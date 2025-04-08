@@ -52,38 +52,39 @@ const SplashScreen = () => {
     const tagline = "Welcome to The future of tokenization.";
 
     return (
-    <Box className="h-screen text-text-primary flex items-center justify-center bg-gradient-to-r from-[#0f0f0f] via-[#1a1a2e] to-[#16213e] animate-gradient bg-[length:300%_300%]">
-
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                className="text-center"
-            >
-                {/* Logo reveal */}
-                <motion.img
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    src="/assets/icons/logo-svg.svg"
-                    alt="COPYM"
-                    className={`mx-auto my-auto ${logoSize}`}
-                />
-
-                {/* Word-by-word reveal */}
+        <Box className="h-screen w-full text-text-primary flex flex-col items-center justify-center bg-gradient-to-r from-[#0f0f0f] via-[#1a1a2e] to-[#16213e] animate-gradient bg-[length:300%_300%]">
+            <div className="flex items-center justify-center h-full">
                 <motion.div
-                    variants={container}
-                    initial="hidden"
-                    animate="visible"
-                    className={`mt-4 flex flex-wrap justify-center gap-2 text-[white] font-semibold ${isMobile ? "text-lg" : isTablet ? "text-xl" : "text-2xl"} font-[Playfair_Display]`}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    className="text-center"
                 >
-                    {tagline.split(" ").map((wordText, index) => (
-                        <motion.span key={index} variants={word}>
-                            {wordText}
-                        </motion.span>
-                    ))}
+                    {/* Logo reveal */}
+                    <motion.img
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        src="/assets/icons/logo-svg.svg"
+                        alt="COPYM"
+                        className={`mx-auto ${logoSize}`}
+                    />
+
+                    {/* Word-by-word reveal */}
+                    <motion.div
+                        variants={container}
+                        initial="hidden"
+                        animate="visible"
+                        className={`mt-4 flex flex-wrap justify-center gap-2 text-white font-semibold ${isMobile ? "text-lg" : isTablet ? "text-xl" : "text-2xl"} font-[Playfair_Display]`}
+                    >
+                        {tagline.split(" ").map((wordText, index) => (
+                            <motion.span key={index} variants={word}>
+                                {wordText}
+                            </motion.span>
+                        ))}
+                    </motion.div>
                 </motion.div>
-            </motion.div>
+            </div>
         </Box>
     );
 };
