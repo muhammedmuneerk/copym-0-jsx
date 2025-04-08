@@ -1,6 +1,7 @@
 import { Container, Typography, Box, Grid, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward } from "@mui/icons-material";
+import SectionImage from "./SectionImages";
 
 const features = [
   {
@@ -51,6 +52,10 @@ export default function Features() {
   return (
     <Box className="py-24 relative overflow-hidden">
       <Container maxWidth="xl">
+      <SectionImage
+                src="/assets/sections/doors.png"
+                alt="Blockchains Banner"
+              />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

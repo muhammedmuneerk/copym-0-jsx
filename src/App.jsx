@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -16,6 +17,7 @@ import CommoditiesTokenization from "./components/CommoditiesTokenization";
 import CarbonCreditsTokenization from "./components/CarbonCreditsTokenization";
 import PrivateEquityTokenization from "./components/PrivateEquityTokenization";
 import DiverseAssetTokenization from "./components/DiverseAssetTokenization";
+import SplashScreen from "./components/SplashScreen";
 import ScrollToTop from "./components/ScrollToTop";
 
 function HomePage() {
@@ -31,6 +33,20 @@ function HomePage() {
 }
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (showSplash) {
+    return <SplashScreen />;
+  }
+
   return (
     <Box className="min-h-screen bg-background text-text-primary">
       <ScrollToTop />

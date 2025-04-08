@@ -14,6 +14,7 @@ import {
   InputLabel,
 } from "@mui/material";
 
+
 const mockAssets = [
   {
     id: 1,

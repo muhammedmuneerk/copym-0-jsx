@@ -12,6 +12,7 @@ export default function Hero() {
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
 
+  
   useEffect(() => {
     // Check device type on mount and window resize
     const checkDeviceType = () => {
