@@ -75,39 +75,134 @@ export default function Blockchains() {
           </Typography>
         </motion.div>
 
-        <Grid container spacing={4} justifyContent="center">
-          {blockchains.map((blockchain, index) => (
-            <Grid item xs={6} sm={6} md={4} lg={2.4} key={blockchain.name}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-background-paper rounded-lg p-6 text-center h-full flex flex-col items-center justify-center"
-                style={{
-                  background: "rgba(18, 19, 26, 0.5)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                }}
-              >
-                <Box
-                  className="w-16 h-16 mb-4 rounded-full flex items-center justify-center"
-                  sx={{
-                    background: "rgba(255, 255, 255, 0.1)",
-                  }}
-                >
-                  {blockchain.logo}
-                </Box>
-                <Typography variant="h6" className="mb-2">
-                  {blockchain.name}
-                </Typography>
-                <Typography variant="body2" className="text-text-secondary">
-                  {blockchain.description}
-                </Typography>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
+
+
+        <Grid
+  container
+  justifyContent="center"
+  sx={{
+    position: "relative",
+    overflow: "hidden",
+    width: "100%"
+  }}
+>
+  {/* Seamless infinite scroll container */}
+  <Box
+    sx={{
+      position: "relative",
+      width: "100%",
+      overflow: "hidden"
+    }}
+  >
+    {/* Scrolling content wrapper */}
+    <Box
+      sx={{
+        display: "flex",
+        width: "fit-content", // Allow the content to determine width
+        animation: "scrollLeft 30s linear infinite",
+        "@keyframes scrollLeft": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(calc(-100% / 2))" } // Move exactly half the total width
+        }
+      }}
+    >
+      {/* First set of items */}
+      {blockchains.map((blockchain, index) => (
+        <Box
+          key={`original-${blockchain.name}`}
+          sx={{
+            // Fixed width based on screen size to ensure exactly 5 items on large screens
+            width: { 
+              xs: "80vw", // 1+ visible on mobile
+              sm: "47.5vw", // 2 visible on small screens
+              md: "32.5vw", // 3 visible on medium screens
+              lg: "17.5vw" // 5 visible on large screens
+            },
+            padding: 2,
+            flexShrink: 0
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className="bg-background-paper rounded-lg p-6 text-center h-full flex flex-col items-center justify-center"
+            style={{
+              background: "rgba(18, 19, 26, 0.5)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+            }}
+          >
+            <Box
+              className="w-16 h-16 mb-4 rounded-full flex items-center justify-center"
+              sx={{
+                background: "rgba(255, 255, 255, 0.1)",
+              }}
+            >
+              {blockchain.logo}
+            </Box>
+            <Typography variant="h6" className="mb-2">
+              {blockchain.name}
+            </Typography>
+            <Typography variant="body2" className="text-text-secondary">
+              {blockchain.description}
+            </Typography>
+          </motion.div>
+        </Box>
+      ))}
+
+      {/* Duplicate set of items to create seamless loop */}
+      {blockchains.map((blockchain, index) => (
+        <Box
+          key={`duplicate-${blockchain.name}`}
+          sx={{
+            // Maintain identical sizing as the original set
+            width: { 
+              xs: "80vw",
+              sm: "47.5vw",
+              md: "32.5vw",
+              lg: "17.5vw"
+            },
+            padding: 2,
+            flexShrink: 0
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className="bg-background-paper rounded-lg p-6 text-center h-full flex flex-col items-center justify-center"
+            style={{
+              background: "rgba(18, 19, 26, 0.5)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+            }}
+          >
+            <Box
+              className="w-16 h-16 mb-4 rounded-full flex items-center justify-center"
+              sx={{
+                background: "rgba(255, 255, 255, 0.1)",
+              }}
+            >
+              {blockchain.logo}
+            </Box>
+            <Typography variant="h6" className="mb-2">
+              {blockchain.name}
+            </Typography>
+            <Typography variant="body2" className="text-text-secondary">
+              {blockchain.description}
+            </Typography>
+          </motion.div>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+</Grid>
+
+
+        
 
         {/* Background Glow Effect */}
         <Box
