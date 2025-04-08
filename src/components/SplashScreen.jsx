@@ -53,7 +53,7 @@ const SplashScreen = () => {
 
     // Adjust the vertical shift amount based on device size
     const verticalShift = isMobile
-        ? "-mt-14" // More shift on mobile
+        ? "-mt-18" // More shift on mobile
         : isTablet
             ? "-mt-12" // Medium shift on tablet
             : "-mt-8"; // Small shift on desktop
