@@ -1,6 +1,5 @@
 import { Container, Typography, Box, Grid } from "@mui/material";
 import { motion } from "framer-motion";
-import SectionImage from "./SectionImages";
 
 const regions = [
   {
@@ -32,10 +31,6 @@ const regions = [
 export default function GlobalMarkets() {
   return (
     <Box className="py-24 relative overflow-hidden">
-       <SectionImage
-                src="/assets/sections/businessman.png"
-                alt="Blockchains Banner"
-              />
       <Container maxWidth="xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

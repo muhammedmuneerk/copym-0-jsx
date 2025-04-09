@@ -84,3 +84,22 @@ body {
 .btn-primary:hover {
   background: linear-gradient(90deg, rgba(0,255,148,0.25) 0%, rgba(0,255,148,0.15) 100%);
 }
+@keyframes slide-left-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-line-horizontal {
+  animation: slide-left-right 6s linear infinite;
+}
+
+.animate-line-horizontal2 {
+  animation: slide-left-right 10s linear infinite reverse;
+}

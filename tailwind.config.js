@@ -29,6 +29,7 @@ export default {
         'gradient-x': 'gradient-x 15s ease infinite',
         'gradient-y': 'gradient-y 15s ease infinite',
         'gradient-xy': 'gradient-xy 15s ease infinite',
+        'pulse-glow': 'pulse-glow 1.5s ease-in-out infinite',
       },
       keyframes: {
         'gradient-y': {
@@ -60,7 +61,17 @@ export default {
             'background-size': '200% 200%',
             'background-position': 'right center'
           }
-        }
+        },
+        'pulse-glow': {
+           '0%, 100%': {
+             transform: 'scale(1)',
+             'box-shadow': '0 0 10px #00FF7F, 0 0 20px #00FF7F',
+           },
+           '50%': {
+             transform: 'scale(1.05)',
+             'box-shadow': '0 0 20px #00FF7F, 0 0 40px #00FF7F',
+           }
+          }
       }
     },
   },
