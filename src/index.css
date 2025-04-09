@@ -103,3 +103,50 @@ body {
 .animate-line-horizontal2 {
   animation: slide-left-right 10s linear infinite reverse;
 }
+@keyframes moveLeftToRight {
+  0% { transform: translateX(-100vw); opacity: 0.2; }
+  50% { opacity: 0.5; }
+  100% { transform: translateX(100vw); opacity: 0.2; }
+}
+
+@keyframes moveTopToBottom {
+  0% { transform: translateY(-100vh); opacity: 0.2; }
+  50% { opacity: 0.5; }
+  100% { transform: translateY(100vh); opacity: 0.2; }
+}
+
+@keyframes moveBottomToTop {
+  0% { transform: translateY(100vh); opacity: 0.2; }
+  50% { opacity: 0.5; }
+  100% { transform: translateY(-100vh); opacity: 0.2; }
+}
+
+.animate-line-horizontal {
+  animation: moveLeftToRight 8s linear infinite;
+}
+.animate-line-horizontal2 {
+  animation: moveLeftToRight 10s linear infinite;
+}
+.animate-line-horizontal3 {
+  animation: moveLeftToRight 12s linear infinite;
+}
+
+.animate-line-vertical-down {
+  animation: moveTopToBottom 9s linear infinite;
+}
+.animate-line-vertical-down2 {
+  animation: moveTopToBottom 11s linear infinite;
+}
+.animate-line-vertical-down3 {
+  animation: moveTopToBottom 13s linear infinite;
+}
+
+.animate-line-vertical-up {
+  animation: moveBottomToTop 9s linear infinite;
+}
+.animate-line-vertical-up2 {
+  animation: moveBottomToTop 11s linear infinite;
+}
+.animate-line-vertical-up3 {
+  animation: moveBottomToTop 13s linear infinite;
+}

@@ -41,9 +41,11 @@ const ESGBox = ({ title, points }) => {
   };
 
   return (
-    <div className="bg-gray-800/30 border border-green-400/20 rounded-xl p-6 backdrop-blur-md shadow-lg w-full max-w-md text-center flex flex-col items-center">
-      <h2 className="text-2xl text-green-400 font-bold mb-4 font-futuristic">{title}</h2>
-      <div className="h-32 flex items-center justify-center">
+    <div className="relative bg-gray-900/30 border border-green-400/10 rounded-xl p-6 backdrop-blur-sm w-full max-w-md text-center flex flex-col items-center transition-shadow duration-300">
+      <h2 className="text-2xl text-green-400 font-bold mb-4 font-futuristic">
+        {title}
+      </h2>
+      <div className="h-32 flex items-center justify-center px-2">
         <AnimatePresence mode="wait">
           <motion.p
             key={pointIndex}
@@ -51,18 +53,24 @@ const ESGBox = ({ title, points }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4 }}
-            className="text-lg text-text-secondary font-futuristic px-2"
+            className="text-lg text-text-secondary font-futuristic"
           >
             {points[pointIndex]}
           </motion.p>
         </AnimatePresence>
       </div>
       <div className="mt-4 flex gap-4">
-        <button onClick={prevPoint} className="bg-green-500/20 hover:bg-green-400/30 p-2 rounded-full">
-          <ArrowLeft size={20} className="text-green-400" />
+        <button
+          onClick={prevPoint}
+          className="bg-green-500/10 hover:bg-green-400/20 p-2 rounded-full border border-green-400/20 transition"
+        >
+          <ArrowLeft size={20} className="text-green-300" />
         </button>
-        <button onClick={nextPoint} className="bg-green-500/20 hover:bg-green-400/30 p-2 rounded-full">
-          <ArrowRight size={20} className="text-green-400" />
+        <button
+          onClick={nextPoint}
+          className="bg-green-500/10 hover:bg-green-400/20 p-2 rounded-full border border-green-400/20 transition"
+        >
+          <ArrowRight size={20} className="text-green-300" />
         </button>
       </div>
     </div>
@@ -71,15 +79,36 @@ const ESGBox = ({ title, points }) => {
 
 const ESGsection = () => {
   return (
-    <section className="pt-24 px-4 pb-16 bg-background text-text-primary">
-      <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-green-400 font-futuristic drop-shadow-[0_0_2px_#00FF7F]">
-        Our ESG Commitment
+    <section className="relative pt-24 px-4 pb-20 bg-background text-text-primary overflow-hidden">
+      {/* Minimal gridlines */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/4 left-0 w-full h-[2px] bg-green-500/10" />
+        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-green-500/10" />
+        <div className="absolute bottom-1/4 left-0 w-full h-[2px] bg-green-500/10" />
+        <div className="absolute inset-y-0 left-1/3 w-[2px] bg-green-500/10" />
+        <div className="absolute inset-y-0 right-1/3 w-[2px] bg-green-500/10" />
+      </div>
+
+      {/* ESG Heading */}
+      <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-green-400 font-futuristic z-10 relative">
+        Our ESG Commitments
       </h1>
 
-      <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+      {/* ESG Sections */}
+      <div className="z-10 relative flex flex-col md:flex-row gap-8 justify-center items-center mb-16">
         {esgData.map((section, idx) => (
           <ESGBox key={idx} title={section.title} points={section.points} />
         ))}
+      </div>
+
+      {/* Final Section */}
+      <div className="z-10 relative max-w-4xl mx-auto text-center bg-gray-900/30 p-6 rounded-2xl border border-green-400/10 backdrop-blur-sm">
+        <h2 className="text-3xl md:text-4xl text-green-300 font-bold mb-4 font-futuristic">
+          Pioneering Role in Green Finance
+        </h2>
+        <p className="text-lg md:text-xl text-text-secondary font-futuristic leading-relaxed">
+          We are proud to be the first platform to offer green tokenization of metals, setting a new standard for sustainable commodity investments. This groundbreaking step underscores our leadership in merging traditional assets with cutting-edge blockchain infrastructure for a cleaner, more transparent financial future.
+        </p>
       </div>
     </section>
   );

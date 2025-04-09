@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Features from "./components/Features";
 import Hero from "./components/Hero";
 import Blockchains from "./components/Blockchains";
-import Features from "./components/Features";
 import GlobalMarkets from "./components/GlobalMarkets";
 import Metrics from "./components/Metrics";
 import Footer from "./components/Footer";
@@ -59,27 +59,12 @@ function App() {
           <Route path="/tokenization" element={<TokenizationHub />} />
           <Route path="/green-tokenization" element={<GreenTokenization />} />
           <Route path="/tokenization/gold/" element={<GoldTokenization />} />
-          <Route
-            path="/tokenization/real-estate/"
-            element={<RealEstateTokenization />}
-          />
+          <Route path="/tokenization/real-estate/" element={<RealEstateTokenization />} />
           <Route path="/tokenization/art" element={<ArtTokenization />} />
-          <Route
-            path="/tokenization/Commodities"
-            element={<CommoditiesTokenization />}
-          />
-          <Route
-            path="/tokenization/carbon-credits"
-            element={<CarbonCreditsTokenization />}
-          />
-          <Route
-            path="/tokenization/private-equity"
-            element={<PrivateEquityTokenization />}
-          />
-          <Route
-            path="/tokenization/other-assets"
-            element={<DiverseAssetTokenization />}
-          />
+          <Route path="/tokenization/Commodities" element={<CommoditiesTokenization />} />
+          <Route path="/tokenization/carbon-credits" element={<CarbonCreditsTokenization />} />
+          <Route path="/tokenization/private-equity" element={<PrivateEquityTokenization />} />
+          <Route path="/tokenization/other-assets" element={<DiverseAssetTokenization />} />
         </Routes>
       </main>
       <Footer />

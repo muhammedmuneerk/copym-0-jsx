@@ -63,15 +63,15 @@ export default {
           }
         },
         'pulse-glow': {
-           '0%, 100%': {
-             transform: 'scale(1)',
-             'box-shadow': '0 0 10px #00FF7F, 0 0 20px #00FF7F',
-           },
-           '50%': {
-             transform: 'scale(1.05)',
-             'box-shadow': '0 0 20px #00FF7F, 0 0 40px #00FF7F',
-           }
+          '0%, 100%': {
+            transform: 'scale(1)',
+            'box-shadow': '0 0 10px #00FF7F, 0 0 20px #00FF7F',
+          },
+          '50%': {
+            transform: 'scale(1.05)',
+            'box-shadow': '0 0 20px #00FF7F, 0 0 40px #00FF7F',
           }
+        }
       }
     },
   },
