@@ -29,7 +29,7 @@ const ArtTokenization = () => {
         <Typography
           variant="h2"
           component="h1"
-          className="text-4xl md:text-5xl font-bold mb-2"
+          className="font-orbitron text-4xl md:text-5xl font-bold mb-2"
         >
           Art Tokenization
         </Typography>
@@ -66,7 +66,7 @@ const ArtTokenization = () => {
           <div>
             <Typography
               variant="h3"
-              className="text-3xl md:text-4xl font-bold mb-4"
+              className="font-orbitron text-3xl md:text-4xl font-bold mb-4"
             >
               Revolutionize Art Investment
             </Typography>
@@ -308,7 +308,7 @@ const ArtTokenization = () => {
 
       {/* Tokenizable Art Types Section */}
       <div className="py-16 text-center">
-        <Typography variant="h3" className="text-3xl font-bold mb-2">
+        <Typography variant="h3" className="font-orbitron text-3xl font-bold mb-2">
           Tokenizable <span className="text-green-500">Art Types</span>
         </Typography>
         <Typography
@@ -344,7 +344,7 @@ const ArtTokenization = () => {
 
       {/* Final CTA Section */}
       <div className="py-16 text-center bg-gray-800">
-        <Typography variant="h3" className="text-3xl font-bold mb-2">
+        <Typography variant="h3" className="font-orbitron text-3xl font-bold mb-2">
           Ready to Invest in Art?
         </Typography>
         <Typography

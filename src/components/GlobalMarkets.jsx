@@ -45,7 +45,7 @@ export default function GlobalMarkets() {
           >
             GLOBAL REACH
           </Typography>
-          <Typography variant="h2" className="text-4xl md:text-5xl mb-4">
+          <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4">
             Connecting <span className="text-primary">Global Markets</span>
           </Typography>
           <Typography

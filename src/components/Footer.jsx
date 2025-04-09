@@ -13,7 +13,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="text-center mb-24"
         >
-          <Typography variant="h2" className="text-4xl md:text-5xl mb-4">
+          <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4">
             Ready to Transform Your Assets?
           </Typography>
           <Typography

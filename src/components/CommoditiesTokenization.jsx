@@ -20,7 +20,7 @@ const CommoditiesTokenization = () => {
     <div className="min-h-screen bg-gray-900 text-white pt-20">
       {/* Hero Section */}
       <section className="px-8 py-16 md:px-16 lg:px-24">
-        <h1 className="text-4xl md:text-5xl font-bold mb-2">
+        <h1 className="font-orbitron text-4xl md:text-5xl font-bold mb-2">
           Commodities Tokenization
         </h1>
         <h2 className="text-xl md:text-2xl text-gray-300 mb-4">
@@ -55,7 +55,7 @@ const CommoditiesTokenization = () => {
       {/* Redefine Commodity Investment - Fixed Section */}
       <section className="px-8 py-16 md:px-16 lg:px-24 flex flex-col md:flex-row">
         <div className="md:w-1/2">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
             Redefine Commodity Investment
           </h2>
           <p className="text-gray-400 mb-8">
@@ -406,7 +406,7 @@ const CommoditiesTokenization = () => {
       {/* Rest of the component remains the same */}
       {/* Tokenizable Commodity Types */}
       <section className="px-8 py-16 md:px-16 lg:px-24 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-2">
+        <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-2">
           Tokenizable <span className="text-green-500">Commodity Types</span>
         </h2>
         <p className="text-gray-400 mb-12 max-w-3xl mx-auto">
@@ -455,7 +455,7 @@ const CommoditiesTokenization = () => {
 
       {/* Benefits */}
       <section className="px-8 py-16 md:px-16 lg:px-24 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-2">
+        <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-2">
           Benefits of{" "}
           <span className="text-green-500">Commodity Tokenization</span>
         </h2>
@@ -517,7 +517,7 @@ const CommoditiesTokenization = () => {
 
       {/* Final CTA */}
       <section className="px-8 py-16 md:px-16 lg:px-24 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
           Ready to Revolutionize Your Commodity Investments?
         </h2>
         <p className="text-gray-400 mb-8 max-w-3xl mx-auto">

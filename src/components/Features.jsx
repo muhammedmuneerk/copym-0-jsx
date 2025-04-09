@@ -69,7 +69,7 @@ export default function Features() {
           >
             ALL-IN-ONE PLATFORM
           </Typography>
-          <Typography variant="h2" className="text-4xl md:text-5xl mb-4">
+          <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4">
             Everything You Need In{" "}
             <span className="text-primary">One Place</span>
           </Typography>

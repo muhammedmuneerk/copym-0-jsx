@@ -17,7 +17,7 @@ const CarbonCreditsTokenization = () => {
           <Spa className="text-green-400" fontSize="large" />
         </div>
         <div className="flex-grow">
-          <h1 className="text-4xl font-bold tracking-wider font-tech">
+          <h1 className="font-orbitron text-4xl font-bold tracking-wider font-tech">
             Carbon Credits Tokenization
           </h1>
           <p className="text-gray-400 mt-1">
@@ -35,7 +35,7 @@ const CarbonCreditsTokenization = () => {
       {/* Main Content */}
       <div className="container mx-auto px-6 py-16">
         {/* Hero Section */}
-        <h2 className="text-4xl font-bold text-green-400 mb-16 font-tech">
+        <h2 className="font-orbitron text-4xl font-bold text-green-400 mb-16 font-tech">
           Revolutionize Environmental Investment
         </h2>
 
@@ -108,7 +108,7 @@ const CarbonCreditsTokenization = () => {
       {/* Benefits Section */}
       <div className="bg-gradient-to-b from-green-900 to-teal-900 py-16">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-green-400 mb-4 font-tech">
+          <h2 className="font-orbitron text-4xl font-bold text-green-400 mb-4 font-tech">
             Key Benefits of Carbon Credit Tokenization
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto mb-12">
@@ -156,7 +156,7 @@ const CarbonCreditsTokenization = () => {
       {/* CTA Section */}
       <div className="bg-black py-16">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-4 font-tech">
+          <h2 className="font-orbitron text-4xl font-bold mb-4 font-tech">
             Ready to Make a Sustainable Impact?
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto mb-12">

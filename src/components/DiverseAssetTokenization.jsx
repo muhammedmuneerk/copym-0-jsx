@@ -19,7 +19,7 @@ const DiverseAssetTokenization = () => {
           <Diversity2Icon className="text-blue-400" fontSize="large" />
         </div>
         <div className="flex-grow">
-          <h1 className="text-4xl font-bold tracking-wider font-tech">
+          <h1 className="font-orbitron text-4xl font-bold tracking-wider font-tech">
             Diverse Asset Tokenization
           </h1>
           <p className="text-gray-400 mt-1">
@@ -37,7 +37,7 @@ const DiverseAssetTokenization = () => {
       {/* Main Content */}
       <div className="container mx-auto px-6 py-16">
         {/* Hero Section */}
-        <h2 className="text-4xl font-bold text-blue-400 mb-16 font-tech">
+        <h2 className="font-orbitron text-4xl font-bold text-blue-400 mb-16 font-tech">
           Unlimited Tokenization Possibilities
         </h2>
 
@@ -161,7 +161,7 @@ const DiverseAssetTokenization = () => {
       {/* CTA Section */}
       <div className="bg-black py-16">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-4 font-tech">
+          <h2 className="font-orbitron text-4xl font-bold mb-4 font-tech">
             Can't find your asset type?
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto mb-12">

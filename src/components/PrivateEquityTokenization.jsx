@@ -112,6 +112,7 @@ const PrivateEquityTokenization = () => {
           <Box>
             <Typography
               variant="h1"
+              className="font-orbitron"
               sx={{
                 fontWeight: 600,
                 fontSize: { xs: "1.8rem", sm: "2.4rem", md: "3rem" },
@@ -156,6 +157,7 @@ const PrivateEquityTokenization = () => {
         {/* Title */}
         <Typography
           variant="h2"
+          className="font-orbitron"
           sx={{
             fontWeight: 600,
             fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },

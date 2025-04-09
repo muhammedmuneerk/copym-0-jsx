@@ -90,7 +90,7 @@ const ESGsection = () => {
       </div>
 
       {/* ESG Heading */}
-      <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-green-400 font-futuristic z-10 relative">
+      <h1 className="font-orbitron text-4xl md:text-5xl font-bold text-center mb-12 text-green-400 font-futuristic z-10 relative">
         Our ESG Commitments
       </h1>
 
@@ -103,10 +103,10 @@ const ESGsection = () => {
 
       {/* Final Section */}
       <div className="z-10 relative max-w-4xl mx-auto text-center bg-gray-900/30 p-6 rounded-2xl border border-green-400/10 backdrop-blur-sm">
-        <h2 className="text-3xl md:text-4xl text-green-300 font-bold mb-4 font-futuristic">
+        <h2 className="font-orbitron text-3xl md:text-4xl text-green-300 font-bold mb-4 font-futuristic">
           Pioneering Role in Green Finance
         </h2>
-        <p className="text-lg md:text-xl text-text-secondary font-futuristic leading-relaxed">
+        <p className=" text-lg md:text-xl text-text-secondary font-futuristic leading-relaxed">
           We are proud to be the first platform to offer green tokenization of metals, setting a new standard for sustainable commodity investments. This groundbreaking step underscores our leadership in merging traditional assets with cutting-edge blockchain infrastructure for a cleaner, more transparent financial future.
         </p>
       </div>

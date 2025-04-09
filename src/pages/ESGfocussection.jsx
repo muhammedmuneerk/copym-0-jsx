@@ -6,7 +6,7 @@ const ESGFocusSection = () => {
       {/* Section 1: Focus on Metals */}
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
         <div className="md:w-1/2">
-          <h2 className="text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-4">
+          <h2 className=" font-orbitron text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-4">
             Focus on Metals: Our Core Offering
           </h2>
           <p className="text-lg text-text-secondary font-futuristic mb-4">
@@ -32,7 +32,7 @@ const ESGFocusSection = () => {
           <img src="/images/esg-diversified.jpg" alt="Diversified ESG Portfolio" className="rounded-xl shadow-md" />
         </div>
         <div className="md:w-1/2">
-          <h2 className="text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-4">
+          <h2 className=" font-orbitron text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-4">
             Diversified ESG Commodities Portfolio
           </h2>
           <p className="text-lg text-text-secondary font-futuristic">
@@ -46,7 +46,7 @@ const ESGFocusSection = () => {
 
       {/* Section 3: Blockchain Role */}
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-6">
+        <h2 className=" font-orbitron text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-6">
           The Role of Blockchain
         </h2>
         <ul className="text-lg text-text-secondary font-futuristic space-y-2 text-left max-w-2xl mx-auto">
@@ -62,7 +62,7 @@ const ESGFocusSection = () => {
 
       {/* Section 4: Comparative Snapshot */}
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-6">
+        <h2 className="font-orbitron text-3xl md:text-4xl font-bold text-green-400 font-futuristic mb-6">
           Comparative Snapshot: Metals vs. Other ESG Assets
         </h2>
         {/* Replace with actual image */}

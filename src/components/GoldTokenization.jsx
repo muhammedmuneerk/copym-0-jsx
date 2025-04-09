@@ -50,7 +50,7 @@ const GoldTokenization = () => {
     <div className="bg-gray-900 text-white min-h-screen pt-20">
       {/* Header Section */}
       <div className="container mx-auto py-20 px-4 md:px-12 pt-20 ">
-        <h1 className="text-4xl md:text-5xl font-bold mb-2">
+        <h1 className="font-orbitron text-4xl md:text-5xl font-bold mb-2">
           Gold Tokenization
         </h1>
         <h2 className="text-xl md:text-2xl text-gray-300 mb-4">
@@ -75,7 +75,7 @@ const GoldTokenization = () => {
         <div className="container mx-auto px-4 md:px-12">
           <div className="flex flex-col lg:flex-row">
             <div className="lg:w-1/2 mb-10 lg:mb-0">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
                 Revolutionize Gold Investment
               </h2>
               <p className="text-gray-400 mb-6">
@@ -276,7 +276,7 @@ const GoldTokenization = () => {
       {/* Tokenizable Gold Assets Section */}
       <div className="py-16">
         <div className="container mx-auto px-4 md:px-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">
+          <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-2">
             Tokenizable <span className="text-yellow-500">Gold Assets</span>
           </h2>
           <p className="text-gray-400 mb-10">
@@ -306,7 +306,7 @@ const GoldTokenization = () => {
       {/* Benefits Section */}
       <div className="py-16">
         <div className="container mx-auto px-4 md:px-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">
+          <h2 className=" font-orbitron text-3xl md:text-4xl font-bold mb-2">
             Benefits of{" "}
             <span className="text-yellow-500">Gold Tokenization</span>
           </h2>
@@ -371,7 +371,7 @@ const GoldTokenization = () => {
       {/* Final CTA Section */}
       <div className="py-16 bg-gray-800 bg-opacity-50">
         <div className="container mx-auto px-4 md:px-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
             Ready to Invest in Tokenized Gold?
           </h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">

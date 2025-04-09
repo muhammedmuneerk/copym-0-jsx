@@ -24,6 +24,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
+        orbitron: ['Orbitron', 'sans-serif']
       },
       animation: {
         'gradient-x': 'gradient-x 15s ease infinite',

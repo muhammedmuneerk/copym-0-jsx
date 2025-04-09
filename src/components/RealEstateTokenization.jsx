@@ -70,7 +70,7 @@ const RealEstateTokenization = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mt-20">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="font-orbitron text-4xl md:text-5xl font-bold mb-4">
             Real Estate Tokenization
           </h1>
           <h2 className="text-xl md:text-2xl font-medium mb-4">
@@ -107,8 +107,8 @@ const RealEstateTokenization = () => {
       <section className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Revolutionize Real Estate Investment
+            <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-6">
+              Revolutionalize Real Estate Investment
             </h2>
             <p className="text-gray-300 mb-8">
               Copym enables investors to tokenize and trade real estate assets
@@ -329,7 +329,7 @@ const RealEstateTokenization = () => {
       {/* Tokenization Process Section */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">
+          <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-2">
             Real Estate{" "}
             <span className="text-green-500">Tokenization Process</span>
           </h2>
@@ -429,7 +429,7 @@ const RealEstateTokenization = () => {
       {/* Benefits Section */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">
+          <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-2">
             Benefits of{" "}
             <span className="text-green-500">Real Estate Tokenization</span>
           </h2>
@@ -519,7 +519,7 @@ const RealEstateTokenization = () => {
       {/* Final CTA Section */}
       <section className="container mx-auto px-4 py-16 text-center">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
             Ready to Transform Your Real Estate Portfolio?
           </h2>
           <p className="text-gray-300 mb-8">

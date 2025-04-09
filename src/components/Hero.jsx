@@ -715,7 +715,7 @@ export default function Hero() {
           >
             <Typography
               variant="h1"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white"
+              className=" font-orbitron text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white"
             >
               The Complete Ecosystem for{" "}
               <Box component="span" className="block">

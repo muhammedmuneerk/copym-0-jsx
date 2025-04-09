@@ -216,7 +216,7 @@ export default function Metrics() {
 
             <Typography
               variant="h2"
-              className="text-4xl md:text-5xl mb-4 text-center"
+              className="font-orbitron text-4xl md:text-5xl mb-4 text-center"
             >
               Tokenization <span className="text-primary">at Scale</span>
             </Typography>
@@ -309,7 +309,7 @@ export default function Metrics() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <Typography variant="h3" className="mb-4 font-bold">
+          <Typography variant="h3" className="font-orbitron mb-4 font-bold">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
