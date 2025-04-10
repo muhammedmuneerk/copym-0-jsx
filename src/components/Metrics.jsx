@@ -187,7 +187,7 @@ export default function Metrics() {
   };
   
   return (
-    <Box className="py-24 bg-background/50">
+    <Box className="py-24 relative bg-background/50">
       <Container maxWidth="xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -302,6 +302,7 @@ export default function Metrics() {
           ))}
         </Grid>
 
+        
       </Container>
     </Box>
   );

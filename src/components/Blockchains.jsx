@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import SectionImage from "./SectionImages";
 
+
 const blockchains = [
   {
     name: "Solana",

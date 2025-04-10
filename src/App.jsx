@@ -20,15 +20,20 @@ import DiverseAssetTokenization from "./components/DiverseAssetTokenization";
 import SplashScreen from "./components/SplashScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import GreenTokenization from "./pages/GreenTokenization";
-
+import SpinningBlockchain from "./components/SpinningBlockchain";
 function HomePage() {
   return (
     <>
       <Hero />
+    <div style={{ position: 'relative' }}>
+       <SpinningBlockchain />
       <Blockchains />
       <Features />
       <GlobalMarkets />
       <Metrics />
+  
+</div>
+    
     </>
   );
 }
