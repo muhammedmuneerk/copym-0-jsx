@@ -11,14 +11,25 @@ const formatNumber = (num, suffix) => {
   }) + suffix;
 };
 
-// Animated counter component
-const AnimatedCounter = ({ value, duration = 2, delay = 0, suffix = '' }) => {
+// Modified AnimatedCounter component to reset and restart animation when isInView changes
+const AnimatedCounter = ({ value, duration = 2, delay = 0, suffix = '', isInView }) => {
   const [count, setCount] = useState(0);
   const countRef = useRef(null);
+  const animationRef = useRef(null);
   const valueNum = parseFloat(value.replace(/[^0-9.]/g, ''));
   const valueSuffix = value.replace(/[0-9.]/g, '');
   
+  // Reset the counter when isInView changes
   useEffect(() => {
+    if (!isInView) {
+      setCount(0);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
+      return;
+    }
+    
     const startTime = Date.now();
     const endTime = startTime + duration * 1000;
     
@@ -35,14 +46,20 @@ const AnimatedCounter = ({ value, duration = 2, delay = 0, suffix = '' }) => {
         const currentValue = valueNum * progress;
         setCount(currentValue);
         
-        requestAnimationFrame(updateCounter);
+        animationRef.current = requestAnimationFrame(updateCounter);
       };
       
-      requestAnimationFrame(updateCounter);
+      // Start the animation
+      animationRef.current = requestAnimationFrame(updateCounter);
     }, delay * 1000);
     
-    return () => clearTimeout(timer);
-  }, [valueNum, duration, delay]);
+    return () => {
+      clearTimeout(timer);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [valueNum, duration, delay, isInView]);
   
   // Format the counter value based on the original value's format
   const displayValue = count.toLocaleString('en-US', {
@@ -152,17 +169,31 @@ export default function Metrics() {
   const [chartType, setChartType] = useState('line');
   const [highlightedMetric, setHighlightedMetric] = useState(null);
   const [visibleMonths, setVisibleMonths] = useState(monthlyData);
+  const [isComponentInView, setIsComponentInView] = useState(false);
   
   const controls = useAnimation();
   
-  // Control chart animation
-  useEffect(() => {
-    const timer = setTimeout(() => {
+  // Restart animations when component comes into view
+  const onViewportEnter = () => {
+    setIsComponentInView(false);
+    // Small delay to ensure state is updated before re-triggering animations
+    setTimeout(() => {
+      setIsComponentInView(true);
       setChartAnimated(true);
       controls.start({ opacity: 1, y: 0 });
-    }, 800);
-    return () => clearTimeout(timer);
-  }, [controls]);
+    }, 50);
+  };
+  
+  // Control chart animation
+  useEffect(() => {
+    if (isComponentInView) {
+      const timer = setTimeout(() => {
+        setChartAnimated(true);
+        controls.start({ opacity: 1, y: 0 });
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [controls, isComponentInView]);
 
   // Handle month selection for filtering chart data
   const handleMonthClick = (index) => {
@@ -187,13 +218,17 @@ export default function Metrics() {
   };
   
   return (
-    <Box className="py-24 relative bg-background/50">
+    <motion.div 
+      className="py-24 relative bg-background/50"
+      onViewportEnter={onViewportEnter}
+      viewport={{ once: false, amount: 0.2 }} // Trigger when 20% of component is in viewport, and every time it enters
+    >
       <Container maxWidth="xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          viewport={{ once: true }}
+          viewport={{ once: false }} // Changed to false to re-trigger animation
         >
           <Typography
             variant="overline"
@@ -205,15 +240,8 @@ export default function Metrics() {
             initial={{ scale: 0.95 }}
             whileInView={{ scale: 1 }}
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }} // Changed to false to re-trigger animation
           >
-            {/* <Typography
-              variant="h2"
-              className="text-4xl md:text-5xl text-center mb-4"
-            >
-              Tokenization at Scale
-            </Typography> */}
-
             <Typography
               variant="h2"
               className="font-orbitron text-4xl md:text-5xl mb-4 text-center"
@@ -238,14 +266,14 @@ export default function Metrics() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }} // Changed to false to re-trigger animation
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)",
                 }}
                 onHoverStart={() => handleMetricHover(index)}
                 onHoverEnd={handleMetricLeave}
-                className="text-center p-6 rounded-xl hover:shadow-xl transition-all duration-300 bg-gradient-to-b from-background to-background/80 " //border border-gray-100
+                className="text-center p-6 rounded-xl hover:shadow-xl transition-all duration-300 bg-gradient-to-b from-background to-background/80"
               >
                 <motion.div
                   className="mb-2 text-2xl"
@@ -256,16 +284,18 @@ export default function Metrics() {
                   {metric.icon}
                 </motion.div>
                 <motion.div
+                  key={`metric-${index}-${isComponentInView}`} // Force re-render when viewport status changes
                   initial={{ scale: 0.8, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.7, delay: index * 0.2 + 0.3 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }} // Changed to false to re-trigger animation
                 >
                   <Typography variant="h2" className="text-5xl mb-2 font-bold">
                     <AnimatedCounter
                       value={metric.value}
                       duration={2.5}
                       delay={index * 0.2 + 0.5}
+                      isInView={isComponentInView} // Pass viewport status to counter
                     />
                   </Typography>
                 </motion.div>
@@ -276,10 +306,11 @@ export default function Metrics() {
                   {metric.label}
                 </Typography>
                 <motion.div
+                  key={`divider-${index}-${isComponentInView}`} // Force re-render when viewport status changes
                   initial={{ width: 0 }}
                   whileInView={{ width: "100%" }}
                   transition={{ duration: 1, delay: index * 0.2 + 0.8 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }} // Changed to false to re-trigger animation
                   className="h-0.5 bg-primary/30 mb-2 mx-auto"
                 />
                 <Typography
@@ -288,10 +319,11 @@ export default function Metrics() {
                 >
                   {metric.growth}
                   <motion.span
+                    key={`growth-${index}-${isComponentInView}`} // Force re-render when viewport status changes
                     initial={{ width: 0, opacity: 0 }}
                     whileInView={{ width: "auto", opacity: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.2 + 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }} // Changed to false to re-trigger animation
                     className="text-text-secondary ml-2 font-normal"
                   >
                     {metric.period}
@@ -301,9 +333,7 @@ export default function Metrics() {
             </Grid>
           ))}
         </Grid>
-
-        
       </Container>
-    </Box>
+    </motion.div>
   );
 }
