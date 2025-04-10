@@ -88,7 +88,7 @@ export default function Blockchains() {
   }, [key, isMobile, isVisible]);
 
   return (
-    <Box id="blockchains-section" className="py-12 md:py-16 relative overflow-hidden" sx={{ background: "#0a0a0a" }}>
+    <Box id="blockchains-section" className="py-12 md:py-16 relative overflow-hidden" >
       {/* Restructured section with the banner image placed next to the text on desktop */}
       <Container maxWidth="xl">
         <Grid container spacing={2} alignItems="center">
@@ -116,7 +116,7 @@ export default function Blockchains() {
           </Grid>
 
           {/* Banner image section - only visible on desktop */}
-          <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
+           <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' }, opacity: "0" }}> {/* didn't remove the image, jsut decreased the opacity */}
             <Box sx={{ position: "relative", width: "100%" }}>
               <SectionImage
                 src="/assets/sections/blockchain-removebg-preview.png"
@@ -129,10 +129,10 @@ export default function Blockchains() {
         {/* Banner image - only visible on mobile, positioned at top */}
         {isMobile && (
           <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
-            <SectionImage
+            {/* <SectionImage
               src="/assets/sections/blockchain-removebg-preview.png"
               alt="Blockchains Banner"
-            />
+            /> */}
           </Box>
         )}
 
