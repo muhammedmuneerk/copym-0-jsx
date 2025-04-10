@@ -2,6 +2,77 @@ import { Container, Typography, Box, Grid, useMediaQuery, useTheme } from "@mui/
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
+// Animated counter component for numbers
+const AnimatedCounter = ({ value, duration = 2, delay = 0 }) => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(null);
+  const animationRef = useRef(null);
+  
+  // Handle different formats of values
+  const isCurrency = value.startsWith('$');
+  const isPercentage = value.includes('%');
+  
+  // Extract the numeric part
+  const numericValue = parseFloat(value.replace(/[^0-9.]/g, ''));
+  
+  // Extract the prefix and suffix
+  const prefix = isCurrency ? '$' : '';
+  const suffix = isPercentage ? '%' : '';
+  
+  // Reset and restart counter animation when triggerCount changes
+  useEffect(() => {
+    setCount(0);
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+    
+    const startTime = Date.now();
+    const endTime = startTime + duration * 1000;
+    
+    const timer = setTimeout(() => {
+      const updateCounter = () => {
+        const now = Date.now();
+        if (now >= endTime) {
+          setCount(numericValue);
+          return;
+        }
+        
+        const elapsedTime = now - startTime;
+        const progress = elapsedTime / (duration * 1000);
+        const currentValue = numericValue * progress;
+        setCount(currentValue);
+        
+        animationRef.current = requestAnimationFrame(updateCounter);
+      };
+      
+      // Start the animation
+      animationRef.current = requestAnimationFrame(updateCounter);
+    }, delay * 1000);
+    
+    return () => {
+      clearTimeout(timer);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [numericValue, duration, delay]);
+  
+  // Format the display value
+  const displayValue = () => {
+    // Format based on the type of value
+    if (isCurrency) {
+      return `${prefix}${count.toFixed(1)}${value.includes('B') ? 'B' : ''}`;
+    } else if (isPercentage) {
+      return `+${count.toFixed(0)}${suffix}`;
+    } else {
+      return count.toFixed(0);
+    }
+  };
+  
+  return <span ref={countRef}>{displayValue()}</span>;
+};
+
 // Region data
 const regions = [
   {
@@ -35,6 +106,7 @@ export default function GlobalMarkets() {
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
   const sectionRef = useRef(null);
   const [cardVisible, setCardVisible] = useState(false);
+  const [animationTrigger, setAnimationTrigger] = useState(0);
   
   // Set up intersection observer to show/hide cards when section enters/exits viewport
   useEffect(() => {
@@ -45,6 +117,8 @@ export default function GlobalMarkets() {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             setCardVisible(true);
+            // Reset and trigger number animations when coming into view
+            setAnimationTrigger(prev => prev + 1);
           } else {
             setCardVisible(false);
           }
@@ -137,7 +211,13 @@ export default function GlobalMarkets() {
                       Tokenized Value:
                     </Typography>
                     <Typography variant="h5" className="text-primary">
-                      {region.tokenizedValue}
+                      {/* Replace static value with animated counter */}
+                      <AnimatedCounter
+                        value={region.tokenizedValue}
+                        duration={2.5}
+                        delay={index * 0.2}
+                        key={`value-${region.name}-${animationTrigger}`}
+                      />
                     </Typography>
                   </Box>
                   <Box className="mb-4">
@@ -148,7 +228,13 @@ export default function GlobalMarkets() {
                       YoY Growth:
                     </Typography>
                     <Typography variant="h5" className="text-primary">
-                      {region.growth}
+                      {/* Replace static value with animated counter */}
+                      <AnimatedCounter
+                        value={region.growth}
+                        duration={2.5}
+                        delay={index * 0.2 + 0.5}
+                        key={`growth-${region.name}-${animationTrigger}`}
+                      />
                     </Typography>
                   </Box>
                   <Box>
