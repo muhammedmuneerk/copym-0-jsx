@@ -12,28 +12,28 @@ const regions = [
     tokenizedValue: "$2.3B",
     growth: "+67%",
     topAssets: ["Real Estate", "Energy", "Infrastructure"],
-    position: [2.5, 0.9, 0.8], 
+    position: [2.5, 0.6, 0.8], 
   },
   {
     name: "Europe",
     tokenizedValue: "$1.8B",
     growth: "+45%",
     topAssets: ["Real Estate", "Private Equity", "Art"],
-    position: [0.8, 0.9, 0.5], 
+    position: [0.9, 0.6, 0.5], 
   },
   {
     name: "Asia Pacific",
     tokenizedValue: "$3.1B",
     growth: "+82%",
     topAssets: ["Real Estate", "Infrastructure", "Commodities"],
-    position: [-0.8, 0.9, 0.5],
+    position: [-0.9, 0.6, 0.5],
   },
   {
     name: "Americas",
     tokenizedValue: "$4.2B",
     growth: "+58%",
     topAssets: ["Real Estate", "Private Equity", "Venture Capital"],
-    position: [-2.5, 0.9, 0.8],
+    position: [-2.5, 0.6, 0.8],
   },
 ];
 
@@ -60,7 +60,8 @@ export default function GlobalMarkets() {
   const cardObjectsRef = useRef([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isViewedOnce, setIsViewedOnce] = useState(false);
+  const [cardVisible, setCardVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     if (!globeContainerRef.current) return;
@@ -231,36 +232,36 @@ const createRegionCards = () => {
     // Create HTML element for the card
     const cardElement = document.createElement('div');
     cardElement.className = 'region-card';
-    cardElement.style.width = '250px'; // Increased from 200px
+    cardElement.style.width = '300px'; // Increased from 200px
     cardElement.style.padding = '24px'; // Increased from 16px
     cardElement.style.backgroundColor = 'rgba(18, 19, 26, 0.8)';
     cardElement.style.borderRadius = '10px'; // Slightly increased from 8px
-    cardElement.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+    cardElement.style.border = '2px solid rgba(255, 255, 255, 0.1)';
     cardElement.style.backdropFilter = 'blur(10px)';
     cardElement.style.color = 'white';
     cardElement.style.fontSize = '16px'; // Increased from 14px
     cardElement.style.pointerEvents = 'auto';
     
-    // Initialize with visible styles, but with transform translate offscreen
+    // Always start with cards hidden
     cardElement.style.transform = index % 2 === 0 ? 'translateX(-100px)' : 'translateX(100px)';
     cardElement.style.opacity = '0';
-    cardElement.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
-    cardElement.style.transitionDelay = `${index * 0.1}s`;
+    cardElement.style.transition = 'transform 0.9s ease-out, opacity 0.9s ease-out';
+    cardElement.style.transitionDelay = `${index * 0.5}s`;
     
     // Card content with bigger text
     cardElement.innerHTML = `
-      <h3 style="margin: 0 0 16px 0; font-size: 22px; font-weight: bold;">${region.name}</h3>
+      <h3 style="margin: 0 0 16px 0; font-size: 25px; font-weight: bold;">${region.name}</h3>
       <div style="margin-bottom: 16px;">
-        <small style="color: rgba(255,255,255,0.7); font-size: 12px; text-transform: uppercase;">Tokenized Value:</small>
-        <div style="color: #00ffaa; font-size: 20px; font-weight: bold;">${region.tokenizedValue}</div>
+        <small style="color: rgba(255,255,255,0.7); font-size: 15px; text-transform: uppercase;">Tokenized Value:</small>
+        <div style="color: #00ffaa; font-size: 23px; font-weight: bold;">${region.tokenizedValue}</div>
       </div>
       <div style="margin-bottom: 16px;">
-        <small style="color: rgba(255,255,255,0.7); font-size: 12px; text-transform: uppercase;">YoY Growth:</small>
-        <div style="color: #00ffaa; font-size: 20px; font-weight: bold;">${region.growth}</div>
+        <small style="color: rgba(255,255,255,0.7); font-size: 15px; text-transform: uppercase;">YoY Growth:</small>
+        <div style="color: #00ffaa; font-size: 23px; font-weight: bold;">${region.growth}</div>
       </div>
       <div>
-        <small style="color: rgba(255,255,255,0.7); font-size: 12px; text-transform: uppercase; margin-bottom: 8px; display: block;">Top Asset Classes:</small>
-        <div style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.6;">
+        <small style="color: rgba(255,255,255,0.7); font-size: 15px; text-transform: uppercase; margin-bottom: 8px; display: block;">Top Asset Classes:</small>
+        <div style="color: rgba(255,255,255,0.8); font-size: 17px; line-height: 1.6;">
           ${region.topAssets.join('<br>')}
         </div>
       </div>
@@ -271,7 +272,7 @@ const createRegionCards = () => {
     cardObject.position.set(
       region.position[0],
       region.position[1],
-      region.position[2],
+      region.position[2]
     );
     scene.add(cardObject);
     cardObjectsRef.current.push(cardObject);
@@ -279,16 +280,11 @@ const createRegionCards = () => {
     // Store the DOM element for later animation
     cardObject.userData = { element: cardElement };
   });
-  
-  // Show cards after a short delay, regardless of scroll position
-  setTimeout(() => {
-    showCards();
-  }, 1000);
 };
 
-    // Function to show cards (will be called automatically and on scroll)
+    // Function to show cards - will be called when in view
     const showCards = () => {
-      if (!isLargeScreen) return;
+      if (!isLargeScreen || cardObjectsRef.current.length === 0) return;
       
       console.log("Showing cards now...");
       
@@ -300,8 +296,20 @@ const createRegionCards = () => {
           }, index * 150);
         }
       });
+    };
+    
+    // Function to hide cards - will be called when out of view
+    const hideCards = () => {
+      if (!isLargeScreen || cardObjectsRef.current.length === 0) return;
       
-      setIsViewedOnce(true);
+      console.log("Hiding cards now...");
+      
+      cardObjectsRef.current.forEach((obj, index) => {
+        if (obj.userData && obj.userData.element) {
+          obj.userData.element.style.transform = index % 2 === 0 ? 'translateX(-100px)' : 'translateX(100px)';
+          obj.userData.element.style.opacity = '0';
+        }
+      });
     };
 
     // Add animated particle effect around the globe
@@ -383,6 +391,8 @@ const createRegionCards = () => {
         // Create the region cards
         createRegionCards();
         
+        // Cards will be shown when in view via the Intersection Observer
+        
         // Loading complete
         setIsLoading(false);
       },
@@ -447,22 +457,6 @@ const createRegionCards = () => {
     // Start animation loop
     animate();
 
-    // Set up scroll listener for showing cards animation as a backup
-    const handleScroll = () => {
-      if (isViewedOnce || !globeContainerRef.current) return;
-      
-      const containerRect = globeContainerRef.current.getBoundingClientRect();
-      // If element is in view
-      if (containerRect.top < window.innerHeight && containerRect.bottom > 0) {
-        showCards();
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    // Run it once in case we start with element in view
-    setTimeout(handleScroll, 500);
-
     // Handle window resize
     const handleResize = () => {
       if (!container) return;
@@ -489,7 +483,6 @@ const createRegionCards = () => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
       
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -539,14 +532,153 @@ const createRegionCards = () => {
       if (controlsRef.current) controlsRef.current.dispose();
     };
   }, [isLargeScreen]);
+  
+  // Set up intersection observer to show/hide cards when section enters/exits viewport
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            console.log("Section is now in view");
+            setCardVisible(true);
+            
+            // For 3D cards on large screens
+            if (isLargeScreen) {
+              // Recreate region cards to reset their animations
+              if (sceneRef.current && modelRef.current) {
+                createRegionCards();
+                setTimeout(() => {
+                  showCards();
+                }, 300); // Small delay to ensure cards are created before showing
+              }
+            }
+          } else {
+            console.log("Section is now out of view");
+            setCardVisible(false);
+            
+            // Hide 3D cards when out of view
+            if (isLargeScreen) {
+              hideCards();
+            }
+          }
+        });
+      },
+      { threshold: 0.2 } // Adjust threshold as needed - 0.2 means 20% visible
+    );
+    
+    observer.observe(sectionRef.current);
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [isLargeScreen]);
+  
+  // Helper function to create region cards - defined outside of the effect to make it reusable
+  const createRegionCards = () => {
+    if (!isLargeScreen || !sceneRef.current || !labelRendererRef.current) return;
+    
+    // Clear existing card objects
+    cardObjectsRef.current.forEach(obj => {
+      sceneRef.current.remove(obj);
+    });
+    cardObjectsRef.current = [];
+    
+    // Create a card for each region
+    regions.forEach((region, index) => {
+      // Create HTML element for the card
+      const cardElement = document.createElement('div');
+      cardElement.className = 'region-card';
+      cardElement.style.width = '300px';
+      cardElement.style.padding = '24px';
+      cardElement.style.backgroundColor = 'rgba(18, 19, 26, 0.8)';
+      cardElement.style.borderRadius = '10px';
+      cardElement.style.border = '2px solid rgba(255, 255, 255, 0.1)';
+      cardElement.style.backdropFilter = 'blur(10px)';
+      cardElement.style.color = 'white';
+      cardElement.style.fontSize = '16px';
+      cardElement.style.pointerEvents = 'auto';
+      
+      // Always start with cards hidden
+      cardElement.style.transform = index % 2 === 0 ? 'translateX(-100px)' : 'translateX(100px)';
+      cardElement.style.opacity = '0';
+      cardElement.style.transition = 'transform 0.9s ease-out, opacity 0.9s ease-out';
+      cardElement.style.transitionDelay = `${index * 0.5}s`;
+      
+      // Card content with bigger text
+      cardElement.innerHTML = `
+        <h3 style="margin: 0 0 16px 0; font-size: 25px; font-weight: bold;">${region.name}</h3>
+        <div style="margin-bottom: 16px;">
+          <small style="color: rgba(255,255,255,0.7); font-size: 15px; text-transform: uppercase;">Tokenized Value:</small>
+          <div style="color: #00ffaa; font-size: 23px; font-weight: bold;">${region.tokenizedValue}</div>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <small style="color: rgba(255,255,255,0.7); font-size: 15px; text-transform: uppercase;">YoY Growth:</small>
+          <div style="color: #00ffaa; font-size: 23px; font-weight: bold;">${region.growth}</div>
+        </div>
+        <div>
+          <small style="color: rgba(255,255,255,0.7); font-size: 15px; text-transform: uppercase; margin-bottom: 8px; display: block;">Top Asset Classes:</small>
+          <div style="color: rgba(255,255,255,0.8); font-size: 17px; line-height: 1.6;">
+            ${region.topAssets.join('<br>')}
+          </div>
+        </div>
+      `;
+      
+      // Create 2D object and position it
+      const cardObject = new CSS2DObject(cardElement);
+      cardObject.position.set(
+        region.position[0],
+        region.position[1],
+        region.position[2]
+      );
+      sceneRef.current.add(cardObject);
+      cardObjectsRef.current.push(cardObject);
+      
+      // Store the DOM element for later animation
+      cardObject.userData = { element: cardElement };
+    });
+  };
+  
+  // Function to show cards
+  const showCards = () => {
+    if (!isLargeScreen || cardObjectsRef.current.length === 0) return;
+    
+    console.log("Showing cards now...");
+    
+    cardObjectsRef.current.forEach((obj, index) => {
+      if (obj.userData && obj.userData.element) {
+        setTimeout(() => {
+          obj.userData.element.style.transform = 'translateX(0)';
+          obj.userData.element.style.opacity = '1';
+        }, index * 150);
+      }
+    });
+  };
+  
+  // Function to hide cards
+  const hideCards = () => {
+    if (!isLargeScreen || cardObjectsRef.current.length === 0) return;
+    
+    console.log("Hiding cards now...");
+    
+    cardObjectsRef.current.forEach((obj, index) => {
+      if (obj.userData && obj.userData.element) {
+        obj.userData.element.style.transform = index % 2 === 0 ? 'translateX(-100px)' : 'translateX(100px)';
+        obj.userData.element.style.opacity = '0';
+      }
+    });
+  };
 
-  // Animation variants for regular cards
+  // Animation variants for regular cards (for small screens)
   const cardVariants = {
-    offscreen: (index) => ({
+    hidden: (index) => ({
       x: index % 2 === 0 ? -100 : 100,
       opacity: 0,
     }),
-    onscreen: {
+    visible: {
       x: 0,
       opacity: 1,
       transition: {
@@ -558,13 +690,13 @@ const createRegionCards = () => {
   };
 
   return (
-    <Box className="py-24 relative overflow-hidden">
+    <Box className="py-24 relative overflow-hidden" ref={sectionRef}>
       <Container maxWidth="xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }} // Changed to false to animate every time
           className="text-center mb-16"
         >
           <Typography
@@ -589,7 +721,7 @@ const createRegionCards = () => {
           {/* 3D Globe Visualization */}
           <Box
             ref={globeContainerRef}
-            className="w-full aspect-[4/1] rounded-xl overflow-hidden hidden sm:block" //hidden the 3D model in small screens --> "hidden sm:block" //
+            className="w-full aspect-[6/2] rounded-xl overflow-hidden hidden sm:block" //hidden the 3D model in small screens --> "hidden sm:block" //
             sx={{
               background: "rgba(18, 19, 26, 0.5)",
               backdropFilter: "blur(10px)",
@@ -647,14 +779,13 @@ const createRegionCards = () => {
               <Grid item xs={12} sm={6} key={region.name}>
                 <motion.div
                   custom={index}
-                  initial="offscreen"
-                  whileInView="onscreen"
-                  viewport={{ once: true, amount: 0.2 }}
+                  initial="hidden"
+                  animate={cardVisible ? "visible" : "hidden"}
                   variants={cardVariants}
                   className="h-full"
                 >
                   <Box
-                    className="bg-background-paper rounded-lg p-6 h-full "
+                    className="bg-background-paper rounded-lg p-6 h-full"
                     sx={{
                       background: "rgba(18, 19, 26, 0.5)",
                       backdropFilter: "blur(10px)",
