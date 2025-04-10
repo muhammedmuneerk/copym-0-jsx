@@ -232,7 +232,7 @@ const createRegionCards = () => {
     // Create HTML element for the card
     const cardElement = document.createElement('div');
     cardElement.className = 'region-card';
-    cardElement.style.width = '300px'; // Increased from 200px
+    cardElement.style.width = '200px'; // Increased from 200px
     cardElement.style.padding = '24px'; // Increased from 16px
     cardElement.style.backgroundColor = 'rgba(18, 19, 26, 0.8)';
     cardElement.style.borderRadius = '10px'; // Slightly increased from 8px
