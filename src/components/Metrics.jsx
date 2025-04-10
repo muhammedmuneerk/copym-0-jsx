@@ -72,14 +72,14 @@ const AnimatedCounter = ({ value, duration = 2, delay = 0, suffix = '', isInView
 
 const metrics = [
   {
-    value: "15.3B",
+    value: "1.3B",
     label: "Assets Tokenized",
     growth: "+42%",
     period: "year-over-year",
     icon: "📈",
   },
   {
-    value: "320K",
+    value: "50K",
     label: "Active Users",
     growth: "+78%",
     period: "year-over-year",
@@ -93,7 +93,7 @@ const metrics = [
     icon: "🔗",
   },
   {
-    value: "128M",
+    value: "2M",
     label: "Transactions",
     growth: "+53%",
     period: "year-over-year",
