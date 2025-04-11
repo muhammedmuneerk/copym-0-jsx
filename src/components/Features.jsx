@@ -57,6 +57,18 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
       animation: `${borderAnimationUp} 2.5s linear infinite`,
       animationDelay: "2s",
     },
+    // Make icons light up on hover
+    "& .feature-icon": {
+      color: "#00FF85 !important",
+      filter: "brightness(1.5) drop-shadow(0 0 8px rgba(0, 255, 133, 0.8))",
+    },
+    "& .feature-img": {
+      filter: "brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(108deg) drop-shadow(0 0 8px rgba(0, 255, 133, 0.8)) !important",
+    },
+    "& .feature-emoji": {
+      textShadow: "0 0 10px rgba(0, 255, 133, 0.8)",
+      filter: "brightness(1.2)",
+    },
   },
   "& .border-right, & .border-down, & .border-left, & .border-up": {
     position: "absolute",
@@ -97,39 +109,39 @@ const features = [
         <img
           src="/assets/icons/cross-chain-infrastructure.png"
           alt="Cross Chain"
-          className="w-8 h-8 object-contain filter grayscale  invert"
-          style={{ filter: "brightness(0) invert(1) sepia(1) hue-rotate(180deg)" }}
+          className="w-8 h-8 object-contain feature-img"
+          style={{ filter: "brightness(0) invert(1) sepia(1) hue-rotate(180deg)", transition: "filter 0.3s ease" }}
         />)
   },
   {
     title: "Comprehensive Compliance",
     description:
       "Built-in KYC/AML, regulatory frameworks, and automated compliance across jurisdictions.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield text-gray-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield feature-icon" style={{ color: "rgba(255, 255, 255, 0.7)", transition: "all 0.3s ease" }}><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>,
   },
   {
     title: "Fractional Ownership",
     description:
       "Divide assets into tradable fractions, democratizing access to previously exclusive investments.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers text-gray-400"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers feature-icon" style={{ color: "rgba(255, 255, 255, 0.7)", transition: "all 0.3s ease" }}><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg>,
   },
   {
     title: "Complete Wallet Ecosystem",
     description:
       "Support for custodial, non-custodial, MPC, and hardware wallet solutions.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-wallet text-gray-400"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-wallet feature-icon" style={{ color: "rgba(255, 255, 255, 0.7)", transition: "all 0.3s ease" }}><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>,
   },
   {
     title: "End-to-End Marketplace",
     description:
       "Primary issuance, secondary trading, liquidity pools, and OTC services all in one place.",
-    icon: "🏛️",
+    icon: <span role="img" aria-label="Marketplace" className="feature-emoji" style={{ fontSize: "1.5rem", transition: "all 0.3s ease" }}>🏛️</span>,
   },
   {
     title: "Developer Toolkit",
     description:
       "APIs, SDKs, and no-code solutions to build on top of the Copym ecosystem.",
-    icon: "⚙️",
+    icon: <span role="img" aria-label="Developer tools" className="feature-emoji" style={{ fontSize: "1.5rem", transition: "all 0.3s ease" }}>⚙️</span>,
   },
 ];
 
@@ -152,7 +164,7 @@ export default function Features() {
           </Typography>
           <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4">
             Everything You Need In{" "}
-            <span className="text-primary">One Place</span>
+            <span className="bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">One Place</span>
           </Typography>
           <Typography
             variant="body1"

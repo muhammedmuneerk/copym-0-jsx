@@ -13,7 +13,10 @@ export default function Footer() {
           viewport={{ once: true }}
           className="text-center mb-24"
         >
-          <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4">
+          <Typography
+            variant="h2"
+            className="font-orbitron text-4xl md:text-5xl mb-4 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
+          >
             Ready to Transform Your Assets?
           </Typography>
           <Typography
@@ -24,11 +27,11 @@ export default function Footer() {
             the value of their assets on the Copym platform.
           </Typography>
           <Button
-            variant="contained"
+            variant="text"
             size="large"
-            className="text-background font-semibold px-8 py-3"
+            className="bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] text-black font-semibold px-8 py-3 rounded-md shadow-md hover:shadow-[0_0_15px_rgba(16,224,96,0.5)]"
           >
-            Start Tokenizing Now
+            Explore Asset Tokenization
           </Button>
         </motion.div>
 
@@ -49,10 +52,10 @@ export default function Footer() {
                 className="font-bold text-2xl tracking-tight flex items-center mb-4"
               >
                 <img
-                src="/assets/icons/logo-svg.svg"
-                alt="COPYM"
-                className="w-20 h-10 sm:w-30 sm:h-15 md:w-36 md:h-16 lg:w-48 lg:h-20 xl:w-40 xl:h-16"
-              />
+                  src="/assets/icons/logo-svg.svg"
+                  alt="COPYM"
+                  className="w-20 h-10 sm:w-30 sm:h-15 md:w-36 md:h-16 lg:w-48 lg:h-20 xl:w-40 xl:h-16"
+                />
               </Typography>
               <Typography
                 variant="body2"
