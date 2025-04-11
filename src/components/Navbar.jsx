@@ -132,9 +132,9 @@ export default function Navbar() {
       color="transparent"
       elevation={0}
       sx={{
-        backdropFilter: scrolled ? "blur(10px)" : "none",
-        backgroundColor: scrolled ? "rgba(10, 11, 13, 0.8)" : "transparent",
-        borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
+        backdropFilter: scrolled ? "none" : "none", //blur(10px)//
+        backgroundColor: scrolled ? "transparent" : "transparent", //rgba(10, 11, 13, 0.8)//
+        borderBottom: scrolled ? "none" : "none", //1px solid rgba(255, 255, 255, 0.1)//
         transition: "all 0.3s ease-in-out",
       }}
     >
