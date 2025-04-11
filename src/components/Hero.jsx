@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { motion } from "framer-motion";
 import { KeyboardArrowDown } from "@mui/icons-material";
-import BlockchainNetworkVisualization from './BlockchainNetworkVisualization';
+import BlockchainNetworkVisualization from "./BlockchainNetworkVisualization";
 
 export default function Hero() {
   return (
-    <Box className="min-h-screen relative overflow-hidden bg-gradient-to-b from-[#050f05] to-[#0a1f0a]">
+    <Box className="min-h-screen relative overflow-hidden ">
       {/* Three.js visualization */}
       {/* <BlockchainNetworkVisualization /> */}
 
       {/* Overlay gradient for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050f05]/70 z-10"></div>
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050f05]/70 z-10"></div> */}
 
       <Container maxWidth="xl" className="relative z-20">
         <motion.div
@@ -95,6 +95,14 @@ export default function Hero() {
           </Typography>
         </motion.div>
       </Container>
+      {/* Enhanced gradient highlight with pulse animation */}
+      <Box
+        className="absolute inset-0 pointer-events-none"
+        sx={{
+          background:
+            "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
+        }}
+      />
     </Box>
   );
 }

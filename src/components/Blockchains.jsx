@@ -265,7 +265,7 @@ export default function Blockchains() {
           </AnimatePresence>
         )}
       </Container>
-
+      
       {/* Enhanced gradient highlight with pulse animation */}
       <Box
         className="absolute inset-0 pointer-events-none"

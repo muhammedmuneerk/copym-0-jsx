@@ -231,6 +231,8 @@ export default function Features() {
           ))}
         </Grid>
 
+      </Container>
+      
         {/* Background Glow Effect */}
         <Box
           className="absolute inset-0 pointer-events-none"
@@ -239,7 +241,6 @@ export default function Features() {
               "radial-gradient(circle at 50% 50%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
           }}
         />
-      </Container>
     </Box>
   );
 }
