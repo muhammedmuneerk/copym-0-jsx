@@ -97,96 +97,164 @@ export default function Features() {
                     "&:hover": {
                       transform: "translateY(-4px)",
                     },
-                    "&:hover .top-border": {
-                      animation: "flowRight 2s linear infinite",
+                    "&:hover .border-effect": {
+                      opacity: 1,
                     },
-                    "&:hover .right-border": {
-                      animation: "flowDown 2s linear infinite",
-                      animationDelay: "0.5s",
+                    ".border-effect": {
+                      position: "absolute",
+                      inset: "-3px",
+                      borderRadius: "10px",
+                      opacity: 0,
+                      transition: "opacity 0.3s ease",
+                      pointerEvents: "none",
                     },
-                    "&:hover .bottom-border": {
-                      animation: "flowLeft 2s linear infinite",
-                      animationDelay: "1s",
-                    },
-                    "&:hover .left-border": {
-                      animation: "flowUp 2s linear infinite",
-                      animationDelay: "1.5s",
-                    },
-                    "@keyframes flowRight": {
+                    "@keyframes top-stretch": {
                       "0%": {
-                        left: "0%",
                         width: "0%",
-                        backgroundColor: "#000000",
-                      },
-                      "50%": {
                         left: "0%",
-                        width: "100%",
-                        backgroundColor: "rgba(0, 255, 133, 0.8)",
+                        borderImage: "linear-gradient(90deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "40%": {
+                        width: "35%",
+                        left: "20%",
+                        borderImage: "linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "60%": {
+                        width: "50%",
+                        left: "50%",
+                        borderImage: "linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
                       },
                       "100%": {
+                        width: "30%",
                         left: "100%",
-                        width: "0%",
-                        backgroundColor: "#000000",
+                        borderImage: "linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.2)) 1",
                       }
                     },
-                    "@keyframes flowDown": {
+                    "@keyframes right-stretch": {
                       "0%": {
-                        top: "0%",
                         height: "0%",
-                        backgroundColor: "#000000",
-                      },
-                      "50%": {
                         top: "0%",
-                        height: "100%",
-                        backgroundColor: "rgba(0, 255, 133, 0.8)",
+                        borderImage: "linear-gradient(180deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "40%": {
+                        height: "35%",
+                        top: "20%",
+                        borderImage: "linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "60%": {
+                        height: "50%",
+                        top: "50%",
+                        borderImage: "linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
                       },
                       "100%": {
+                        height: "30%",
                         top: "100%",
-                        height: "0%",
-                        backgroundColor: "#000000",
+                        borderImage: "linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.2)) 1",
                       }
                     },
-                    "@keyframes flowLeft": {
+                    "@keyframes bottom-stretch": {
                       "0%": {
-                        right: "0%",
                         width: "0%",
-                        backgroundColor: "#000000",
-                      },
-                      "50%": {
                         right: "0%",
-                        width: "100%",
-                        backgroundColor: "rgba(0, 255, 133, 0.8)",
+                        borderImage: "linear-gradient(270deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "40%": {
+                        width: "35%",
+                        right: "20%",
+                        borderImage: "linear-gradient(270deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "60%": {
+                        width: "50%",
+                        right: "50%",
+                        borderImage: "linear-gradient(270deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
                       },
                       "100%": {
+                        width: "30%",
                         right: "100%",
-                        width: "0%",
-                        backgroundColor: "#000000",
+                        borderImage: "linear-gradient(270deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.2)) 1",
                       }
                     },
-                    "@keyframes flowUp": {
+                    "@keyframes left-stretch": {
                       "0%": {
-                        bottom: "0%",
                         height: "0%",
-                        backgroundColor: "#000000",
-                      },
-                      "50%": {
                         bottom: "0%",
-                        height: "100%",
-                        backgroundColor: "rgba(0, 255, 133, 0.8)",
+                        borderImage: "linear-gradient(0deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "40%": {
+                        height: "35%",
+                        bottom: "20%",
+                        borderImage: "linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                      },
+                      "60%": {
+                        height: "50%",
+                        bottom: "50%",
+                        borderImage: "linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
                       },
                       "100%": {
+                        height: "30%",
                         bottom: "100%",
-                        height: "0%",
-                        backgroundColor: "#000000",
+                        borderImage: "linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 255, 133, 0.2)) 1",
                       }
                     }
                   }}
                 >
-                  {/* Animated borders */}
-                  <div className="top-border absolute top-0 left-0 h-1 z-10" />
-                  <div className="right-border absolute top-0 right-0 w-1 z-10" />
-                  <div className="bottom-border absolute bottom-0 right-0 h-1 z-10" />
-                  <div className="left-border absolute bottom-0 left-0 w-1 z-10" />
+                  {/* Border effect container */}
+                  <div className="border-effect">
+                    {/* Top snail */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        height: "2px",
+                        top: 0,
+                        borderTop: "2px solid",
+                        borderImage: "linear-gradient(90deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                        animation: "top-stretch 3s infinite",
+                        animationTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)"
+                      }}
+                    />
+                    
+                    {/* Right snail */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        width: "2px",
+                        right: 0,
+                        borderRight: "2px solid",
+                        borderImage: "linear-gradient(180deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                        animation: "right-stretch 3s infinite",
+                        animationDelay: "0.75s",
+                        animationTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)"
+                      }}
+                    />
+                    
+                    {/* Bottom snail */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        height: "2px",
+                        bottom: 0,
+                        borderBottom: "2px solid",
+                        borderImage: "linear-gradient(270deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                        animation: "bottom-stretch 3s infinite",
+                        animationDelay: "1.5s",
+                        animationTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)"
+                      }}
+                    />
+                    
+                    {/* Left snail */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        width: "2px",
+                        left: 0,
+                        borderLeft: "2px solid",
+                        borderImage: "linear-gradient(0deg, rgba(0, 255, 133, 0.8), rgba(0, 0, 0, 0)) 1",
+                        animation: "left-stretch 3s infinite",
+                        animationDelay: "2.25s",
+                        animationTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)"
+                      }}
+                    />
+                  </div>
 
                   <Box
                     className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl"
