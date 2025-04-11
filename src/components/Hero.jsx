@@ -9,10 +9,10 @@ export default function Hero() {
     <Box className="min-h-screen relative overflow-hidden bg-gradient-to-b from-[#050f05] to-[#0a1f0a]">
       {/* Three.js visualization */}
       {/* <BlockchainNetworkVisualization /> */}
-
+      
       {/* Overlay gradient for better text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050f05]/70 z-10"></div>
-
+      
       <Container maxWidth="xl" className="relative z-20">
         <motion.div
           className="flex flex-col items-center justify-center min-h-screen text-center"
@@ -31,10 +31,7 @@ export default function Hero() {
             >
               The Complete Ecosystem for{" "}
               <Box component="span" className="block">
-                <Box
-                  component="span"
-                  className="bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
-                >
+                <Box component="span" className="bg-[linear-gradient(180deg,_rgba(19,255,0,1)_6%,_rgba(0,0,0,1)_14%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">
                   Real World Asset
                 </Box>{" "}
                 Tokenization
@@ -52,9 +49,9 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                variant="text"
+                variant="contained"
                 size="large"
-                className="bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] text-black font-semibold px-8 py-3 rounded-md shadow-md hover:shadow-[0_0_15px_rgba(16,224,96,0.5)]"
+                className="text-background font-semibold px-8 py-3 bg-gradient-to-r from-[#00ff80] to-[#10e060] hover:shadow-[0_0_15px_rgba(16,224,96,0.5)]"
               >
                 Explore Asset Tokenization
               </Button>
@@ -83,12 +80,11 @@ export default function Hero() {
           <Typography
             variant="button"
             className="text-white flex flex-col items-center cursor-pointer"
-            onClick={() =>
-              window.scrollTo({
-                top: window.innerHeight,
-                behavior: "smooth",
-              })
-            }
+            onClick={() => window.scrollTo({
+              top: window.innerHeight,
+              behavior: "smooth",
+            })
+          }
           >
             Discover More
             <KeyboardArrowDown className="mt-2" />
@@ -96,5 +92,6 @@ export default function Hero() {
         </motion.div>
       </Container>
     </Box>
+    
   );
 }

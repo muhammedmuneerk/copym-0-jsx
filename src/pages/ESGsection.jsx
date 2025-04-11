@@ -41,11 +41,12 @@ const ESGBox = ({ title, points }) => {
   };
 
   return (
-    <div className="relative bg-gray-900/30 border border-green-400/10 rounded-xl p-6 backdrop-blur-sm w-full max-w-md text-center flex flex-col items-center transition-shadow duration-300">
-      <h2 className="text-2xl text-green-400 font-bold mb-4 font-futuristic">
+    <div className="relative bg-white bg-opacity-70 border border-[#00A86B]/20 shadow-xl shadow-[#00A86B]/30 rounded-xl p-6 backdrop-blur-md w-full max-w-sm text-left flex flex-col items-start transition-shadow duration-300">
+      <h2 className="text-2xl font-bold mb-4 font-futuristic bg-gradient-to-r from-[#00A86B] via-gray-600 to-[#00A86B] text-transparent bg-clip-text">
         {title}
       </h2>
-      <div className="h-32 flex items-center justify-center px-2">
+
+      <div className="h-32 flex items-center justify-start px-1">
         <AnimatePresence mode="wait">
           <motion.p
             key={pointIndex}
@@ -53,44 +54,47 @@ const ESGBox = ({ title, points }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4 }}
-            className="text-lg text-text-secondary font-futuristic"
+            className="text-lg text-[#333333] font-futuristic text-left leading-relaxed"
           >
             {points[pointIndex]}
           </motion.p>
         </AnimatePresence>
       </div>
-      <div className="mt-4 flex gap-4">
+
+      <div className="mt-4 flex gap-4 self-start">
         <button
           onClick={prevPoint}
-          className="bg-green-500/10 hover:bg-green-400/20 p-2 rounded-full border border-green-400/20 transition"
+          className="bg-[#00A86B]/10 hover:bg-[#00A86B]/20 p-2 rounded-full border border-[#00A86B]/30 transition"
         >
-          <ArrowLeft size={20} className="text-green-300" />
+          <ArrowLeft size={20} className="text-[#00A86B]" />
         </button>
         <button
           onClick={nextPoint}
-          className="bg-green-500/10 hover:bg-green-400/20 p-2 rounded-full border border-green-400/20 transition"
+          className="bg-[#00A86B]/10 hover:bg-[#00A86B]/20 p-2 rounded-full border border-[#00A86B]/30 transition"
         >
-          <ArrowRight size={20} className="text-green-300" />
+          <ArrowRight size={20} className="text-[#00A86B]" />
         </button>
       </div>
     </div>
+
+
   );
 };
 
 const ESGsection = () => {
   return (
-    <section className="relative pt-24 px-4 pb-20 bg-background text-text-primary overflow-hidden">
-      {/* Minimal gridlines */}
+    <section className="relative pt-24 px-4 pb-20 bg-white bg-opacity-60 text-text-primary overflow-hidden backdrop-blur-md rounded-xl shadow-2xl shadow-gray-400/40 mx-4">
+      {/* Minimal Grid Lines */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-full h-[2px] bg-green-500/10" />
-        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-green-500/10" />
-        <div className="absolute bottom-1/4 left-0 w-full h-[2px] bg-green-500/10" />
+        <div className="absolute top-1/4 left-0 w-full h-[6px] bg-green-500/10" />
+        <div className="absolute top-1/2 left-0 w-full h-[6px] bg-green-500/10" />
+        <div className="absolute bottom-1/4 left-0 w-full h-[6px] bg-green-500/10" />
         <div className="absolute inset-y-0 left-1/3 w-[2px] bg-green-500/10" />
         <div className="absolute inset-y-0 right-1/3 w-[2px] bg-green-500/10" />
       </div>
 
       {/* ESG Heading */}
-      <h1 className="font-orbitron text-4xl md:text-5xl font-bold text-center mb-12 text-green-400 font-futuristic z-10 relative">
+      <h1 className="font-orbitron text-4xl md:text-5xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-[#00A86B] via-[#4B5563] to-[#00A86B] z-10 relative">
         Our ESG Commitments
       </h1>
 
@@ -102,17 +106,19 @@ const ESGsection = () => {
       </div>
 
       {/* Final Section */}
-      <div className="z-10 relative max-w-4xl mx-auto text-center bg-gray-900/30 p-6 rounded-2xl border border-green-400/10 backdrop-blur-sm">
-        <h2 className="font-orbitron text-3xl md:text-4xl text-green-300 font-bold mb-4 font-futuristic">
+      <div className="z-10 relative max-w-4xl mx-auto text-left bg-white bg-opacity-70 p-8 rounded-2xl border border-[#00A86B]/20 backdrop-blur-md shadow-xl shadow-[#00A86B]/30">
+        <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4 font-futuristic bg-gradient-to-r from-[#00A86B] via-gray-600 to-[#00A86B] text-transparent bg-clip-text">
           Pioneering Role in Green Finance
         </h2>
-        <p className=" text-lg md:text-xl text-text-secondary font-futuristic leading-relaxed">
-          We are proud to be the first platform to offer green tokenization of metals, setting a new standard for sustainable commodity investments. This groundbreaking step underscores our leadership in merging traditional assets with cutting-edge blockchain infrastructure for a cleaner, more transparent financial future.
+        <p className="text-lg md:text-xl text-[#333333] font-futuristic leading-relaxed text-justify">
+          We are proud to be the first platform to offer <span className="text-[#00A86B] font-medium">green tokenization</span> of metals, setting a new standard for sustainable commodity investments. This groundbreaking step underscores our leadership in merging traditional assets with <span className="text-[#00A86B] font-medium">cutting-edge blockchain infrastructure</span> for a cleaner, more transparent financial future.
         </p>
       </div>
+
     </section>
   );
 };
+
 
 export default ESGsection;
 

@@ -10,6 +10,7 @@ import {
   AccountBalance,
   ArrowRightAlt,
 } from "@mui/icons-material";
+import GoldSwirl from "./GoldSwirl";
 
 const GoldTokenization = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -49,7 +50,13 @@ const GoldTokenization = () => {
   return (
     <div className="bg-gray-900 text-white min-h-screen pt-20">
       {/* Header Section */}
+      <div className="relative">
+    {/* 🌀 GoldSwirl Background */}
+    <div className="fixed  inset-0 z-0 flex items-center justify-center pointer-events-none w-full h-full">
+      <GoldSwirl />
+    </div>
       <div className="container mx-auto py-20 px-4 md:px-12 pt-20 ">
+      
         <h1 className="font-orbitron text-4xl md:text-5xl font-bold mb-2">
           Gold Tokenization
         </h1>
@@ -69,6 +76,7 @@ const GoldTokenization = () => {
           </button>
         </div>
       </div>
+      
 
       {/* Revolutionize Gold Investment Section */}
       <div className="bg-gray-900 py-16">
@@ -388,6 +396,7 @@ const GoldTokenization = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

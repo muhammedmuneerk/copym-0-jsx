@@ -127,7 +127,7 @@ export default function Navbar() {
   };
 
   return (
-    <AppBar
+    <AppBar 
       position="fixed"
       color="transparent"
       elevation={0}
@@ -139,7 +139,7 @@ export default function Navbar() {
       }}
     >
       <Container maxWidth="xl">
-        <Box className="flex items-center justify-between py-4">
+        <Box className="flex items-center justify-between py-4 ">
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -164,7 +164,7 @@ export default function Navbar() {
           </motion.div>
 
           {/* Desktop Navigation - Now on the right */}
-          <Box className="hidden lg:flex items-center space-x-1 ml-auto">
+          <Box className="hidden lg:flex items-center space-x-1 ml-auto ">
             {navigationItems.map((item, index) => (
               <motion.div
                 key={item.label}

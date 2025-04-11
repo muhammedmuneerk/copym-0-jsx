@@ -246,7 +246,7 @@ export default function Metrics() {
               variant="h2"
               className="font-orbitron text-4xl md:text-5xl mb-4 text-center"
             >
-              Tokenization <span className="bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">at Scale</span>
+              Tokenization <span className="text-primary">at Scale</span>
             </Typography>
 
           </motion.div>

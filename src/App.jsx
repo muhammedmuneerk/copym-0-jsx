@@ -21,10 +21,12 @@ import SplashScreen from "./components/SplashScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import GreenTokenization from "./pages/GreenTokenization";
 import SpinningBlockchain from "./components/SpinningBlockchain";
+import GreenTokenizationPopup from "./components/GreenTokenizationPopup";
 function HomePage() {
   return (
     <>
       <Hero />
+      <GreenTokenizationPopup />
     <div style={{ position: 'relative' }}>
        <SpinningBlockchain />
       <Blockchains />

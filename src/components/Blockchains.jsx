@@ -101,7 +101,7 @@ export default function Blockchains() {
               viewport={{ once: true }}
               className="mb-6 md:mb-0"
             >
-              <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">
+              <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4 text-primary">
                 Unified Access to All Major Blockchains
               </Typography>
               <Typography
@@ -267,7 +267,7 @@ export default function Blockchains() {
       </Container>
 
       {/* Enhanced gradient highlight with pulse animation */}
-      {/* <Box
+      <Box
         className="absolute inset-0 pointer-events-none"
         sx={{
           background: "radial-gradient(circle at 50% 50%, rgba(0, 255, 133, 0.04) 0%, rgba(10, 11, 13, 0) 70%)",
@@ -277,7 +277,7 @@ export default function Blockchains() {
             "100%": { opacity: 1 }
           }
         }}
-      /> */}
+      />
     </Box>
   );
 }
