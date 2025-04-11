@@ -57,6 +57,9 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
       animation: `${borderAnimationUp} 2.5s linear infinite`,
       animationDelay: "2s",
     },
+    "& svg": {
+      stroke: "#00FF85", // Turn the icon green on card hover
+    },
   },
   "& .border-right, & .border-down, & .border-left, & .border-up": {
     position: "absolute",
@@ -93,43 +96,62 @@ const features = [
     title: "Cross-Chain Infrastructure",
     description:
       "Seamlessly bridge assets across all major blockchains through our unified interface.",
-      icon: (
-        <img
-          src="/assets/icons/cross-chain-infrastructure.png"
-          alt="Cross Chain"
-          className="w-8 h-8 object-contain filter grayscale  invert"
-          style={{ filter: "brightness(0) invert(1) sepia(1) hue-rotate(180deg)" }}
-        />)
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe text-gray-400">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+        <path d="M2 12h20"></path>
+      </svg>
+      // icon: (
+      //   <img
+      //     src="/assets/icons/cross-chain-infrastructure.png"
+      //     alt="Cross Chain"
+      //     className="w-8 h-8 object-contain filter grayscale  invert"
+      //     style={{ filter: "brightness(0) invert(1) sepia(1) hue-rotate(180deg)" }}
+      //   />)
   },
   {
     title: "Comprehensive Compliance",
     description:
       "Built-in KYC/AML, regulatory frameworks, and automated compliance across jurisdictions.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield text-gray-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shield text-gray-400">
+      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+    </svg>,
   },
   {
     title: "Fractional Ownership",
     description:
       "Divide assets into tradable fractions, democratizing access to previously exclusive investments.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers text-gray-400"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layers text-gray-400">
+      <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
+      <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
+      <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path>
+    </svg>,
   },
   {
     title: "Complete Wallet Ecosystem",
     description:
       "Support for custodial, non-custodial, MPC, and hardware wallet solutions.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-wallet text-gray-400"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>,
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-wallet text-gray-400">
+      <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path>
+      <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path>
+    </svg>,
   },
   {
     title: "End-to-End Marketplace",
     description:
       "Primary issuance, secondary trading, liquidity pools, and OTC services all in one place.",
-    icon: "🏛️",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blocks text-gray-400">
+      <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+      <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"></path>
+    </svg>,
   },
   {
     title: "Developer Toolkit",
     description:
       "APIs, SDKs, and no-code solutions to build on top of the Copym ecosystem.",
-    icon: "⚙️",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap text-gray-400">
+      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+    </svg>,
   },
 ];
 
@@ -150,9 +172,9 @@ export default function Features() {
           >
             ALL-IN-ONE PLATFORM
           </Typography>
-          <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4">
+          <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">
             Everything You Need In{" "}
-            <span className="text-primary">One Place</span>
+            <span className="bg-[linear-gradient(180deg,_rgba(19,255,0,1)_6%,_rgba(0,0,0,1)_14%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">One Place</span>
           </Typography>
           <Typography
             variant="body1"
@@ -181,7 +203,7 @@ export default function Features() {
                   <div className="border-up"></div>
                   
                   <Box
-                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl"
+                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl "
                     sx={{
                       background: "rgba(255, 255, 255, 0.1)",
                     }}
