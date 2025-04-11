@@ -116,10 +116,10 @@ export default function Blockchains() {
           </Grid>
 
           {/* Banner image section - only visible on desktop */}
-           <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' }, opacity: "0" }}> {/* didn't remove the image, jsut decreased the opacity */}
+           <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' }, opacity: "10" }}> {/* didn't remove the image, jsut decreased the opacity */}
             <Box sx={{ position: "relative", width: "100%" }}>
               <SectionImage
-                src="/assets/sections/blockchain-removebg-preview.png"
+                src="/assets/sections/Blockchain-Cryptocurrency-removebg.png"
                 alt="Blockchains Banner"
               />
             </Box>
