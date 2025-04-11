@@ -35,7 +35,7 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
   background: "rgba(18, 19, 26, 0.5)",
   backdropFilter: "blur(10px)",
   border: "1px solid rgba(255, 255, 255, 0.1)",
-  borderRadius: "0.5rem",
+  borderRadius: "1rem",
   padding: "1.5rem",
   height: "100%",
   transition: "transform 0.2s",
