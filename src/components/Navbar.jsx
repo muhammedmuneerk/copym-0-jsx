@@ -128,7 +128,7 @@ export default function Navbar() {
 
   return (
     <AppBar 
-      position="fixed"
+      position="absolute"
       color="transparent"
       elevation={0}
       sx={{

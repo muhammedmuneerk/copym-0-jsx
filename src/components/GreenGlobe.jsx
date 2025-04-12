@@ -1,4 +1,3 @@
-// components/GreenGlobe.jsx
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
@@ -28,8 +27,14 @@ const GreenGlobeMesh = ({ size }) => {
 
 const GreenGlobe = ({ size = 1 }) => {
   return (
-    <div style={{ width: "100%", height: `${350 * size}px` }}>
-      <Canvas camera={{ position: [0, 0, 3.5] }}>
+    <div
+      className="pointer-events-none w-full"
+      style={{ height: `${350 * size}px` }}
+    >
+      <Canvas
+        camera={{ position: [0, 0, 3.5] }}
+        className="pointer-events-none"
+      >
         <ambientLight intensity={0.3} />
         <GreenGlobeMesh size={size} />
         <OrbitControls enableZoom={false} enablePan={false} autoRotate />

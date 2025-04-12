@@ -83,7 +83,7 @@ const ESGBox = ({ title, points }) => {
 
 const ESGsection = () => {
   return (
-    <section className="relative pt-24 px-4 pb-20 bg-white bg-opacity-60 text-text-primary overflow-hidden backdrop-blur-md rounded-xl shadow-2xl shadow-gray-400/40 mx-4">
+    <section className="relative pt-24 px-4 pb-20 bg-white bg-opacity-30 text-text-primary  mx-4">
       {/* Minimal Grid Lines */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/4 left-0 w-full h-[6px] bg-green-500/10" />
@@ -106,7 +106,7 @@ const ESGsection = () => {
       </div>
 
       {/* Final Section */}
-      <div className="z-10 relative max-w-4xl mx-auto text-left bg-white bg-opacity-70 p-8 rounded-2xl border border-[#00A86B]/20 backdrop-blur-md shadow-xl shadow-[#00A86B]/30">
+      <div className="z-10 relative max-w-4xl mx-auto text-left bg-white bg-opacity-20 p-8 rounded-2xl border border-[#00A86B]/20  shadow-xl shadow-[#00A86B]/30">
         <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4 font-futuristic bg-gradient-to-r from-[#00A86B] via-gray-600 to-[#00A86B] text-transparent bg-clip-text">
           Pioneering Role in Green Finance
         </h2>

@@ -2,22 +2,21 @@ import React from "react";
 import ESGSection from "./ESGsection";
 import ESGFocusSection from "./ESGfocussection";
 import GreenGlobe from "../components/GreenGlobe"
+import BlockChain from "../components/BlockChainNetwork";
+
 
 const GreenTokenization = () => {
   return (
     <div className="relative min-h-screen bg-white text-[#333333] flex flex-col items-center justify-center overflow-hidden px-4 py-24 space-y-16">
       {/* Subtle Animated Lines (updated to work on white) */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Horizontal lines */}
-        <div className="animate-line-horizontal absolute top-[5%] left-1/4 w-[180px] sm:w-[260px] md:w-[320px] h-[4px] bg-[#00A86B]/30 rounded-full" />
-        <div className="animate-line-horizontal2 absolute top-[15%] right-1/3 w-[200px] sm:w-[280px] md:w-[380px] h-[4px] bg-[#00A86B]/25 rounded-full" />
-        <div className="animate-line-horizontal3 absolute top-[25%] left-1/5 w-[180px] sm:w-[240px] md:w-[340px] h-[4px] bg-[#00A86B]/20 rounded-full" />
-
-        {/* Vertical lines */}
-        <div className="animate-line-vertical-down absolute top-0 left-[10%] h-[200px] w-[4px] bg-[#00A86B]/25 rounded-full" />
-        <div className="animate-line-vertical-down2 absolute top-0 left-[30%] h-[200px] w-[4px] bg-[#00A86B]/20 rounded-full" />
-        <div className="animate-line-vertical-down3 absolute top-0 left-[50%] h-[180px] w-[4px] bg-[#00A86B]/15 rounded-full" />
+      <div className="fixed inset-0 z-0 flex pointer-events-none w-full h-full ">
+        <BlockChain
+          nodeColor="#00A86B"
+          nodeEmissive="#00A86B"
+          connectionColor="#00A86B"
+        />
       </div>
+
 
       {/* Hero Text Section */}
 
