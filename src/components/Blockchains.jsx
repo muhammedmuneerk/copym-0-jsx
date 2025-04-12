@@ -268,7 +268,7 @@ export default function Blockchains() {
       
       {/* Enhanced gradient highlight with pulse animation */}
       <Box
-        className="absolute inset-0 pointer-events-none"
+        className="absolute  pointer-events-none"
         sx={{
           background:
             "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",

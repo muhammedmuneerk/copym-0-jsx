@@ -278,7 +278,7 @@ export default function GlobalMarkets() {
         className="absolute inset-0 pointer-events-none"
         sx={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
+          "radial-gradient(circle at 50% 75%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
         }}
       />
     </Box>
