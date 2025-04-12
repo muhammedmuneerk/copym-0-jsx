@@ -7,37 +7,23 @@ import SectionImage from "./SectionImages";
 const blockchains = [
   {
     name: "Solana",
-    logo: (
-      <svg viewBox="0 0 397.7 311.7" className="w-full h-full">
-        <linearGradient id="solanaGradient" gradientUnits="userSpaceOnUse" x1="360.879" y1="351.455" x2="141.213" y2="-69.294" gradientTransform="matrix(1 0 0 -1 0 314)">
-          <stop offset="0" stopColor="#00FFA3"/>
-          <stop offset="1" stopColor="#DC1FFF"/>
-        </linearGradient>
-        <path fill="url(#solanaGradient)" d="M64.6,237.9c2.4-2.4,5.7-3.8,9.2-3.8h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5c-5.8,0-8.7-7-4.6-11.1L64.6,237.9z"/>
-        <path fill="url(#solanaGradient)" d="M64.6,3.8C67.1,1.4,70.4,0,73.8,0h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5c-5.8,0-8.7-7-4.6-11.1L64.6,3.8z"/>
-        <path fill="url(#solanaGradient)" d="M333.1,120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8,0-8.7,7-4.6,11.1l62.7,62.7c2.4,2.4,5.7,3.8,9.2,3.8h317.4c5.8,0,8.7-7,4.6-11.1L333.1,120.1z"/>
-      </svg>
-    ),
+    logo: <img src="/assets/blockchains-logos/solana-logo-white-removebg-preview.png" alt="Solana" className="w-full h-full object-contain" />,
   },
   {
     name: "Polygon",
-    logo: (
-      <svg viewBox="0 0 38.4 33.5" className="w-full h-full">
-        <path fill="#8247E5" d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3 c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7 c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7 c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1 L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7 c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"/>
-      </svg>
-    ),
+    logo: <img src="/assets/blockchains-logos/Polygon-removebg-preview.png" alt="Polygon" className="w-full h-full object-contain" />,
   },
   {
     name: "Binance",
-    logo: <img src="/assets/icons/binance-bgremoved.png" alt="Binance" className="w-full h-full object-contain" />,
+    logo: <img src="/assets/blockchains-logos/binance-removebg-preview.png" alt="Binance" className="w-full h-full object-contain" />,
   },
   {
     name: "Cardano",
-    logo: <img src="/assets/icons/cardano-removebg-circle.png" alt="Cardano" className="w-full h-full object-contain" />,
+    logo: <img src="/assets/blockchains-logos/Cardano-Logo.png" alt="Cardano" className="w-full h-full object-contain" />,
   },
   {
     name: "Optimism",
-    logo: <img src="/assets/icons/optimism-removebg.png" alt="Optimism" className="w-full h-full object-contain" />,
+    logo: <img src="/assets/blockchains-logos/Optimism-removebg-preview.png" alt="Optimism" className="w-full h-full object-contain" />,
   },
 ];
 
@@ -87,8 +73,15 @@ export default function Blockchains() {
     }
   }, [key, isMobile, isVisible]);
 
+  // Create a duplicate array for infinite scroll
+  // Triple the array to ensure smooth infinite animation
+  const duplicatedBlockchains = [...blockchains, ...blockchains, ...blockchains];
+
   return (
-    <Box id="blockchains-section" className="py-12 md:py-16 relative overflow-hidden" >
+    <Box
+      id="blockchains-section"
+      className="py-12 md:py-16 relative overflow-hidden"
+    >
       {/* Restructured section with the banner image placed next to the text on desktop */}
       <Container maxWidth="xl">
         <Grid container spacing={2} alignItems="center">
@@ -101,7 +94,10 @@ export default function Blockchains() {
               viewport={{ once: true }}
               className="mb-6 md:mb-0"
             >
-              <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">
+              <Typography
+                variant="h2"
+                className="font-orbitron text-4xl md:text-5xl mb-4 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
+              >
                 Unified Access to All Major Blockchains
               </Typography>
               <Typography
@@ -116,7 +112,14 @@ export default function Blockchains() {
           </Grid>
 
           {/* Banner image section - only visible on desktop */}
-           <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' }, opacity: "10" }}> {/* didn't remove the image, jsut decreased the opacity */}
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{ display: { xs: "none", md: "block" }, opacity: "10" }}
+          >
+            {" "}
+            {/* didn't remove the image, jsut decreased the opacity */}
             <Box sx={{ position: "relative", width: "100%" }}>
               <SectionImage
                 src="/assets/sections/Blockchain-Cryptocurrency-removebg.png"
@@ -136,139 +139,81 @@ export default function Blockchains() {
           </Box>
         )}
 
-        {isMobile ? (
-          // Mobile view remains unchanged
-          <Box sx={{ position: "relative", width: "100%", overflow: "hidden", mt: 2 }}>
-            <Box
-              sx={{
-                display: "flex",
-                width: "fit-content",
-                animation: "scrollLeft 20s linear infinite",
-                "@keyframes scrollLeft": {
-                  "0%": { transform: "translateX(0)" },
-                  "100%": { transform: "translateX(calc(-100% / 2))" }
-                },
-                "&:hover": { animationPlayState: "paused" },
-                "@media (hover: none)": {
-                  "&:active": { animationPlayState: "paused" }
-                }
-              }}
-            >
-              {[...blockchains, ...blockchains].map((blockchain, index) => (
-                <Box
-                  key={`${blockchain.name}-${index}`}
-                  sx={{
-                    width: "32.5vw",
-                    padding: 2,
-                    flexShrink: 0
-                  }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-center h-full flex flex-col items-center justify-center p-3"
-                  >
-                    <Box className="w-14 h-14 mb-3 rounded-full flex items-center justify-center" sx={{ background: "rgba(255, 255, 255, 0.07)" }}>
-                      <Box className="w-8 h-8">
-                        {blockchain.logo}
-                      </Box>
-                    </Box>
-                    <Typography variant="h6" className="text-sm font-medium text-white">
-                      {blockchain.name}
-                    </Typography>
-                  </motion.div>
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        ) : (
-          // Enhanced desktop view with reload animation
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={key}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="mt-8"
-            >
-              <Box 
-                sx={{ 
-                  display: "flex",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                  gap: { sm: 2, md: 4, lg: 6 }
+        {/* Infinite scroll for both mobile and desktop with decreased spacing */}
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            overflow: "hidden",
+            mt: 5,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              width: "fit-content",
+              animation: "scrollLeft 35s linear infinite", // Slower animation for smoother effect
+              "@keyframes scrollLeft": {
+                "0%": { transform: "translateX(0)" },
+                "100%": { transform: "translateX(calc(-100% / 3))" }, // Only move by 1/3 since we have 3x the items
+              },
+              "&:hover": { animationPlayState: "paused" },
+              "@media (hover: none)": {
+                "&:active": { animationPlayState: "paused" },
+              },
+            }}
+          >
+            {duplicatedBlockchains.map((blockchain, index) => (
+              <Box
+                key={`${blockchain.name}-${index}`}
+                sx={{
+                  width: isMobile ? "32.5vw" : "20vw", // Decreased width for desktop to reduce spacing
+                  padding: isMobile ? 2 : 1, // Reduce padding on desktop
+                  flexShrink: 0,
                 }}
               >
-                {shuffledBlockchains.map((blockchain, index) => (
-                  <motion.div
-                    key={`${blockchain.name}-${key}-${index}`}
-                    initial={{ opacity: 0, scale: 0.8, y: 15 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 260,
-                      damping: 20
-                    }}
-                    whileHover={{ 
-                      y: -8,
-                      transition: { duration: 0.2 }
-                    }}
-                    viewport={{ once: false }}
-                    className="flex flex-col items-center mb-2"
-                    sx={{ 
-                      minWidth: { sm: "80px", md: "90px" },
-                      textAlign: "center"
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }} // Reduced delay for smoother appearance
+                  viewport={{ once: true }}
+                  className="text-center h-full flex flex-col items-center justify-center p-2"
+                >
+                  {/* Made icons bigger, especially for those with text */}
+                  <Box
+                    className={isMobile ? "w-14 h-14 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      opacity: "0.5",
+                      transition: "opacity 0.3s ease",
+                      "&:hover": {
+                        opacity: 1,
+                      },
+                      // padding:".5rem"
+                      // Adjust sizes for specific blockchains with text logos
                     }}
                   >
-                    <Box 
-                      className="w-16 h-16 mb-3 flex items-center justify-center"
-                      sx={{ 
-                        background: "rgba(255, 255, 255, 0.05)",
-                        borderRadius: "50%",
-                        padding: "12px",
-                        boxShadow: "0 4px 12px rgba(0, 255, 133, 0.1)",
-                        opacity: 0.95,
-                        transition: "all 0.3s ease",
-                        "&:hover": { 
-                          transform: "scale(1.05)",
-                          boxShadow: "0 6px 16px rgba(0, 255, 133, 0.2)",
-                          background: "rgba(255, 255, 255, 0.08)"
-                        }
-                      }}
-                    >
-                      <Box className="w-10 h-10">
-                        {blockchain.logo}
-                      </Box>
-                    </Box>
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.95 }}
-                      transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
-                    >
-                      <Typography 
-                        variant="body1" 
-                        className="text-white font-medium"
-                        sx={{ opacity: 0.9 }}
-                      >
-                        {blockchain.name}
-                      </Typography>
-                    </motion.div>
-                  </motion.div>
-                ))}
+                    {blockchain.logo}
+                  </Box>
+                  {/* <Typography 
+                    variant="h6" 
+                    className={isMobile ? "text-sm font-medium text-white" : "text-base font-medium text-white"}
+                    sx={{ opacity: 0.9 }}
+                  >
+                    {blockchain.name}
+                  </Typography> */}
+                </motion.div>
               </Box>
-            </motion.div>
-          </AnimatePresence>
-        )}
+            ))}
+          </Box>
+        </Box>
       </Container>
-      
+
       {/* Enhanced gradient highlight with pulse animation */}
       <Box
-        className="absolute  pointer-events-none"
+        className="absolute pointer-events-none"
         sx={{
           background:
             "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
