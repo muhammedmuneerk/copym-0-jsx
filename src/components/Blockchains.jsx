@@ -96,7 +96,7 @@ export default function Blockchains() {
             >
               <Typography
                 variant="h2"
-                className="font-orbitron text-4xl md:text-5xl mb-4 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
+                className="font-orbitron text-4xl md:text-5xl mb-4 pb-1 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
               >
                 Unified Access to All Major Blockchains
               </Typography>
@@ -181,7 +181,7 @@ export default function Blockchains() {
                 >
                   {/* Made icons bigger, especially for those with text */}
                   <Box
-                    className={isMobile ? "w-14 h-14 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
+                    className={isMobile ? "w-20 h-20 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
                     sx={{
                       display: "flex",
                       justifyContent: "center",
