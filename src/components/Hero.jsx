@@ -27,17 +27,18 @@ export default function Hero() {
           >
             <Typography
               variant="h1"
-              className="font-orbitron text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
+              className="font-orbitron text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
             >
-              The Complete Ecosystem for{" "}
+              <Box component="span" className="ultra-smooth-gradient-text">
+                The Complete Ecosystem for{" "}
+              </Box>
               <Box component="span" className="block">
-                <Box
-                  component="span"
-                  className="bg-[linear-gradient(180deg,_rgba(19,255,0,1)_6%,_rgba(0,0,0,1)_14%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
-                >
+                <Box component="span" className="ultra-smooth-gradient-text">
                   Real World Asset
                 </Box>{" "}
-                Tokenization
+                <Box component="span" className="ultra-smooth-gradient-text">
+                  Tokenization
+                </Box>
               </Box>
             </Typography>
 
@@ -54,7 +55,7 @@ export default function Hero() {
               <Button
                 variant="text"
                 size="large"
-                className="bg-[linear-gradient(183deg,_rgba(19,225,0,1)_0%,_rgba(0,0,0,1)_0%,_rgba(6,75,0,1)_9%,_rgba(18,240,0,1)_62%,_rgba(0,0,0,1)_100%)] text-black font-semibold px-8 py-3 rounded-md shadow-md hover:shadow-[0_0_15px_rgba(16,224,96,0.5)]"
+                className="bg-[linear-gradient(183deg,_rgba(0,255,0,1)_0%,_rgba(0,198,0,1)_0%,_rgba(0,158,0,1)_100%,_rgba(0,0,0,1)_100%)]  text-black font-semibold px-8 py-3 rounded-md shadow-md hover:shadow-[0_0_15px_rgba(16,224,96,0.5)]"
               >
                 Explore Asset Tokenization
               </Button>
@@ -105,6 +106,105 @@ export default function Hero() {
         }}
       />
       </div>
+
+      {/* Add custom style for ultra-smooth gradient transitions */}
+      <style jsx global>{`
+        .ultra-smooth-gradient-text {
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          animation: ultraSmoothGradientFlow 18s cubic-bezier(0.645, 0.045, 0.355, 1.000) infinite;
+          background-size: 300% 100%;
+          perspective: 1000px;
+        }
+
+        @keyframes ultraSmoothGradientFlow {
+          0% {
+            background-image: linear-gradient(
+              120deg,
+              rgba(0,255,0,1) 0%,
+              rgba(0,198,0,1) 25%,
+              rgba(0,158,0,1) 50%,
+              rgba(0,198,0,1) 75%,
+              rgba(0,255,0,1) 100%
+            );
+            background-position: 0% 50%;
+          }
+          
+          16% {
+            background-image: linear-gradient(
+              120deg,
+              rgba(0,255,0,1) 0%,
+              rgba(0,198,0,1) 25%,
+              rgba(0,158,0,1) 50%,
+              rgba(0,198,0,1) 75%,
+              rgba(0,255,0,1) 100%
+            );
+            background-position: 100% 50%;
+          }
+          
+          33% {
+            background-image: linear-gradient(
+              120deg,
+              rgba(19,225,0,1) 0%,
+              rgba(6,75,0,1) 25%,
+              rgba(18,240,0,1) 50%,
+              rgba(6,75,0,1) 75%,
+              rgba(19,225,0,1) 100%
+            );
+            background-position: 0% 50%;
+          }
+          
+          49% {
+            background-image: linear-gradient(
+              120deg,
+              rgba(19,225,0,1) 0%,
+              rgba(6,75,0,1) 25%,
+              rgba(18,240,0,1) 50%,
+              rgba(6,75,0,1) 75%,
+              rgba(19,225,0,1) 100%
+            );
+            background-position: 100% 50%;
+          }
+          
+          66% {
+            background-image: linear-gradient(
+              120deg,
+              rgba(19,255,0,1) 0%,
+              rgba(0,150,0,1) 25%,
+              rgba(18,240,0,1) 50%,
+              rgba(0,150,0,1) 75%,
+              rgba(19,255,0,1) 100%
+            );
+            background-position: 0% 50%;
+          }
+          
+          83% {
+            background-image: linear-gradient(
+              120deg,
+              rgba(19,255,0,1) 0%,
+              rgba(0,150,0,1) 25%,
+              rgba(18,240,0,1) 50%,
+              rgba(0,150,0,1) 75%,
+              rgba(19,255,0,1) 100%
+            );
+            background-position: 100% 50%;
+          }
+          
+          100% {
+            background-image: linear-gradient(
+              120deg,
+              rgba(0,255,0,1) 0%,
+              rgba(0,198,0,1) 25%,
+              rgba(0,158,0,1) 50%,
+              rgba(0,198,0,1) 75%,
+              rgba(0,255,0,1) 100%
+            );
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
     </Box>
   );
 }
