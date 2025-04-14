@@ -1,6 +1,6 @@
 import React from "react";
-import ESGSection from "./ESGsection";
-import ESGFocusSection from "./ESGfocussection";
+import ESGSection from "../components/ESGsection";
+import ESGFocusSection from "../components/ESGfocussection";
 import GreenGlobe from "../components/GreenGlobe"
 import BlockChain from "../components/BlockChainNetwork";
 

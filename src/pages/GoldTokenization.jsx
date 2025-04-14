@@ -10,8 +10,8 @@ import {
   AccountBalance,
   ArrowRightAlt,
 } from "@mui/icons-material";
-import GoldSwirl from "./GoldSwirl";
-import BlockChain from "./BlockChainNetwork";
+import GoldSwirl from "../components/GoldSwirl";
+import BlockChain from "../components/BlockChainNetwork";
 
 const GoldTokenization = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
