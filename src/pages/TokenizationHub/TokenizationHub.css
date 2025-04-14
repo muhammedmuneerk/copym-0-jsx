@@ -13,32 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Cursor styles */
-body.custom-cursor-active {
-  cursor: none !important;
-}
-
-body.custom-cursor-active * {
-  cursor: none !important;
-}
-
-/* Interactive elements should show pointer cursor */
-body.custom-cursor-active a,
-body.custom-cursor-active button,
-body.custom-cursor-active input,
-body.custom-cursor-active select,
-body.custom-cursor-active textarea,
-body.custom-cursor-active [role="button"],
-body.custom-cursor-active [tabindex] {
-  cursor: pointer !important;
-}
-
-@media (max-width: 768px) {
-  body.custom-cursor-active,
-  body.custom-cursor-active * {
-    cursor: auto !important;
-  }
-}
+/* Custom cursor styles removed */
 
 /* Scrollbar styles */
 ::-webkit-scrollbar {

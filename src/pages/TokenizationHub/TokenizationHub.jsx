@@ -7,8 +7,8 @@ import {
   GlassMorphismCard, 
   MorphingButton, 
   GradientText, 
-  HorizontalScrollContainer, 
-  CustomCursor 
+  HorizontalScrollContainer
+  // CustomCursor removed from import
 } from "./UIComponents";
 import "./TokenizationHub.css";
 
@@ -604,8 +604,7 @@ export default function TokenizationHub() {
     
   return (
     <div className="tokenization-hub">
-      {/* Custom cursor - only shown on desktop */}
-      {window.innerWidth > 768 && <CustomCursor />}
+      {/* Custom cursor component removed */}
       
       {/* Background pattern */}
       <BackgroundPattern />
