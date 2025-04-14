@@ -1,8 +1,8 @@
 import React from "react";
-import ESGSection from "../components/ESGsection";
-import ESGFocusSection from "../components/ESGfocussection";
-import GreenGlobe from "../components/GreenGlobe"
-import BlockChain from "../components/BlockChainNetwork";
+import ESGSection from "../../components/ESGsection";
+import ESGFocusSection from "../../components/ESGfocussection";
+import GreenGlobe from "../../components/GreenGlobe"
+import BlockChain from "../../components/BlockChainNetwork";
 
 
 const GreenTokenization = () => {
