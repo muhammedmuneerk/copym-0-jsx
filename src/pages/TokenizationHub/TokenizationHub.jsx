@@ -1,131 +1,106 @@
-import { useState } from "react";
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Button,
-  Stepper,
-  Step,
-  StepLabel,
-  Card,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import CancelIcon from "@mui/icons-material/Cancel";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CheckIcon from "@mui/icons-material/Check";
-import BusinessIcon from "@mui/icons-material/Business";
-import PaletteIcon from "@mui/icons-material/Palette";
-import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
-import NatureIcon from "@mui/icons-material/Nature";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import DescriptionIcon from "@mui/icons-material/Description";
-import GavelIcon from "@mui/icons-material/Gavel";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
-import StorefrontIcon from "@mui/icons-material/Storefront";
-import SettingsIcon from "@mui/icons-material/Settings";
-import SecurityIcon from "@mui/icons-material/Security";
-import SpeedIcon from "@mui/icons-material/Speed";
-import GroupsIcon from "@mui/icons-material/Groups";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import PolicyIcon from "@mui/icons-material/Policy";
-import PaymentsIcon from "@mui/icons-material/Payments";
-import GroupWorkIcon from "@mui/icons-material/GroupWork";
-import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
-import AutoGraphIcon from "@mui/icons-material/AutoGraph";
-import SecurityUpdateIcon from "@mui/icons-material/SecurityUpdate";
-import FactCheckIcon from "@mui/icons-material/FactCheck";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import HandshakeIcon from "@mui/icons-material/Handshake";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
-import ShowChartIcon from "@mui/icons-material/ShowChart";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
-import RuleIcon from "@mui/icons-material/Rule";
-import IntegrationInstructionsIcon from "@mui/icons-material/IntegrationInstructions";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import TimelineIcon from "@mui/icons-material/Timeline";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import PieChartIcon from "@mui/icons-material/PieChart";
-import ForumIcon from "@mui/icons-material/Forum";
-import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-import StorageIcon from "@mui/icons-material/Storage";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import MonitorIcon from "@mui/icons-material/Monitor";
-import { alpha } from "@mui/material/styles";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TokenizationJourney from "./TokenizationJourney";
+import { 
+  GlassMorphismCard, 
+  MorphingButton, 
+  GradientText, 
+  HorizontalScrollContainer, 
+  CustomCursor 
+} from "./UIComponents";
+import "./TokenizationHub.css";
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
+// Asset categories data
 const assetCategories = [
   {
     title: "Real Estate",
-    description:
-      "Tokenize commercial and residential properties, REITs, and development projects",
+    description: "Tokenize commercial and residential properties, REITs, and development projects",
     marketSize: "280B+",
     keyBenefits: [
       "Fractional ownership of premium properties",
       "Enhanced liquidity for real estate assets",
       "Access to global real estate markets",
     ],
+    color: "#00ff85",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
   },
   {
     title: "Art & Collectibles",
-    description:
-      "Digital ownership of fine art, collections, and cultural assets",
+    description: "Digital ownership of fine art, collections, and cultural assets",
     marketSize: "65B+",
     keyBenefits: [
       "Fractional ownership of high-value art",
       "Digital provenance on the blockchain",
       "Access to exclusive art collections",
     ],
+    color: "#00e676",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 19l7-7 3 3-7 7-3-3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2 2l7.586 7.586" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M11 11a2 2 0 11-4 0 2 2 0 014 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
   },
   {
     title: "Commodities",
-    description:
-      "Tokenize physical commodities including precious metals and agriculture",
+    description: "Tokenize physical commodities including precious metals and agriculture",
     marketSize: "120B+",
     keyBenefits: [
       "Fractional ownership of commodity supplies",
       "Simplified trading and settlement",
       "Reduced custody costs",
     ],
+    color: "#00ff85",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 9l-7 4-7-4m14 0l-7-4-7 4m14 0v6l-7 4m-7-10v6l7 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
   },
   {
     title: "Carbon Credits",
-    description:
-      "Digital trading of carbon offset credits and environmental assets",
+    description: "Digital trading of carbon offset credits and environmental assets",
     marketSize: "45B+",
     keyBenefits: [
       "Transparent carbon offset certificates",
       "Streamlined carbon credit trading",
       "Enhanced environmental impact tracking",
     ],
+    color: "#00cc66",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 22l6-6M17 8l4-4M12 12l4-4M7 7l4-4M22 22l-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M22 16l-4 4M8 12l4 4M12 3c.661.087 3.76.792 4 3 .284 2.578-4 6-4 6s-4.284-3.422-4-6c.24-2.208 3.339-2.913 4-3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
   },
   {
     title: "Private Equity",
-    description:
-      "Tokenize private equity funds, venture capital, and business shares",
+    description: "Tokenize private equity funds, venture capital, and business shares",
     marketSize: "175B+",
     keyBenefits: [
       "Access to previously illiquid investments",
       "Reduced minimum investment thresholds",
       "Enhanced secondary market trading",
     ],
+    color: "#00e676",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
   },
   {
     title: "Other Asset Classes",
@@ -136,1043 +111,823 @@ const assetCategories = [
       "Custom tokenization frameworks",
       "Innovative asset structures",
     ],
+    color: "#00ff85",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
   },
 ];
 
-const tokenizationSteps = [
-  {
-    label: "Asset Registration",
-    description:
-      "Register your physical asset with comprehensive documentation and validation.",
-    features: [
-      "Ownership verification",
-      "Asset appraisal",
-      "Documentation upload",
-      "KYC/AML compliance",
-      "Jurisdictional framework selection",
-    ],
-  },
-  {
-    label: "Legal Structure",
-    description:
-      "Apply the appropriate legal framework based on your asset class and jurisdiction.",
-    features: [
-      "Automated legal templates",
-      "Compliance checks",
-      "Regulatory reporting setup",
-      "Investor qualification",
-      "Disclaimer and disclosure generation",
-    ],
-  },
-  {
-    label: "Smart Contract",
-    description:
-      "Deploy secure, audited smart contracts on your chosen blockchain.",
-    features: [
-      "Token standard selection",
-      "Configurable token parameters",
-      "Multi-chain deployment options",
-      "Automated contract verification",
-      "On-chain governance setup",
-    ],
-  },
-  {
-    label: "Token Distribution",
-    description: "Distribute tokens through public or private offerings.",
-    features: [
-      "Customizable offering structures",
-      "Investor onboarding portal",
-      "Payment processing",
-      "Vesting schedules",
-      "Distribution automation",
-    ],
-  },
-  {
-    label: "Market",
-    description: "Enable trading of your tokenized assets.",
-    features: [
-      "Built-in exchange mechanism",
-      "External exchange integration",
-      "Liquidity pool setup",
-      "OTC trading capabilities",
-      "Market data analytics",
-    ],
-  },
-  {
-    label: "Management",
-    description:
-      "Manage your tokenized asset with governance tools and reporting.",
-    features: [
-      "Dividend/distribution automation",
-      "Governance proposal system",
-      "Reporting dashboard",
-      "Investor communications",
-      "Compliance monitoring",
-    ],
-  },
-];
-
+// Comparison data
 const comparisonData = [
   {
     feature: "Multi-Chain Support",
-    copym: { value: "Yes", status: "success" },
-    competitorA: { value: "Limited", status: "warning" },
-    competitorB: { value: "No", status: "error" },
+    copym: { value: "Comprehensive", status: "success", detail: "Support for 20+ blockchain networks with cross-chain capabilities" },
+    competitorA: { value: "Limited", status: "warning", detail: "Only 3 major blockchains supported" },
+    competitorB: { value: "Single-chain", status: "error", detail: "Ethereum-only solution" },
   },
   {
     feature: "Compliance Framework",
-    copym: { value: "Extensive", status: "success" },
-    competitorA: { value: "Moderate", status: "warning" },
-    competitorB: { value: "Basic", status: "error" },
+    copym: { value: "Enterprise-grade", status: "success", detail: "Supports 40+ jurisdictions with automated compliance monitoring" },
+    competitorA: { value: "Moderate", status: "warning", detail: "Manual compliance checks for major markets" },
+    competitorB: { value: "Basic", status: "error", detail: "Limited to a single jurisdiction" },
   },
   {
     feature: "Asset Types",
-    copym: { value: "Multiple", status: "success" },
-    competitorA: { value: "Few", status: "warning" },
-    competitorB: { value: "Single", status: "error" },
+    copym: { value: "Unlimited", status: "success", detail: "Any asset class with configurable parameters" },
+    competitorA: { value: "Several", status: "warning", detail: "Limited to 4 predefined asset classes" },
+    competitorB: { value: "Single focus", status: "error", detail: "Specialized for real estate only" },
+  },
+  {
+    feature: "Token Standards",
+    copym: { value: "Multiple", status: "success", detail: "ERC-20, ERC-721, ERC-1155, and custom standards" },
+    competitorA: { value: "Basic", status: "warning", detail: "Only ERC-20 and ERC-721 support" },
+    competitorB: { value: "Proprietary", status: "error", detail: "Non-standard token implementation" },
+  },
+  {
+    feature: "Tokenization Speed",
+    copym: { value: "Rapid", status: "success", detail: "48-hour average deployment time" },
+    competitorA: { value: "Standard", status: "warning", detail: "2-week process" },
+    competitorB: { value: "Lengthy", status: "error", detail: "4+ week implementation" },
   },
 ];
 
-const getCategoryIcon = (title) => {
-  switch (title) {
-    case "Real Estate":
-      return <BusinessIcon fontSize="large" />;
-    case "Art & Collectibles":
-      return <PaletteIcon fontSize="large" />;
-    case "Commodities":
-      return <LocalGroceryStoreIcon fontSize="large" />;
-    case "Carbon Credits":
-      return <NatureIcon fontSize="large" />;
-    case "Private Equity":
-      return <TrendingUpIcon fontSize="large" />;
-    default:
-      return <MoreHorizIcon fontSize="large" />;
-  }
-};
+// Background patterns
+const BackgroundPattern = () => (
+  <svg 
+    style={{ 
+      position: "absolute", 
+      top: 0, 
+      left: 0, 
+      width: "100%", 
+      height: "100%", 
+      opacity: 0.15,
+      pointerEvents: "none"
+    }}
+    width="100%" 
+    height="100%" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <pattern 
+        id="smallGrid" 
+        width="20" 
+        height="20" 
+        patternUnits="userSpaceOnUse"
+      >
+        <path 
+          d="M 20 0 L 0 0 0 20" 
+          fill="none" 
+          stroke="rgba(0, 255, 133, 0.3)" 
+          strokeWidth="0.5"
+        />
+      </pattern>
+      <pattern 
+        id="grid" 
+        width="100" 
+        height="100" 
+        patternUnits="userSpaceOnUse"
+      >
+        <rect 
+          width="100" 
+          height="100" 
+          fill="url(#smallGrid)" 
+        />
+        <path 
+          d="M 100 0 L 0 0 0 100" 
+          fill="none" 
+          stroke="rgba(0, 255, 133, 0.5)" 
+          strokeWidth="1"
+        />
+      </pattern>
+    </defs>
+    <rect 
+      width="100%" 
+      height="100%" 
+      fill="url(#grid)" 
+    />
+  </svg>
+);
 
-const getStepIcon = (label) => {
-  switch (label) {
-    case "Asset Registration":
-      return <DescriptionIcon />;
-    case "Legal Structure":
-      return <GavelIcon />;
-    case "Smart Contract":
-      return <AccountTreeIcon />;
-    case "Token Distribution":
-      return <SwapHorizIcon />;
-    case "Market":
-      return <StorefrontIcon />;
-    case "Management":
-      return <SettingsIcon />;
-    default:
-      return null;
-  }
-};
-
-const getFeatureIcon = (feature) => {
-  const iconMap = {
-    // Asset Registration
-    "Ownership verification": <VerifiedUserIcon />,
-    "Asset appraisal": <AssessmentIcon />,
-    "Documentation upload": <DescriptionIcon />,
-    "KYC/AML compliance": <SecurityIcon />,
-    "Jurisdictional framework selection": <GavelIcon />,
-
-    // Legal Structure
-    "Automated legal templates": <ReceiptLongIcon />,
-    "Compliance checks": <RuleIcon />,
-    "Regulatory reporting setup": <AnalyticsIcon />,
-    "Investor qualification": <HowToRegIcon />,
-    "Disclaimer and disclosure generation": <DescriptionIcon />,
-
-    // Smart Contract
-    "Token standard selection": <IntegrationInstructionsIcon />,
-    "Configurable token parameters": <SettingsSuggestIcon />,
-    "Multi-chain deployment options": <AccountTreeIcon />,
-    "Automated contract verification": <FactCheckIcon />,
-    "On-chain governance setup": <SupervisorAccountIcon />,
-
-    // Token Distribution
-    "Customizable offering structures": <PieChartIcon />,
-    "Investor onboarding portal": <SupportAgentIcon />,
-    "Payment processing": <AccountBalanceWalletIcon />,
-    "Vesting schedules": <TimelineIcon />,
-    "Distribution automation": <CompareArrowsIcon />,
-
-    // Market
-    "Built-in exchange mechanism": <CompareArrowsIcon />,
-    "External exchange integration": <MonetizationOnIcon />,
-    "Liquidity pool setup": <StorageIcon />,
-    "OTC trading capabilities": <HandshakeIcon />,
-    "Market data analytics": <BarChartIcon />,
-
-    // Management
-    "Dividend/distribution automation": <MonetizationOnIcon />,
-    "Governance proposal system": <ManageAccountsIcon />,
-    "Reporting dashboard": <MonitorIcon />,
-    "Investor communications": <ForumIcon />,
-    "Compliance monitoring": <SecurityUpdateIcon />,
+/**
+ * ComparisonVisualization component
+ * Creates a visual comparison chart
+ */
+const ComparisonVisualization = ({ data }) => {
+  const features = data.map(item => item.feature);
+  const copymValues = data.map(item => {
+    switch (item.copym.status) {
+      case "success": return 100;
+      case "warning": return 60;
+      case "error": return 30;
+      default: return 50;
+    }
+  });
+  
+  const compAValues = data.map(item => {
+    switch (item.competitorA.status) {
+      case "success": return 100;
+      case "warning": return 60;
+      case "error": return 30;
+      default: return 50;
+    }
+  });
+  
+  const compBValues = data.map(item => {
+    switch (item.competitorB.status) {
+      case "success": return 100;
+      case "warning": return 60;
+      case "error": return 30;
+      default: return 50;
+    }
+  });
+  
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [selectedFeature, setSelectedFeature] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchTimeout, setTouchTimeout] = useState(null);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      if (touchTimeout) clearTimeout(touchTimeout);
+    };
+  }, [touchTimeout]);
+  
+  useEffect(() => {
+    // Start animation when component mounts
+    const timer = setTimeout(() => {
+      setIsAnimating(true);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
+  const handleFeatureInteraction = (index) => {
+    if (isMobile) {
+      // For mobile/tablet, toggle on touch
+      setSelectedFeature(selectedFeature === index ? null : index);
+    } else {
+      // For desktop, show on hover
+      setSelectedFeature(index);
+    }
   };
-
-  return iconMap[feature] || <CheckIcon />;
-};
-
-export default function TokenizationHub() {
-  const [activeStep, setActiveStep] = useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevStep) =>
-      Math.min(prevStep + 1, tokenizationSteps.length - 1)
-    );
+  
+  const handleFeatureLeave = () => {
+    if (!isMobile) {
+      setSelectedFeature(null);
+    }
   };
-
-  const handleBack = () => {
-    setActiveStep((prevStep) => Math.max(prevStep - 1, 0));
-  };
-
-  const handleStepClick = (index) => {
-    setActiveStep(index);
-  };
-
+  
   return (
-    <Box
-      className="min-h-screen bg-background"
-      sx={{
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(18,19,26,1) 100%)",
-        pt: 16,
-        pb: 8,
-        position: "relative",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "100%",
-          background:
-            "radial-gradient(circle at 50% 0%, rgba(0,255,133,0.15) 0%, rgba(0,0,0,0) 50%)",
-          pointerEvents: "none",
-        },
+    <div className="comparison-visualization" style={{ position: "relative", height: isMobile ? "600px" : "480px", width: "100%" }}>
+      <div className="comparison-legend" style={{ 
+        display: "flex", 
+        justifyContent: "center", 
+        marginBottom: "20px",
+        flexWrap: isMobile ? "wrap" : "nowrap",
+        gap: isMobile ? "12px" : "0"
+      }}>
+        <div style={{ display: "flex", alignItems: "center", marginRight: isMobile ? "0" : "20px" }}>
+          <div style={{ width: "12px", height: "12px", borderRadius: "3px", backgroundColor: "#00ff85", marginRight: "8px" }} />
+          <span style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "0.8rem" }}>CopyM</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", marginRight: isMobile ? "0" : "20px" }}>
+          <div style={{ width: "12px", height: "12px", borderRadius: "3px", backgroundColor: "#a2a9b0", marginRight: "8px" }} />
+          <span style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "0.8rem" }}>Competitor A</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ width: "12px", height: "12px", borderRadius: "3px", backgroundColor: "#6a6a6a", marginRight: "8px" }} />
+          <span style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "0.8rem" }}>Competitor B</span>
+        </div>
+      </div>
+      
+      <div className="chart-container" style={{ 
+        height: isMobile ? "400px" : "300px", 
+        display: "flex", 
+        alignItems: "flex-end", 
+        justifyContent: "space-around", 
+        padding: "0 20px",
+        overflowX: isMobile ? "auto" : "visible",
+        scrollSnapType: isMobile ? "x mandatory" : "none",
+        WebkitOverflowScrolling: "touch"
+      }}>
+        {features.map((feature, index) => (
+          <div 
+            key={feature}
+            className="feature-group"
+            style={{ 
+              display: "flex", 
+              flexDirection: "column", 
+              alignItems: "center", 
+              width: isMobile ? "200px" : `${100 / features.length}%`,
+              minWidth: isMobile ? "200px" : "auto",
+              scrollSnapAlign: isMobile ? "center" : "none",
+              padding: isMobile ? "0 10px" : "0",
+              cursor: isMobile ? "pointer" : "default"
+            }}
+            onMouseEnter={() => !isMobile && handleFeatureInteraction(index)}
+            onMouseLeave={handleFeatureLeave}
+            onClick={() => isMobile && handleFeatureInteraction(index)}
+            onTouchStart={(e) => {
+              e.preventDefault(); // Prevent double-tap zoom
+              if (isMobile) {
+                if (touchTimeout) clearTimeout(touchTimeout);
+                const timeout = setTimeout(() => {
+                  handleFeatureInteraction(index);
+                }, 100);
+                setTouchTimeout(timeout);
+              }
+            }}
+          >
+            <div style={{ display: "flex", height: "220px", alignItems: "flex-end", marginBottom: "16px" }}>
+              <motion.div
+                initial={{ height: 0 }}
+                animate={{ height: isAnimating ? `${copymValues[index] * 2}px` : 0 }}
+                transition={{ duration: 1, delay: index * 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+                style={{
+                  width: isMobile ? "16px" : "20px",
+                  backgroundColor: "#00ff85",
+                  marginRight: "8px",
+                  borderRadius: "4px 4px 0 0",
+                  boxShadow: selectedFeature === index ? "0 0 15px rgba(0, 255, 133, 0.7)" : "none",
+                  transition: "box-shadow 0.3s ease"
+                }}
+              />
+              <motion.div
+                initial={{ height: 0 }}
+                animate={{ height: isAnimating ? `${compAValues[index] * 2}px` : 0 }}
+                transition={{ duration: 1, delay: index * 0.2 + 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+                style={{
+                  width: isMobile ? "16px" : "20px",
+                  backgroundColor: "#a2a9b0",
+                  marginRight: "8px",
+                  borderRadius: "4px 4px 0 0",
+                  boxShadow: selectedFeature === index ? "0 0 15px rgba(162, 169, 176, 0.7)" : "none",
+                  transition: "box-shadow 0.3s ease"
+                }}
+              />
+              <motion.div
+                initial={{ height: 0 }}
+                animate={{ height: isAnimating ? `${compBValues[index] * 2}px` : 0 }}
+                transition={{ duration: 1, delay: index * 0.2 + 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+                style={{
+                  width: isMobile ? "16px" : "20px",
+                  backgroundColor: "#6a6a6a",
+                  borderRadius: "4px 4px 0 0",
+                  boxShadow: selectedFeature === index ? "0 0 15px rgba(106, 106, 106, 0.7)" : "none",
+                  transition: "box-shadow 0.3s ease"
+                }}
+              />
+            </div>
+            <div style={{ textAlign: "center", height: "40px" }}>
+              <p style={{ 
+                fontSize: isMobile ? "0.7rem" : "0.75rem", 
+                color: selectedFeature === index ? "#fff" : "rgba(255, 255, 255, 0.7)",
+                fontWeight: selectedFeature === index ? 600 : 400,
+                transition: "all 0.3s ease"
+              }}>
+                {feature}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <AnimatePresence>
+        {selectedFeature !== null && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.3 }}
+            className="feature-detail"
+            style={{
+              position: "absolute",
+              top: isMobile ? "450px" : "350px",
+              left: isMobile ? "10%" : "20%",
+              transform: "translateX(0)",
+              width: isMobile ? "80%" : "100%",
+              maxWidth: "600px",
+              padding: "16px",
+              borderRadius: "8px",
+              backgroundColor: "rgba(18, 19, 26, 0.9)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+              zIndex: 10,
+              pointerEvents: "auto"
+            }}
+          >
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, auto)",
+              columnGap: "20px",
+              rowGap: "10px",
+              marginBottom: "8px"
+            }}>
+              <span style={{ color: "#00ff85", fontWeight: 600 }}>
+                CopyM: {data[selectedFeature].copym.value}
+              </span>
+              <span style={{ color: "#a2a9b0" }}>
+                Competitor A: {data[selectedFeature].competitorA.value}
+              </span>
+              <span style={{ color: "#6a6a6a" }}>
+                Competitor B: {data[selectedFeature].competitorB.value}
+              </span>
+            </div>
+            <p style={{ 
+              color: "rgba(255, 255, 255, 0.8)", 
+              fontSize: isMobile ? "0.8rem" : "0.85rem", 
+              margin: 0,
+              lineHeight: "1.4"
+            }}>
+              {data[selectedFeature].copym.detail}
+            </p>
+            {isMobile && (
+              <button
+                onClick={() => setSelectedFeature(null)}
+                style={{
+                  position: "absolute",
+                  top: "8px",
+                  right: "8px",
+                  background: "none",
+                  border: "none",
+                  color: "rgba(255, 255, 255, 0.6)",
+                  fontSize: "1.2rem",
+                  cursor: "pointer",
+                  padding: "4px"
+                }}
+              >
+                ×
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+/**
+ * FloatingNavigation component
+ * Creates a floating navigation bar
+ */
+const FloatingNavigation = ({ sections, activeSection }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  if (isMobile) return null; // Hide on mobile
+  
+  return (
+    <motion.div
+      initial={{ y: 50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 1, duration: 0.5 }}
+      className="floating-navigation"
+      style={{
+        position: "fixed",
+        bottom: "32px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        display: "flex",
+        padding: "8px",
+        borderRadius: "16px",
+        backgroundColor: "rgba(18, 19, 26, 0.7)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        zIndex: 100
       }}
     >
-      <Container maxWidth="xl">
-        {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16 mt-8 relative"
+      {sections.map((section, index) => (
+        <motion.a
+          key={section.id}
+          href={`#${section.id}`}
+          whileHover={{ scale: 1.1 }}
+          className="nav-item"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "8px 16px",
+            borderRadius: "8px",
+            margin: "0 4px",
+            backgroundColor: activeSection === index ? "rgba(0, 255, 133, 0.2)" : "transparent",
+            transition: "background-color 0.3s ease",
+            textDecoration: "none"
+          }}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: -60,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: 80,
-              height: 80,
-              borderRadius: "50%",
-              backgroundColor: "rgba(0, 255, 133, 0.1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mb: 2,
-              "&::before": {
-                content: '""',
-                position: "absolute",
-                top: -10,
-                left: -10,
-                right: -10,
-                bottom: -10,
-                borderRadius: "50%",
-                border: "2px solid rgba(0, 255, 133, 0.1)",
-                animation: "pulse 2s infinite",
-              },
-            }}
-          >
-            <SecurityIcon sx={{ fontSize: 40, color: "#00ff85" }} />
-          </Box>
-          <Typography
-            variant="h1"
-            className="text-4xl md:text-6xl font-bold mb-6"
-            sx={{
-              color: "#00ff85",
-              fontFamily: "'Orbitron', sans-serif",
-              textShadow: "0 0 20px rgba(0, 255, 133, 0.5)",
-            }}
-          >
-            Complete Asset
-            <br />
-            Tokenization Hub
-          </Typography>
-          <Typography
-            variant="body1"
-            className="text-text-secondary max-w-3xl mx-auto text-lg"
-            sx={{ textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}
-          >
-            Transform any real-world asset into digital tokens with CopyM's
-            comprehensive tokenization platform.
-          </Typography>
-        </motion.div>
+          <span style={{
+            fontSize: "0.75rem",
+            fontWeight: activeSection === index ? 600 : 400,
+            color: activeSection === index ? "#00ff85" : "rgba(255, 255, 255, 0.7)",
+            transition: "color 0.3s ease",
+            fontFamily: "'Orbitron', sans-serif",
+          }}>
+            {section.title}
+          </span>
+        </motion.a>
+      ))}
+    </motion.div>
+  );
+};
 
-        {/* Asset Categories Section */}
-        <Box className="mb-32">
-          <Typography
-            variant="h2"
-            className="text-3xl md:text-5xl text-center mb-4"
-            sx={{ fontFamily: "'Orbitron', sans-serif" }}
-          >
-            Tokenize Any <span className="text-primary">Asset Class</span>
-          </Typography>
-          <Typography
-            variant="body1"
-            className="text-text-secondary text-center max-w-2xl mx-auto mb-16 text-lg"
-          >
-            Our unified platform supports the complete tokenization lifecycle
-            for all major asset classes
-          </Typography>
-
-          <Grid container spacing={4}>
-            {assetCategories.map((category, index) => (
-              <Grid item xs={12} sm={6} md={4} key={category.title}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{
-                    scale: 1.02,
-                    transition: { duration: 0.2 },
-                  }}
-                >
-                  <Card
-                    className="h-full relative overflow-hidden"
-                    sx={{
-                      backgroundColor: alpha("#12131A", 0.7),
-                      backdropFilter: "blur(10px)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
-                      p: 3,
-                      transition: "all 0.3s ease",
-                      "&:hover": {
-                        borderColor: "rgba(0, 255, 133, 0.3)",
-                        boxShadow: "0 0 30px rgba(0, 255, 133, 0.1)",
-                        "& .category-icon": {
-                          color: "#00ff85",
-                          transform: "scale(1.1)",
-                        },
-                      },
-                    }}
-                  >
-                    <Box
-                      className="category-icon"
-                      sx={{
-                        color: "rgba(255, 255, 255, 0.5)",
-                        mb: 2,
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      {getCategoryIcon(category.title)}
-                    </Box>
-                    <Typography
-                      variant="h6"
-                      className="mb-2"
-                      sx={{ fontFamily: "'Orbitron', sans-serif" }}
-                    >
-                      {category.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      className="text-text-secondary mb-4"
-                    >
-                      {category.description}
-                    </Typography>
-                    <Typography
-                      variant="h5"
-                      className="text-primary mb-4"
-                      sx={{
-                        fontFamily: "'Orbitron', sans-serif",
-                        textShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
-                      }}
-                    >
-                      ${category.marketSize}
-                    </Typography>
-                    <Box className="mb-4">
-                      <Typography variant="subtitle2" className="mb-2">
-                        Key Benefits:
-                      </Typography>
-                      <List dense>
-                        {category.keyBenefits.map((benefit, i) => (
-                          <ListItem key={i} className="px-0">
-                            <ListItemIcon sx={{ minWidth: 32 }}>
-                              <CheckIcon
-                                className="text-primary"
-                                fontSize="small"
-                                sx={{
-                                  filter:
-                                    "drop-shadow(0 0 5px rgba(0, 255, 133, 0.5))",
-                                }}
-                              />
-                            </ListItemIcon>
-                            <ListItemText
-                              primary={benefit}
-                              className="text-text-secondary"
-                            />
-                          </ListItem>
-                        ))}
-                      </List>
-                    </Box>
-                    <Box className="flex gap-2">
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        sx={{
-                          borderColor: "rgba(255, 255, 255, 0.1)",
-                          color: "text.secondary",
-                          "&:hover": {
-                            borderColor: "#00ff85",
-                            color: "#00ff85",
-                            backgroundColor: "rgba(0, 255, 133, 0.1)",
-                          },
-                        }}
-                      >
-                        View Example Assets
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        sx={{
-                          borderColor: "rgba(255, 255, 255, 0.1)",
-                          color: "text.secondary",
-                          "&:hover": {
-                            borderColor: "#00ff85",
-                            color: "#00ff85",
-                            backgroundColor: "rgba(0, 255, 133, 0.1)",
-                          },
-                        }}
-                      >
-                        Learn More
-                      </Button>
-                    </Box>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        {/* Tokenization Journey Section */}
-        <Box className="mb-32 relative">
-          <Box
-            sx={{
-              position: "absolute",
-              top: -100,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "100%",
-              height: "200%",
-              background:
-                "radial-gradient(circle at 50% 0%, rgba(0,255,133,0.1) 0%, rgba(0,0,0,0) 50%)",
-              pointerEvents: "none",
-            }}
-          />
-          <Typography
-            variant="h2"
-            className="text-3xl md:text-5xl text-center mb-4"
-            sx={{ fontFamily: "'Orbitron', sans-serif" }}
-          >
-            Complete Tokenization <span className="text-primary">Journey</span>
-          </Typography>
-          <Typography
-            variant="body1"
-            className="text-text-secondary text-center max-w-2xl mx-auto mb-16 text-lg"
-          >
-            CopyM guides you through every step of the tokenization process with
-            our comprehensive platform
-          </Typography>
-
-          <Box className="mb-8">
-            <Stepper
-              activeStep={activeStep}
-              alternativeLabel
-              sx={{
-                width: "100%",
-                "@media (max-width: 600px)": {
-                  width: "100%",
-                  overflowX: "auto",
-                  padding: "0 8px",
-                  "& .MuiStep-root": {
-                    minWidth: "80px", // Minimum width for each step on mobile
-                  },
-                },
-                "& .MuiStepLabel-label": {
-                  color: "text.secondary",
-                  fontFamily: "'Orbitron', sans-serif",
-                  fontSize: "0.9rem",
-                  marginTop: "8px",
-                  "&.Mui-active": {
-                    color: "#00ff85",
-                    textShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
-                  },
-                  "@media (max-width: 600px)": {
-                    fontSize: "0.7rem",
-                  },
-                },
-                "& .MuiStepConnector-line": {
-                  borderColor: "rgba(255, 255, 255, 0.1)",
-                },
-              }}
-            >
-              {tokenizationSteps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepLabel
-                    StepIconComponent={() => (
-                      <IconButton
-                        onClick={() => handleStepClick(index)}
-                        sx={{
-                          width: 48,
-                          height: 48,
-                          "@media (max-width: 600px)": {
-                            width: 36,
-                            height: 36,
-                          },
-                          borderRadius: "12px",
-                          backgroundColor:
-                            activeStep >= index
-                              ? "rgba(0, 255, 133, 0.1)"
-                              : "rgba(255, 255, 255, 0.1)",
-                          color:
-                            activeStep >= index
-                              ? "#00ff85"
-                              : "rgba(255, 255, 255, 0.5)",
-                          transition: "all 0.3s ease",
-                          "&:hover": {
-                            backgroundColor: "rgba(0, 255, 133, 0.2)",
-                            transform: "translateY(-2px)",
-                          },
-                          "&::before": {
-                            content: '""',
-                            position: "absolute",
-                            top: -2,
-                            left: -2,
-                            right: -2,
-                            bottom: -2,
-                            borderRadius: "14px",
-                            border: "1px solid",
-                            borderColor:
-                              activeStep >= index
-                                ? "rgba(0, 255, 133, 0.3)"
-                                : "transparent",
-                            transition: "all 0.3s ease",
-                          },
-                        }}
-                      >
-                        {getStepIcon(step.label)}
-                      </IconButton>
-                    )}
-                  >
-                    {step.label}
-                  </StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
-
+// Main TokenizationHub component
+export default function TokenizationHub() {
+  const [activeSection, setActiveSection] = useState(0);
+  
+  // Define sections for navigation
+  const sections = [
+    { id: "intro", title: "Intro" },
+    { id: "assets", title: "Asset Classes" },
+    { id: "journey", title: "Tokenization Journey" },
+    { id: "comparison", title: "Platform Comparison" },
+    { id: "cta", title: "Get Started" }
+  ];
+  
+  useEffect(() => {
+    // Initialize section observation
+    const sectionElements = sections.map(section => document.getElementById(section.id));
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const sectionIndex = sectionElements.findIndex(
+              element => element === entry.target
+            );
+            if (sectionIndex !== -1) {
+              setActiveSection(sectionIndex);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    
+    // Observe all section elements
+    sectionElements.forEach(element => {
+      if (element) {
+        observer.observe(element);
+      }
+    });
+    
+    return () => {
+      sectionElements.forEach(element => {
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, []);
+    
+  return (
+    <div className="tokenization-hub">
+      {/* Custom cursor - only shown on desktop */}
+      {window.innerWidth > 768 && <CustomCursor />}
+      
+      {/* Background pattern */}
+      <BackgroundPattern />
+      
+      {/* Background radial gradient */}
+      <div className="background-gradient" />
+      
+      {/* Background grain texture */}
+      <div className="background-grain" />
+      
+      {/* Main content */}
+      <div className="main-content">
+        {/* Header Section */}
+        <section id="intro" className="section intro-section">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            key={activeStep}
+            transition={{ duration: 1 }}
+            className="intro-content"
           >
-            <Card
-              sx={{
-                backgroundColor: alpha("#12131A", 0.7),
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                p: 4,
-                position: "relative",
-                overflow: "hidden",
-                maxWidth: "900px",
-                mx: "auto",
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 1,
-                  // background: 'linear-gradient(90deg, rgba(0,255,133,0) 0%, rgba(0,255,133,1) 50%, rgba(0,255,133,0) 100%)',
-                },
-              }}
-            >
-              <Box className="flex items-start gap-6">
-                <Box className="flex-1">
-                  <Box className="flex items-center gap-3 mb-6">
-                    <Box
-                      sx={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: "12px",
-                        backgroundColor: "rgba(0, 255, 133, 0.1)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "#00ff85",
-                        filter: "drop-shadow(0 0 10px rgba(0, 255, 133, 0.3))",
-                      }}
-                    >
-                      {getStepIcon(tokenizationSteps[activeStep].label)}
-                    </Box>
-                    <Box>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontFamily: "'Orbitron', sans-serif",
-                          color: "#00ff85",
-                          textShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
-                          mb: 0.5,
-                        }}
-                      >
-                        {tokenizationSteps[activeStep].label}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "rgba(255, 255, 255, 0.7)",
-                        }}
-                      >
-                        {tokenizationSteps[activeStep].description}
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr",
-                      gap: 2,
-                    }}
-                  >
-                    {tokenizationSteps[activeStep].features.map(
-                      (feature, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 }}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 2,
-                              p: 2,
-                              borderRadius: 1,
-                              backgroundColor: alpha("#12131A", 0.3),
-                              border: "1px solid rgba(255, 255, 255, 0.05)",
-                              transition: "all 0.3s ease",
-                              "&:hover": {
-                                backgroundColor: alpha("#12131A", 0.5),
-                                borderColor: "rgba(0, 255, 133, 0.2)",
-                                transform: "translateX(8px)",
-                                "& .feature-icon": {
-                                  color: "#00ff85",
-                                  transform: "scale(1.1)",
-                                },
-                              },
-                            }}
-                          >
-                            <Box
-                              className="feature-icon"
-                              sx={{
-                                color: "rgba(255, 255, 255, 0.7)",
-                                transition: "all 0.3s ease",
-                                display: "flex",
-                                alignItems: "center",
-                              }}
-                            >
-                              {getFeatureIcon(feature)}
-                            </Box>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                color: "rgba(255, 255, 255, 0.9)",
-                                fontWeight: 500,
-                              }}
-                            >
-                              {feature}
-                            </Typography>
-                          </Box>
-                        </motion.div>
-                      )
-                    )}
-                  </Box>
-                </Box>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <IconButton
-                    onClick={handleBack}
-                    disabled={activeStep === 0}
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      color:
-                        activeStep === 0
-                          ? "rgba(255, 255, 255, 0.2)"
-                          : "rgba(255, 255, 255, 0.7)",
-                      "&:hover": {
-                        backgroundColor: "rgba(0, 255, 133, 0.1)",
-                        color: "#00ff85",
-                      },
-                      "&.Mui-disabled": {
-                        backgroundColor: "rgba(255, 255, 255, 0.02)",
-                      },
-                    }}
-                  >
-                    <ArrowBackIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={handleNext}
-                    disabled={activeStep === tokenizationSteps.length - 1}
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      color:
-                        activeStep === tokenizationSteps.length - 1
-                          ? "rgba(255, 255, 255, 0.2)"
-                          : "rgba(255, 255, 255, 0.7)",
-                      "&:hover": {
-                        backgroundColor: "rgba(0, 255, 133, 0.1)",
-                        color: "#00ff85",
-                      },
-                      "&.Mui-disabled": {
-                        backgroundColor: "rgba(255, 255, 255, 0.02)",
-                      },
-                    }}
-                  >
-                    <ArrowForwardIcon />
-                  </IconButton>
-                </Box>
-              </Box>
-            </Card>
-          </motion.div>
-        </Box>
-
-        {/* Why Choose CopyM Section */}
-        <Box className="mb-32">
-          <Typography
-            variant="h2"
-            className="text-3xl md:text-5xl text-center mb-4"
-            sx={{ fontFamily: "'Orbitron', sans-serif" }}
-          >
-            Why Choose <span className="text-primary">CopyM</span>
-          </Typography>
-          <Typography
-            variant="body1"
-            className="text-text-secondary text-center max-w-2xl mx-auto mb-16 text-lg"
-          >
-            The most comprehensive asset tokenization platform in the market
-          </Typography>
-
-          <Card
-            sx={{
-              backgroundColor: alpha("#12131A", 0.7),
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              p: 4,
-              maxWidth: "md",
-              mx: "auto",
-              position: "relative",
-              overflow: "hidden",
-              "&::after": {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                right: 0,
-                width: "30%",
-                height: "100%",
-                background:
-                  "linear-gradient(45deg, rgba(0,255,133,0) 0%, rgba(0,255,133,0.1) 100%)",
-                pointerEvents: "none",
-              },
-            }}
-          >
-            <Box className="flex items-center gap-4 mb-4">
-              <SpeedIcon sx={{ fontSize: 40, color: "#00ff85" }} />
-              <Typography
-                variant="h6"
-                sx={{ fontFamily: "'Orbitron', sans-serif" }}
+            <div className="icon-container">
+              <motion.div
+                animate={{ 
+                  rotate: 360,
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
+                }}
               >
-                Complete All-in-One Solution
-              </Typography>
-            </Box>
-            <Typography variant="body1" className="text-text-secondary">
-              CopyM provides end-to-end tokenization infrastructure in one
-              platform, eliminating the need to piece together multiple
-              services.
-            </Typography>
-          </Card>
-        </Box>
-
-        {/* Comparison Table Section */}
-        <Box className="mb-32">
-          <Typography
-            variant="h2"
-            className="text-3xl md:text-5xl text-center mb-4"
-            sx={{ fontFamily: "'Orbitron', sans-serif" }}
-          >
-            How CopyM <span className="text-primary">Compares</span>
-          </Typography>
-          <Typography
-            variant="body1"
-            className="text-text-secondary text-center max-w-2xl mx-auto mb-16 text-lg"
-          >
-            See why leading organizations choose CopyM for their tokenization
-            needs
-          </Typography>
-
-          <Card
-            sx={{
-              backgroundColor: alpha("#12131A", 0.7),
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              maxWidth: "lg",
-              mx: "auto",
-              position: "relative",
-              overflow: "hidden",
-              "&::before": {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                background:
-                  "radial-gradient(circle at top right, rgba(0,255,133,0.1) 0%, rgba(0,0,0,0) 70%)",
-                pointerEvents: "none",
-              },
-            }}
-          >
-            <Box className="p-4">
-              <Grid container className="border-b border-gray-700 pb-2 mb-4">
-                <Grid item xs={3}>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{ fontFamily: "'Orbitron', sans-serif" }}
-                  >
-                    Features
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Typography
-                    variant="subtitle2"
-                    className="text-primary"
-                    sx={{ fontFamily: "'Orbitron', sans-serif" }}
-                  >
-                    CopyM
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{ fontFamily: "'Orbitron', sans-serif" }}
-                  >
-                    Competitor A
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{ fontFamily: "'Orbitron', sans-serif" }}
-                  >
-                    Competitor B
-                  </Typography>
-                </Grid>
-              </Grid>
-              {comparisonData.map((row) => (
-                <Grid container key={row.feature} className="py-2">
-                  <Grid item xs={3}>
-                    <Typography variant="body2">{row.feature}</Typography>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Box className="flex items-center gap-2">
-                      <CheckCircleOutlineIcon
-                        className="text-primary"
-                        sx={{
-                          filter: "drop-shadow(0 0 5px rgba(0, 255, 133, 0.5))",
-                        }}
-                      />
-                      <Typography variant="body2">{row.copym.value}</Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Box className="flex items-center gap-2">
-                      <WarningAmberIcon color="warning" />
-                      <Typography variant="body2">
-                        {row.competitorA.value}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Box className="flex items-center gap-2">
-                      <CancelIcon color="error" />
-                      <Typography variant="body2">
-                        {row.competitorB.value}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                </Grid>
-              ))}
-            </Box>
-          </Card>
-        </Box>
-
-        {/* CTA Section */}
-        <Box className="text-center relative">
-          <Box
-            sx={{
-              position: "absolute",
-              top: -100,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "100%",
-              height: "200%",
-              background:
-                "radial-gradient(circle at 50% 0%, rgba(0,255,133,0.1) 0%, rgba(0,0,0,0) 50%)",
-              pointerEvents: "none",
-            }}
-          />
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </motion.div>
+              <motion.div
+                className="icon-ring"
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.1, 0.3]
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+              />
+            </div>
+            
+            <h1 className="main-title">
+              Complete Asset
+              <br />
+              Tokenization Hub
+            </h1>
+            
+            <p className="main-description">
+              Transform any real-world asset into digital tokens with CopyM's 
+              comprehensive tokenization platform.
+            </p>
+            
+            <div className="button-group">
+              <MorphingButton primary>
+                Explore Platform
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </MorphingButton>
+              
+              <MorphingButton>
+                Watch Demo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </MorphingButton>
+            </div>
+          </motion.div>
+          
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="scroll-indicator"
+          >
+            <p>Scroll to explore</p>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="rgba(255, 255, 255, 0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </motion.div>
+          </motion.div>
+        </section>
+        
+        {/* Asset Categories Section */}
+        <section id="assets" className="section assets-section">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="section-header"
           >
-            <Box
-              sx={{
-                width: 80,
-                height: 80,
-                borderRadius: "50%",
-                backgroundColor: "rgba(0, 255, 133, 0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "0 auto",
-                mb: 4,
-                position: "relative",
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: -10,
-                  left: -10,
-                  right: -10,
-                  bottom: -10,
-                  borderRadius: "50%",
-                  border: "2px solid rgba(0, 255, 133, 0.1)",
-                  animation: "pulse 2s infinite",
-                },
-              }}
+            <h2 className="section-title">
+              Tokenize Any <GradientText>Asset Class</GradientText>
+            </h2>
+            
+            <p className="section-description">
+              Our unified platform supports the complete tokenization lifecycle
+              for all major asset classes
+            </p>
+          </motion.div>
+          
+          <div className="horizontal-scroll-wrapper">
+            <HorizontalScrollContainer>
+              {assetCategories.map((category, index) => (
+                <motion.div
+                  key={category.title}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  className="asset-card-container"
+                >
+                  <GlassMorphismCard className="h-full" color={`rgba(0, 255, 133, ${index % 2 === 0 ? '0.1' : '0.05'})`}>
+                    <div className="asset-card-content">
+                      <motion.div 
+                        className="asset-icon"
+                        animate={{ 
+                          rotate: 360,
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                          scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
+                        }}
+                      >
+                        {category.icon}
+                      </motion.div>
+                      
+                      <div className="asset-details">
+                        <h3 className="asset-title">
+                          {category.title}
+                        </h3>
+                        
+                        <p className="asset-description">
+                          {category.description}
+                        </p>
+                        
+                        <div className="market-size">
+                          <h4 className="market-value">
+                            ${category.marketSize}
+                          </h4>
+                          <span className="market-label">
+                            Market Size
+                          </span>
+                        </div>
+                        
+                        <h5 className="benefits-title">
+                          Key Benefits:
+                        </h5>
+                        
+                        <ul className="benefits-list">
+                          {category.keyBenefits.map((benefit, i) => (
+                            <motion.li 
+                              key={i}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.2 + (i * 0.1) }}
+                              viewport={{ once: true }}
+                              className="benefit-item"
+                            >
+                              <span className="benefit-icon" style={{ color: category.color }}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                              </span>
+                              {benefit}
+                            </motion.li>
+                          ))}
+                        </ul>
+                        
+                        <div className="asset-actions">
+                          <MorphingButton>
+                            View Examples
+                          </MorphingButton>
+                          <MorphingButton>
+                            Learn More
+                          </MorphingButton>
+                        </div>
+                      </div>
+                    </div>
+                  </GlassMorphismCard>
+                </motion.div>
+              ))}
+            </HorizontalScrollContainer>
+          </div>
+        </section>
+        
+        {/* Tokenization Journey Section */}
+        <TokenizationJourney id="journey" />
+        
+        {/* Comparison Section */}
+        <section id="comparison" className="section comparison-section">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="section-header"
+          >
+            <h2 className="section-title">
+              How CopyM <GradientText>Compares</GradientText>
+            </h2>
+            
+            <p className="section-description">
+              See why leading organizations choose CopyM for their tokenization needs
+            </p>
+          </motion.div>
+          
+          <div className="comparison-container">
+            <GlassMorphismCard>
+              <ComparisonVisualization data={comparisonData} />
+            </GlassMorphismCard>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="comparison-feature"
             >
-              <GroupsIcon sx={{ fontSize: 40, color: "#00ff85" }} />
-            </Box>
-            <Typography
-              variant="h2"
-              className="text-3xl md:text-5xl mb-4"
-              sx={{ fontFamily: "'Orbitron', sans-serif" }}
-            >
-              Ready to{" "}
-              <span className="text-primary">Tokenize Your Assets?</span>
-            </Typography>
-            <Typography
-              variant="body1"
-              className="text-text-secondary max-w-2xl mx-auto mb-8 text-lg"
-            >
+              <GlassMorphismCard color="rgba(0, 255, 133, 0.1)">
+                <div className="feature-content">
+                  <div className="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  
+                  <div className="feature-details">
+                    <h3 className="feature-title">
+                      Complete All-in-One Solution
+                    </h3>
+                    
+                    <p className="feature-description">
+                      CopyM provides end-to-end tokenization infrastructure in one platform, eliminating 
+                      the need to piece together multiple services. From legal structure to token 
+                      distribution and management, all aspects of tokenization are covered.
+                    </p>
+                  </div>
+                </div>
+              </GlassMorphismCard>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* CTA Section */}
+        <section id="cta" className="section cta-section">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="cta-content"
+          >
+            <div className="icon-container">
+              <motion.div
+                animate={{ 
+                  rotate: 360,
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
+                }}
+              >
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </motion.div>
+              <motion.div
+                className="icon-ring"
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.1, 0.3]
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+              />
+            </div>
+            
+            <h2 className="section-title">
+              Ready to <GradientText>Tokenize Your Assets?</GradientText>
+            </h2>
+            
+            <p className="section-description">
               Join thousands of businesses and investors already transforming
               their assets on the CopyM platform.
-            </Typography>
-            <Button
-              variant="contained"
-              size="large"
-              sx={{
-                backgroundColor: "#00ff85",
-                color: "background.default",
-                padding: "12px 32px",
-                fontSize: "1.1rem",
-                fontFamily: "'Orbitron', sans-serif",
-                position: "relative",
-                overflow: "hidden",
-                "&:hover": {
-                  backgroundColor: "#00cc6a",
-                },
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background:
-                    "linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%)",
-                  transform: "translateX(-100%)",
-                  transition: "transform 0.6s",
-                },
-                "&:hover::before": {
-                  transform: "translateX(100%)",
-                },
-              }}
-            >
-              Contact Our Team
-            </Button>
+            </p>
+            
+            <div style={{ marginTop: "32px" }}>
+              <MorphingButton primary>
+                Contact Our Team
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </MorphingButton>
+            </div>
           </motion.div>
-        </Box>
-
-        {/* Background Elements */}
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            pointerEvents: "none",
-            zIndex: -1,
-            opacity: 0.5,
-            background: `
-              radial-gradient(circle at 20% 20%, rgba(0,255,133,0.05) 0%, rgba(0,0,0,0) 20%),
-              radial-gradient(circle at 80% 80%, rgba(0,255,133,0.05) 0%, rgba(0,0,0,0) 20%),
-              radial-gradient(circle at 50% 50%, rgba(0,255,133,0.05) 0%, rgba(0,0,0,0) 30%)
-            `,
-          }}
-        />
-      </Container>
-
-      <style jsx global>{`
-        @keyframes pulse {
-          0% {
-            transform: scale(1);
-            opacity: 1;
-          }
-          50% {
-            transform: scale(1.1);
-            opacity: 0.5;
-          }
-          100% {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-      `}</style>
-    </Box>
+        </section>
+        
+        {/* Floating Navigation */}
+        <FloatingNavigation sections={sections} activeSection={activeSection} />
+      </div>
+    </div>
   );
 }
