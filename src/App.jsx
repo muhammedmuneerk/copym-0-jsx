@@ -8,6 +8,7 @@ import Blockchains from "./components/Blockchains";
 import GlobalMarkets from "./components/GlobalMarkets";
 import Metrics from "./components/Metrics";
 import Footer from "./components/Footer";
+import CTA from "./components/CTA";
 import Marketplace from "./pages/Marketplace";
 import TokenizationHub from "./pages/TokenizationHub";
 import GoldTokenization from "./pages/GoldTokenization";
@@ -22,20 +23,20 @@ import ScrollToTop from "./components/ScrollToTop";
 import GreenTokenization from "./pages/GreenTokenization";
 import SpinningBlockchain from "./components/SpinningBlockchain";
 import GreenTokenizationPopup from "./components/GreenTokenizationPopup";
+
 function HomePage() {
   return (
     <>
       <Hero />
       <GreenTokenizationPopup />
-    <div style={{ position: 'relative' }}>
-       <SpinningBlockchain />
-      <Blockchains />
-      <Features />
-      <GlobalMarkets />
-      <Metrics />
-  
-</div>
-    
+      <div style={{ position: 'relative' }}>
+        <SpinningBlockchain />
+        <Blockchains />
+        <Features />
+        <GlobalMarkets />
+        <Metrics />
+        <CTA />
+      </div>
     </>
   );
 }
