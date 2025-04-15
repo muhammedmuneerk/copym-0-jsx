@@ -184,23 +184,25 @@ body {
 }
 
 /* Assets section */
+/* Update horizontal scroll styles */
 .horizontal-scroll-wrapper {
+  width: 100%;
   overflow: hidden;
+  padding: 0 5%;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
 .asset-card-container {
   flex: 0 0 auto;
   width: 320px;
   height: 520px;
-  margin: 0 16px;
+  margin: 0 12px;
   scroll-snap-align: center;
-}
-
-.asset-card-content {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  transform: translateZ(0); /* Enable hardware acceleration */
+  will-change: transform; /* Hint for browser optimization */
 }
 
 .asset-icon {
@@ -214,6 +216,32 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--color, #00ff85);
+  transition: transform 0.3s ease;
+}
+
+/* Add indicator to show there's more to scroll */
+.horizontal-scroll-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  background: linear-gradient(to right, rgba(18, 19, 26, 0), rgba(18, 19, 26, 0.8));
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .horizontal-scroll-wrapper {
+    padding: 0 16px;
+  }
+  
+  .asset-card-container {
+    width: 280px;
+    height: 520px;
+  }
 }
 
 .asset-details {

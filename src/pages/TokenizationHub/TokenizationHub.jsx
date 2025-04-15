@@ -605,16 +605,16 @@ export default function TokenizationHub() {
   return (
     <div className="tokenization-hub">
       {/* Custom cursor component removed */}
-      
+
       {/* Background pattern */}
       <BackgroundPattern />
-      
+
       {/* Background radial gradient */}
       <div className="background-gradient" />
-      
+
       {/* Background grain texture */}
       <div className="background-grain" />
-      
+
       {/* Main content */}
       <div className="main-content">
         {/* Header Section */}
@@ -627,62 +627,103 @@ export default function TokenizationHub() {
           >
             <div className="icon-container">
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: 360,
-                  scale: [1, 1.1, 1]
+                  scale: [1, 1.1, 1],
                 }}
-                transition={{ 
+                transition={{
                   rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
+                  scale: {
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut",
+                  },
                 }}
               >
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </motion.div>
               <motion.div
                 className="icon-ring"
-                animate={{ 
+                animate={{
                   scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.1, 0.3]
+                  opacity: [0.3, 0.1, 0.3],
                 }}
-                transition={{ 
+                transition={{
                   duration: 3,
                   repeat: Infinity,
                   repeatType: "reverse",
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               />
             </div>
-            
+
             <h1 className="main-title">
               Complete Asset
               <br />
               Tokenization Hub
             </h1>
-            
+
             <p className="main-description">
-              Transform any real-world asset into digital tokens with CopyM's 
+              Transform any real-world asset into digital tokens with CopyM's
               comprehensive tokenization platform.
             </p>
-            
+
             <div className="button-group">
               <MorphingButton primary>
                 Explore Platform
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12H19M19 12L12 5M19 12L12 19"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </MorphingButton>
-              
+
               <MorphingButton>
                 Watch Demo
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 3L19 12L5 21V3Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </MorphingButton>
             </div>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -692,15 +733,31 @@ export default function TokenizationHub() {
             <p>Scroll to explore</p>
             <motion.div
               animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="rgba(255, 255, 255, 0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 5V19M12 19L5 12M12 19L19 12"
+                  stroke="rgba(255, 255, 255, 0.6)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </motion.div>
           </motion.div>
         </section>
-        
+
         {/* Asset Categories Section */}
         <section id="assets" className="section assets-section">
           <motion.div
@@ -713,102 +770,86 @@ export default function TokenizationHub() {
             <h2 className="section-title">
               Tokenize Any <GradientText>Asset Class</GradientText>
             </h2>
-            
+
             <p className="section-description">
               Our unified platform supports the complete tokenization lifecycle
               for all major asset classes
             </p>
           </motion.div>
-          
+
           <div className="horizontal-scroll-wrapper">
             <HorizontalScrollContainer>
               {assetCategories.map((category, index) => (
-                <motion.div
-                  key={category.title}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="asset-card-container"
-                >
-                  <GlassMorphismCard className="h-full" color={`rgba(0, 255, 133, ${index % 2 === 0 ? '0.1' : '0.05'})`}>
+                <div key={category.title} className="asset-card-container">
+                  <GlassMorphismCard
+                    className="h-full"
+                    color={`rgba(0, 255, 133, ${
+                      index % 2 === 0 ? "0.1" : "0.05"
+                    })`}
+                  >
                     <div className="asset-card-content">
-                      <motion.div 
-                        className="asset-icon"
-                        animate={{ 
-                          rotate: 360,
-                          scale: [1, 1.1, 1]
-                        }}
-                        transition={{ 
-                          rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                          scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
-                        }}
-                      >
-                        {category.icon}
-                      </motion.div>
-                      
+                      <div className="asset-icon">{category.icon}</div>
+
                       <div className="asset-details">
-                        <h3 className="asset-title">
-                          {category.title}
-                        </h3>
-                        
+                        <h3 className="asset-title">{category.title}</h3>
+
                         <p className="asset-description">
                           {category.description}
                         </p>
-                        
+
                         <div className="market-size">
                           <h4 className="market-value">
                             ${category.marketSize}
                           </h4>
-                          <span className="market-label">
-                            Market Size
-                          </span>
+                          <span className="market-label">Market Size</span>
                         </div>
-                        
-                        <h5 className="benefits-title">
-                          Key Benefits:
-                        </h5>
-                        
+
+                        <h5 className="benefits-title">Key Benefits:</h5>
+
                         <ul className="benefits-list">
                           {category.keyBenefits.map((benefit, i) => (
-                            <motion.li 
-                              key={i}
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.2 + (i * 0.1) }}
-                              viewport={{ once: true }}
-                              className="benefit-item"
-                            >
-                              <span className="benefit-icon" style={{ color: category.color }}>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <li key={i} className="benefit-item">
+                              <span
+                                className="benefit-icon"
+                                style={{ color: category.color }}
+                              >
+                                <svg
+                                  width="14"
+                                  height="14"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M20 6L9 17L4 12"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
                                 </svg>
                               </span>
                               {benefit}
-                            </motion.li>
+                            </li>
                           ))}
                         </ul>
-                        
+
                         <div className="asset-actions">
-                          <MorphingButton>
-                            View Examples
-                          </MorphingButton>
-                          <MorphingButton>
-                            Learn More
-                          </MorphingButton>
+                          <MorphingButton>View Examples</MorphingButton>
+                          <MorphingButton>Learn More</MorphingButton>
                         </div>
                       </div>
                     </div>
                   </GlassMorphismCard>
-                </motion.div>
+                </div>
               ))}
             </HorizontalScrollContainer>
           </div>
         </section>
-        
+
         {/* Tokenization Journey Section */}
         <TokenizationJourney id="journey" />
-        
+
         {/* Comparison Section */}
         <section id="comparison" className="section comparison-section">
           <motion.div
@@ -821,17 +862,18 @@ export default function TokenizationHub() {
             <h2 className="section-title">
               How CopyM <GradientText>Compares</GradientText>
             </h2>
-            
+
             <p className="section-description">
-              See why leading organizations choose CopyM for their tokenization needs
+              See why leading organizations choose CopyM for their tokenization
+              needs
             </p>
           </motion.div>
-          
+
           <div className="comparison-container">
             <GlassMorphismCard>
               <ComparisonVisualization data={comparisonData} />
             </GlassMorphismCard>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -842,20 +884,34 @@ export default function TokenizationHub() {
               <GlassMorphismCard color="rgba(0, 255, 133, 0.1)">
                 <div className="feature-content">
                   <div className="feature-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
-                  
+
                   <div className="feature-details">
                     <h3 className="feature-title">
                       Complete All-in-One Solution
                     </h3>
-                    
+
                     <p className="feature-description">
-                      CopyM provides end-to-end tokenization infrastructure in one platform, eliminating 
-                      the need to piece together multiple services. From legal structure to token 
-                      distribution and management, all aspects of tokenization are covered.
+                      CopyM provides end-to-end tokenization infrastructure in
+                      one platform, eliminating the need to piece together
+                      multiple services. From legal structure to token
+                      distribution and management, all aspects of tokenization
+                      are covered.
                     </p>
                   </div>
                 </div>
@@ -863,7 +919,7 @@ export default function TokenizationHub() {
             </motion.div>
           </div>
         </section>
-        
+
         {/* CTA Section */}
         <section id="cta" className="section cta-section">
           <motion.div
@@ -875,55 +931,90 @@ export default function TokenizationHub() {
           >
             <div className="icon-container">
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: 360,
-                  scale: [1, 1.1, 1]
+                  scale: [1, 1.1, 1],
                 }}
-                transition={{ 
+                transition={{
                   rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
+                  scale: {
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut",
+                  },
                 }}
               >
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </motion.div>
               <motion.div
                 className="icon-ring"
-                animate={{ 
+                animate={{
                   scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.1, 0.3]
+                  opacity: [0.3, 0.1, 0.3],
                 }}
-                transition={{ 
+                transition={{
                   duration: 3,
                   repeat: Infinity,
                   repeatType: "reverse",
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               />
             </div>
-            
+
             <h2 className="section-title">
               Ready to <GradientText>Tokenize Your Assets?</GradientText>
             </h2>
-            
+
             <p className="section-description">
               Join thousands of businesses and investors already transforming
               their assets on the CopyM platform.
             </p>
-            
+
             <div style={{ marginTop: "32px" }}>
               <MorphingButton primary>
                 Contact Our Team
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12H19M19 12L12 5M19 12L12 19"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </MorphingButton>
             </div>
           </motion.div>
         </section>
-        
+
         {/* Floating Navigation */}
         <FloatingNavigation sections={sections} activeSection={activeSection} />
       </div>
