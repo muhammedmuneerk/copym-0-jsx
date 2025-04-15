@@ -732,14 +732,14 @@ export default function TokenizationHub() {
                   <div className="asset-card-content">
                     <motion.div 
                       className="asset-icon"
-                      animate={{ 
-                        rotate: 360,
-                        scale: [1, 1.1, 1]
-                      }}
-                      transition={{ 
-                        rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                        scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
-                      }}
+                      // animate={{ 
+                      //   rotate: 360,
+                      //   scale: [1, 1.1, 1]
+                      // }}
+                      // transition={{ 
+                      //   rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                      //   scale: { duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }
+                      // }}
                     >
                       {category.icon}
                     </motion.div>
