@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import BlockChain from "./BlockChainNetwork";
+import NeonTunnelSplash from "./NeonTunnel";
 
 // Animation Variants
 const container = {
@@ -10,7 +10,7 @@ const container = {
     opacity: 1,
     transition: {
       staggerChildren: 0.05,
-      delayChildren: 0.5,
+      delayChildren: 2, // 2-second delay before the tagline starts animating
     },
   },
 };
@@ -44,27 +44,11 @@ const SplashScreen = () => {
 
       {/* Blockchain Background */}
       <div className="fixed inset-0 z-0 flex pointer-events-none w-full h-full">
-        <BlockChain
-          nodeColor="#00A86B"
-          nodeEmissive="#00A86B"
-          connectionColor="#00A86B"
-          nodeCount={85}
-          spread={30}
-        />
+        <NeonTunnelSplash />
       </div>
 
       {/* Centered Logo and Tagline */}
       <div className="relative z-10 flex flex-col items-center text-center space-y-4">
-        {/* Logo */}
-        <div className="text-6xl md:text-7xl font-bold">
-          <span
-            className="bg-gradient-to-r from-white via-green-300 to-green-500 bg-clip-text text-transparent"
-          >
-            copy
-          </span>
-          <span className="text-[#00ff99]">m</span>
-        </div>
-
         {/* Tagline */}
         <motion.div
           className="text-base md:text-lg font-medium bg-gradient-to-r from-white via-green-300 to-green-500 bg-clip-text text-transparent"
@@ -84,5 +68,3 @@ const SplashScreen = () => {
 };
 
 export default SplashScreen;
-
-

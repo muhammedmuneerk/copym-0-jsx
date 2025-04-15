@@ -168,14 +168,64 @@ export default function Features() {
         >
           <Typography
             variant="overline"
-            className="text-primary font-medium tracking-wider block mb-2"
+            className="gradient-letter"
           >
             ALL-IN-ONE PLATFORM
           </Typography>
-          <Typography variant="h2" className="font-orbitron text-4xl md:text-5xl mb-4 pb-1 bg-[linear-gradient(183deg,_rgba(0,255,0,1)_0%,_rgba(0,198,0,1)_0%,_rgba(0,158,0,1)_100%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">
-            Everything You Need In{" "}
-            <span className="bg-[linear-gradient(183deg,_rgba(0,255,0,1)_0%,_rgba(0,198,0,1)_0%,_rgba(0,158,0,1)_100%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">One Place</span>
-          </Typography>
+          <Typography
+  variant="h2"
+  className="font-orbitron text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+>
+  <Box
+    component="div"
+    className="flex flex-col items-center justify-center leading-snug max-w-xs sm:max-w-xl lg:max-w-5xl mx-auto"
+  >
+    {/* Small & Medium Screens (3 lines) */}
+    <Box className="block lg:hidden">
+      <Box component="div" className="flex flex-wrap justify-center">
+        {Array.from("Everything You").map((char, idx) => (
+          <Box key={`sm-line1-${idx}`} component="span" className="gradient-letter">
+            {char === " " ? "\u00A0" : char}
+          </Box>
+        ))}
+      </Box>
+      <Box component="div" className="flex flex-wrap justify-center">
+        {Array.from("Need In").map((char, idx) => (
+          <Box key={`sm-line2-${idx}`} component="span" className="gradient-letter">
+            {char === " " ? "\u00A0" : char}
+          </Box>
+        ))}
+      </Box>
+      <Box component="div" className="flex flex-wrap justify-center">
+        {Array.from("One Place").map((char, idx) => (
+          <Box key={`sm-line3-${idx}`} component="span" className="gradient-letter">
+            {char === " " ? "\u00A0" : char}
+          </Box>
+        ))}
+      </Box>
+    </Box>
+
+    {/* Large Screens (2 lines) */}
+    <Box className="hidden lg:block">
+      <Box component="div" className="flex flex-wrap justify-center">
+        {Array.from("Everything You Need").map((char, idx) => (
+          <Box key={`lg-line1-${idx}`} component="span" className="gradient-letter">
+            {char === " " ? "\u00A0" : char}
+          </Box>
+        ))}
+      </Box>
+      <Box component="div" className="flex flex-wrap justify-center">
+        {Array.from("In One Place").map((char, idx) => (
+          <Box key={`lg-line2-${idx}`} component="span" className="gradient-letter">
+            {char === " " ? "\u00A0" : char}
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  </Box>
+</Typography>
+
+
           <Typography
             variant="body1"
             className="text-text-secondary max-w-2xl mx-auto"

@@ -121,32 +121,16 @@ body {
   100% { transform: translateY(-100vh); opacity: 0.2; }
 }
 
-.animate-line-horizontal {
-  animation: moveLeftToRight 8s linear infinite;
-}
-.animate-line-horizontal2 {
-  animation: moveLeftToRight 10s linear infinite;
-}
-.animate-line-horizontal3 {
-  animation: moveLeftToRight 12s linear infinite;
-}
-
-.animate-line-vertical-down {
-  animation: moveTopToBottom 9s linear infinite;
-}
-.animate-line-vertical-down2 {
-  animation: moveTopToBottom 11s linear infinite;
-}
-.animate-line-vertical-down3 {
-  animation: moveTopToBottom 13s linear infinite;
-}
-
-.animate-line-vertical-up {
-  animation: moveBottomToTop 9s linear infinite;
-}
-.animate-line-vertical-up2 {
-  animation: moveBottomToTop 11s linear infinite;
-}
-.animate-line-vertical-up3 {
-  animation: moveBottomToTop 13s linear infinite;
+.gradient-letter {
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    rgba(107, 185, 142, 0.73) 0%,
+    rgba(0, 255, 132, 0.6) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
 }

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 
+// CustomCursor component removed
+
 /**
  * GlassMorphismCard component
  * Creates a card with glass morphism effect
@@ -318,22 +320,84 @@ export const InteractiveTimeline = ({ steps, activeStep, setActiveStep }) => {
 
 /**
  * HorizontalScrollContainer component
- * Simplified for smoother native scrolling
+ * Creates a scrollable horizontal container
  */
 export const HorizontalScrollContainer = ({ children }) => {
+  const containerRef = useRef(null);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  
+  const handleMouseDown = (e) => {
+    if (containerRef.current) {
+      setIsScrolling(true);
+      setStartX(e.pageX - containerRef.current.offsetLeft);
+      setScrollLeft(containerRef.current.scrollLeft);
+    }
+  };
+  
+  const handleMouseMove = (e) => {
+    if (!isScrolling) return;
+    if (containerRef.current) {
+      const x = e.pageX - containerRef.current.offsetLeft;
+      const walk = (x - startX) * 2; // Scroll speed multiplier
+      containerRef.current.scrollLeft = scrollLeft - walk;
+    }
+  };
+  
+  const handleMouseUp = () => {
+    setIsScrolling(false);
+  };
+  
+  const handleMouseLeave = () => {
+    setIsScrolling(false);
+  };
+  
+  // Touch event handlers for mobile
+  const handleTouchStart = (e) => {
+    if (containerRef.current) {
+      setIsScrolling(true);
+      setStartX(e.touches[0].pageX - containerRef.current.offsetLeft);
+      setScrollLeft(containerRef.current.scrollLeft);
+    }
+  };
+  
+  const handleTouchMove = (e) => {
+    if (!isScrolling) return;
+    if (containerRef.current) {
+      const x = e.touches[0].pageX - containerRef.current.offsetLeft;
+      const walk = (x - startX) * 2;
+      containerRef.current.scrollLeft = scrollLeft - walk;
+    }
+  };
+  
+  const handleTouchEnd = () => {
+    setIsScrolling(false);
+  };
+  
   return (
     <div 
+      ref={containerRef}
       className="horizontal-scroll-container"
       style={{
         display: "flex",
         overflowX: "auto",
-        width: "100%",
         scrollSnapType: "x mandatory",
-        WebkitOverflowScrolling: "touch",
-        scrollbarWidth: "none",
-        msOverflowStyle: "none",
-        padding: "20px 5px",
+        scrollBehavior: "smooth",
+        width: "100%",
+        cursor: isScrolling ? "grabbing" : "grab",
+        scrollbarWidth: "none", // Firefox
+        msOverflowStyle: "none", // IE/Edge
+        WebkitScrollbar: { display: "none" }, // WebKit/Chrome/Safari
+        padding: "20px 0", // Add some padding for better spacing
       }}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {children}
     </div>

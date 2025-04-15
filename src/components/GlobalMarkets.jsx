@@ -8,6 +8,95 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { keyframes } from "@emotion/react";
+import { styled } from "@mui/material/styles";
+
+// Animation keyframes for the border effect
+const borderAnimationRight = keyframes`
+  0% { width: 0; height: 3px; top: 0; right: 100%; opacity: 1; }
+  25% { width: 100%; height: 3px; top: 0; right: 0; opacity: 0.7; }
+  100% { width: 100%; height: 3px; top: 0; right: 0; opacity: 0; }
+`;
+
+const borderAnimationDown = keyframes`
+  0% { width: 3px; height: 0; top: 0; right: 0; opacity: 1; }
+  25% { width: 3px; height: 100%; top: 0; right: 0; opacity: 0.7; }
+  100% { width: 3px; height: 100%; top: 0; right: 0; opacity: 0; }
+`;
+
+const borderAnimationLeft = keyframes`
+  0% { width: 0; height: 3px; bottom: 0; right: 0; opacity: 1; }
+  25% { width: 100%; height: 3px; bottom: 0; right: 0; opacity: 0.7; }
+  100% { width: 100%; height: 3px; bottom: 0; right: 0; opacity: 0; }
+`;
+
+const borderAnimationUp = keyframes`
+  0% { width: 3px; height: 0; bottom: 0; left: 0; opacity: 1; }
+  25% { width: 3px; height: 100%; bottom: 0; left: 0; opacity: 0.7; }
+  100% { width: 3px; height: 100%; bottom: 0; left: 0; opacity: 0; }
+`;
+
+// Styled component for the animated card
+const AnimatedCard = styled(Box)(({ theme }) => ({
+  position: "relative",
+  background: "rgba(18, 19, 26, 0.8)",
+  backdropFilter: "blur(10px)",
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+  borderRadius: "1rem",
+  padding: "1.5rem",
+  height: "100%",
+  transition: "transform 0.2s",
+  overflow: "hidden",
+  "&:hover": {
+    transform: "translateY(-4px)",
+    "& .border-right": {
+      animation: `${borderAnimationRight} 2.5s linear infinite`,
+    },
+    "& .border-down": {
+      animation: `${borderAnimationDown} 2.5s linear infinite`,
+      animationDelay: "1s",
+    },
+    "& .border-left": {
+      animation: `${borderAnimationLeft} 2.5s linear infinite`,
+      animationDelay: "1.5s",
+    },
+    "& .border-up": {
+      animation: `${borderAnimationUp} 2.5s linear infinite`,
+      animationDelay: "2s",
+    },
+    "& svg": {
+      stroke: "#00FF85", // Turn the icon green on card hover
+    },
+  },
+  "& .border-right, & .border-down, & .border-left, & .border-up": {
+    position: "absolute",
+    animation: "none", // No animation by default
+  },
+  "& .border-right": {
+    top: 0,
+    right: "100%",
+    height: 3,
+    background: "linear-gradient(to right, #000, #00FF85, #000)",
+  },
+  "& .border-down": {
+    top: 0,
+    right: 0,
+    width: 3,
+    background: "linear-gradient(to bottom, #000, #00FF85, #000)",
+  },
+  "& .border-left": {
+    bottom: 0,
+    right: 0,
+    height: 3,
+    background: "linear-gradient(to left, #000, #00FF85, #000)",
+  },
+  "& .border-up": {
+    bottom: 0,
+    left: 0,
+    width: 3,
+    background: "linear-gradient(to top, #000, #00FF85, #000)",
+  },
+}));
 
 // Animated counter component for numbers
 const AnimatedCounter = ({ value, duration = 2, delay = 0 }) => {
@@ -172,19 +261,23 @@ export default function GlobalMarkets() {
         >
           <Typography
             variant="overline"
-            className="text-primary font-medium tracking-wider block mb-2"
+            className="gradient-letter"
           >
             GLOBAL REACH
           </Typography>
           <Typography
             variant="h2"
-            className="font-orbitron text-4xl md:text-5xl mb-4 pb-1 bg-[linear-gradient(183deg,_rgba(0,255,0,1)_0%,_rgba(0,198,0,1)_0%,_rgba(0,158,0,1)_100%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
+            className="font-orbitron text-4xl md:text-5xl mb-4 pb-1 text-center"
           >
-            Connecting{" "}
-            <span className="bg-[linear-gradient(183deg,_rgba(0,255,0,1)_0%,_rgba(0,198,0,1)_0%,_rgba(0,158,0,1)_100%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent">
-              Global Markets
-            </span>
+            <Box component="div" className="flex flex-wrap justify-center">
+              {Array.from("Connecting Global Markets").map((char, idx) => (
+                <Box key={`connecting-${idx}`} component="span" className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </Box>
+              ))}
+            </Box>
           </Typography>
+
           <Typography
             variant="body1"
             className="text-text-secondary max-w-2xl mx-auto"
@@ -205,14 +298,13 @@ export default function GlobalMarkets() {
                 variants={cardVariants}
                 className="h-full"
               >
-                <Box
-                  className="bg-background-paper rounded-lg p-6 h-full"
-                  sx={{
-                    background: "rgba(18, 19, 26, 0.8)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                  }}
-                >
+                <AnimatedCard>
+                  {/* Border animation elements */}
+                  <div className="border-right"></div>
+                  <div className="border-down"></div>
+                  <div className="border-left"></div>
+                  <div className="border-up"></div>
+                  
                   <Typography variant="h6" className="mb-4">
                     {region.name}
                   </Typography>
@@ -224,7 +316,6 @@ export default function GlobalMarkets() {
                       Tokenized Value:
                     </Typography>
                     <Typography variant="h5" className="text-primary">
-                      {/* Replace static value with animated counter */}
                       <AnimatedCounter
                         value={region.tokenizedValue}
                         duration={2.5}
@@ -241,7 +332,6 @@ export default function GlobalMarkets() {
                       YoY Growth:
                     </Typography>
                     <Typography variant="h5" className="text-primary">
-                      {/* Replace static value with animated counter */}
                       <AnimatedCounter
                         value={region.growth}
                         duration={2.5}
@@ -267,7 +357,7 @@ export default function GlobalMarkets() {
                       </Typography>
                     ))}
                   </Box>
-                </Box>
+                </AnimatedCard>
               </motion.div>
             </Grid>
           ))}

@@ -13,8 +13,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom cursor styles removed */
-
 /* Scrollbar styles */
 ::-webkit-scrollbar {
   width: 6px;
@@ -183,26 +181,25 @@ body {
   margin-bottom: 8px;
 }
 
-/* Assets section */
-/* Update horizontal scroll styles */
-.horizontal-scroll-wrapper {
+/* Assets section - NEW GRID LAYOUT */
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.asset-card-grid-item {
   width: 100%;
-  overflow: hidden;
-  padding: 0 5%;
 }
 
-.horizontal-scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-.asset-card-container {
-  flex: 0 0 auto;
-  width: 320px;
-  height: 520px;
-  margin: 0 12px;
-  scroll-snap-align: center;
-  transform: translateZ(0); /* Enable hardware acceleration */
-  will-change: transform; /* Hint for browser optimization */
+.asset-card-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .asset-icon {
@@ -216,32 +213,6 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--color, #00ff85);
-  transition: transform 0.3s ease;
-}
-
-/* Add indicator to show there's more to scroll */
-.horizontal-scroll-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50px;
-  background: linear-gradient(to right, rgba(18, 19, 26, 0), rgba(18, 19, 26, 0.8));
-  pointer-events: none;
-  z-index: 5;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-  .horizontal-scroll-wrapper {
-    padding: 0 16px;
-  }
-  
-  .asset-card-container {
-    width: 280px;
-    height: 520px;
-  }
 }
 
 .asset-details {
@@ -342,12 +313,6 @@ body {
   gap: 24px;
 }
 
-@media (max-width: 768px) {
-  .feature-content {
-    flex-direction: column;
-  }
-}
-
 .feature-icon {
   width: 64px;
   height: 64px;
@@ -425,17 +390,33 @@ body {
 }
 
 /* Responsive adjustments */
+@media (max-width: 1200px) {
+  .asset-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+  }
+}
+
 @media (max-width: 768px) {
   .glass-card {
     padding: 16px !important;
   }
   
-  .asset-card-container {
-    width: 280px;
-    height: 520px;
+  .asset-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .asset-actions {
+    justify-content: center;
+  }
+  
+  .feature-content {
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
   }
 }

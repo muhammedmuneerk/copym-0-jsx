@@ -96,129 +96,146 @@ export default function Blockchains() {
             >
               <Typography
                 variant="h2"
-                className="font-orbitron text-4xl md:text-5xl mb-4 pb-1 bg-[linear-gradient(183deg,_rgba(0,255,0,1)_0%,_rgba(0,198,0,1)_0%,_rgba(0,158,0,1)_100%,_rgba(0,0,0,1)_100%)] bg-clip-text text-transparent"
+                className="font-orbitron text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
               >
-                Unified Access to All Major Blockchains
-              </Typography>
-              <Typography
-                variant="body1"
-                className="text-text-secondary max-w-2xl"
-              >
-                Tokenize assets on your preferred blockchain. Copym provides
-                seamless integration with all major networks through a single,
-                unified platform.
-              </Typography>
-            </motion.div>
-          </Grid>
+                {/* First Line */}
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {Array.from("Unified Access to All").map((char, idx) => (
+                    <Box key={`line1-${idx}`} component="span" className="gradient-letter">
+                      {char === " " ? "\u00A0" : char}
+                    </Box>
+                  ))}
+                </Box>
 
-          {/* Banner image section - only visible on desktop */}
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{ display: { xs: "none", md: "block" }, opacity: "10" }}
-          >
-            {" "}
-            {/* didn't remove the image, jsut decreased the opacity */}
-            <Box sx={{ position: "relative", width: "100%" }}>
-              <SectionImage
-                src="/assets/sections/Blockchain-Cryptocurrency-removebg.png"
-                alt="Blockchains Banner"
-              />
-            </Box>
-          </Grid>
+                {/* Second Line */}
+                <Box component="div" className="flex flex-wrap justify-center mt-1">
+                  {Array.from("Major Blockchains").map((char, idx) => (
+                    <Box key={`line2-${idx}`} component="span" className="gradient-letter">
+                      {char === " " ? "\u00A0" : char}
+                    </Box>
+                  ))}
+                </Box>
+              </Typography>
+
+            <Typography
+              variant="body1"
+              className="text-text-secondary max-w-2xl text-center"
+            >
+              Tokenize assets on your preferred blockchain. Copym provides
+              seamless integration with all major networks through a single,
+              unified platform.
+            </Typography>
+          </motion.div>
         </Grid>
 
-        {/* Banner image - only visible on mobile, positioned at top */}
-        {isMobile && (
-          <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
-            {/* <SectionImage
+        {/* Banner image section - only visible on desktop */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ display: { xs: "none", md: "block" }, opacity: "10" }}
+        >
+          {" "}
+          {/* didn't remove the image, jsut decreased the opacity */}
+          <Box sx={{ position: "relative", width: "100%" }}>
+            <SectionImage
+              src="/assets/sections/Blockchain-Cryptocurrency-removebg.png"
+              alt="Blockchains Banner"
+            />
+          </Box>
+        </Grid>
+      </Grid>
+
+      {/* Banner image - only visible on mobile, positioned at top */}
+      {isMobile && (
+        <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
+          {/* <SectionImage
               src="/assets/sections/blockchain-removebg-preview.png"
               alt="Blockchains Banner"
             /> */}
-          </Box>
-        )}
+        </Box>
+      )}
 
-        {/* Infinite scroll for both mobile and desktop with decreased spacing */}
+      {/* Infinite scroll for both mobile and desktop with decreased spacing */}
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          overflow: "hidden",
+          mt: 5,
+        }}
+      >
         <Box
           sx={{
-            position: "relative",
-            width: "100%",
-            overflow: "hidden",
-            mt: 5,
+            display: "flex",
+            width: "fit-content",
+            animation: "scrollLeft 35s linear infinite", // Slower animation for smoother effect
+            "@keyframes scrollLeft": {
+              "0%": { transform: "translateX(0)" },
+              "100%": { transform: "translateX(calc(-100% / 3))" }, // Only move by 1/3 since we have 3x the items
+            },
+            "&:hover": { animationPlayState: "paused" },
+            "@media (hover: none)": {
+              "&:active": { animationPlayState: "paused" },
+            },
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              width: "fit-content",
-              animation: "scrollLeft 35s linear infinite", // Slower animation for smoother effect
-              "@keyframes scrollLeft": {
-                "0%": { transform: "translateX(0)" },
-                "100%": { transform: "translateX(calc(-100% / 3))" }, // Only move by 1/3 since we have 3x the items
-              },
-              "&:hover": { animationPlayState: "paused" },
-              "@media (hover: none)": {
-                "&:active": { animationPlayState: "paused" },
-              },
-            }}
-          >
-            {duplicatedBlockchains.map((blockchain, index) => (
-              <Box
-                key={`${blockchain.name}-${index}`}
-                sx={{
-                  width: isMobile ? "32.5vw" : "20vw", // Decreased width for desktop to reduce spacing
-                  padding: isMobile ? 2 : 1, // Reduce padding on desktop
-                  flexShrink: 0,
-                }}
+          {duplicatedBlockchains.map((blockchain, index) => (
+            <Box
+              key={`${blockchain.name}-${index}`}
+              sx={{
+                width: isMobile ? "32.5vw" : "20vw", // Decreased width for desktop to reduce spacing
+                padding: isMobile ? 2 : 1, // Reduce padding on desktop
+                flexShrink: 0,
+              }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }} // Reduced delay for smoother appearance
+                viewport={{ once: true }}
+                className="text-center h-full flex flex-col items-center justify-center p-2"
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }} // Reduced delay for smoother appearance
-                  viewport={{ once: true }}
-                  className="text-center h-full flex flex-col items-center justify-center p-2"
+                {/* Made icons bigger, especially for those with text */}
+                <Box
+                  className={isMobile ? "w-20 h-20 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    opacity: "0.5",
+                    transition: "opacity 0.3s ease",
+                    "&:hover": {
+                      opacity: 1,
+                    },
+                    // padding:".5rem"
+                    // Adjust sizes for specific blockchains with text logos
+                  }}
                 >
-                  {/* Made icons bigger, especially for those with text */}
-                  <Box
-                    className={isMobile ? "w-20 h-20 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      opacity: "0.5",
-                      transition: "opacity 0.3s ease",
-                      "&:hover": {
-                        opacity: 1,
-                      },
-                      // padding:".5rem"
-                      // Adjust sizes for specific blockchains with text logos
-                    }}
-                  >
-                    {blockchain.logo}
-                  </Box>
-                  {/* <Typography 
+                  {blockchain.logo}
+                </Box>
+                {/* <Typography 
                     variant="h6" 
                     className={isMobile ? "text-sm font-medium text-white" : "text-base font-medium text-white"}
                     sx={{ opacity: 0.9 }}
                   >
                     {blockchain.name}
                   </Typography> */}
-                </motion.div>
-              </Box>
-            ))}
-          </Box>
+              </motion.div>
+            </Box>
+          ))}
         </Box>
-      </Container>
+      </Box>
+    </Container>
 
-      {/* Enhanced gradient highlight with pulse animation */}
-      <Box
-        className="absolute pointer-events-none"
-        sx={{
-          background:
-            "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
-        }}
-      />
-    </Box>
+      {/* Enhanced gradient highlight with pulse animation */ }
+  <Box
+    className="absolute pointer-events-none"
+    sx={{
+      background:
+        "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
+    }}
+  />
+    </Box >
   );
 }
