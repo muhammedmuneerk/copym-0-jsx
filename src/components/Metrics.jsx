@@ -4,6 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { useState, useEffect, useRef } from 'react';
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
+import { TrendingUp, Users, Link, BarChart2 } from "lucide-react";
 
 // Animation keyframes for the border effect
 const borderAnimationRight = keyframes`
@@ -58,8 +59,9 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
       animation: `${borderAnimationUp} 2.5s linear infinite`,
       animationDelay: "2s",
     },
-    "& svg": {
+    "& .metric-icon svg": {
       stroke: "#00FF85", // Turn the icon green on card hover
+      filter: "drop-shadow(0 0 5px rgba(0, 255, 133, 0.5))",
     },
   },
   "& .border-right, & .border-down, & .border-left, & .border-up": {
@@ -90,6 +92,9 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
     width: 3,
     background: "linear-gradient(to top, #000, #00FF85, #000)",
   },
+  "& .metric-icon svg": {
+    transition: "stroke 0.3s ease, filter 0.3s ease",
+  }
 }));
 
 // Format numbers with suffixes (B, M, K)
@@ -159,34 +164,55 @@ const AnimatedCounter = ({ value, duration = 2, delay = 0, suffix = '', isInView
   return <span ref={countRef}>{displayValue}</span>;
 };
 
+// Define metric icons components mapped to each metric
+const MetricIcon = ({ type, size = 24 }) => {
+  const iconProps = {
+    size: size,
+    strokeWidth: 1.5, // Thinner lines for a more elegant look
+  };
+  
+  switch (type) {
+    case 'assets':
+      return <TrendingUp {...iconProps} />;
+    case 'users':
+      return <Users {...iconProps} />;
+    case 'networks':
+      return <Link {...iconProps} />;
+    case 'transactions':
+      return <BarChart2 {...iconProps} />;
+    default:
+      return <TrendingUp {...iconProps} />;
+  }
+};
+
 const metrics = [
   {
     value: "1.3B",
     label: "Assets Tokenized",
     growth: "+42%",
     period: "year-over-year",
-    icon: "📈",
+    iconType: "assets",
   },
   {
     value: "50K",
     label: "Active Users",
     growth: "+78%",
     period: "year-over-year",
-    icon: "👥",
+    iconType: "users",
   },
   {
     value: "5",
     label: "Blockchain Networks",
     growth: "+3",
     period: "this year",
-    icon: "🔗",
+    iconType: "networks",
   },
   {
     value: "2M",
     label: "Transactions",
     growth: "+53%",
     period: "year-over-year",
-    icon: "💱",
+    iconType: "transactions",
   },
 ];
 
@@ -422,12 +448,21 @@ export default function Metrics() {
                     className="text-center"
                   >
                     <motion.div
-                      className="mb-2 text-2xl"
+                      className="mb-2 text-2xl flex justify-center metric-icon"
                       initial={{ rotateY: 0 }}
                       whileHover={{ rotateY: 180 }}
-                      transition={{ duration: 0.7 }}
+                      transition={{ 
+                        duration: 0.7,
+                        type: "spring",
+                        stiffness: 50,
+                        damping: 10
+                      }}
+                      style={{ 
+                        perspective: '800px',
+                        transformStyle: 'preserve-3d'
+                      }}
                     >
-                      {metric.icon}
+                      <MetricIcon type={metric.iconType} size={32} />
                     </motion.div>
                     <motion.div
                       key={`metric-${index}-${isComponentInView}`} // Force re-render when viewport status changes
