@@ -145,33 +145,37 @@ const RealEstateTokenization = () => {
         {/* Animated snail trails on diagonal grid */}
         <svg className="fixed inset-0 w-full h-full" preserveAspectRatio="none">
           <defs>
-            {/* Define the gradient for the traveling pulses */}
-            <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            {/* Snail body gradient with more distinct front/middle/back sections */}
+            <linearGradient id="snailBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="10%" stopColor="rgba(16, 185, 129, 0.1)" />
-              <stop offset="40%" stopColor="rgba(16, 185, 129, 0.6)" />
-              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.9)" />
-              <stop offset="60%" stopColor="rgba(16, 185, 129, 0.6)" />
-              <stop offset="90%" stopColor="rgba(16, 185, 129, 0.1)" />
+              <stop offset="5%" stopColor="rgba(16, 185, 129, 0.1)" />
+              <stop offset="15%" stopColor="rgba(16, 185, 129, 0.9)" /> {/* Front "head" of snail */}
+              <stop offset="30%" stopColor="rgba(16, 185, 129, 0.6)" /> {/* First stretch of body */}
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.8)" /> {/* Middle of body */}
+              <stop offset="70%" stopColor="rgba(16, 185, 129, 0.6)" /> {/* Another stretch */}
+              <stop offset="85%" stopColor="rgba(16, 185, 129, 0.9)" /> {/* Back "tail" of snail */}
+              <stop offset="95%" stopColor="rgba(16, 185, 129, 0.1)" />
               <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
             </linearGradient>
             
-            {/* Second gradient for variation */}
-            <linearGradient id="pulseGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+            {/* Second snail body gradient for variation */}
+            <linearGradient id="snailBodyGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="20%" stopColor="rgba(16, 185, 129, 0.2)" />
-              <stop offset="30%" stopColor="rgba(16, 185, 129, 0.7)" />
-              <stop offset="50%" stopColor="rgba(16, 185, 129, 1)" />
-              <stop offset="70%" stopColor="rgba(16, 185, 129, 0.7)" />
-              <stop offset="80%" stopColor="rgba(16, 185, 129, 0.2)" />
+              <stop offset="5%" stopColor="rgba(16, 185, 129, 0.1)" />
+              <stop offset="12%" stopColor="rgba(16, 185, 129, 0.8)" /> {/* Front "head" of snail */}
+              <stop offset="25%" stopColor="rgba(16, 185, 129, 0.5)" /> {/* First stretch of body */}
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.7)" /> {/* Middle of body */}
+              <stop offset="75%" stopColor="rgba(16, 185, 129, 0.5)" /> {/* Another stretch */}
+              <stop offset="88%" stopColor="rgba(16, 185, 129, 0.8)" /> {/* Back "tail" of snail */}
+              <stop offset="95%" stopColor="rgba(16, 185, 129, 0.1)" />
               <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
             </linearGradient>
           </defs>
           
           {/* Generate a grid of diagonal lines matching the pattern */}
-          {Array.from({ length: 30 }).map((_, rowIndex) => {
+          {Array.from({ length: 24 }).map((_, rowIndex) => {
             // Create multiple rows of lines at different positions
-            const yOffset = (rowIndex - 15) * 60; // 60px is the pattern size
+            const yOffset = (rowIndex - 12) * 70; // 70px spacing instead of 60px for more space
             const useSecondGradient = rowIndex % 2 === 0;
             
             return (
@@ -181,28 +185,32 @@ const RealEstateTokenization = () => {
                 y1={`calc(50% + ${yOffset}px - 100%)`}
                 x2="200%"
                 y2={`calc(50% + ${yOffset}px + 200%)`}
-                stroke={useSecondGradient ? "url(#pulseGradient2)" : "url(#pulseGradient)"}
-                strokeWidth={useSecondGradient ? "1.5" : "1.8"}
+                stroke={useSecondGradient ? "url(#snailBodyGradient2)" : "url(#snailBodyGradient)"}
+                strokeWidth={useSecondGradient ? "2.2" : "2.5"} // Thicker lines for better visibility
                 strokeLinecap="round"
-                initial={{ pathLength: 0.15, pathOffset: -0.2 }}
+                initial={{ pathLength: 0.2, pathOffset: -0.3 }}
                 animate={{
-                  pathLength: [0.15, 0.3, 0.15], // Stretching effect
-                  pathOffset: [-0.2, 1.2, -0.2],   // Movement along the path with reset
+                  // Very exaggerated stretching effect
+                  pathLength: [0.2, 0.7, 0.2], 
+                  // Extremely slow movement
+                  pathOffset: [-0.3, 1.3, -0.3],
                 }}
                 transition={{
-                  duration: 12 + (rowIndex % 7),
+                  // Much longer duration for true snail pace
+                  duration: 35 + (rowIndex % 10), 
                   repeat: Infinity,
-                  ease: "linear",
-                  delay: rowIndex * 0.8,
+                  // Custom cubic-bezier for snail-like motion
+                  ease: [0.34, 0.1, 0.24, 1],
+                  delay: rowIndex * 3.5, // Much longer delays between snails
                 }}
               />
             );
           })}
           
           {/* Opposite direction trails */}
-          {Array.from({ length: 30 }).map((_, rowIndex) => {
+          {Array.from({ length: 24 }).map((_, rowIndex) => {
             // Create multiple rows of lines at different positions
-            const yOffset = (rowIndex - 15) * 60 + 30; // 60px is the pattern size, offset by 30
+            const yOffset = (rowIndex - 12) * 70 + 35; // 70px spacing with 35px offset
             const useSecondGradient = rowIndex % 3 === 0;
             
             return (
@@ -212,19 +220,23 @@ const RealEstateTokenization = () => {
                 y1={`calc(50% + ${yOffset}px - 100%)`}
                 x2="-100%"
                 y2={`calc(50% + ${yOffset}px + 200%)`}
-                stroke={useSecondGradient ? "url(#pulseGradient2)" : "url(#pulseGradient)"}
-                strokeWidth={useSecondGradient ? "1.5" : "1.8"}
+                stroke={useSecondGradient ? "url(#snailBodyGradient2)" : "url(#snailBodyGradient)"}
+                strokeWidth={useSecondGradient ? "2.2" : "2.5"}
                 strokeLinecap="round"
-                initial={{ pathLength: 0.15, pathOffset: -0.2 }}
+                initial={{ pathLength: 0.2, pathOffset: -0.3 }}
                 animate={{
-                  pathLength: [0.15, 0.3, 0.15], // Stretching effect
-                  pathOffset: [-0.2, 1.2, -0.2],   // Movement along the path with reset
+                  // Very exaggerated stretching effect
+                  pathLength: [0.2, 0.7, 0.2],
+                  // Extremely slow movement
+                  pathOffset: [-0.3, 1.3, -0.3],
                 }}
                 transition={{
-                  duration: 15 + (rowIndex % 5),
+                  // Much longer duration for true snail pace
+                  duration: 40 + (rowIndex % 12),
                   repeat: Infinity,
-                  ease: "linear",
-                  delay: rowIndex * 0.7,
+                  // Custom cubic-bezier for snail-like motion
+                  ease: [0.34, 0.1, 0.24, 1],
+                  delay: rowIndex * 4, // Much longer delays between snails
                 }}
               />
             );
