@@ -134,35 +134,91 @@ const RealEstateTokenization = () => {
 
   return (
     <div className="bg-gradient-to-b from-[#050505] to-[#0a0a0a] text-white min-h-screen relative overflow-hidden font-sans">
-      {/* Enhanced Layered Background Elements with pulsing animations */}
-      <motion.div 
-        className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC40Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjA2Ii8+PC9zdmc+')]"
-        animate={{ 
-          opacity: [0.06, 0.09, 0.06],
-          scale: [1, 1.02, 1]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-      />
+      {/* Fixed Grid Background */}
+      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC40Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjA2Ii8+PC9zdmc+')]" />
       
-      {/* Diagonal grid overlay with pulsing animation */}
-      <motion.div 
-        className="fixed inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]"
-        animate={{ 
-          opacity: [0.10, 0.15, 0.10], 
-          rotate: [0, 0.3, 0]
-        }}
-        transition={{ 
-          duration: 12, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-      />
+      {/* Enhanced Diagonal Grid Overlay with Integrated Snail Trails */}
+      <div className="fixed inset-0 overflow-hidden">
+        {/* Base pulsing diagonal grid */}
+        <motion.div 
+          className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]"
+          animate={{ 
+            opacity: [0.08, 0.25, 0.08],
+            scale: [1, 1.03, 1],
+          }}
+          transition={{ 
+            duration: 3.5, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+          }}
+        />
+        
+        {/* Animated diagonal grid overlays with snail trail effects that match the existing grid */}
+        <svg className="fixed inset-0 w-full h-full opacity-70" preserveAspectRatio="none">
+          <defs>
+            <pattern id="diagonalTrailPattern" width="60" height="60" patternUnits="userSpaceOnUse">
+              {/* This creates a pattern that perfectly matches the original diagonal grid */}
+              <path d="M60 0 L0 60" fill="none" stroke="url(#trailGradient)" strokeWidth="1.2" />
+            </pattern>
+            
+            <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="45%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.9)" />
+              <stop offset="55%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
+            </linearGradient>
+          </defs>
+          
+          {/* Multiple animated rectangles using the pattern but with different animation offsets */}
+          {Array.from({ length: 12 }).map((_, index) => (
+            <motion.rect
+              key={`trail-rect-${index}`}
+              width="100%"
+              height="100%"
+              fill="url(#diagonalTrailPattern)"
+              initial={{ opacity: 0.5 }}
+              animate={{ 
+                opacity: 0.5,
+                x: ["-60px", "0px"], // Pattern animation
+                y: ["0px", "60px"]   // This creates diagonal movement
+              }}
+              transition={{
+                duration: 5 + (index % 4),
+                repeat: Infinity,
+                ease: "linear",
+                delay: index * 0.7,
+              }}
+            />
+          ))}
+          
+          {/* Additional overlays with opposite direction */}
+          {Array.from({ length: 12 }).map((_, index) => (
+            <motion.rect
+              key={`trail-rect-rev-${index}`}
+              width="100%"
+              height="100%"
+              fill="url(#diagonalTrailPattern)"
+              initial={{ opacity: 0.5 }}
+              animate={{ 
+                opacity: 0.5,
+                x: ["0px", "-60px"], // Reverse pattern animation
+                y: ["60px", "0px"]   // This creates diagonal movement in opposite direction
+              }}
+              transition={{
+                duration: 6 + (index % 3),
+                repeat: Infinity,
+                ease: "linear",
+                delay: index * 0.6,
+              }}
+            />
+          ))}
+        </svg>
+      </div>
       
-      {/* Animated gradient overlay with enhanced pulsing effect */}
+      
+      
+      {/* Animated gradient overlay - increased color intensity */}
       <motion.div 
         className="fixed inset-0 bg-gradient-to-tr from-emerald-900/10 via-transparent to-blue-900/10"
         animate={{
@@ -170,11 +226,6 @@ const RealEstateTokenization = () => {
             "linear-gradient(135deg, rgba(6,78,59,0.07) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.07) 100%)",
             "linear-gradient(135deg, rgba(12,74,110,0.07) 0%, rgba(0,0,0,0) 50%, rgba(6,78,59,0.07) 100%)",
             "linear-gradient(135deg, rgba(6,78,59,0.07) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.07) 100%)"
-          ],
-          filter: [
-            "brightness(1) contrast(1)",
-            "brightness(1.1) contrast(1.05)",
-            "brightness(1) contrast(1)"
           ]
         }}
         transition={{ 
@@ -183,37 +234,6 @@ const RealEstateTokenization = () => {
           ease: "linear" 
         }}
       />
-      
-      {/* Animated glowing lines overlay */}
-      <div className="fixed inset-0 overflow-hidden opacity-20">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {Array.from({ length: 12 }).map((_, i) => {
-            const y1 = 10 + (i * 7);
-            const y2 = 15 + (i * 6);
-            return (
-              <motion.path
-                key={`line-${i}`}
-                d={`M0 ${y1} Q 50 ${y1 < 50 ? y1 + 30 : y1 - 30}, 100 ${y2}`}
-                stroke="#10b981"
-                strokeWidth="0.3"
-                fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: 1, 
-                  opacity: [0, 0.7, 0]
-                }}
-                transition={{
-                  duration: 10 + (i % 5),
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                  delay: i * 1.2,
-                }}
-              />
-            );
-          })}
-        </svg>
-      </div>
       
       {/* Vignette shadow overlay - reduced opacity for better visibility */}
       <div className="fixed inset-0 pointer-events-none bg-radial-gradient opacity-45 z-[1]" 
@@ -347,36 +367,15 @@ const RealEstateTokenization = () => {
                 >
                   <div className="p-6">
                     <div className="mb-4">
-                      <motion.div 
-                        className="w-12 h-12 rounded-md bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
-                        animate={{
-                          boxShadow: [
-                            "0 0 0px rgba(16,185,129,0)",
-                            "0 0 10px rgba(16,185,129,0.4)",
-                            "0 0 0px rgba(16,185,129,0)"
-                          ]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: index * 0.7
-                        }}
-                      >
+                      <div className="w-12 h-12 rounded-md bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         {feature.icon}
-                      </motion.div>
+                      </div>
                       <h3 className="text-xl font-bold mb-2 text-white">{feature.title}</h3>
                       <p className="text-gray-400">{feature.desc}</p>
                     </div>
                   </div>
-                  {/* Fixed positioning of the hover animation border with pulse */}
-                  <motion.div 
-                    className="h-1 w-0 bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:w-full transition-all duration-700 absolute bottom-0 left-0"
-                    whileHover={{
-                      opacity: [1, 0.8, 1],
-                      transition: { duration: 1.5, repeat: Infinity }
-                    }}
-                  />
+                  {/* Fixed positioning of the hover animation border */}
+                  <div className="h-1 w-0 bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:w-full transition-all duration-700 absolute bottom-0 left-0" />
                 </Card>
               ))}
             </div>
@@ -561,25 +560,13 @@ const RealEstateTokenization = () => {
 
         {/* Process Steps with connecting lines */}
         <div className="relative">
-          {/* Connecting line with pulsing effect */}
+          {/* Connecting line */}
           <motion.div 
-            className="absolute hidden md:block top-1/2 left-[10%] right-[10%] h-1 bg-gradient-to-r from-gray-800 via-emerald-800/30 to-gray-800 -translate-y-1/2 z-0"
+            className="absolute hidden md:block top-1/2 left-[10%] right-[10%] h-1 bg-gray-800 -translate-y-1/2 z-0"
             initial={{ scaleX: 0 }}
-            whileInView={{  
-              scaleX: 1,
-              boxShadow: ["0 0 0px rgba(16,185,129,0)", "0 0 8px rgba(16,185,129,0.3)", "0 0 0px rgba(16,185,129,0)"]
-            }}
+            whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ 
-              duration: 1.5, 
-              ease: "easeInOut",
-              boxShadow: {
-                repeat: Infinity,
-                duration: 3,
-                ease: "easeInOut",
-                delay: 1.5
-              }
-            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
