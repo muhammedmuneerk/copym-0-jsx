@@ -137,97 +137,98 @@ const RealEstateTokenization = () => {
       {/* Fixed Grid Background */}
       <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC40Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjA2Ii8+PC9zdmc+')]" />
       
-      {/* Pulsing Diagonal Grid Overlay with Snail Trails */}
+      {/* Diagonal Grid with Traveling Snail Trails */}
       <div className="fixed inset-0 overflow-hidden">
-        {/* Base pulsing diagonal grid */}
-        <motion.div 
-          className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]"
-          animate={{ 
-            opacity: [0.08, 0.25, 0.08],
-            scale: [1, 1.03, 1],
-          }}
-          transition={{ 
-            duration: 3.5, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-          }}
-        />
+        {/* Base diagonal grid - slightly dimmed */}
+        <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]" style={{ opacity: 0.06 }} />
         
-        {/* Diagonal snail trails overlaid on the grid */}
+        {/* Animated snail trails on diagonal grid */}
         <svg className="fixed inset-0 w-full h-full" preserveAspectRatio="none">
-          {/* Diagonal lines with moving gradients */}
-          {Array.from({ length: 12 }).map((_, index) => {
-            const startY = -120 + (index * 160);
-            const endY = startY + 240;
-            return (
-              <motion.line
-                key={`diag-line-${index}`}
-                x1="-100"
-                y1={startY}
-                x2="calc(100% + 100px)"
-                y2={endY}
-                stroke="url(#snailGradient)"
-                strokeWidth="1.2"
-                initial={{ pathLength: 0 }}
-                animate={{
-                  pathLength: [0, 1],
-                  pathOffset: [0, 1],
-                }}
-                transition={{
-                  duration: 10 + (index % 5),
-                  repeat: Infinity,
-                  ease: "linear",
-                  delay: index * 1.2,
-                }}
-              />
-            );
-          })}
-          
-          {/* Diagonal lines in opposite direction */}
-          {Array.from({ length: 12 }).map((_, index) => {
-            const startY = -120 + (index * 160);
-            const endY = startY + 240;
-            return (
-              <motion.line
-                key={`diag-line-rev-${index}`}
-                x1="calc(100% + 100px)"
-                y1={startY}
-                x2="-100"
-                y2={endY}
-                stroke="url(#snailGradientRev)"
-                strokeWidth="1.2"
-                initial={{ pathLength: 0 }}
-                animate={{
-                  pathLength: [0, 1],
-                  pathOffset: [0, 1],
-                }}
-                transition={{
-                  duration: 12 + (index % 4),
-                  repeat: Infinity,
-                  ease: "linear",
-                  delay: index * 0.8,
-                }}
-              />
-            );
-          })}
-          
-          {/* Definitions for the glowing gradients */}
           <defs>
-            <linearGradient id="snailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            {/* Define the gradient for the traveling pulses */}
+            <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="45%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.8)" />
-              <stop offset="55%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="10%" stopColor="rgba(16, 185, 129, 0.1)" />
+              <stop offset="40%" stopColor="rgba(16, 185, 129, 0.6)" />
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.9)" />
+              <stop offset="60%" stopColor="rgba(16, 185, 129, 0.6)" />
+              <stop offset="90%" stopColor="rgba(16, 185, 129, 0.1)" />
               <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
             </linearGradient>
-            <linearGradient id="snailGradientRev" x1="100%" y1="0%" x2="0%" y2="100%">
+            
+            {/* Second gradient for variation */}
+            <linearGradient id="pulseGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="45%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.8)" />
-              <stop offset="55%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="20%" stopColor="rgba(16, 185, 129, 0.2)" />
+              <stop offset="30%" stopColor="rgba(16, 185, 129, 0.7)" />
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 1)" />
+              <stop offset="70%" stopColor="rgba(16, 185, 129, 0.7)" />
+              <stop offset="80%" stopColor="rgba(16, 185, 129, 0.2)" />
               <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
             </linearGradient>
           </defs>
+          
+          {/* Generate a grid of diagonal lines matching the pattern */}
+          {Array.from({ length: 30 }).map((_, rowIndex) => {
+            // Create multiple rows of lines at different positions
+            const yOffset = (rowIndex - 15) * 60; // 60px is the pattern size
+            const useSecondGradient = rowIndex % 2 === 0;
+            
+            return (
+              <motion.line
+                key={`snail-line-${rowIndex}`}
+                x1="-100%"
+                y1={`calc(50% + ${yOffset}px - 100%)`}
+                x2="200%"
+                y2={`calc(50% + ${yOffset}px + 200%)`}
+                stroke={useSecondGradient ? "url(#pulseGradient2)" : "url(#pulseGradient)"}
+                strokeWidth={useSecondGradient ? "1.5" : "1.8"}
+                strokeLinecap="round"
+                initial={{ pathLength: 0.15, pathOffset: -0.2 }}
+                animate={{
+                  pathLength: [0.15, 0.3, 0.15], // Stretching effect
+                  pathOffset: [-0.2, 1.2, -0.2],   // Movement along the path with reset
+                }}
+                transition={{
+                  duration: 12 + (rowIndex % 7),
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: rowIndex * 0.8,
+                }}
+              />
+            );
+          })}
+          
+          {/* Opposite direction trails */}
+          {Array.from({ length: 30 }).map((_, rowIndex) => {
+            // Create multiple rows of lines at different positions
+            const yOffset = (rowIndex - 15) * 60 + 30; // 60px is the pattern size, offset by 30
+            const useSecondGradient = rowIndex % 3 === 0;
+            
+            return (
+              <motion.line
+                key={`snail-line-rev-${rowIndex}`}
+                x1="200%"
+                y1={`calc(50% + ${yOffset}px - 100%)`}
+                x2="-100%"
+                y2={`calc(50% + ${yOffset}px + 200%)`}
+                stroke={useSecondGradient ? "url(#pulseGradient2)" : "url(#pulseGradient)"}
+                strokeWidth={useSecondGradient ? "1.5" : "1.8"}
+                strokeLinecap="round"
+                initial={{ pathLength: 0.15, pathOffset: -0.2 }}
+                animate={{
+                  pathLength: [0.15, 0.3, 0.15], // Stretching effect
+                  pathOffset: [-0.2, 1.2, -0.2],   // Movement along the path with reset
+                }}
+                transition={{
+                  duration: 15 + (rowIndex % 5),
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: rowIndex * 0.7,
+                }}
+              />
+            );
+          })}
         </svg>
       </div>
       
