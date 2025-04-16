@@ -137,114 +137,137 @@ const RealEstateTokenization = () => {
       {/* Fixed Grid Background */}
       <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC40Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjA2Ii8+PC9zdmc+')]" />
       
-      {/* Diagonal Grid with Traveling Snail Trails */}
+      {/* Diagonal Grid with True Snail Movement */}
       <div className="fixed inset-0 overflow-hidden">
-        {/* Base diagonal grid - slightly dimmed */}
-        <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]" style={{ opacity: 0.06 }} />
+        {/* Base diagonal grid - very dimmed, almost invisible */}
+        <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]" style={{ opacity: 0.03 }} />
         
-        {/* Animated snail trails on diagonal grid */}
-        <svg className="fixed inset-0 w-full h-full" preserveAspectRatio="none">
-          <defs>
-            {/* Snail body gradient with more distinct front/middle/back sections */}
-            <linearGradient id="snailBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="5%" stopColor="rgba(16, 185, 129, 0.1)" />
-              <stop offset="15%" stopColor="rgba(16, 185, 129, 0.9)" /> {/* Front "head" of snail */}
-              <stop offset="30%" stopColor="rgba(16, 185, 129, 0.6)" /> {/* First stretch of body */}
-              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.8)" /> {/* Middle of body */}
-              <stop offset="70%" stopColor="rgba(16, 185, 129, 0.6)" /> {/* Another stretch */}
-              <stop offset="85%" stopColor="rgba(16, 185, 129, 0.9)" /> {/* Back "tail" of snail */}
-              <stop offset="95%" stopColor="rgba(16, 185, 129, 0.1)" />
-              <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
-            </linearGradient>
-            
-            {/* Second snail body gradient for variation */}
-            <linearGradient id="snailBodyGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="5%" stopColor="rgba(16, 185, 129, 0.1)" />
-              <stop offset="12%" stopColor="rgba(16, 185, 129, 0.8)" /> {/* Front "head" of snail */}
-              <stop offset="25%" stopColor="rgba(16, 185, 129, 0.5)" /> {/* First stretch of body */}
-              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.7)" /> {/* Middle of body */}
-              <stop offset="75%" stopColor="rgba(16, 185, 129, 0.5)" /> {/* Another stretch */}
-              <stop offset="88%" stopColor="rgba(16, 185, 129, 0.8)" /> {/* Back "tail" of snail */}
-              <stop offset="95%" stopColor="rgba(16, 185, 129, 0.1)" />
-              <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
-            </linearGradient>
-          </defs>
-          
-          {/* Generate a grid of diagonal lines matching the pattern */}
-          {Array.from({ length: 24 }).map((_, rowIndex) => {
-            // Create multiple rows of lines at different positions
-            const yOffset = (rowIndex - 12) * 70; // 70px spacing instead of 60px for more space
-            const useSecondGradient = rowIndex % 2 === 0;
+      {/* Diagonal Grid with Simple Snail Animation using DIVs */}
+      <div className="fixed inset-0 overflow-hidden">
+        {/* Base diagonal grid - dimmed */}
+        <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]" style={{ opacity: 0.03 }} />
+        
+        {/* Container for snail elements */}
+        <div className="fixed inset-0 overflow-hidden">
+          {/* Actual snail elements - distributed across the entire screen */}
+          {Array.from({ length: 15 }).map((_, index) => {
+            // Distribute evenly from top to bottom of screen
+            const top = (index * 100) / 15; // This creates a percentage from 0% to ~95%
+            const delay = index * 2;
             
             return (
-              <motion.line
-                key={`snail-line-${rowIndex}`}
-                x1="-100%"
-                y1={`calc(50% + ${yOffset}px - 100%)`}
-                x2="200%"
-                y2={`calc(50% + ${yOffset}px + 200%)`}
-                stroke={useSecondGradient ? "url(#snailBodyGradient2)" : "url(#snailBodyGradient)"}
-                strokeWidth={useSecondGradient ? "2.2" : "2.5"} // Thicker lines for better visibility
-                strokeLinecap="round"
-                initial={{ pathLength: 0.2, pathOffset: -0.3 }}
-                animate={{
-                  // Very exaggerated stretching effect
-                  pathLength: [0.2, 0.7, 0.2], 
-                  // Extremely slow movement
-                  pathOffset: [-0.3, 1.3, -0.3],
+              <div 
+                key={`snail-${index}`} 
+                className="absolute h-8 transform rotate-45"
+                style={{
+                  top: `${top}%`,
+                  left: '-20%',
+                  width: '400px',
+                  animation: `moveSnailDiagonal 25s linear ${delay}s infinite`,
+                  background: 'linear-gradient(to right, rgba(16,185,129,0) 0%, rgba(16,185,129,0) 5%, rgba(16,185,129,1) 10%, rgba(16,185,129,0.4) 15%, rgba(16,185,129,0.8) 25%, rgba(16,185,129,0.3) 40%, rgba(16,185,129,0.1) 60%, rgba(16,185,129,0) 80%)',
                 }}
-                transition={{
-                  // Much longer duration for true snail pace
-                  duration: 35 + (rowIndex % 10), 
-                  repeat: Infinity,
-                  // Custom cubic-bezier for snail-like motion
-                  ease: [0.34, 0.1, 0.24, 1],
-                  delay: rowIndex * 3.5, // Much longer delays between snails
-                }}
-              />
+              >
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    animation: 'pulseStretch 4s ease-in-out infinite',
+                  }}
+                />
+              </div>
             );
           })}
           
-          {/* Opposite direction trails */}
-          {Array.from({ length: 24 }).map((_, rowIndex) => {
-            // Create multiple rows of lines at different positions
-            const yOffset = (rowIndex - 12) * 70 + 35; // 70px spacing with 35px offset
-            const useSecondGradient = rowIndex % 3 === 0;
+          {/* Opposite direction snails - also distributed across the entire screen */}
+          {Array.from({ length: 15 }).map((_, index) => {
+            // Offset slightly from the other direction for a staggered effect
+            const top = 6 + ((index * 100) / 15); // Offset by 6% for staggered effect
+            const delay = 1 + (index * 2);
             
             return (
-              <motion.line
-                key={`snail-line-rev-${rowIndex}`}
-                x1="200%"
-                y1={`calc(50% + ${yOffset}px - 100%)`}
-                x2="-100%"
-                y2={`calc(50% + ${yOffset}px + 200%)`}
-                stroke={useSecondGradient ? "url(#snailBodyGradient2)" : "url(#snailBodyGradient)"}
-                strokeWidth={useSecondGradient ? "2.2" : "2.5"}
-                strokeLinecap="round"
-                initial={{ pathLength: 0.2, pathOffset: -0.3 }}
-                animate={{
-                  // Very exaggerated stretching effect
-                  pathLength: [0.2, 0.7, 0.2],
-                  // Extremely slow movement
-                  pathOffset: [-0.3, 1.3, -0.3],
+              <div 
+                key={`snail-rev-${index}`} 
+                className="absolute h-8 transform -rotate-45"
+                style={{
+                  top: `${top}%`,
+                  right: '-20%',
+                  width: '400px',
+                  animation: `moveSnailDiagonalReverse 30s linear ${delay}s infinite`,
+                  background: 'linear-gradient(to left, rgba(16,185,129,0) 0%, rgba(16,185,129,0) 5%, rgba(16,185,129,1) 10%, rgba(16,185,129,0.4) 15%, rgba(16,185,129,0.8) 25%, rgba(16,185,129,0.3) 40%, rgba(16,185,129,0.1) 60%, rgba(16,185,129,0) 80%)',
                 }}
-                transition={{
-                  // Much longer duration for true snail pace
-                  duration: 40 + (rowIndex % 12),
-                  repeat: Infinity,
-                  // Custom cubic-bezier for snail-like motion
-                  ease: [0.34, 0.1, 0.24, 1],
-                  delay: rowIndex * 4, // Much longer delays between snails
-                }}
-              />
+              >
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    animation: 'pulseStretch 5s ease-in-out infinite',
+                  }}
+                />
+              </div>
             );
           })}
-        </svg>
+        </div>
+        
+        {/* Style definitions */}
+        <style jsx>{`
+          @keyframes moveSnailDiagonal {
+            0% {
+              transform: rotate(45deg) scaleX(1);
+              left: -20%;
+            }
+            20% {
+              transform: rotate(45deg) scaleX(1.5);
+            }
+            40% {
+              transform: rotate(45deg) scaleX(1);
+            }
+            60% {
+              transform: rotate(45deg) scaleX(1.8);
+            }
+            80% {
+              transform: rotate(45deg) scaleX(1.2);
+            }
+            100% {
+              transform: rotate(45deg) scaleX(1);
+              left: 120%;
+            }
+          }
+          
+          @keyframes moveSnailDiagonalReverse {
+            0% {
+              transform: rotate(-45deg) scaleX(1);
+              right: -20%;
+            }
+            20% {
+              transform: rotate(-45deg) scaleX(1.5);
+            }
+            40% {
+              transform: rotate(-45deg) scaleX(1);
+            }
+            60% {
+              transform: rotate(-45deg) scaleX(1.8);
+            }
+            80% {
+              transform: rotate(-45deg) scaleX(1.2);
+            }
+            100% {
+              transform: rotate(-45deg) scaleX(1);
+              right: 120%;
+            }
+          }
+          
+          @keyframes pulseStretch {
+            0% {
+              transform: scaleX(1);
+            }
+            50% {
+              transform: scaleX(1.6);
+            }
+            100% {
+              transform: scaleX(1);
+            }
+          }
+        `}</style>
       </div>
-      
-      
+      </div>
       
       {/* Animated gradient overlay - increased color intensity */}
       <motion.div 
