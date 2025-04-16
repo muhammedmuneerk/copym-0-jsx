@@ -137,7 +137,7 @@ const RealEstateTokenization = () => {
       {/* Fixed Grid Background */}
       <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC40Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjA2Ii8+PC9zdmc+')]" />
       
-      {/* Enhanced Diagonal Grid Overlay with Integrated Snail Trails */}
+      {/* Pulsing Diagonal Grid Overlay with Snail Trails */}
       <div className="fixed inset-0 overflow-hidden">
         {/* Base pulsing diagonal grid */}
         <motion.div 
@@ -153,66 +153,81 @@ const RealEstateTokenization = () => {
           }}
         />
         
-        {/* Animated diagonal grid overlays with snail trail effects that match the existing grid */}
-        <svg className="fixed inset-0 w-full h-full opacity-70" preserveAspectRatio="none">
+        {/* Diagonal snail trails overlaid on the grid */}
+        <svg className="fixed inset-0 w-full h-full" preserveAspectRatio="none">
+          {/* Diagonal lines with moving gradients */}
+          {Array.from({ length: 12 }).map((_, index) => {
+            const startY = -120 + (index * 160);
+            const endY = startY + 240;
+            return (
+              <motion.line
+                key={`diag-line-${index}`}
+                x1="-100"
+                y1={startY}
+                x2="calc(100% + 100px)"
+                y2={endY}
+                stroke="url(#snailGradient)"
+                strokeWidth="1.2"
+                initial={{ pathLength: 0 }}
+                animate={{
+                  pathLength: [0, 1],
+                  pathOffset: [0, 1],
+                }}
+                transition={{
+                  duration: 10 + (index % 5),
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: index * 1.2,
+                }}
+              />
+            );
+          })}
+          
+          {/* Diagonal lines in opposite direction */}
+          {Array.from({ length: 12 }).map((_, index) => {
+            const startY = -120 + (index * 160);
+            const endY = startY + 240;
+            return (
+              <motion.line
+                key={`diag-line-rev-${index}`}
+                x1="calc(100% + 100px)"
+                y1={startY}
+                x2="-100"
+                y2={endY}
+                stroke="url(#snailGradientRev)"
+                strokeWidth="1.2"
+                initial={{ pathLength: 0 }}
+                animate={{
+                  pathLength: [0, 1],
+                  pathOffset: [0, 1],
+                }}
+                transition={{
+                  duration: 12 + (index % 4),
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: index * 0.8,
+                }}
+              />
+            );
+          })}
+          
+          {/* Definitions for the glowing gradients */}
           <defs>
-            <pattern id="diagonalTrailPattern" width="60" height="60" patternUnits="userSpaceOnUse">
-              {/* This creates a pattern that perfectly matches the original diagonal grid */}
-              <path d="M60 0 L0 60" fill="none" stroke="url(#trailGradient)" strokeWidth="1.2" />
-            </pattern>
-            
-            <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="snailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
               <stop offset="45%" stopColor="rgba(16, 185, 129, 0)" />
-              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.9)" />
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.8)" />
+              <stop offset="55%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
+            </linearGradient>
+            <linearGradient id="snailGradientRev" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="45%" stopColor="rgba(16, 185, 129, 0)" />
+              <stop offset="50%" stopColor="rgba(16, 185, 129, 0.8)" />
               <stop offset="55%" stopColor="rgba(16, 185, 129, 0)" />
               <stop offset="100%" stopColor="rgba(16, 185, 129, 0)" />
             </linearGradient>
           </defs>
-          
-          {/* Multiple animated rectangles using the pattern but with different animation offsets */}
-          {Array.from({ length: 12 }).map((_, index) => (
-            <motion.rect
-              key={`trail-rect-${index}`}
-              width="100%"
-              height="100%"
-              fill="url(#diagonalTrailPattern)"
-              initial={{ opacity: 0.5 }}
-              animate={{ 
-                opacity: 0.5,
-                x: ["-60px", "0px"], // Pattern animation
-                y: ["0px", "60px"]   // This creates diagonal movement
-              }}
-              transition={{
-                duration: 5 + (index % 4),
-                repeat: Infinity,
-                ease: "linear",
-                delay: index * 0.7,
-              }}
-            />
-          ))}
-          
-          {/* Additional overlays with opposite direction */}
-          {Array.from({ length: 12 }).map((_, index) => (
-            <motion.rect
-              key={`trail-rect-rev-${index}`}
-              width="100%"
-              height="100%"
-              fill="url(#diagonalTrailPattern)"
-              initial={{ opacity: 0.5 }}
-              animate={{ 
-                opacity: 0.5,
-                x: ["0px", "-60px"], // Reverse pattern animation
-                y: ["60px", "0px"]   // This creates diagonal movement in opposite direction
-              }}
-              transition={{
-                duration: 6 + (index % 3),
-                repeat: Infinity,
-                ease: "linear",
-                delay: index * 0.6,
-              }}
-            />
-          ))}
         </svg>
       </div>
       
