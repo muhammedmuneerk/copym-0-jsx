@@ -443,7 +443,7 @@ const CommoditiesTokenization = () => {
               </motion.p>
               
               {/* Feature Boxes Layout */}
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-2 gap-6">
                 {features.map((feature, index) => (
                   <FeatureCard
                     key={index}
