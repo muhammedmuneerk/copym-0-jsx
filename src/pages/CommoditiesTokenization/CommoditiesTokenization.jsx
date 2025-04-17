@@ -143,7 +143,7 @@ const CommoditiesTokenization = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20 relative overflow-hidden">
+    <div className="min-h-screen bg-[#0B0D14] text-white pt-20 relative overflow-hidden">
       {/* Inject CSS animations */}
       <style>{animationStyles}</style>
       
@@ -155,9 +155,6 @@ const CommoditiesTokenization = () => {
           backgroundSize: "120px",
         }}
       />
-      
-      {/* Glassmorphism effect layer */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-black/40 backdrop-blur-sm pointer-events-none"></div>
 
       {/* Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 z-50">
@@ -170,7 +167,7 @@ const CommoditiesTokenization = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="px-8 py-24 md:px-16 lg:px-24 relative overflow-hidden bg-black"
+        className="px-8 py-24 md:px-16 lg:px-24 relative overflow-hidden bg-[#0B0D14]"
       >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -220,7 +217,7 @@ const CommoditiesTokenization = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-lg font-medium text-white border border-white/10 bg-black/40 backdrop-blur-md transition-colors duration-300 shadow-lg hover:bg-black/60"
+                className="px-8 py-4 rounded-lg font-medium text-white border border-[#1A1D23] bg-[#0D1117] transition-colors duration-300"
               >
                 Explore Market Insights
               </motion.button>
@@ -246,7 +243,7 @@ const CommoditiesTokenization = () => {
       </section>
 
       {/* Redefine Commodity Investment - Fixed Section */}
-      <section className="px-8 py-16 md:px-16 lg:px-24 flex flex-col md:flex-row md:gap-16 relative bg-black">
+      <section className="px-8 py-16 md:px-16 lg:px-24 flex flex-col md:flex-row md:gap-16 relative bg-[#0B0D14]">
         <div className="md:w-5/12 z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -267,7 +264,7 @@ const CommoditiesTokenization = () => {
               {/* Commodity Liquidity */}
               <motion.div
                 whileHover={{ y: -8 }}
-                className="relative bg-black/40 backdrop-blur-md border border-white/10 p-8 rounded-xl overflow-hidden group shadow-lg"
+                className="relative bg-[#0D1117] backdrop-blur-sm border border-[#1A1D23] p-8 rounded-xl overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
@@ -403,7 +400,7 @@ const CommoditiesTokenization = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
               viewport={{ once: true, amount: 0.3 }}
-              className="bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 shadow-xl relative"
+              className="bg-[#0D1117] backdrop-blur-lg rounded-2xl overflow-hidden shadow-2xl border border-[#1A1D23] relative"
             >
               {/* Card inner glow effect */}
               <div className="absolute inset-0 opacity-20 bg-gradient-to-br from-emerald-500/20 via-transparent to-transparent pointer-events-none" />
@@ -494,28 +491,28 @@ const CommoditiesTokenization = () => {
               <div className="text-white p-8">
                 {/* Metrics Row */}
                 <div className="grid grid-cols-3 gap-6 mb-8">
-                  <div className="bg-black/30 backdrop-blur-md rounded-lg p-4 border border-white/10 shadow-lg">
-                    <p className="text-gray-300 text-sm mb-1 font-['Inter']">Total Value</p>
+                  <div className="bg-[#0D1117] backdrop-blur-md rounded-lg p-4 border border-[#1A1D23]">
+                    <p className="text-gray-400 text-sm mb-1 font-['Inter']">Total Value</p>
                     <p className="text-2xl font-semibold flex items-center font-['JetBrains_Mono']">
-                      <span className="inline-block w-6 h-6 mr-2 rounded-full bg-emerald-500 flex items-center justify-center text-xs">
+                      <span className="inline-block w-6 h-6 mr-2 rounded-full bg-gradient-to-br from-emerald-600 to-emerald-400 flex items-center justify-center text-xs">
                         $
                       </span>
                       {animatedMetrics.totalValue}M
                     </p>
                   </div>
-                  <div className="bg-black/30 backdrop-blur-md rounded-lg p-4 border border-white/10 shadow-lg">
-                    <p className="text-gray-300 text-sm mb-1 font-['Inter']">Total Tokens</p>
+                  <div className="bg-[#0D1117] backdrop-blur-md rounded-lg p-4 border border-[#1A1D23]">
+                    <p className="text-gray-400 text-sm mb-1 font-['Inter']">Total Tokens</p>
                     <p className="text-2xl font-semibold flex items-center font-['JetBrains_Mono']">
-                      <span className="inline-block w-6 h-6 mr-2 rounded-full bg-emerald-500 flex items-center justify-center text-xs">
+                      <span className="inline-block w-6 h-6 mr-2 rounded-full bg-gradient-to-br from-emerald-600 to-emerald-400 flex items-center justify-center text-xs">
                         ↗
                       </span>
                       {animatedMetrics.totalTokens.toLocaleString()}
                     </p>
                   </div>
-                  <div className="bg-black/30 backdrop-blur-md rounded-lg p-4 border border-white/10 shadow-lg">
-                    <p className="text-gray-300 text-sm mb-1 font-['Inter']">Investors</p>
+                  <div className="bg-[#0D1117] backdrop-blur-md rounded-lg p-4 border border-[#1A1D23]">
+                    <p className="text-gray-400 text-sm mb-1 font-['Inter']">Investors</p>
                     <p className="text-2xl font-semibold flex items-center font-['JetBrains_Mono']">
-                      <span className="inline-block w-6 h-6 mr-2 rounded-full bg-emerald-500 flex items-center justify-center text-xs">
+                      <span className="inline-block w-6 h-6 mr-2 rounded-full bg-gradient-to-br from-emerald-600 to-emerald-400 flex items-center justify-center text-xs">
                         ★
                       </span>
                       {animatedMetrics.investors}
@@ -535,7 +532,7 @@ const CommoditiesTokenization = () => {
                   </div>
 
                   {/* Token Distribution Visualization */}
-                  <div className="relative h-16 rounded-lg overflow-hidden mb-4 bg-black/30 backdrop-blur-md border border-white/10 shadow-lg">
+                <div className="relative h-16 rounded-lg overflow-hidden mb-4 bg-[#0D1117] backdrop-blur-sm border border-[#1A1D23]">
                     {/* Nodes and connections */}
                     <div className="absolute inset-0 flex items-center">
                       {Array(20)
@@ -544,7 +541,7 @@ const CommoditiesTokenization = () => {
                           <div
                             key={`node-${i}`}
                             className={`h-2 w-2 rounded-full ${
-                              i < 15 ? "bg-emerald-500" : "bg-gray-700"
+                              i < 15 ? "bg-emerald-500" : "bg-gray-800"
                             } relative mx-1`}
                             style={{
                               animation: i < 15 ? `pulse 1.5s infinite ${i * 0.1}s` : "none",
@@ -559,17 +556,18 @@ const CommoditiesTokenization = () => {
                         ))}
                     </div>
 
+                    {/* Gradient overlay */}
                     <div className="absolute inset-0 flex">
-                  <div className="w-8/12 h-full bg-emerald-500/10" />
+                      <div className="w-8/12 h-full bg-gradient-to-r from-emerald-600/20 to-emerald-400/20" />
                       <div className="w-4/12 h-full bg-transparent" />
                     </div>
-                    
+
                     {/* Percentage indicators */}
                     <div className="absolute inset-0 flex justify-between items-center px-4">
-                      <div className="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                    <div className="bg-gray-900/70 backdrop-blur-md px-3 py-1 rounded-full">
                         <span className="text-emerald-500 text-sm font-['JetBrains_Mono']">68% Sold</span>
                       </div>
-                      <div className="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                      <div className="bg-gray-900/70 backdrop-blur-md px-3 py-1 rounded-full">
                         <span className="text-gray-400 text-sm font-['JetBrains_Mono']">32% Available</span>
                       </div>
                     </div>
@@ -584,13 +582,13 @@ const CommoditiesTokenization = () => {
                 </div>
 
                 {/* Investment Details */}
-                <div className="border-t border-white/10 pt-6">
+                <div className="border-t border-[#1A1D23] pt-6">
                   <div
                     className="flex justify-between items-center cursor-pointer"
                     onClick={toggleDetails}
                   >
                     <h4 className="font-semibold font-['Space_Grotesk'] text-lg">Investment Details</h4>
-                    <button className="w-8 h-8 bg-black/60 rounded-full flex items-center justify-center hover:bg-emerald-500/20 transition-colors duration-300 backdrop-blur-md border border-white/10">
+                    <button className="w-8 h-8 bg-gray-700/50 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors duration-300">
                       {detailsOpen ? (
                         <svg
                           className="w-5 h-5 text-white"
@@ -713,7 +711,7 @@ const CommoditiesTokenization = () => {
       </section>
 
       {/* Tokenizable Commodity Types */}
-      <section className="px-8 py-24 md:px-16 lg:px-24 text-center relative bg-black">
+      <section className="px-8 py-24 md:px-16 lg:px-24 text-center relative bg-[#0B0D14]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -722,7 +720,7 @@ const CommoditiesTokenization = () => {
         >
           <h2 className="font-['Space_Grotesk'] text-3xl md:text-5xl font-bold mb-3 tracking-tight">
             Tokenizable{" "}
-            <span className="text-emerald-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">
               Commodity Types
             </span>
           </h2>
@@ -847,7 +845,7 @@ const CommoditiesTokenization = () => {
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="bg-gray-800/30 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700/50 group"
               >
-                <div className="h-3 bg-emerald-500" />
+                <div className="h-3 bg-gradient-to-r from-emerald-600 to-emerald-400" />
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center">
@@ -859,7 +857,7 @@ const CommoditiesTokenization = () => {
                         <p className="text-gray-400 text-sm font-['Inter']">{commodity.type}</p>
                       </div>
                     </div>
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center border border-white/10 bg-black/20 backdrop-blur-md group-hover:border-emerald-500 transition-colors duration-300 shadow-lg">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center border border-[#1A1D23] group-hover:border-emerald-600 transition-colors duration-300">
                       <svg
                         className="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform duration-300"
                         fill="none"
@@ -897,7 +895,7 @@ const CommoditiesTokenization = () => {
       </section>
 
       {/* Benefits */}
-      <section className="px-8 py-24 md:px-16 lg:px-24 text-center relative bg-black">
+      <section className="px-8 py-24 md:px-16 lg:px-24 text-center relative bg-[#0B0D14]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -906,7 +904,7 @@ const CommoditiesTokenization = () => {
         >
           <h2 className="font-['Space_Grotesk'] text-3xl md:text-5xl font-bold mb-3 tracking-tight">
             Benefits of{" "}
-            <span className="text-emerald-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">
               Commodity Tokenization
             </span>
           </h2>
@@ -926,7 +924,7 @@ const CommoditiesTokenization = () => {
               {/* Background glow effect */}
               <div className="absolute -top-20 -left-20 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl" />
               
-              <h3 className="text-2xl text-emerald-500 font-semibold mb-8 text-left font-['Space_Grotesk']">
+              <h3 className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-semibold mb-8 text-left font-['Space_Grotesk']">
                 For Investors
               </h3>
               <ul className="space-y-6 text-left">
@@ -975,7 +973,7 @@ const CommoditiesTokenization = () => {
               {/* Background glow effect */}
               <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-teal-500/10 rounded-full blur-3xl" />
               
-              <h3 className="text-2xl text-emerald-500 font-semibold mb-8 text-left font-['Space_Grotesk']">
+              <h3 className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-semibold mb-8 text-left font-['Space_Grotesk']">
                 For Commodity Owners
               </h3>
               <ul className="space-y-6 text-left">
@@ -991,7 +989,7 @@ const CommoditiesTokenization = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 + 0.3, duration: 0.3 }}
                     viewport={{ once: true }}
-                    className="flex items-center bg-black/30 backdrop-blur-lg p-4 rounded-lg border border-white/10 shadow-lg"
+                    className="flex items-center bg-gray-800/60 backdrop-blur-sm p-4 rounded-lg border border-gray-700/30"
                   >
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 mr-4 shadow-lg shadow-emerald-500/20">
                       <svg
@@ -1018,11 +1016,11 @@ const CommoditiesTokenization = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="px-8 py-24 md:px-16 lg:px-24 text-center relative bg-black">
+      <section className="px-8 py-24 md:px-16 lg:px-24 text-center relative bg-[#0B0D14]">
                   <div className="max-w-5xl mx-auto relative">
           {/* Background effects */}
-          <div className="absolute inset-0 bg-black/30 rounded-3xl transform -rotate-1 backdrop-blur-md border border-white/5" />
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-xl" />
+          <div className="absolute inset-0 bg-[#0D1117] rounded-3xl transform -rotate-1" />
+          <div className="absolute inset-0 bg-[#0D1117] backdrop-blur-lg rounded-3xl border border-[#1A1D23]" />
           
           <div className="relative py-16 px-8">
             <motion.div
@@ -1071,7 +1069,7 @@ const CommoditiesTokenization = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-10 py-5 rounded-lg font-medium text-white border border-white/10 bg-black/30 backdrop-blur-md transition-colors duration-300 shadow-lg hover:bg-black/50 font-['Inter']"
+                  className="px-10 py-5 rounded-lg font-medium text-white border border-[#1A1D23] bg-[#0D1117] transition-colors duration-300 font-['Inter']"
                 >
                   Learn More
                 </motion.button>
