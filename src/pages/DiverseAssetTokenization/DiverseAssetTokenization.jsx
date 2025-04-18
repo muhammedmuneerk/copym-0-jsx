@@ -8,12 +8,12 @@ const TokenizationIcon = () => (
     <circle cx="20" cy="18" r="6" stroke="url(#paint1_linear)" strokeWidth="1.5"/>
     <defs>
       <linearGradient id="paint0_linear" x1="6.41154" y1="5" x2="33.5885" y2="31.3344" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#3B82F6"/>
-        <stop offset="1" stopColor="#14B8A6"/>
+        <stop stopColor="#10B981"/>
+        <stop offset="1" stopColor="#065F46"/>
       </linearGradient>
       <linearGradient id="paint1_linear" x1="14" y1="12" x2="26" y2="24" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#F59E0B"/>
-        <stop offset="1" stopColor="#EF4444"/>
+        <stop stopColor="#34D399"/>
+        <stop offset="1" stopColor="#059669"/>
       </linearGradient>
     </defs>
   </svg>
@@ -25,12 +25,12 @@ const GlobalIcon = () => (
     <path d="M20 6C20 6 10 14.5 10 20C10 25.5 10 34 10 34M20 6C20 6 30 14.5 30 20C30 25.5 30 34 30 34M20 6V34M7 20H33" stroke="url(#paint1_linear)" strokeWidth="1.5"/>
     <defs>
       <linearGradient id="paint0_linear" x1="6" y1="6" x2="34" y2="34" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#3B82F6"/>
-        <stop offset="1" stopColor="#14B8A6"/>
+        <stop stopColor="#10B981"/>
+        <stop offset="1" stopColor="#065F46"/>
       </linearGradient>
       <linearGradient id="paint1_linear" x1="7" y1="6" x2="33" y2="34" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#3B82F6"/>
-        <stop offset="1" stopColor="#14B8A6"/>
+        <stop stopColor="#10B981"/>
+        <stop offset="1" stopColor="#065F46"/>
       </linearGradient>
     </defs>
   </svg>
@@ -42,12 +42,12 @@ const SecurityIcon = () => (
     <path d="M15 19L18 22L25 15" stroke="url(#paint1_linear)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     <defs>
       <linearGradient id="paint0_linear" x1="8" y1="5" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#3B82F6"/>
-        <stop offset="1" stopColor="#14B8A6"/>
+        <stop stopColor="#10B981"/>
+        <stop offset="1" stopColor="#065F46"/>
       </linearGradient>
       <linearGradient id="paint1_linear" x1="15" y1="15" x2="25" y2="22" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#F59E0B"/>
-        <stop offset="1" stopColor="#EF4444"/>
+        <stop stopColor="#34D399"/>
+        <stop offset="1" stopColor="#059669"/>
       </linearGradient>
     </defs>
   </svg>
@@ -61,12 +61,12 @@ const DiversityIcon = () => (
     <path d="M21 21C21 19.3431 22.3431 18 24 18H26C27.6569 18 29 19.3431 29 21V32H21V21Z" stroke="url(#paint1_linear)" strokeWidth="1.5"/>
     <defs>
       <linearGradient id="paint0_linear" x1="6" y1="6" x2="34" y2="34" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#3B82F6"/>
-        <stop offset="1" stopColor="#14B8A6"/>
+        <stop stopColor="#10B981"/>
+        <stop offset="1" stopColor="#065F46"/>
       </linearGradient>
       <linearGradient id="paint1_linear" x1="11" y1="18" x2="29" y2="32" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#3B82F6"/>
-        <stop offset="1" stopColor="#14B8A6"/>
+        <stop stopColor="#10B981"/>
+        <stop offset="1" stopColor="#065F46"/>
       </linearGradient>
     </defs>
   </svg>
@@ -118,7 +118,7 @@ const ParticleBackground = () => {
         if (p.y > height) p.y = 0;
         
         // Draw particle
-        ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity})`;
+        ctx.fillStyle = `rgba(16, 185, 129, ${p.opacity})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
@@ -157,14 +157,14 @@ const AnimatedButton = ({ children, className, primary }) => {
     <motion.button
       className={`relative overflow-hidden group ${
         primary 
-          ? "bg-gradient-to-r from-blue-600 to-teal-500 text-white" 
-          : "border border-blue-400 text-blue-400 hover:text-white"
+          ? "bg-gradient-to-r from-green-800 to-green-900 text-white" 
+          : "border border-green-500 text-green-400 hover:text-white"
       } rounded-md px-6 py-3 font-sans font-medium tracking-wide ${className}`}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
       <motion.span 
-        className="absolute inset-0 w-full h-full bg-gradient-to-r from-amber-400/20 to-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 w-full h-full bg-gradient-to-r from-green-500/20 to-green-700/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         initial={{ x: '-100%' }}
         whileHover={{ x: 0 }}
         transition={{ type: 'spring', stiffness: 100 }}
@@ -195,14 +195,14 @@ const AssetTypeButton = ({ label }) => {
   return (
     <div className="relative">
       <motion.button
-        className="bg-gradient-to-r from-blue-900 to-teal-900 hover:from-blue-600 hover:to-teal-600 border border-teal-500/30 transition-all duration-300 rounded-full px-5 py-2 text-sm relative overflow-hidden group flex items-center gap-1"
+        className="bg-gradient-to-r from-green-900 to-green-800 hover:from-green-800 hover:to-green-700 border border-green-500/30 transition-all duration-300 rounded-full px-5 py-2 text-sm relative overflow-hidden group flex items-center gap-1"
         onMouseEnter={() => setTooltipVisible(true)}
         onMouseLeave={() => setTooltipVisible(false)}
         whileHover={{ y: -2 }}
         whileTap={{ y: 1 }}
       >
         <motion.span 
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-amber-500/10 to-amber-500/20"
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-green-500/10 to-green-600/20"
           animate={{ 
             x: isTooltipVisible ? ['0%', '100%'] : '0%' 
           }}
@@ -218,13 +218,13 @@ const AssetTypeButton = ({ label }) => {
       <AnimatePresence>
         {isTooltipVisible && (
           <motion.div
-            className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-60 p-3 bg-gradient-to-br from-blue-950 to-teal-950 backdrop-blur-lg rounded-lg border border-blue-500/20 shadow-xl text-gray-300 text-sm"
+            className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-60 p-3 bg-gradient-to-br from-black to-green-950 backdrop-blur-lg rounded-lg border border-green-500/20 shadow-xl text-gray-300 text-sm"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-teal-950 border-r border-b border-blue-500/20"></div>
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-green-950 border-r border-b border-green-500/20"></div>
             {tooltipContent}
           </motion.div>
         )}
@@ -238,7 +238,7 @@ const SectionHeader = ({ children, accent }) => {
   return (
     <motion.h2 
       className={`font-sans font-bold text-4xl mb-16 tracking-tight ${
-        accent ? "text-gradient bg-gradient-to-r from-blue-400 to-teal-400" : "text-white"
+        accent ? "text-gradient bg-gradient-to-r from-green-400 to-green-200" : "text-white"
       }`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -254,27 +254,27 @@ const SectionHeader = ({ children, accent }) => {
 const FeatureCard = ({ icon, title, description }) => {
   return (
     <motion.div 
-      className="relative bg-gradient-to-br from-blue-950 to-teal-950 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 overflow-hidden group"
+      className="relative bg-gradient-to-br from-black to-gray-900 backdrop-blur-sm rounded-xl p-6 border border-green-500/20 overflow-hidden group"
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300, damping: 15 }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-r from-green-800/10 to-green-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       <motion.div 
-        className="mb-4 relative z-10 p-3 bg-blue-900/20 rounded-lg inline-block"
+        className="mb-4 relative z-10 p-3 bg-green-900/20 rounded-lg inline-block"
         whileHover={{ rotate: [0, -10, 10, -10, 0] }}
         transition={{ duration: 0.5 }}
       >
         {icon}
       </motion.div>
       
-      <h3 className="text-xl font-sans font-semibold mb-2 text-white group-hover:text-blue-300 transition-colors duration-300">{title}</h3>
+      <h3 className="text-xl font-sans font-semibold mb-2 text-white group-hover:text-green-300 transition-colors duration-300">{title}</h3>
       
-      <p className="font-serif text-blue-100/70 leading-relaxed">
+      <p className="font-serif text-gray-400 leading-relaxed">
         {description}
       </p>
       
-      <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-blue-600/10 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-green-700/10 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </motion.div>
   );
 };
@@ -304,7 +304,7 @@ const DiverseAssetTokenization = () => {
   }, []);
   
   return (
-    <div className="bg-gradient-to-r from-blue-950 via-teal-950 to-blue-950 min-h-screen text-white overflow-hidden">
+    <div className="bg-gradient-to-r from-black via-gray-900 to-black min-h-screen text-white overflow-hidden">
       {/* Particle Background */}
       <ParticleBackground />
       
@@ -323,7 +323,7 @@ const DiverseAssetTokenization = () => {
         <motion.div 
           className="absolute inset-0 z-0"
           style={{ 
-            backgroundImage: "radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent 70%)",
+            backgroundImage: "radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15), transparent 70%)",
             y: isHeaderVisible ? 0 : -50,
             opacity: isHeaderVisible ? 1 : 0,
             transition: "all 1s ease-out"
@@ -338,7 +338,7 @@ const DiverseAssetTokenization = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <motion.div 
-              className="bg-gradient-to-br from-blue-800/50 to-teal-800/50 backdrop-blur-sm p-4 rounded-lg border border-blue-500/20"
+              className="bg-gradient-to-br from-green-800/50 to-green-900/50 backdrop-blur-sm p-4 rounded-lg border border-green-500/20"
               whileHover={{ rotate: [0, -5, 5, -5, 0] }}
               transition={{ duration: 0.5 }}
             >
@@ -347,7 +347,7 @@ const DiverseAssetTokenization = () => {
             
             <div className="flex-grow">
               <motion.h1 
-                className="font-sans text-5xl font-bold tracking-tight text-gradient bg-gradient-to-r from-blue-300 to-teal-300"
+                className="font-sans text-5xl font-bold tracking-tight text-gradient bg-gradient-to-r from-green-300 to-green-100"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -356,7 +356,7 @@ const DiverseAssetTokenization = () => {
               </motion.h1>
               
               <motion.p 
-                className="text-blue-300/80 mt-2 font-serif text-lg tracking-wide"
+                className="text-green-300/80 mt-2 font-serif text-lg tracking-wide"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
@@ -368,7 +368,7 @@ const DiverseAssetTokenization = () => {
           
           {/* Divider Line with Animation */}
           <motion.div 
-            className="h-px w-full bg-gradient-to-r from-blue-600 via-teal-400 to-blue-600"
+            className="h-px w-full bg-gradient-to-r from-green-500 via-green-300 to-green-500"
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
@@ -417,12 +417,12 @@ const DiverseAssetTokenization = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
-            <div className="bg-gradient-to-br from-blue-950 to-teal-950 backdrop-blur-sm rounded-xl p-8 border border-blue-500/20 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-black to-green-950 backdrop-blur-sm rounded-xl p-8 border border-green-500/20 relative overflow-hidden">
               {/* Background decorative elements */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-600/10 rounded-bl-full" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-teal-600/10 rounded-tr-full" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-green-700/10 rounded-bl-full" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-green-700/10 rounded-tr-full" />
               
-              <h3 className="text-2xl font-sans font-bold mb-8 relative z-10 text-gradient bg-gradient-to-r from-blue-300 to-teal-300">
+              <h3 className="text-2xl font-sans font-bold mb-8 relative z-10 text-gradient bg-gradient-to-r from-green-300 to-green-100">
                 Innovative Asset Types
               </h3>
 
@@ -450,12 +450,12 @@ const DiverseAssetTokenization = () => {
       >
         {/* Background Decorative Element */}
         <div className="absolute inset-0 z-0" style={{ 
-          backgroundImage: "radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.1), transparent 60%)"
+          backgroundImage: "radial-gradient(circle at 50% 30%, rgba(16, 185, 129, 0.1), transparent 60%)"
         }} />
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.h2 
-            className="font-sans text-4xl font-bold mb-4 text-gradient bg-gradient-to-r from-blue-300 to-teal-300"
+            className="font-sans text-4xl font-bold mb-4 text-gradient bg-gradient-to-r from-green-300 to-green-100"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -465,7 +465,7 @@ const DiverseAssetTokenization = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-blue-100/70 max-w-2xl mx-auto mb-12 font-serif text-lg"
+            className="text-green-300/80 max-w-2xl mx-auto mb-12 font-serif text-lg"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -501,7 +501,7 @@ const DiverseAssetTokenization = () => {
         }
         
         * {
-          cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='%233B82F6' stroke-width='1.5'/%3E%3Ccircle cx='12' cy='12' r='4' fill='%233B82F6' fill-opacity='0.3'/%3E%3C/svg%3E") 12 12, auto;
+          cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='%2310B981' stroke-width='1.5'/%3E%3Ccircle cx='12' cy='12' r='4' fill='%2310B981' fill-opacity='0.3'/%3E%3C/svg%3E") 12 12, auto;
         }
         
         html, body {
@@ -527,7 +527,7 @@ const DiverseAssetTokenization = () => {
           width: var(--cursor-size);
           height: var(--cursor-size);
           border-radius: 50%;
-          border: 1.5px solid rgba(59, 130, 246, 0.5);
+          border: 1.5px solid rgba(16, 185, 129, 0.5);
           pointer-events: none;
           transform: translate(-50%, -50%);
           mix-blend-mode: difference;
