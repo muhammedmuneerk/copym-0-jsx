@@ -256,51 +256,187 @@ const RealEstateTokenization = () => {
 
   return (
     <div className="bg-gradient-to-b from-[#050505] to-[#0a0a0a] text-white min-h-screen relative overflow-hidden font-sans">
-      {/* Enhanced Layered Background Elements - INCREASED OPACITY */}
-
-      {/* Grid Background - Increased opacity from 0.06 to 0.2 and stroke width */}
-      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC44Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjIiLz48L3N2Zz4=')]"></div>
-
-      {/* Hexagonal pattern overlay - Increased opacity from 0.06 to 0.25 and stroke width */}
-      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDg0IDQ4Ij48ZGVmcz48cGF0dGVybiBpZD0iaGV4IiB3aWR0aD0iODQiIGhlaWdodD0iNDgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InNjYWxlKDAuMTYpIj48cGF0aCBkPSJNNDIgMTIgNzMuODIzIDMxIDczLjgyMyA2OSA0MiA4OCAxMC4xNzcgNjkgMTAuMTc3IDMxeiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjIuNCIgLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjaGV4KSIgb3BhY2l0eT0iMC4yNSIgLz48L3N2Zz4=')] opacity-80"></div>
-
-      {/* Diagonal grid overlay - Increased opacity from 0.1 to 0.3 and stroke width */}
-      <div className="fixed inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]"></div>
-
-      {/* Animated gradient overlay - Significantly increased color intensity from 0.07 to 0.2 */}
-      <motion.div
-        className="fixed inset-0 bg-gradient-to-tr from-emerald-900/25 via-transparent to-blue-900/25"
+      {/* Base background elements */}
+      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC42Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjE1Ii8+PC9zdmc+')]"></div>
+      
+      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDg0IDQ4Ij48ZGVmcz48cGF0dGVybiBpZD0iaGV4IiB3aWR0aD0iODQiIGhlaWdodD0iNDgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InNjYWxlKDAuMTYpIj48cGF0aCBkPSJNNDIgMTIgNzMuODIzIDMxIDczLjgyMyA2OSA0MiA4OCAxMC4xNzcgNjkgMTAuMTc3IDMxeiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjEuOCIgLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjaGV4KSIgb3BhY2l0eT0iMC4xODc1IiAvPjwvc3ZnPg==')] opacity-60"></div>
+      
+      {/* Create a set of diagonal lines at 45 degrees - top left to bottom right */}
+      <div className="fixed inset-0 z-5">
+        {/* Generate diagonal lines with spacing of 100px */}
+        {[...Array(30)].map((_, i) => (
+          <div 
+            key={`line-${i}`} 
+            className="absolute bg-emerald-800/15" 
+            style={{
+              height: '2px',
+              width: '200%',
+              left: `-100%`,
+              top: `${i * 60 - 800}px`,
+              transform: 'rotate(45deg)',
+              transformOrigin: '50% 0%'
+            }}
+          >
+            {/* Main bright pulse */}
+            <motion.div 
+              className="absolute h-full bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+              style={{ width: '120px' }}
+              initial={{ left: '-120px' }}
+              animate={{ left: '200%' }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+                delay: i % 5 * 0.7
+              }}
+            />
+            
+            {/* Secondary pulse (creates stretchy effect) */}
+            <motion.div 
+              className="absolute h-full bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent"
+              style={{ width: '80px' }}
+              initial={{ left: '-80px' }}
+              animate={{ left: '200%' }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+                delay: i % 5 * 0.7 + 0.2
+              }}
+            />
+            
+            {/* Tail effect */}
+            <motion.div 
+              className="absolute h-full bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent"
+              style={{ width: '150px' }}
+              initial={{ left: '-150px' }}
+              animate={{ left: '200%' }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+                delay: i % 5 * 0.7 + 0.4
+              }}
+            />
+          </div>
+        ))}
+        
+        {/* Create a set of diagonal lines at 135 degrees - top right to bottom left */}
+        {[...Array(30)].map((_, i) => (
+          <div 
+            key={`cross-line-${i}`} 
+            className="absolute bg-emerald-800/15" 
+            style={{
+              height: '2px',
+              width: '200%',
+              right: `-100%`,
+              top: `${i * 60 - 800}px`,
+              transform: 'rotate(-45deg)',
+              transformOrigin: '50% 0%'
+            }}
+          >
+            {/* Main bright pulse */}
+            <motion.div 
+              className="absolute h-full bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+              style={{ width: '120px' }}
+              initial={{ right: '-120px' }}
+              animate={{ right: '200%' }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+                delay: i % 5 * 0.7 + 4 // Offset timing from first set
+              }}
+            />
+            
+            {/* Secondary pulse */}
+            <motion.div 
+              className="absolute h-full bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent"
+              style={{ width: '80px' }}
+              initial={{ right: '-80px' }}
+              animate={{ right: '200%' }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+                delay: i % 5 * 0.7 + 4.2
+              }}
+            />
+            
+            {/* Tail effect */}
+            <motion.div 
+              className="absolute h-full bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent"
+              style={{ width: '150px' }}
+              initial={{ right: '-150px' }}
+              animate={{ right: '200%' }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+                delay: i % 5 * 0.7 + 4.4
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      
+      {/* Create intersection flashes at diagonal crossings */}
+      <div className="fixed inset-0 z-6">
+        {[...Array(10)].map((_, row) => (
+          [...Array(10)].map((_, col) => (
+            <motion.div
+              key={`flash-${row}-${col}`}
+              className="absolute rounded-full bg-emerald-400"
+              style={{
+                width: '6px',
+                height: '6px',
+                left: `${col * 120 + 100}px`,
+                top: `${row * 120 + 100}px`,
+                filter: 'blur(2px)',
+                boxShadow: '0 0 8px #10b981'
+              }}
+              animate={{
+                opacity: [0, 0.8, 0],
+                scale: [0.8, 1.5, 0.8]
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+                delay: ((row + col) * 0.5) % 5
+              }}
+            />
+          ))
+        ))}
+      </div>
+      
+      {/* Animated gradient background */}
+      <motion.div 
+        className="fixed inset-0 bg-gradient-to-tr from-emerald-900/[0.1875] via-transparent to-blue-900/[0.1875]"
         animate={{
           background: [
-            "linear-gradient(135deg, rgba(6,78,59,0.2) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.2) 100%)",
-            "linear-gradient(135deg, rgba(12,74,110,0.2) 0%, rgba(0,0,0,0) 50%, rgba(6,78,59,0.2) 100%)",
-            "linear-gradient(135deg, rgba(6,78,59,0.2) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.2) 100%)",
-          ],
+            "linear-gradient(135deg, rgba(6,78,59,0.15) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.15) 100%)",
+            "linear-gradient(135deg, rgba(12,74,110,0.15) 0%, rgba(0,0,0,0) 50%, rgba(6,78,59,0.15) 100%)",
+            "linear-gradient(135deg, rgba(6,78,59,0.15) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.15) 100%)"
+          ]
         }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "linear",
+        transition={{ 
+          duration: 15, 
+          repeat: Infinity, 
+          ease: "linear" 
         }}
       />
-
-      {/* Sophisticated noise texture overlay - Increased opacity from 0.03 to 0.12 */}
-      <div className="fixed inset-0 opacity-[0.12] mix-blend-soft-light bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuMDEiIG51bU9jdGF2ZXM9IjUiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]"></div>
-
-      {/* Circuit board pattern overlay - Substantially increased opacity from 0.06 to 0.3 and stroke width */}
-      <div className="fixed inset-0 opacity-[0.3] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJjaXJjdWl0IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTEwIDEwIEw1MCAxMCBMNTAgNTAgTDkwIDUwIEw5MCA5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTkwIDEwIEw1MCAxMCBMNTAgNTAgTDEwIDUwIEwxMCA5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIxMCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSIxMCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSI1MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI1MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSI5MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI5MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2NpcmN1aXQpIi8+PC9zdmc+')]"></div>
-
-      {/* Vignette shadow overlay - Decreased opacity from 0.45 to 0.3 to make other elements more visible */}
-      <div
-        className="fixed inset-0 pointer-events-none bg-radial-gradient opacity-30 z-[1]"
-        style={{
-          background:
-            "radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.5) 100%)",
-        }}
-      ></div>
-
-      {/* Optional: Add a subtle color tint to enhance overall visibility */}
-      <div className="fixed inset-0 bg-emerald-500/5 mix-blend-overlay"></div>
+      
+      <div className="fixed inset-0 opacity-[0.09] mix-blend-soft-light bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuMDEiIG51bU9jdGF2ZXM9IjUiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]"></div>
+      
+      <div className="fixed inset-0 opacity-[0.225] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJjaXJjdWl0IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTEwIDEwIEw1MCAxMCBMNTAgNTAgTDkwIDUwIEw5MCA5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjEuMzUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik05MCAxMCBMNTAgMTAgTDUwIDUwIEwxMCA1MCBMMTAgOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIxLjM1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIyLjYyNSIgZmlsbD0iIzEwYjk4MSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMTAiIHI9IjIuNjI1IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSIxMCIgcj0iMi42MjUiIGZpbGw9IiMxMGI5ODEiLz48Y2lyY2xlIGN4PSIxMCIgY3k9IjUwIiByPSIyLjYyNSIgZmlsbD0iIzEwYjk4MSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjIuNjI1IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI1MCIgcj0iMi42MjUiIGZpbGw9IiMxMGI5ODEiLz48Y2lyY2xlIGN4PSIxMCIgY3k9IjkwIiByPSIyLjYyNSIgZmlsbD0iIzEwYjk4MSIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjIuNjI1IiBmaWxsPSIjMTBiOTgxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2NpcmN1aXQpIi8+PC9zdmc+')]"></div>
+      
+      <div className="fixed inset-0 pointer-events-none bg-radial-gradient opacity-[0.225] z-[20]" 
+        style={{ background: "radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.15) 70%, rgba(0, 0, 0, 0.375) 100%)" }}>
+      </div>
+      
+      <div className="fixed inset-0 bg-emerald-500/[0.0375] mix-blend-overlay"></div>
 
       {/* Hero Section */}
       <section className="relative container mx-auto px-6 py-24">
