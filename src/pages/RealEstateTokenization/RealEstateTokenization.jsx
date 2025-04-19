@@ -40,6 +40,128 @@ const Card = ({ children, className, as3D = false }) => {
   );
 };
 
+// Custom particle background component with enhanced visibility
+const ParticleBackground = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Base grid pattern - increased opacity and stroke width */}
+      <div className="h-full w-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC40Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjA2Ii8+PC9zdmc+')]"></div>
+      
+      {/* Diagonal grid overlay - increased opacity */}
+      <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]"></div>
+      
+      {/* Moving gradient overlay - increased color intensity */}
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-br from-emerald-900/10 via-transparent to-blue-900/10 mix-blend-screen"
+        animate={{ 
+          background: [
+            "linear-gradient(135deg, rgba(16,185,129,0.07) 0%, transparent 25%, rgba(6,78,59,0.07) 50%, transparent 75%, rgba(16,185,129,0.07) 100%)",
+            "linear-gradient(135deg, rgba(6,78,59,0.07) 0%, transparent 25%, rgba(16,185,129,0.07) 50%, transparent 75%, rgba(6,78,59,0.07) 100%)",
+            "linear-gradient(135deg, rgba(16,185,129,0.07) 0%, transparent 25%, rgba(6,78,59,0.07) 50%, transparent 75%, rgba(16,185,129,0.07) 100%)"
+          ]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      
+      {/* Advanced particles - increased opacity and size */}
+      {Array.from({ length: 50 }).map((_, i) => (
+        <motion.div
+          key={`particle-${i}`}
+          className={`absolute rounded-full ${i % 5 === 0 ? 'bg-emerald-400' : i % 3 === 0 ? 'bg-emerald-500' : 'bg-emerald-600'}`}
+          initial={{
+            opacity: Math.random() * 0.4 + 0.1,
+            x: `${Math.random() * 100}%`,
+            y: `${Math.random() * 100}%`,
+            scale: Math.random() * 0.6 + 0.2,
+          }}
+          animate={{
+            y: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+            x: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+            opacity: [Math.random() * 0.3, Math.random() * 0.5, Math.random() * 0.3],
+          }}
+          transition={{
+            duration: Math.random() * 30 + 15,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{
+            width: Math.random() * 5 + 1.5,
+            height: Math.random() * 5 + 1.5,
+            filter: `blur(${Math.random() < 0.3 ? '1px' : '0px'})`,
+          }}
+        />
+      ))}
+      
+      {/* Larger glowing orbs - increased opacity */}
+      {Array.from({ length: 8 }).map((_, i) => (
+        <motion.div
+          key={`orb-${i}`}
+          className="absolute rounded-full bg-emerald-500/15"
+          initial={{
+            opacity: Math.random() * 0.15 + 0.1,
+            x: `${Math.random() * 100}%`,
+            y: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [Math.random() * 0.15, Math.random() * 0.25, Math.random() * 0.15],
+          }}
+          transition={{
+            duration: Math.random() * 10 + 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{
+            width: Math.random() * 100 + 60,
+            height: Math.random() * 100 + 60,
+            filter: 'blur(35px)',
+          }}
+        />
+      ))}
+      
+      {/* Constellation line effects - increased opacity and stroke width */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.12]">
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 2 }}
+        >
+          {Array.from({ length: 10 }).map((_, i) => {
+            const x1 = Math.random() * 100;
+            const y1 = Math.random() * 100;
+            const x2 = x1 + (Math.random() * 20 - 10);
+            const y2 = y1 + (Math.random() * 20 - 10);
+            
+            return (
+              <motion.line
+                key={`line-${i}`}
+                x1={`${x1}%`}
+                y1={`${y1}%`}
+                x2={`${x2}%`}
+                y2={`${y2}%`}
+                stroke="#10b981"
+                strokeWidth="0.4"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ 
+                  pathLength: [0, 1, 1, 0],
+                  opacity: [0, 0.4, 0.4, 0]
+                }}
+                transition={{
+                  duration: Math.random() * 10 + 10,
+                  repeat: Infinity,
+                  ease: "linear",
+                  times: [0, 0.3, 0.7, 1]
+                }}
+              />
+            );
+          })}
+        </motion.g>
+      </svg>
+    </div>
+  );
+};
+
 // Main component
 const RealEstateTokenization = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -134,166 +256,57 @@ const RealEstateTokenization = () => {
 
   return (
     <div className="bg-gradient-to-b from-[#050505] to-[#0a0a0a] text-white min-h-screen relative overflow-hidden font-sans">
-      {/* Fixed Grid Background */}
-      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC40Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjA2Ii8+PC9zdmc+')]" />
-      
-      {/* Diagonal Grid with True Snail Movement */}
-      <div className="fixed inset-0 overflow-hidden">
-        {/* Base diagonal grid - very dimmed, almost invisible */}
-        <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]" style={{ opacity: 0.03 }} />
-        
-      {/* Diagonal Grid with Simple Snail Animation using DIVs */}
-      <div className="fixed inset-0 overflow-hidden">
-        {/* Base diagonal grid - dimmed */}
-        <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIwLjciLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]" style={{ opacity: 0.03 }} />
-        
-        {/* Container for snail elements */}
-        <div className="fixed inset-0 overflow-hidden">
-          {/* Actual snail elements - distributed across the entire screen */}
-          {Array.from({ length: 15 }).map((_, index) => {
-            // Distribute evenly from top to bottom of screen
-            const top = (index * 100) / 15; // This creates a percentage from 0% to ~95%
-            const delay = index * 2;
-            
-            return (
-              <div 
-                key={`snail-${index}`} 
-                className="absolute h-8 transform rotate-45"
-                style={{
-                  top: `${top}%`,
-                  left: '-20%',
-                  width: '400px',
-                  animation: `moveSnailDiagonal 25s linear ${delay}s infinite`,
-                  background: 'linear-gradient(to right, rgba(16,185,129,0) 0%, rgba(16,185,129,0) 5%, rgba(16,185,129,1) 10%, rgba(16,185,129,0.4) 15%, rgba(16,185,129,0.8) 25%, rgba(16,185,129,0.3) 40%, rgba(16,185,129,0.1) 60%, rgba(16,185,129,0) 80%)',
-                }}
-              >
-                <div 
-                  className="absolute inset-0"
-                  style={{
-                    animation: 'pulseStretch 4s ease-in-out infinite',
-                  }}
-                />
-              </div>
-            );
-          })}
-          
-          {/* Opposite direction snails - also distributed across the entire screen */}
-          {Array.from({ length: 15 }).map((_, index) => {
-            // Offset slightly from the other direction for a staggered effect
-            const top = 6 + ((index * 100) / 15); // Offset by 6% for staggered effect
-            const delay = 1 + (index * 2);
-            
-            return (
-              <div 
-                key={`snail-rev-${index}`} 
-                className="absolute h-8 transform -rotate-45"
-                style={{
-                  top: `${top}%`,
-                  right: '-20%',
-                  width: '400px',
-                  animation: `moveSnailDiagonalReverse 30s linear ${delay}s infinite`,
-                  background: 'linear-gradient(to left, rgba(16,185,129,0) 0%, rgba(16,185,129,0) 5%, rgba(16,185,129,1) 10%, rgba(16,185,129,0.4) 15%, rgba(16,185,129,0.8) 25%, rgba(16,185,129,0.3) 40%, rgba(16,185,129,0.1) 60%, rgba(16,185,129,0) 80%)',
-                }}
-              >
-                <div 
-                  className="absolute inset-0"
-                  style={{
-                    animation: 'pulseStretch 5s ease-in-out infinite',
-                  }}
-                />
-              </div>
-            );
-          })}
-        </div>
-        
-        {/* Style definitions */}
-        <style jsx>{`
-          @keyframes moveSnailDiagonal {
-            0% {
-              transform: rotate(45deg) scaleX(1);
-              left: -20%;
-            }
-            20% {
-              transform: rotate(45deg) scaleX(1.5);
-            }
-            40% {
-              transform: rotate(45deg) scaleX(1);
-            }
-            60% {
-              transform: rotate(45deg) scaleX(1.8);
-            }
-            80% {
-              transform: rotate(45deg) scaleX(1.2);
-            }
-            100% {
-              transform: rotate(45deg) scaleX(1);
-              left: 120%;
-            }
-          }
-          
-          @keyframes moveSnailDiagonalReverse {
-            0% {
-              transform: rotate(-45deg) scaleX(1);
-              right: -20%;
-            }
-            20% {
-              transform: rotate(-45deg) scaleX(1.5);
-            }
-            40% {
-              transform: rotate(-45deg) scaleX(1);
-            }
-            60% {
-              transform: rotate(-45deg) scaleX(1.8);
-            }
-            80% {
-              transform: rotate(-45deg) scaleX(1.2);
-            }
-            100% {
-              transform: rotate(-45deg) scaleX(1);
-              right: 120%;
-            }
-          }
-          
-          @keyframes pulseStretch {
-            0% {
-              transform: scaleX(1);
-            }
-            50% {
-              transform: scaleX(1.6);
-            }
-            100% {
-              transform: scaleX(1);
-            }
-          }
-        `}</style>
-      </div>
-      </div>
-      
-      {/* Animated gradient overlay - increased color intensity */}
-      <motion.div 
-        className="fixed inset-0 bg-gradient-to-tr from-emerald-900/10 via-transparent to-blue-900/10"
+      {/* Enhanced Layered Background Elements - INCREASED OPACITY */}
+
+      {/* Grid Background - Increased opacity from 0.06 to 0.2 and stroke width */}
+      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMC44Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiBvcGFjaXR5PSIwLjIiLz48L3N2Zz4=')]"></div>
+
+      {/* Hexagonal pattern overlay - Increased opacity from 0.06 to 0.25 and stroke width */}
+      <div className="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDg0IDQ4Ij48ZGVmcz48cGF0dGVybiBpZD0iaGV4IiB3aWR0aD0iODQiIGhlaWdodD0iNDgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InNjYWxlKDAuMTYpIj48cGF0aCBkPSJNNDIgMTIgNzMuODIzIDMxIDczLjgyMyA2OSA0MiA4OCAxMC4xNzcgNjkgMTAuMTc3IDMxeiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjIuNCIgLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjaGV4KSIgb3BhY2l0eT0iMC4yNSIgLz48L3N2Zz4=')] opacity-80"></div>
+
+      {/* Diagonal grid overlay - Increased opacity from 0.1 to 0.3 and stroke width */}
+      <div className="fixed inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImRpYWdvbmFsLWdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTYwIDAgTDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhZ29uYWwtZ3JpZCkiLz48L3N2Zz4=')]"></div>
+
+      {/* Animated gradient overlay - Significantly increased color intensity from 0.07 to 0.2 */}
+      <motion.div
+        className="fixed inset-0 bg-gradient-to-tr from-emerald-900/25 via-transparent to-blue-900/25"
         animate={{
           background: [
-            "linear-gradient(135deg, rgba(6,78,59,0.07) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.07) 100%)",
-            "linear-gradient(135deg, rgba(12,74,110,0.07) 0%, rgba(0,0,0,0) 50%, rgba(6,78,59,0.07) 100%)",
-            "linear-gradient(135deg, rgba(6,78,59,0.07) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.07) 100%)"
-          ]
+            "linear-gradient(135deg, rgba(6,78,59,0.2) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.2) 100%)",
+            "linear-gradient(135deg, rgba(12,74,110,0.2) 0%, rgba(0,0,0,0) 50%, rgba(6,78,59,0.2) 100%)",
+            "linear-gradient(135deg, rgba(6,78,59,0.2) 0%, rgba(0,0,0,0) 50%, rgba(12,74,110,0.2) 100%)",
+          ],
         }}
-        transition={{ 
-          duration: 15, 
-          repeat: Infinity, 
-          ease: "linear" 
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "linear",
         }}
       />
-      
-      {/* Vignette shadow overlay - reduced opacity for better visibility */}
-      <div className="fixed inset-0 pointer-events-none bg-radial-gradient opacity-45 z-[1]" 
-        style={{ background: "radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.7) 100%)" }}>
-      </div>
 
-      {/* Hero Section - Removed ParticleBackground */}
+      {/* Sophisticated noise texture overlay - Increased opacity from 0.03 to 0.12 */}
+      <div className="fixed inset-0 opacity-[0.12] mix-blend-soft-light bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuMDEiIG51bU9jdGF2ZXM9IjUiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]"></div>
+
+      {/* Circuit board pattern overlay - Substantially increased opacity from 0.06 to 0.3 and stroke width */}
+      <div className="fixed inset-0 opacity-[0.3] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJjaXJjdWl0IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTEwIDEwIEw1MCAxMCBMNTAgNTAgTDkwIDUwIEw5MCA5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTkwIDEwIEw1MCAxMCBMNTAgNTAgTDEwIDUwIEwxMCA5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIxMCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSIxMCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSI1MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI1MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSI5MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI5MCIgcj0iMy41IiBmaWxsPSIjMTBiOTgxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2NpcmN1aXQpIi8+PC9zdmc+')]"></div>
+
+      {/* Vignette shadow overlay - Decreased opacity from 0.45 to 0.3 to make other elements more visible */}
+      <div
+        className="fixed inset-0 pointer-events-none bg-radial-gradient opacity-30 z-[1]"
+        style={{
+          background:
+            "radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.5) 100%)",
+        }}
+      ></div>
+
+      {/* Optional: Add a subtle color tint to enhance overall visibility */}
+      <div className="fixed inset-0 bg-emerald-500/5 mix-blend-overlay"></div>
+
+      {/* Hero Section */}
       <section className="relative container mx-auto px-6 py-24">
-        <motion.div 
+        {/* <ParticleBackground /> */}
+
+        <motion.div
           className="max-w-4xl mt-20 relative z-10"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -311,8 +324,8 @@ const RealEstateTokenization = () => {
             transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
             className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-8 left-0"
           />
-          
-          <motion.h1 
+
+          <motion.h1
             className="font-['Orbitron'] text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -320,8 +333,8 @@ const RealEstateTokenization = () => {
           >
             Real Estate <span className="text-emerald-400">Tokenization</span>
           </motion.h1>
-          
-          <motion.h2 
+
+          <motion.h2
             className="text-xl md:text-2xl font-medium mb-6 text-gray-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -329,18 +342,19 @@ const RealEstateTokenization = () => {
           >
             Transform Property Investment with Blockchain Technology
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className="text-gray-400 mb-8 max-w-2xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             Democratize real estate investment through fractional ownership,
-            enhanced liquidity, and global accessibility. The future of property investment is here.
+            enhanced liquidity, and global accessibility. The future of property
+            investment is here.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             className="flex flex-wrap gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -348,7 +362,7 @@ const RealEstateTokenization = () => {
           >
             <Button variant="contained" className="group">
               <span className="flex items-center">
-                Start Tokenizing 
+                Start Tokenizing
                 <motion.span
                   initial={{ x: 0 }}
                   whileHover={{ x: 5 }}
@@ -358,15 +372,13 @@ const RealEstateTokenization = () => {
                 </motion.span>
               </span>
             </Button>
-            <Button variant="outlined">
-              Learn More
-            </Button>
+            <Button variant="outlined">Learn More</Button>
           </motion.div>
         </motion.div>
       </section>
 
       {/* Revolutionize Section */}
-      <motion.section 
+      <motion.section
         className="container mx-auto px-6 py-20"
         initial="hidden"
         whileInView="visible"
@@ -379,41 +391,43 @@ const RealEstateTokenization = () => {
               <div className="absolute left-0 top-0 h-12 w-1 bg-emerald-500 opacity-80" />
               <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 pl-6">
                 Revolutionalize
-                <span className="block text-emerald-400">Real Estate Investment</span>
+                <span className="block text-emerald-400">
+                  Real Estate Investment
+                </span>
               </h2>
             </div>
-            
+
             <p className="text-gray-300 mb-10 text-lg">
               Copym enables investors to tokenize and trade real estate assets
               with unprecedented ease, transparency, and efficiency.
             </p>
 
+            {/* Feature Cards with Fixed Border Animation */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Feature Cards - Fixed hover animation for all cards */}
               {[
                 {
                   icon: <Building className="h-6 w-6 text-emerald-400" />,
                   title: "Fractional Property Ownership",
-                  desc: "Invest in premium real estate with lower entry barriers and increased liquidity."
+                  desc: "Invest in premium real estate with lower entry barriers and increased liquidity.",
                 },
                 {
                   icon: <BarChart className="h-6 w-6 text-emerald-400" />,
                   title: "Dynamic Valuation",
-                  desc: "Real-time market pricing and transparent asset valuation through blockchain."
+                  desc: "Real-time market pricing and transparent asset valuation through blockchain.",
                 },
                 {
                   icon: <ShieldCheck className="h-6 w-6 text-emerald-400" />,
                   title: "Comprehensive Compliance",
-                  desc: "Automated regulatory checks and investor verification for seamless transactions."
+                  desc: "Automated regulatory checks and investor verification for seamless transactions.",
                 },
                 {
                   icon: <Globe className="h-6 w-6 text-emerald-400" />,
                   title: "Global Accessibility",
-                  desc: "Trade and invest in international real estate markets without geographical limitations."
-                }
+                  desc: "Trade and invest in international real estate markets without geographical limitations.",
+                },
               ].map((feature, index) => (
-                <Card 
-                  key={index} 
+                <Card
+                  key={index}
                   className="group hover:border-emerald-900 transition-all duration-500 overflow-hidden"
                 >
                   <div className="p-6">
@@ -421,12 +435,14 @@ const RealEstateTokenization = () => {
                       <div className="w-12 h-12 rounded-md bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         {feature.icon}
                       </div>
-                      <h3 className="text-xl font-bold mb-2 text-white">{feature.title}</h3>
+                      <h3 className="text-xl font-bold mb-2 text-white">
+                        {feature.title}
+                      </h3>
                       <p className="text-gray-400">{feature.desc}</p>
                     </div>
                   </div>
-                  {/* Fixed positioning of the hover animation border */}
-                  <div className="h-1 w-0 bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:w-full transition-all duration-700 absolute bottom-0 left-0" />
+                  {/* Border animation now positioned inside the card boundaries */}
+                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:w-full transition-all duration-700" />
                 </Card>
               ))}
             </div>
@@ -439,25 +455,38 @@ const RealEstateTokenization = () => {
                 <div className="bg-gradient-to-r from-emerald-900 to-emerald-700 p-6">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h3 className="text-2xl font-bold">{properties[currentProperty].name}</h3>
+                      <h3 className="text-2xl font-bold">
+                        {properties[currentProperty].name}
+                      </h3>
                       <p className="text-emerald-100">
-                        {properties[currentProperty].location} • {properties[currentProperty].type}
+                        {properties[currentProperty].location} •{" "}
+                        {properties[currentProperty].type}
                       </p>
                     </div>
                     <div className="flex">
-                      <motion.button 
+                      <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="bg-black bg-opacity-30 p-2 rounded-full mr-2 hover:bg-opacity-50 transition-all duration-300"
-                        onClick={() => setCurrentProperty(currentProperty === 0 ? properties.length - 1 : currentProperty - 1)}
+                        onClick={() =>
+                          setCurrentProperty(
+                            currentProperty === 0
+                              ? properties.length - 1
+                              : currentProperty - 1
+                          )
+                        }
                       >
                         <ChevronLeft className="h-5 w-5" />
                       </motion.button>
-                      <motion.button 
+                      <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="bg-black bg-opacity-30 p-2 rounded-full hover:bg-opacity-50 transition-all duration-300"
-                        onClick={() => setCurrentProperty((currentProperty + 1) % properties.length)}
+                        onClick={() =>
+                          setCurrentProperty(
+                            (currentProperty + 1) % properties.length
+                          )
+                        }
                       >
                         <ChevronRight className="h-5 w-5" />
                       </motion.button>
@@ -470,17 +499,21 @@ const RealEstateTokenization = () => {
                     <div>
                       <p className="text-gray-500 text-sm">Property Value</p>
                       <p className="text-lg flex items-center text-white">
-                        <span className="text-emerald-500 mr-1">$</span>{properties[currentProperty].value}
+                        <span className="text-emerald-500 mr-1">$</span>
+                        {properties[currentProperty].value}
                       </p>
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">Total Tokens</p>
-                      <p className="text-lg text-white">{properties[currentProperty].tokens}</p>
+                      <p className="text-lg text-white">
+                        {properties[currentProperty].tokens}
+                      </p>
                     </div>
                     <div>
                       <p className="text-gray-500 text-sm">Investors</p>
                       <p className="text-lg flex items-center text-white">
-                        <span className="text-emerald-500 mr-1">👤</span>{properties[currentProperty].investors}
+                        <span className="text-emerald-500 mr-1">👤</span>
+                        {properties[currentProperty].investors}
                       </p>
                     </div>
                   </div>
@@ -489,7 +522,8 @@ const RealEstateTokenization = () => {
                     <div className="flex justify-between mb-2">
                       <p className="text-gray-400">Token Distribution</p>
                       <p className="text-white">
-                        Token Price <span className="text-emerald-500">$100</span>
+                        Token Price{" "}
+                        <span className="text-emerald-500">$100</span>
                       </p>
                     </div>
 
@@ -499,8 +533,13 @@ const RealEstateTokenization = () => {
                     </div>
 
                     <div className="flex justify-between mt-2">
-                      <p className="text-sm text-emerald-500">{properties[currentProperty].soldPercentage}% Sold</p>
-                      <p className="text-sm text-gray-400">{100 - properties[currentProperty].soldPercentage}% Available</p>
+                      <p className="text-sm text-emerald-500">
+                        {properties[currentProperty].soldPercentage}% Sold
+                      </p>
+                      <p className="text-sm text-gray-400">
+                        {100 - properties[currentProperty].soldPercentage}%
+                        Available
+                      </p>
                     </div>
                   </div>
 
@@ -518,32 +557,38 @@ const RealEstateTokenization = () => {
                     </motion.div>
                   </motion.button>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ 
+                    animate={{
                       height: isDetailsOpen ? "auto" : 0,
-                      opacity: isDetailsOpen ? 1 : 0
+                      opacity: isDetailsOpen ? 1 : 0,
                     }}
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
                     <div className="bg-[#1a1a1a] -mt-4 mb-4 p-5 rounded-b-md">
                       <div className="mb-4">
-                        <p className="text-gray-400 text-sm">Expected Returns</p>
-                        <p className="text-white">{properties[currentProperty].expectedReturns}</p>
+                        <p className="text-gray-400 text-sm">
+                          Expected Returns
+                        </p>
+                        <p className="text-white">
+                          {properties[currentProperty].expectedReturns}
+                        </p>
                       </div>
 
                       <div>
-                        <p className="text-gray-400 text-sm mb-3">Tokenization Benefits</p>
+                        <p className="text-gray-400 text-sm mb-3">
+                          Tokenization Benefits
+                        </p>
                         <ul className="space-y-2">
                           {[
                             "Fractional ownership starting from $100",
                             "Secondary market trading for liquidity",
                             "Automated dividend distributions",
-                            "Transparent ownership records"
+                            "Transparent ownership records",
                           ].map((benefit, index) => (
-                            <motion.li 
-                              key={index} 
+                            <motion.li
+                              key={index}
                               className="flex items-start"
                               initial={{ x: -10, opacity: 0 }}
                               animate={{ x: 0, opacity: 1 }}
@@ -560,7 +605,7 @@ const RealEstateTokenization = () => {
 
                   <Button variant="contained" className="w-full">
                     <span className="flex items-center justify-center">
-                      View Investment Opportunity 
+                      View Investment Opportunity
                       <motion.span
                         initial={{ x: 0 }}
                         whileHover={{ x: 5 }}
@@ -578,7 +623,7 @@ const RealEstateTokenization = () => {
       </motion.section>
 
       {/* Tokenization Process Section */}
-      <motion.section 
+      <motion.section
         className="container mx-auto px-6 py-20 relative"
         initial="hidden"
         whileInView="visible"
@@ -586,21 +631,21 @@ const RealEstateTokenization = () => {
         variants={sectionVariants}
       >
         <div className="text-center mb-16 relative">
-          <motion.div 
+          <motion.div
             className="absolute left-1/2 transform -translate-x-1/2 -top-10 w-24 h-24 rounded-full bg-emerald-500 filter blur-[80px] opacity-30"
             animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.4, 0.3] }}
             transition={{ duration: 5, repeat: Infinity }}
           />
-          
-          <motion.h2 
+
+          <motion.h2
             className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4"
             variants={itemVariants}
           >
             Real Estate{" "}
             <span className="text-emerald-400">Tokenization Process</span>
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className="text-gray-300 max-w-2xl mx-auto"
             variants={itemVariants}
           >
@@ -612,62 +657,64 @@ const RealEstateTokenization = () => {
         {/* Process Steps with connecting lines */}
         <div className="relative">
           {/* Connecting line */}
-          <motion.div 
+          <motion.div
             className="absolute hidden md:block top-1/2 left-[10%] right-[10%] h-1 bg-gray-800 -translate-y-1/2 z-0"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
           />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
             {[
               {
                 step: 1,
                 icon: <Building className="h-6 w-6 text-emerald-400" />,
                 title: "Property Onboarding",
-                desc: "Register property details, documentation, and ownership verification."
+                desc: "Register property details, documentation, and ownership verification.",
               },
               {
                 step: 2,
                 icon: <FileCheck className="h-6 w-6 text-emerald-400" />,
                 title: "Legal Structure",
-                desc: "Set up the appropriate legal framework based on jurisdiction and property type."
+                desc: "Set up the appropriate legal framework based on jurisdiction and property type.",
               },
               {
                 step: 3,
                 icon: <Coins className="h-6 w-6 text-emerald-400" />,
                 title: "Token Issuance",
-                desc: "Create property tokens with compliance and regulatory parameters built-in."
+                desc: "Create property tokens with compliance and regulatory parameters built-in.",
               },
               {
                 step: 4,
                 icon: <Repeat className="h-6 w-6 text-emerald-400" />,
                 title: "Investment & Trading",
-                desc: "Enable primary offering and secondary market trading for property tokens."
-              }
+                desc: "Enable primary offering and secondary market trading for property tokens.",
+              },
             ].map((process, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 variants={itemVariants}
                 custom={index}
                 className="flex justify-center"
               >
                 <Card className="relative w-full">
-                  <motion.div 
+                  <motion.div
                     className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-[#0a0a0a] border-4 border-emerald-500 flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20"
                     whileHover={{ y: -5 }}
                     transition={{ duration: 0.3 }}
                   >
                     {process.step}
                   </motion.div>
-                  
+
                   <div className="pt-12 p-6">
                     <div className="mb-4 flex flex-col items-center text-center">
                       <div className="w-16 h-16 rounded-md bg-emerald-900 bg-opacity-20 flex items-center justify-center mb-6">
                         {process.icon}
                       </div>
-                      <h3 className="text-xl font-bold mb-3 text-white">{process.title}</h3>
+                      <h3 className="text-xl font-bold mb-3 text-white">
+                        {process.title}
+                      </h3>
                       <p className="text-gray-400">{process.desc}</p>
                     </div>
                   </div>
@@ -679,7 +726,7 @@ const RealEstateTokenization = () => {
       </motion.section>
 
       {/* Benefits Section */}
-      <motion.section 
+      <motion.section
         className="container mx-auto px-6 py-20"
         initial="hidden"
         whileInView="visible"
@@ -687,7 +734,7 @@ const RealEstateTokenization = () => {
         variants={sectionVariants}
       >
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4"
             variants={itemVariants}
           >
@@ -704,8 +751,8 @@ const RealEstateTokenization = () => {
                 "Unlock liquidity without full property sale",
                 "Access global investor capital",
                 "Streamlined property management",
-                "Reduced transaction costs"
-              ]
+                "Reduced transaction costs",
+              ],
             },
             {
               title: "For Investors",
@@ -713,11 +760,11 @@ const RealEstateTokenization = () => {
                 "Lower investment minimums",
                 "Portfolio diversification",
                 "Secondary market liquidity",
-                "Automated income distributions"
-              ]
-            }
+                "Automated income distributions",
+              ],
+            },
           ].map((benefitGroup, groupIndex) => (
-            <motion.div 
+            <motion.div
               key={groupIndex}
               variants={itemVariants}
               custom={groupIndex}
@@ -731,8 +778,8 @@ const RealEstateTokenization = () => {
 
                   <ul className="space-y-6">
                     {benefitGroup.benefits.map((benefit, index) => (
-                      <motion.li 
-                        key={index} 
+                      <motion.li
+                        key={index}
                         className="flex items-center"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -754,7 +801,7 @@ const RealEstateTokenization = () => {
       </motion.section>
 
       {/* Final CTA Section with enhanced background */}
-      <motion.section 
+      <motion.section
         className="container mx-auto px-6 py-20 text-center relative"
         initial="hidden"
         whileInView="visible"
@@ -762,18 +809,22 @@ const RealEstateTokenization = () => {
         variants={sectionVariants}
       >
         {/* Advanced background glow */}
-        <motion.div 
+        <motion.div
           className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-emerald-500 filter blur-[100px] opacity-15"
           animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
           transition={{ duration: 8, repeat: Infinity }}
         />
-        
+
         {/* Animated network lines in background */}
         <div className="absolute inset-0 overflow-hidden opacity-15">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
             {Array.from({ length: 8 }).map((_, i) => {
-              const y1 = 20 + (i * 10);
-              const y2 = 25 + (i * 8);
+              const y1 = 20 + i * 10;
+              const y2 = 25 + i * 8;
               return (
                 <motion.path
                   key={`line-${i}`}
@@ -782,9 +833,9 @@ const RealEstateTokenization = () => {
                   strokeWidth="0.4"
                   fill="none"
                   initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ 
-                    pathLength: 1, 
-                    opacity: [0, 0.5, 0]
+                  animate={{
+                    pathLength: 1,
+                    opacity: [0, 0.5, 0],
                   }}
                   transition={{
                     duration: 3 + i,
@@ -798,32 +849,35 @@ const RealEstateTokenization = () => {
             })}
           </svg>
         </div>
-        
+
         <div className="max-w-3xl mx-auto relative">
           {/* Decorative elements */}
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-20 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
           <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-10 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
-          
-          <motion.h2 
+
+          <motion.h2
             className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
             variants={itemVariants}
           >
             Ready to Transform Your Real Estate Portfolio?
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className="text-gray-300 mb-10 text-xl"
             variants={itemVariants}
           >
             Join thousands of property owners and investors already tokenizing
             real estate on the Copym platform.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             className="flex flex-wrap justify-center gap-6"
             variants={itemVariants}
           >
-            <Button variant="contained" className="text-lg py-4 px-8 shadow-lg shadow-emerald-500/20">
+            <Button
+              variant="contained"
+              className="text-lg py-4 px-8 shadow-lg shadow-emerald-500/20"
+            >
               <span className="flex items-center">
                 Start Tokenizing
                 <motion.span
