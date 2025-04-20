@@ -105,6 +105,17 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
     width: 3,
     background: "linear-gradient(to top, #000, #00FF85, #000)",
   },
+  [theme.breakpoints.between("md", "lg")]: {
+    padding: "1.25rem",
+    maxWidth: "280px",
+    "& h5": {
+      fontSize: "1.1rem",
+    },
+    "& .card-icon": {
+      width: "2.5rem",
+      height: "2.5rem",
+    },
+  },
 }));
 
 // Central hub element
@@ -135,7 +146,19 @@ const CentralHub = styled(Box)(({ theme }) => ({
     background: "radial-gradient(circle, rgba(0, 255, 133, 0.15) 0%, rgba(0, 0, 0, 0) 70%)",
     zIndex: -1,
   },
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.between("md", "lg")]: {
+    width: "150px",
+    height: "150px",
+    padding: "1rem",
+    "& svg": {
+      width: "36px",
+      height: "36px",
+    },
+    "& h6": {
+      fontSize: "1rem",
+    },
+  },
+  [theme.breakpoints.down("md")]: {
     margin: "0 auto 4rem auto",
   },
 }));
@@ -152,7 +175,7 @@ const ConnectorLine = styled(Box)(({ angle, theme }) => ({
   transform: `rotate(${angle}deg)`,
   opacity: 0.5,
   zIndex: 1,
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.down("md")]: {
     display: "none",
   },
 }));
@@ -168,17 +191,22 @@ const OrbitalContainer = styled(Box)(({ theme }) => ({
   margin: "0 auto",
   marginTop: "10rem",
   "--orbital-radius": "380px",
-  [theme.breakpoints.down("xl")]: {
+  [theme.breakpoints.between("lg", "xl")]: {
     "--orbital-radius": "320px",
     minHeight: "800px",
   },
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.between("md", "lg")]: {
+    "--orbital-radius": "260px",
+    minHeight: "650px",
+    marginTop: "15rem",
+  },
+  [theme.breakpoints.down("md")]: {
     display: "block",
     minHeight: "auto",
   },
 }));
 
-// UPDATED COMPONENT: Modified to handle exact clock positions
+// UPDATED COMPONENT: Modified to handle exact clock positions with tablet support
 const OrbitalPosition = styled(Box)(({ position, theme }) => {
   // Define positions for each clock position
   const positions = {
@@ -189,7 +217,17 @@ const OrbitalPosition = styled(Box)(({ position, theme }) => {
     "10"  : { top: "25%", left: "10%", transform: "translate(0, -50%)" },
   };
 
+  // Tablet position adjustments
+  const tabletPositions = {
+    "12"  : { top: "-25%", left: "50%", transform: "translateX(-50%)" },
+    "2:30": { top: "10%", right: "5%", transform: "translate(0, -50%)" },
+    "5"   : { top: "70%", right: "5%", transform: "translate(0, -50%)" },
+    "7:30": { top: "70%", left: "5%", transform: "translate(0, -50%)" },
+    "10"  : { top: "10%", left: "5%", transform: "translate(0, -50%)" },
+  };
+
   const pos = positions[position] || {};
+  const tabletPos = tabletPositions[position] || {};
 
   return {
     position: "absolute",
@@ -197,7 +235,11 @@ const OrbitalPosition = styled(Box)(({ position, theme }) => {
     width: "300px",
     zIndex: 5,
     transition: "all 0.5s ease-in-out",
-    [theme.breakpoints.down("lg")]: {
+    [theme.breakpoints.between("md", "lg")]: {
+      ...tabletPos,
+      width: "240px",
+    },
+    [theme.breakpoints.down("md")]: {
       position: "relative",
       top: "auto",
       left: "auto",
@@ -221,7 +263,7 @@ const OrbitalPath = styled(Box)(({ theme }) => ({
   border: "1px dashed rgba(0, 255, 133, 0.15)",
   transform: "translate(-50%, -50%)",
   zIndex: 1,
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.down("md")]: {
     display: "none",
   },
 }));
@@ -276,10 +318,10 @@ const features = [
   },
 ];
 
-// UPDATED PART: Clock positions assigned to each feature
+// Clock positions assigned to each feature
 const clockPositions = ["12", "2:30", "5", "7:30", "10"];
 
-// UPDATED PART: Calculate angles for connector lines based on clock positions
+// Calculate angles for connector lines based on clock positions
 const connectorAngles = {
   "12": 270,
   "2:30": 330,
@@ -289,12 +331,18 @@ const connectorAngles = {
 };
 
 export default function Features() {
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const [screenSize, setScreenSize] = useState("lg");
 
   // Check screen size on mount and window resize
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint
+      if (window.innerWidth >= 1024) {
+        setScreenSize("lg");
+      } else if (window.innerWidth >= 768) {
+        setScreenSize("md");
+      } else {
+        setScreenSize("sm");
+      }
     };
     
     checkScreenSize();
@@ -304,6 +352,9 @@ export default function Features() {
       window.removeEventListener('resize', checkScreenSize);
     };
   }, []);
+
+  // Show orbital layout for medium and large screens
+  const showOrbitalLayout = screenSize === "lg" || screenSize === "md";
 
   return (
     <Box className="py-24 relative overflow-hidden">
@@ -386,7 +437,7 @@ export default function Features() {
         {/* Orbital Layout */}
         <OrbitalContainer>
           {/* Orbital Path Visualization */}
-          <OrbitalPath />
+          {showOrbitalLayout && <OrbitalPath />}
 
           {/* Central Hub/Sun Element */}
           <CentralHub>
@@ -409,12 +460,12 @@ export default function Features() {
             </Typography>
           </CentralHub>
 
-          {/* UPDATED PART: Connector Lines with named positions */}
-          {isLargeScreen && clockPositions.map((position) => (
+          {/* Connector Lines with named positions */}
+          {showOrbitalLayout && clockPositions.map((position) => (
             <ConnectorLine key={`connector-${position}`} angle={connectorAngles[position]} />
           ))}
 
-          {/* UPDATED PART: Feature Cards in Clock Positions */}
+          {/* Feature Cards in Clock Positions */}
           {features.map((feature, index) => (
             <OrbitalPosition key={feature.title} position={clockPositions[index]}>
               <motion.div
@@ -432,7 +483,7 @@ export default function Features() {
                   <div className="border-up"></div>
                   
                   <Box
-                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl"
+                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl card-icon"
                     sx={{
                       background: "rgba(255, 255, 255, 0.1)",
                     }}
