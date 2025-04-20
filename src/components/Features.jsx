@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowForward } from "@mui/icons-material";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
+import { useEffect, useState } from "react";
 
 // Animation keyframes for the border effect
 const borderAnimationRight = keyframes`
@@ -29,6 +30,19 @@ const borderAnimationUp = keyframes`
   100% { width: 3px; height: 100%; bottom: 0; left: 0; opacity: 0; }
 `;
 
+// Central element pulsating animation
+const pulseAnimation = keyframes`
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+`;
+
+// Subtle orbital rotation animation
+const orbitalRotation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
 // Styled component for the animated card
 const AnimatedCard = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -38,6 +52,8 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
   borderRadius: "1rem",
   padding: "1.5rem",
   height: "100%",
+  width: "100%",
+  maxWidth: "350px",
   transition: "transform 0.2s",
   overflow: "hidden",
   "&:hover": {
@@ -91,23 +107,136 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
   },
 }));
 
+// Central hub element
+const CentralHub = styled(Box)(({ theme }) => ({
+  position: "relative",
+  width: "200px",
+  height: "200px",
+  borderRadius: "50%",
+  background: "rgba(18, 19, 26, 0.7)",
+  backdropFilter: "blur(10px)",
+  border: "2px solid rgba(255, 255, 255, 0.15)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "1.5rem",
+  boxShadow: "0 0 40px rgba(0, 255, 133, 0.25)",
+  zIndex: 10,
+  animation: `${pulseAnimation} 4s ease-in-out infinite`,
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: "-10px",
+    left: "-10px",
+    right: "-10px",
+    bottom: "-10px",
+    borderRadius: "50%",
+    background: "radial-gradient(circle, rgba(0, 255, 133, 0.15) 0%, rgba(0, 0, 0, 0) 70%)",
+    zIndex: -1,
+  },
+  [theme.breakpoints.down("lg")]: {
+    margin: "0 auto 4rem auto",
+  },
+}));
+
+// Connector line
+const ConnectorLine = styled(Box)(({ angle, theme }) => ({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  width: "calc(var(--orbital-radius) - 60px)",
+  height: "2px",
+  background: "linear-gradient(to right, rgba(0, 255, 133, 0.7), rgba(0, 255, 133, 0))",
+  transformOrigin: "left center",
+  transform: `rotate(${angle}deg)`,
+  opacity: 0.5,
+  zIndex: 1,
+  [theme.breakpoints.down("lg")]: {
+    display: "none",
+  },
+}));
+
+// Orbital container
+const OrbitalContainer = styled(Box)(({ theme }) => ({
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  minHeight: "900px",
+  margin: "0 auto",
+  marginTop: "10rem",
+  "--orbital-radius": "380px",
+  [theme.breakpoints.down("xl")]: {
+    "--orbital-radius": "320px",
+    minHeight: "800px",
+  },
+  [theme.breakpoints.down("lg")]: {
+    display: "block",
+    minHeight: "auto",
+  },
+}));
+
+// UPDATED COMPONENT: Modified to handle exact clock positions
+const OrbitalPosition = styled(Box)(({ position, theme }) => {
+  // Define positions for each clock position
+  const positions = {
+    "12"  : { top: "-10%", left: "50%", transform: "translateX(-50%)" },
+    "2:30": { top: "25%", right: "10%", transform: "translate(0, -50%)" },
+    "5"   : { top: "70%", right: "10%", transform: "translate(0, -50%)" },
+    "7:30": { top: "70%", left: "10%", transform: "translate(0, -50%)" },
+    "10"  : { top: "25%", left: "10%", transform: "translate(0, -50%)" },
+  };
+
+  const pos = positions[position] || {};
+
+  return {
+    position: "absolute",
+    ...pos,
+    width: "300px",
+    zIndex: 5,
+    transition: "all 0.5s ease-in-out",
+    [theme.breakpoints.down("lg")]: {
+      position: "relative",
+      top: "auto",
+      left: "auto",
+      right: "auto",
+      transform: "none",
+      margin: "0 auto 2rem auto",
+      width: "100%",
+      maxWidth: "400px",
+    },
+  };
+});
+
+// Orbital path visualization
+const OrbitalPath = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  width: "calc(var(--orbital-radius) * 2)",
+  height: "calc(var(--orbital-radius) * 2)",
+  borderRadius: "50%",
+  border: "1px dashed rgba(0, 255, 133, 0.15)",
+  transform: "translate(-50%, -50%)",
+  zIndex: 1,
+  [theme.breakpoints.down("lg")]: {
+    display: "none",
+  },
+}));
+
+// Modified features array (removed "Developer Toolkit")
 const features = [
   {
     title: "Cross-Chain Infrastructure",
     description:
       "Seamlessly bridge assets across all major blockchains through our unified interface.",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe text-gray-400">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-        <path d="M2 12h20"></path>
-      </svg>
-      // icon: (
-      //   <img
-      //     src="/assets/icons/cross-chain-infrastructure.png"
-      //     alt="Cross Chain"
-      //     className="w-8 h-8 object-contain filter grayscale  invert"
-      //     style={{ filter: "brightness(0) invert(1) sepia(1) hue-rotate(180deg)" }}
-      //   />)
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe text-gray-400">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+      <path d="M2 12h20"></path>
+    </svg>
   },
   {
     title: "Comprehensive Compliance",
@@ -140,22 +269,42 @@ const features = [
     title: "End-to-End Marketplace",
     description:
       "Primary issuance, secondary trading, liquidity pools, and OTC services all in one place.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blocks text-gray-400">
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-blocks text-gray-400">
       <rect width="7" height="7" x="14" y="3" rx="1"></rect>
       <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"></path>
     </svg>,
   },
-  {
-    title: "Developer Toolkit",
-    description:
-      "APIs, SDKs, and no-code solutions to build on top of the Copym ecosystem.",
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap text-gray-400">
-      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
-    </svg>,
-  },
 ];
 
+// UPDATED PART: Clock positions assigned to each feature
+const clockPositions = ["12", "2:30", "5", "7:30", "10"];
+
+// UPDATED PART: Calculate angles for connector lines based on clock positions
+const connectorAngles = {
+  "12": 270,
+  "2:30": 330,
+  "5": 30,
+  "7:30": 150,
+  "10": 210
+};
+
 export default function Features() {
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
+
+  // Check screen size on mount and window resize
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
+
   return (
     <Box className="py-24 relative overflow-hidden">
       <Container maxWidth="xl">
@@ -173,58 +322,57 @@ export default function Features() {
             ALL-IN-ONE PLATFORM
           </Typography>
           <Typography
-  variant="h2"
-  className="font-orbitron text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
->
-  <Box
-    component="div"
-    className="flex flex-col items-center justify-center leading-snug max-w-xs sm:max-w-xl lg:max-w-5xl mx-auto"
-  >
-    {/* Small & Medium Screens (3 lines) */}
-    <Box className="block lg:hidden">
-      <Box component="div" className="flex flex-wrap justify-center">
-        {Array.from("Everything You").map((char, idx) => (
-          <Box key={`sm-line1-${idx}`} component="span" className="gradient-letter">
-            {char === " " ? "\u00A0" : char}
-          </Box>
-        ))}
-      </Box>
-      <Box component="div" className="flex flex-wrap justify-center">
-        {Array.from("Need In").map((char, idx) => (
-          <Box key={`sm-line2-${idx}`} component="span" className="gradient-letter">
-            {char === " " ? "\u00A0" : char}
-          </Box>
-        ))}
-      </Box>
-      <Box component="div" className="flex flex-wrap justify-center">
-        {Array.from("One Place").map((char, idx) => (
-          <Box key={`sm-line3-${idx}`} component="span" className="gradient-letter">
-            {char === " " ? "\u00A0" : char}
-          </Box>
-        ))}
-      </Box>
-    </Box>
+            variant="h2"
+            className="font-orbitron text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+          >
+            <Box
+              component="div"
+              className="flex flex-col items-center justify-center leading-snug max-w-xs sm:max-w-xl lg:max-w-5xl mx-auto"
+            >
+              {/* Small & Medium Screens (3 lines) */}
+              <Box className="block lg:hidden">
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {Array.from("Everything You").map((char, idx) => (
+                    <Box key={`sm-line1-${idx}`} component="span" className="gradient-letter">
+                      {char === " " ? "\u00A0" : char}
+                    </Box>
+                  ))}
+                </Box>
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {Array.from("Need In").map((char, idx) => (
+                    <Box key={`sm-line2-${idx}`} component="span" className="gradient-letter">
+                      {char === " " ? "\u00A0" : char}
+                    </Box>
+                  ))}
+                </Box>
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {Array.from("One Place").map((char, idx) => (
+                    <Box key={`sm-line3-${idx}`} component="span" className="gradient-letter">
+                      {char === " " ? "\u00A0" : char}
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
 
-    {/* Large Screens (2 lines) */}
-    <Box className="hidden lg:block">
-      <Box component="div" className="flex flex-wrap justify-center">
-        {Array.from("Everything You Need").map((char, idx) => (
-          <Box key={`lg-line1-${idx}`} component="span" className="gradient-letter">
-            {char === " " ? "\u00A0" : char}
-          </Box>
-        ))}
-      </Box>
-      <Box component="div" className="flex flex-wrap justify-center">
-        {Array.from("In One Place").map((char, idx) => (
-          <Box key={`lg-line2-${idx}`} component="span" className="gradient-letter">
-            {char === " " ? "\u00A0" : char}
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  </Box>
-</Typography>
-
+              {/* Large Screens (2 lines) */}
+              <Box className="hidden lg:block">
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {Array.from("Everything You Need").map((char, idx) => (
+                    <Box key={`lg-line1-${idx}`} component="span" className="gradient-letter">
+                      {char === " " ? "\u00A0" : char}
+                    </Box>
+                  ))}
+                </Box>
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {Array.from("In One Place").map((char, idx) => (
+                    <Box key={`lg-line2-${idx}`} component="span" className="gradient-letter">
+                      {char === " " ? "\u00A0" : char}
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            </Box>
+          </Typography>
 
           <Typography
             variant="body1"
@@ -235,12 +383,43 @@ export default function Features() {
           </Typography>
         </motion.div>
 
-        <Grid container spacing={4}>
+        {/* Orbital Layout */}
+        <OrbitalContainer>
+          {/* Orbital Path Visualization */}
+          <OrbitalPath />
+
+          {/* Central Hub/Sun Element */}
+          <CentralHub>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00FF85" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 2v2" />
+              <path d="M12 20v2" />
+              <path d="M2 12h2" />
+              <path d="M20 12h2" />
+              <path d="M6.34 6.34l1.42 1.42" />
+              <path d="M16.24 16.24l1.42 1.42" />
+              <path d="M6.34 17.66l1.42-1.42" />
+              <path d="M16.24 7.76l1.42-1.42" />
+            </svg>
+            <Typography variant="h6" className="text-white mt-2 text-center">
+              Unified Platform
+            </Typography>
+            <Typography variant="body2" className="text-gray-300 text-center text-sm mt-1">
+              All solutions, one ecosystem
+            </Typography>
+          </CentralHub>
+
+          {/* UPDATED PART: Connector Lines with named positions */}
+          {isLargeScreen && clockPositions.map((position) => (
+            <ConnectorLine key={`connector-${position}`} angle={connectorAngles[position]} />
+          ))}
+
+          {/* UPDATED PART: Feature Cards in Clock Positions */}
           {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={4} key={feature.title}>
+            <OrbitalPosition key={feature.title} position={clockPositions[index]}>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="h-full"
@@ -253,7 +432,7 @@ export default function Features() {
                   <div className="border-up"></div>
                   
                   <Box
-                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl "
+                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl"
                     sx={{
                       background: "rgba(255, 255, 255, 0.1)",
                     }}
@@ -277,20 +456,19 @@ export default function Features() {
                   </Button>
                 </AnimatedCard>
               </motion.div>
-            </Grid>
+            </OrbitalPosition>
           ))}
-        </Grid>
-
+        </OrbitalContainer>
       </Container>
       
-        {/* Background Glow Effect */}
-        <Box
-          className="absolute inset-0 pointer-events-none"
-          sx={{
-            background:
-              "radial-gradient(circle at 50% 50%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
-          }}
-        />
+      {/* Background Glow Effect */}
+      <Box
+        className="absolute inset-0 pointer-events-none"
+        sx={{
+          background:
+            "radial-gradient(circle at 50% 50%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
+        }}
+      />
     </Box>
   );
 }
