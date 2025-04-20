@@ -142,7 +142,7 @@ export default function Blockchains() {
           md={6}
           sx={{ display: { xs: "none", md: "block" }, opacity: "10" }}
         >
-          <Box sx={{ position: "relative", width: "100%", height: "600px" }}>
+          <Box sx={{ position: "relative", width: "100%", height: "500px" }}>
             <Suspense fallback={<Box>Loading 3D Model...</Box>}>
               <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
                 <ambientLight intensity={0.5} />
