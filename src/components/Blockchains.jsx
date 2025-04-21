@@ -124,128 +124,143 @@ export default function Blockchains() {
                 </Box>
               </Typography>
 
-            <Typography
-              variant="body1"
-              className="text-text-secondary max-w-2xl text-center"
-            >
-              Tokenize assets on your preferred blockchain. Copym provides
-              seamless integration with all major networks through a single,
-              unified platform.
-            </Typography>
-          </motion.div>
-        </Grid>
+              <Typography
+                variant="body1"
+                className="text-text-secondary max-w-2xl text-center"
+              >
+                Tokenize assets on your preferred blockchain. Copym provides
+                seamless integration with all major networks through a single,
+                unified platform.
+              </Typography>
+            </motion.div>
+          </Grid>
 
-        {/* 3D Model section - only visible on desktop */}
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{ display: { xs: "none", md: "block" }, opacity: "10" }}
-        >
-          <Box sx={{ position: "relative", width: "100%", height: "500px" }}>
-            <Suspense fallback={<Box>Loading 3D Model...</Box>}>
-              <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} />
-                <EarthGlobeModel />
-                <OrbitControls enableZoom={false} autoRotate />
-                <Environment preset="city" />
-              </Canvas>
-            </Suspense>
-          </Box>
-        </Grid>
-      </Grid>
-
-      {/* Banner image - only visible on mobile, positioned at top */}
-      {isMobile && (
-        <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
-          {/* <SectionImage
-              src="/assets/sections/blockchain-removebg-preview.png"
-              alt="Blockchains Banner"
-            /> */}
-        </Box>
-      )}
-
-      {/* Infinite scroll for both mobile and desktop with decreased spacing */}
-      <Box
-        sx={{
-          position: "relative",
-          width: "100%",
-          overflow: "hidden",
-          mt: 5,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            width: "fit-content",
-            animation: "scrollLeft 35s linear infinite", // Slower animation for smoother effect
-            "@keyframes scrollLeft": {
-              "0%": { transform: "translateX(0)" },
-              "100%": { transform: "translateX(calc(-100% / 3))" }, // Only move by 1/3 since we have 3x the items
-            },
-            "&:hover": { animationPlayState: "paused" },
-            "@media (hover: none)": {
-              "&:active": { animationPlayState: "paused" },
-            },
-          }}
-        >
-          {duplicatedBlockchains.map((blockchain, index) => (
-            <Box
-              key={`${blockchain.name}-${index}`}
-              sx={{
-                width: isMobile ? "32.5vw" : "20vw", // Decreased width for desktop to reduce spacing
-                padding: isMobile ? 2 : 1, // Reduce padding on desktop
-                flexShrink: 0,
+          {/* 3D Model section - only visible on desktop */}
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{ 
+              display: { xs: "none", md: "block" }, 
+              opacity: "10",
+              position: "relative" // Added position relative for proper containment
+            }}
+          >
+            {/* Modified Box for the 3D model with increased height and contained positioning */}
+            <Box 
+              sx={{ 
+                position: "relative", 
+                width: "100%", 
+                height: "900px", // Increased height from 500px to 700px
+                overflow: "visible", // Allow the model to overflow without affecting layout
+                marginBottom: "-250px", // Negative margin to prevent pushing content down
+                marginTop: "-200px"
               }}
             >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }} // Reduced delay for smoother appearance
-                viewport={{ once: true }}
-                className="text-center h-full flex flex-col items-center justify-center p-2"
-              >
-                {/* Made icons bigger, especially for those with text */}
-                <Box
-                  className={isMobile ? "w-20 h-20 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    opacity: "0.5",
-                    transition: "opacity 0.3s ease",
-                    "&:hover": {
-                      opacity: 1,
-                    },
-                    // padding:".5rem"
-                    // Adjust sizes for specific blockchains with text logos
-                  }}
-                >
-                  {blockchain.logo}
-                </Box>
-                {/* <Typography 
-                    variant="h6" 
-                    className={isMobile ? "text-sm font-medium text-white" : "text-base font-medium text-white"}
-                    sx={{ opacity: 0.9 }}
-                  >
-                    {blockchain.name}
-                  </Typography> */}
-              </motion.div>
+              <Suspense fallback={<Box>Loading 3D Model...</Box>}>
+                <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+                  <ambientLight intensity={0.5} />
+                  <pointLight position={[10, 10, 10]} />
+                  <EarthGlobeModel />
+                  <OrbitControls enableZoom={false} autoRotate />
+                  <Environment preset="city" />
+                </Canvas>
+              </Suspense>
             </Box>
-          ))}
-        </Box>
-      </Box>
-    </Container>
+          </Grid>
+        </Grid>
 
-      {/* Enhanced gradient highlight with pulse animation */ }
-  <Box
-    className="absolute pointer-events-none"
-    sx={{
-      background:
-        "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
-    }}
-  />
-    </Box >
+        {/* Banner image - only visible on mobile, positioned at top */}
+        {isMobile && (
+          <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
+            {/* <SectionImage
+                src="/assets/sections/blockchain-removebg-preview.png"
+                alt="Blockchains Banner"
+              /> */}
+          </Box>
+        )}
+
+        {/* Infinite scroll for both mobile and desktop with decreased spacing */}
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            overflow: "hidden",
+            mt: 5,
+            zIndex: 1 // Added zIndex to ensure this appears above any overflow from the 3D model
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              width: "fit-content",
+              animation: "scrollLeft 35s linear infinite", // Slower animation for smoother effect
+              "@keyframes scrollLeft": {
+                "0%": { transform: "translateX(0)" },
+                "100%": { transform: "translateX(calc(-100% / 3))" }, // Only move by 1/3 since we have 3x the items
+              },
+              "&:hover": { animationPlayState: "paused" },
+              "@media (hover: none)": {
+                "&:active": { animationPlayState: "paused" },
+              },
+            }}
+          >
+            {duplicatedBlockchains.map((blockchain, index) => (
+              <Box
+                key={`${blockchain.name}-${index}`}
+                sx={{
+                  width: isMobile ? "32.5vw" : "20vw", // Decreased width for desktop to reduce spacing
+                  padding: isMobile ? 2 : 1, // Reduce padding on desktop
+                  flexShrink: 0,
+                }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }} // Reduced delay for smoother appearance
+                  viewport={{ once: true }}
+                  className="text-center h-full flex flex-col items-center justify-center p-2"
+                >
+                  {/* Made icons bigger, especially for those with text */}
+                  <Box
+                    className={isMobile ? "w-20 h-20 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      opacity: "0.5",
+                      transition: "opacity 0.3s ease",
+                      "&:hover": {
+                        opacity: 1,
+                      },
+                      // padding:".5rem"
+                      // Adjust sizes for specific blockchains with text logos
+                    }}
+                  >
+                    {blockchain.logo}
+                  </Box>
+                  {/* <Typography 
+                      variant="h6" 
+                      className={isMobile ? "text-sm font-medium text-white" : "text-base font-medium text-white"}
+                      sx={{ opacity: 0.9 }}
+                    >
+                      {blockchain.name}
+                    </Typography> */}
+                </motion.div>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+      </Container>
+
+      {/* Enhanced gradient highlight with pulse animation */}
+      <Box
+        className="absolute pointer-events-none"
+        sx={{
+          background:
+            "radial-gradient(circle at 50% 0%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
+        }}
+      />
+    </Box>
   );
 }
