@@ -153,7 +153,7 @@ export default function Blockchains() {
                 width: "100%", 
                 height: "900px", // Increased height from 500px to 700px
                 overflow: "visible", // Allow the model to overflow without affecting layout
-                marginBottom: "-250px", // Negative margin to prevent pushing content down
+                marginBottom: "-200px", // Negative margin to prevent pushing content down
                 marginTop: "-200px"
               }}
             >

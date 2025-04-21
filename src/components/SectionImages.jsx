@@ -7,7 +7,7 @@ const SectionImage = ({ src, alt }) => {
         <img
           src={src}
           alt={alt}
-          className="w-[90%] max-w-xl opacity-80 transition duration-500 hover:opacity-100"
+          className="w-[90%] max-w-xl opacity-100 transition duration-500 hover:opacity-100" // "hover:opacity-100" it will not work cause it's already "opacity: 100"//
         />
       </Box>
     </Box>
