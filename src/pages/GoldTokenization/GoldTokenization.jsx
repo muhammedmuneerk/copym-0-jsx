@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { MapContainer, TileLayer, CircleMarker, Polygon, Tooltip, ZoomControl, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import * as d3 from 'd3';
 import {
   ArrowRight,
@@ -21,6 +23,7 @@ import {
   DollarSign,
   PieChart
 } from "lucide-react";
+import { Download, RefreshCw } from 'react-feather';
 
 // WebGL Gold Particle Flow Component
 const GoldParticleFlow = () => {
@@ -360,352 +363,679 @@ const GoldParticleFlow = () => {
 };
 
 // Market Data Visualization Component
-const MarketDataVisualization = () => {
-  const [activeTimeframe, setActiveTimeframe] = useState('1D');
-  const [chartType, setChartType] = useState('candle');
-  const svgRef = useRef(null);
+const ContinentalGoldMap = () => {
+  const [activeTimeframe, setActiveTimeframe] = useState('1M');
+  const [activeView, setActiveView] = useState('map');
+  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hoveredRegion, setHoveredRegion] = useState(null);
+  
   const tooltipRef = useRef(null);
+  const chartRef = useRef(null);
+  const legendRef = useRef(null);
+  const mapRef = useRef(null);
   
-  // Sample data for different timeframes
-  const generateMarketData = (timeframe) => {
-    const data = [];
-    let basePrice = 1850; // Gold price in USD
-    let volatility = 0;
-    let dataPoints = 0;
+  // Map Reset Control Component
+  const MapResetControl = ({ resetMapView }) => {
+    const map = useMap();
     
-    switch(timeframe) {
+    const handleReset = () => {
+      map.setView([20, 0], 2);
+      resetMapView();
+    };
+    
+    return (
+      <div className="leaflet-top leaflet-right" style={{ marginTop: '50px' }}>
+        <div className="leaflet-control leaflet-bar">
+          <button 
+            className="bg-gray-800/80 hover:bg-gray-700/80 p-1 rounded-full"
+            onClick={handleReset}
+            title="Reset Map View"
+          >
+            <RefreshCw size={16} className="text-yellow-500" />
+          </button>
+        </div>
+      </div>
+    );
+  };
+  
+  // Accurate gold data by region with ISO country codes
+  const goldData = {
+    "North America": {
+      code: "NA",
+      color: "#FFD700",
+      fillColor: "#FFD700",
+      borders: [
+        [[49, -125], [25, -125], [25, -65], [49, -65]]
+      ],
+      reserves: 11400,  // in metric tons
+      production: 330,  // annual production in metric tons
+      countries: ["United States", "Canada", "Mexico"],
+      majorMines: [
+        { name: "Nevada Gold Mines", coordinates: [40.8, -116.5], production: 115 },
+        { name: "Peñasquito", coordinates: [24.1, -101.9], production: 34 },
+        { name: "Canadian Malartic", coordinates: [48.1, -78.1], production: 25 }
+      ],
+      priceData: generatePriceData(1880, 0.05)
+    },
+    "South America": {
+      code: "SA",
+      color: "#FFA500",
+      fillColor: "#FFA500",
+      borders: [
+        [[-4, -81], [-4, -35], [-55, -35], [-55, -81]]
+      ],
+      reserves: 8700,
+      production: 520,
+      countries: ["Peru", "Brazil", "Chile", "Colombia", "Argentina"],
+      majorMines: [
+        { name: "Yanacocha", coordinates: [-6.9, -78.5], production: 28 },
+        { name: "Cerro Vanguardia", coordinates: [-48.3, -68.2], production: 16 },
+        { name: "Pueblo Viejo", coordinates: [18.9, -70.2], production: 48 }
+      ],
+      priceData: generatePriceData(1875, 0.06)
+    },
+    "Europe": {
+      code: "EU",
+      color: "#4169E1",
+      fillColor: "#4169E1",
+      borders: [
+        [[35, -10], [35, 40], [70, 40], [70, -10]]
+      ],
+      reserves: 2400,
+      production: 140,
+      countries: ["Russia", "Finland", "Sweden", "Turkey"],
+      majorMines: [
+        { name: "Kupol", coordinates: [66.6, 169.1], production: 21 },
+        { name: "Kittila", coordinates: [67.9, 25.4], production: 14 },
+        { name: "Olimpiada", coordinates: [59.2, 92.9], production: 32 }
+      ],
+      priceData: generatePriceData(1890, 0.04)
+    },
+    "Africa": {
+      code: "AF",
+      color: "#32CD32",
+      fillColor: "#32CD32",
+      borders: [
+        [[35, -18], [35, 50], [-35, 50], [-35, -18]]
+      ],
+      reserves: 19800,
+      production: 870,
+      countries: ["South Africa", "Ghana", "Sudan", "Mali", "Tanzania"],
+      majorMines: [
+        { name: "Tarkwa", coordinates: [5.3, -1.9], production: 42 },
+        { name: "Kibali", coordinates: [3.1, 29.6], production: 31 },
+        { name: "Loulo-Gounkoto", coordinates: [13.0, -11.5], production: 27 }
+      ],
+      priceData: generatePriceData(1860, 0.07)
+    },
+    "Asia": {
+      code: "AS",
+      color: "#9932CC",
+      fillColor: "#9932CC",
+      borders: [
+        [[35, 40], [35, 145], [0, 145], [0, 90], [10, 40]]
+      ],
+      reserves: 23500,
+      production: 930,
+      countries: ["China", "Indonesia", "Kazakhstan", "Uzbekistan", "Philippines"],
+      majorMines: [
+        { name: "Muruntau", coordinates: [41.5, 64.6], production: 66 },
+        { name: "Grasberg", coordinates: [-4.1, 137.1], production: 49 },
+        { name: "Telfer", coordinates: [-21.7, 122.2], production: 18 }
+      ],
+      priceData: generatePriceData(1870, 0.08)
+    },
+    "Oceania": {
+      code: "OC",
+      color: "#FF4500",
+      fillColor: "#FF4500",
+      borders: [
+        [[-5, 120], [-5, 180], [-45, 180], [-45, 110], [-15, 110]]
+      ],
+      reserves: 10100,
+      production: 380,
+      countries: ["Australia", "Papua New Guinea"],
+      majorMines: [
+        { name: "Cadia Valley", coordinates: [-33.4, 149.0], production: 38 },
+        { name: "Boddington", coordinates: [-32.7, 116.3], production: 27 },
+        { name: "Tanami", coordinates: [-19.9, 129.7], production: 16 }
+      ],
+      priceData: generatePriceData(1865, 0.05)
+    }
+  };
+  
+  // Generate realistic price data with trends and volatility
+  function generatePriceData(basePrice, volatilityFactor) {
+    const trendFactors = {
+      '1D': { points: 24, trend: 0.02, cycle: 6 },
+      '1W': { points: 7, trend: 0.1, cycle: 3 },
+      '1M': { points: 30, trend: 0.4, cycle: 10 },
+      '1Y': { points: 12, trend: 1.2, cycle: 4 }
+    };
+    
+    const result = {};
+    
+    Object.keys(trendFactors).forEach(timeframe => {
+      const { points, trend, cycle } = trendFactors[timeframe];
+      const data = [];
+      let price = basePrice;
+      
+      // Add general trend
+      const trendDirection = Math.random() > 0.5 ? 1 : -1;
+      
+      for (let i = 0; i < points; i++) {
+        // Add cyclical component
+        const cyclical = Math.sin((i / points) * cycle * Math.PI) * basePrice * volatilityFactor;
+        
+        // Add random walk
+        const random = (Math.random() - 0.5) * basePrice * volatilityFactor;
+        
+        // Add trend
+        const trendComponent = (i / points) * trend * basePrice * trendDirection;
+        
+        price = basePrice + cyclical + random + trendComponent;
+        
+        // Calculate daily high/low/open/close
+        const dailyVolatility = basePrice * volatilityFactor * 0.2;
+        const open = price - (Math.random() - 0.5) * dailyVolatility;
+        const close = price;
+        const high = Math.max(open, close) + Math.random() * dailyVolatility;
+        const low = Math.min(open, close) - Math.random() * dailyVolatility;
+        const volume = (Math.random() * 0.5 + 0.75) * (basePrice / 1000);
+        
+        data.push({
+          date: i,
+          price,
+          open,
+          high,
+          low,
+          close,
+          volume
+        });
+      }
+      
+      result[timeframe] = data;
+    });
+    
+    return result;
+  }
+  
+  // Global averages
+  const getGlobalData = () => {
+    const regions = Object.keys(goldData);
+    const globalPriceData = {};
+    
+    // Calculate global price data
+    Object.keys(goldData[regions[0]].priceData).forEach(timeframe => {
+      const points = goldData[regions[0]].priceData[timeframe].length;
+      const globalData = [];
+      
+      for (let i = 0; i < points; i++) {
+        const globalPoint = {
+          date: i,
+          price: 0,
+          open: 0,
+          high: 0,
+          low: Number.MAX_VALUE,
+          close: 0,
+          volume: 0
+        };
+        
+        regions.forEach(region => {
+          const regionData = goldData[region].priceData[timeframe][i];
+          globalPoint.price += regionData.price;
+          globalPoint.open += regionData.open;
+          globalPoint.close += regionData.close;
+          globalPoint.high = Math.max(globalPoint.high, regionData.high);
+          globalPoint.low = Math.min(globalPoint.low, regionData.low);
+          globalPoint.volume += regionData.volume;
+        });
+        
+        // Calculate averages
+        globalPoint.price /= regions.length;
+        globalPoint.open /= regions.length;
+        globalPoint.close /= regions.length;
+        
+        globalData.push(globalPoint);
+      }
+      
+      globalPriceData[timeframe] = globalData;
+    });
+    
+    const totalReserves = regions.reduce((sum, region) => 
+      sum + goldData[region].reserves, 0);
+      
+    const totalProduction = regions.reduce((sum, region) => 
+      sum + goldData[region].production, 0);
+      
+    const allMines = regions.flatMap(region => 
+      goldData[region].majorMines.map(mine => ({
+        ...mine,
+        region
+      }))
+    );
+    
+    return {
+      name: "Global",
+      code: "GLOBAL",
+      color: "#FFD700",
+      reserves: totalReserves,
+      production: totalProduction,
+      majorMines: allMines,
+      priceData: globalPriceData
+    };
+  };
+  
+  const globalData = getGlobalData();
+  
+  // Format numbers with commas
+  const formatNumber = (num) => {
+    return new Intl.NumberFormat('en-US').format(num);
+  };
+  
+  // Format currency
+  const formatCurrency = (num) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    }).format(num);
+  };
+  
+  // Format date based on timeframe
+  const formatDate = (timeframe, index) => {
+    const now = new Date();
+    let date;
+    
+    switch (timeframe) {
       case '1D':
-        dataPoints = 24;
-        volatility = 5;
-        break;
+        date = new Date(now);
+        date.setHours(Math.floor(index * (24 / 23)));
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       case '1W':
-        dataPoints = 7;
-        volatility = 15;
-        break;
+        date = new Date(now);
+        date.setDate(now.getDate() - 6 + index);
+        return date.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
       case '1M':
-        dataPoints = 30;
-        volatility = 30;
-        break;
+        date = new Date(now);
+        date.setDate(now.getDate() - 29 + index);
+        return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
       case '1Y':
-        dataPoints = 12;
-        volatility = 100;
-        break;
+        date = new Date(now);
+        date.setMonth(now.getMonth() - 11 + index);
+        return date.toLocaleDateString([], { month: 'short', year: 'numeric' });
       default:
-        dataPoints = 24;
-        volatility = 5;
+        return `Day ${index}`;
     }
-    
-    for (let i = 0; i < dataPoints; i++) {
-      const randomChange = (Math.random() - 0.5) * volatility;
-      const open = basePrice;
-      basePrice += randomChange;
-      const close = basePrice;
-      const high = Math.max(open, close) + Math.random() * volatility / 2;
-      const low = Math.min(open, close) - Math.random() * volatility / 2;
-      const volume = Math.random() * 1000 + 500;
-      
-      data.push({
-        date: i,
-        open,
-        high,
-        low,
-        close,
-        volume
-      });
-    }
-    
-    return data;
   };
   
-  // Calculate RSI
-  const calculateRSI = (data, periods = 14) => {
-    if (data.length < periods + 1) {
-      return Array(data.length).fill(50);
-    }
+  // Handle region selection
+  const handleRegionSelect = (region) => {
+    setSelectedRegion(region);
     
-    const changes = [];
-    for (let i = 1; i < data.length; i++) {
-      changes.push(data[i].close - data[i-1].close);
-    }
-    
-    const rsiData = [];
-    for (let i = 0; i < periods; i++) {
-      rsiData.push(50); // Neutral RSI for initial periods
-    }
-    
-    for (let i = periods; i < changes.length + 1; i++) {
-      const windowChanges = changes.slice(i - periods, i);
-      const gains = windowChanges.filter(c => c > 0).reduce((sum, c) => sum + c, 0) / periods;
-      const losses = Math.abs(windowChanges.filter(c => c < 0).reduce((sum, c) => sum + c, 0)) / periods;
-      
-      const relativeStrength = gains / (losses === 0 ? 1 : losses);
-      const rsi = 100 - (100 / (1 + relativeStrength));
-      
-      rsiData.push(rsi);
-    }
-    
-    return rsiData;
-  };
-  
-  useEffect(() => {
-    const data = generateMarketData(activeTimeframe);
-    const rsiData = calculateRSI(data);
-    
-    if (!svgRef.current) return;
-    
-    const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove();
-    
-    const margin = { top: 20, right: 30, bottom: 60, left: 60 };
-    const width = svg.node().getBoundingClientRect().width - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
-    const volumeHeight = 80;
-    const rsiHeight = 80;
-    const totalHeight = height + volumeHeight + rsiHeight + margin.top + margin.bottom + 40;
-    
-    // Set SVG height
-    svg.attr("height", totalHeight);
-    
-    const mainChart = svg.append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
-      
-    const volumeChart = svg.append("g")
-      .attr("transform", `translate(${margin.left},${margin.top + height + 20})`);
-      
-    const rsiChart = svg.append("g")
-      .attr("transform", `translate(${margin.left},${margin.top + height + volumeHeight + 40})`);
-    
-    // X scale
-    const x = d3.scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, width]);
-    
-    // Y scales
-    const y = d3.scaleLinear()
-      .domain([d3.min(data, d => d.low) * 0.998, d3.max(data, d => d.high) * 1.002])
-      .range([height, 0]);
-      
-    const yVolume = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.volume)])
-      .range([volumeHeight, 0]);
-      
-    const yRSI = d3.scaleLinear()
-      .domain([0, 100])
-      .range([rsiHeight, 0]);
-    
-    // Add X axis
-    mainChart.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(x).ticks(5))
-      .selectAll("text")
-      .attr("fill", "#E6E6FA")
-      .attr("font-size", "11px");
-    
-    // Add Y axis
-    mainChart.append("g")
-      .call(d3.axisLeft(y).ticks(5))
-      .selectAll("text")
-      .attr("fill", "#E6E6FA")
-      .attr("font-size", "11px");
-      
-    // Add Volume Y axis
-    volumeChart.append("g")
-      .call(d3.axisLeft(yVolume).ticks(3))
-      .selectAll("text")
-      .attr("fill", "#E6E6FA")
-      .attr("font-size", "10px");
-      
-    // Add RSI Y axis
-    rsiChart.append("g")
-      .call(d3.axisLeft(yRSI).ticks(3))
-      .selectAll("text")
-      .attr("fill", "#E6E6FA")
-      .attr("font-size", "10px");
-      
-    // Add horizontal lines for RSI
-    rsiChart.append("line")
-      .attr("x1", 0)
-      .attr("x2", width)
-      .attr("y1", yRSI(30))
-      .attr("y2", yRSI(30))
-      .attr("stroke", "#FF4500")
-      .attr("stroke-width", 0.5)
-      .attr("stroke-dasharray", "3,3");
-      
-    rsiChart.append("line")
-      .attr("x1", 0)
-      .attr("x2", width)
-      .attr("y1", yRSI(70))
-      .attr("y2", yRSI(70))
-      .attr("stroke", "#32CD32")
-      .attr("stroke-width", 0.5)
-      .attr("stroke-dasharray", "3,3");
-    
-    // Add title
-    mainChart.append("text")
-      .attr("x", width / 2)
-      .attr("y", -5)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#FFD700")
-      .text("Gold Price (USD)");
-      
-    volumeChart.append("text")
-      .attr("x", width / 2)
-      .attr("y", -5)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#FFD700")
-      .attr("font-size", "11px")
-      .text("Volume");
-      
-    rsiChart.append("text")
-      .attr("x", width / 2)
-      .attr("y", -5)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#FFD700")
-      .attr("font-size", "11px")
-      .text("RSI (14)");
-    
-    if (chartType === 'candle') {
-      // Candle width
-      const candleWidth = Math.max(5, Math.min(15, width / data.length / 2));
-      
-      // Draw candles
-      mainChart.selectAll("line.stem")
-        .data(data)
-        .enter()
-        .append("line")
-        .attr("class", "stem")
-        .attr("x1", (d, i) => x(i))
-        .attr("x2", (d, i) => x(i))
-        .attr("y1", d => y(d.high))
-        .attr("y2", d => y(d.low))
-        .attr("stroke", d => d.open > d.close ? "#FF4500" : "#32CD32")
-        .attr("stroke-width", 1);
-      
-      mainChart.selectAll("rect.candle")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "candle")
-        .attr("x", (d, i) => x(i) - candleWidth / 2)
-        .attr("y", d => y(Math.max(d.open, d.close)))
-        .attr("width", candleWidth)
-        .attr("height", d => Math.abs(y(d.open) - y(d.close)))
-        .attr("fill", d => d.open > d.close ? "#FF4500" : "#32CD32");
+    // If in map view, change to chart view
+    if (activeView === 'map') {
+      setActiveView('chart');
     } else {
-      // Line chart
-      const line = d3.line()
-        .x((d, i) => x(i))
-        .y(d => y(d.close))
-        .curve(d3.curveMonotoneX);
-        
-      mainChart.append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", "#FFD700")
-        .attr("stroke-width", 2)
-        .attr("d", line);
-        
-      // Add gradient area
-      const area = d3.area()
-        .x((d, i) => x(i))
-        .y0(height)
-        .y1(d => y(d.close))
-        .curve(d3.curveMonotoneX);
-        
-      const gradient = mainChart.append("defs")
-        .append("linearGradient")
-        .attr("id", "area-gradient")
-        .attr("x1", "0%").attr("y1", "0%")
-        .attr("x2", "0%").attr("y2", "100%");
-        
-      gradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", "#FFD700")
-        .attr("stop-opacity", 0.5);
-        
-      gradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", "#FFD700")
-        .attr("stop-opacity", 0);
-        
-      mainChart.append("path")
-        .datum(data)
-        .attr("fill", "url(#area-gradient)")
-        .attr("d", area);
+      renderCharts(region);
     }
+  };
+  
+  // Reset map view and selection
+  const handleResetMapView = () => {
+    setSelectedRegion(null);
+  };
+  
+  // Reset selection
+  const handleResetSelection = () => {
+    setSelectedRegion(null);
+    setActiveView('map');
+    if (mapRef.current) {
+      mapRef.current.setView([20, 0], 2);
+    }
+  };
+  
+  // Render price charts
+  const renderCharts = (region = selectedRegion) => {
+    if (!chartRef.current) return;
     
-    // Draw volume bars
-    volumeChart.selectAll("rect.volume")
-      .data(data)
+    const chartSvg = d3.select(chartRef.current);
+    chartSvg.selectAll("*").remove();
+    
+    const width = chartRef.current.clientWidth;
+    const height = 350;
+    const margin = { top: 30, right: 60, bottom: 50, left: 60 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    
+    chartSvg.attr("width", width)
+      .attr("height", height);
+      
+    const chartGroup = chartSvg.append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+      
+    // Get data for selected region or global
+    const chartData = region 
+      ? goldData[region].priceData[activeTimeframe]
+      : globalData.priceData[activeTimeframe];
+      
+    // Create scales
+    const x = d3.scaleLinear()
+      .domain([0, chartData.length - 1])
+      .range([0, innerWidth]);
+      
+    const y = d3.scaleLinear()
+      .domain([
+        d3.min(chartData, d => d.low) * 0.998,
+        d3.max(chartData, d => d.high) * 1.002
+      ])
+      .range([innerHeight, 0]);
+      
+    const volumeScale = d3.scaleLinear()
+      .domain([0, d3.max(chartData, d => d.volume)])
+      .range([innerHeight, innerHeight * 0.8]);
+      
+    // Create axes
+    const xAxis = d3.axisBottom(x)
+      .ticks(5)
+      .tickFormat(d => formatDate(activeTimeframe, d));
+      
+    const yAxis = d3.axisLeft(y)
+      .ticks(5)
+      .tickFormat(d => formatCurrency(d));
+      
+    chartGroup.append("g")
+      .attr("transform", `translate(0, ${innerHeight})`)
+      .call(xAxis)
+      .selectAll("text")
+      .attr("fill", "#E6E6FA")
+      .style("font-size", "10px");
+      
+    chartGroup.append("g")
+      .call(yAxis)
+      .selectAll("text")
+      .attr("fill", "#E6E6FA")
+      .style("font-size", "10px");
+      
+    // Add grid lines
+    chartGroup.append("g")
+      .attr("class", "grid")
+      .attr("opacity", 0.1)
+      .selectAll("line")
+      .data(y.ticks(5))
+      .enter()
+      .append("line")
+      .attr("x1", 0)
+      .attr("x2", innerWidth)
+      .attr("y1", d => y(d))
+      .attr("y2", d => y(d))
+      .attr("stroke", "#fff");
+      
+    // Add volume bars
+    chartGroup.selectAll(".volume-bar")
+      .data(chartData)
       .enter()
       .append("rect")
-      .attr("class", "volume")
-      .attr("x", (d, i) => x(i) - width / data.length / 2 * 0.8)
-      .attr("y", d => yVolume(d.volume))
-      .attr("width", width / data.length * 0.8)
-      .attr("height", d => volumeHeight - yVolume(d.volume))
-      .attr("fill", (d, i) => i > 0 ? (data[i].close > data[i-1].close ? "#32CD3280" : "#FF450080") : "#FFD70080");
+      .attr("class", "volume-bar")
+      .attr("x", (d, i) => x(i) - innerWidth / chartData.length / 2 * 0.8)
+      .attr("y", d => volumeScale(d.volume))
+      .attr("width", innerWidth / chartData.length * 0.8)
+      .attr("height", d => innerHeight - volumeScale(d.volume))
+      .attr("fill", (d, i) => {
+        return i > 0 && chartData[i].close > chartData[i-1].close
+          ? "rgba(50, 205, 50, 0.3)"
+          : "rgba(255, 69, 0, 0.3)";
+      });
       
-    // Draw RSI line
-    const rsiLine = d3.line()
-      .x((d, i) => x(i))
-      .y(d => yRSI(d))
-      .curve(d3.curveMonotoneX);
-      
-    rsiChart.append("path")
-      .datum(rsiData)
-      .attr("fill", "none")
-      .attr("stroke", "#FFD700")
-      .attr("stroke-width", 1.5)
-      .attr("d", rsiLine);
-      
-    // Add tooltip
-    const tooltip = d3.select(tooltipRef.current);
+    // Add candles
+    const candleWidth = Math.max(2, Math.min(15, innerWidth / chartData.length / 2));
     
-    const mouseover = function(event, d) {
-      tooltip.style("opacity", 1);
-    };
-    
-    const mousemove = function(event, d) {
-      const i = Math.floor(x.invert(d3.pointer(event)[0]));
-      if (i >= 0 && i < data.length) {
-        const item = data[i];
-        tooltip.html(`
-          <div class="bg-black/80 backdrop-blur-md p-2 rounded border border-yellow-500/20">
-            <div class="text-yellow-500 font-semibold">Price: $${item.close.toFixed(2)}</div>
-            <div class="text-xs text-gray-300">O: $${item.open.toFixed(2)} H: $${item.high.toFixed(2)}</div>
-            <div class="text-xs text-gray-300">L: $${item.low.toFixed(2)} C: $${item.close.toFixed(2)}</div>
-            <div class="text-xs text-yellow-300">Vol: ${Math.round(item.volume)}</div>
-            <div class="text-xs ${rsiData[i] > 70 ? "text-red-400" : rsiData[i] < 30 ? "text-green-400" : "text-gray-300"}">
-              RSI: ${rsiData[i].toFixed(1)}
+    // Add stems (high-low lines)
+    chartGroup.selectAll(".stem")
+      .data(chartData)
+      .enter()
+      .append("line")
+      .attr("class", "stem")
+      .attr("x1", (d, i) => x(i))
+      .attr("x2", (d, i) => x(i))
+      .attr("y1", d => y(d.high))
+      .attr("y2", d => y(d.low))
+      .attr("stroke", d => d.open > d.close ? "#FF4500" : "#32CD32")
+      .attr("stroke-width", 1);
+      
+    // Add candle bodies
+    chartGroup.selectAll(".candle")
+      .data(chartData)
+      .enter()
+      .append("rect")
+      .attr("class", "candle")
+      .attr("x", (d, i) => x(i) - candleWidth / 2)
+      .attr("y", d => y(Math.max(d.open, d.close)))
+      .attr("width", candleWidth)
+      .attr("height", d => Math.abs(y(d.open) - y(d.close)))
+      .attr("fill", d => d.open > d.close ? "#FF4500" : "#32CD32");
+      
+    // Add tooltip interaction area
+    chartGroup.append("rect")
+      .attr("width", innerWidth)
+      .attr("height", innerHeight)
+      .attr("fill", "transparent")
+      .on("mousemove", function(event) {
+        const mouseX = d3.pointer(event)[0];
+        const i = Math.min(
+          chartData.length - 1,
+          Math.max(0, Math.round(x.invert(mouseX)))
+        );
+        
+        const item = chartData[i];
+        if (!item) return;
+        
+        // Show tooltip
+        const tooltip = d3.select(tooltipRef.current);
+        tooltip.style("visibility", "visible")
+          .style("opacity", 1)
+          .html(`
+            <div class="p-2 rounded-lg bg-gray-900/90 backdrop-blur-md border border-yellow-500/30">
+              <div class="text-yellow-500 font-bold">${formatDate(activeTimeframe, i)}</div>
+              <div class="grid grid-cols-2 gap-x-3 gap-y-1 mt-1">
+                <div class="text-xs text-gray-300">Open:</div>
+                <div class="text-xs text-yellow-100">${formatCurrency(item.open)}</div>
+                <div class="text-xs text-gray-300">High:</div>
+                <div class="text-xs text-yellow-100">${formatCurrency(item.high)}</div>
+                <div class="text-xs text-gray-300">Low:</div>
+                <div class="text-xs text-yellow-100">${formatCurrency(item.low)}</div>
+                <div class="text-xs text-gray-300">Close:</div>
+                <div class="text-xs text-yellow-100">${formatCurrency(item.close)}</div>
+                <div class="text-xs text-gray-300">Volume:</div>
+                <div class="text-xs text-yellow-100">${formatNumber(item.volume.toFixed(1))} tons</div>
+              </div>
             </div>
-          </div>
-        `)
+          `)
           .style("left", (event.pageX + 10) + "px")
           .style("top", (event.pageY - 20) + "px");
-      }
-    };
+          
+        // Show crosshair
+        chartGroup.selectAll(".crosshair-x").remove();
+        chartGroup.selectAll(".crosshair-y").remove();
+        chartGroup.selectAll(".crosshair-label").remove();
+        
+        // Vertical line
+        chartGroup.append("line")
+          .attr("class", "crosshair-x")
+          .attr("x1", x(i))
+          .attr("x2", x(i))
+          .attr("y1", 0)
+          .attr("y2", innerHeight)
+          .attr("stroke", "#FFD700")
+          .attr("stroke-width", 1)
+          .attr("stroke-dasharray", "3,3");
+          
+        // Horizontal line
+        chartGroup.append("line")
+          .attr("class", "crosshair-y")
+          .attr("x1", 0)
+          .attr("x2", innerWidth)
+          .attr("y1", y(item.close))
+          .attr("y2", y(item.close))
+          .attr("stroke", "#FFD700")
+          .attr("stroke-width", 1)
+          .attr("stroke-dasharray", "3,3");
+          
+        // Price label
+        chartGroup.append("text")
+          .attr("class", "crosshair-label")
+          .attr("x", innerWidth + 5)
+          .attr("y", y(item.close) + 4)
+          .attr("fill", "#FFD700")
+          .attr("font-size", "10px")
+          .text(formatCurrency(item.close));
+      })
+      .on("mouseleave", function() {
+        d3.select(tooltipRef.current).style("visibility", "hidden");
+        chartGroup.selectAll(".crosshair-x").remove();
+        chartGroup.selectAll(".crosshair-y").remove();
+        chartGroup.selectAll(".crosshair-label").remove();
+      });
+      
+    // Add chart title
+    chartGroup.append("text")
+      .attr("x", innerWidth / 2)
+      .attr("y", -10)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#FFD700")
+      .attr("font-size", "14px")
+      .attr("font-weight", "bold")
+      .text(`${region || 'Global'} Gold Price - ${activeTimeframe} View`);
+      
+    // Add axes labels
+    chartGroup.append("text")
+      .attr("x", innerWidth / 2)
+      .attr("y", innerHeight + 40)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#E6E6FA")
+      .attr("font-size", "12px")
+      .text("Time Period");
+      
+    chartGroup.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -innerHeight / 2)
+      .attr("y", -40)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#E6E6FA")
+      .attr("font-size", "12px")
+      .text("Gold Price (USD/oz)");
+  };
+  
+  // Effect to update charts when timeframe or view changes
+  useEffect(() => {
+    if (activeView === 'chart') {
+      renderCharts();
+    }
+  }, [activeTimeframe, activeView]);
+  
+  // Load initial data for legend
+  useEffect(() => {
+    // Generate legend data
+    const legend = d3.select(legendRef.current);
+    legend.selectAll("*").remove();
     
-    const mouseleave = function(event, d) {
-      tooltip.style("opacity", 0);
-    };
+    const legendContainer = legend.append("div")
+      .attr("class", "grid grid-cols-2 gap-2 p-2 bg-gray-900/50 backdrop-blur-md rounded-lg border border-yellow-500/20");
+      
+    // Production legend
+    const productionItems = Object.entries(goldData)
+      .sort((a, b) => b[1].production - a[1].production)
+      .map(([region, data]) => ({
+        name: region,
+        value: data.production,
+        color: data.color
+      }));
+      
+    legendContainer.append("div")
+      .attr("class", "col-span-2")
+      .html(`<div class="text-xs font-bold text-yellow-500 mb-1">Annual Gold Production (tons)</div>`);
+      
+    productionItems.forEach(item => {
+      legendContainer.append("div")
+        .attr("class", "flex items-center space-x-1")
+        .html(`
+          <div class="w-3 h-3 rounded-full" style="background-color: ${item.color}"></div>
+          <div class="text-xs text-gray-300">${item.name}</div>
+        `);
+        
+      legendContainer.append("div")
+        .attr("class", "text-right")
+        .html(`<div class="text-xs text-yellow-200">${formatNumber(item.value)}</div>`);
+    });
     
-    // Add interaction rect
-    mainChart.append("rect")
-      .attr("width", width)
-      .attr("height", height)
-      .style("fill", "none")
-      .style("pointer-events", "all")
-      .on("mouseover", mouseover)
-      .on("mousemove", mousemove)
-      .on("mouseleave", mouseleave);
-  }, [activeTimeframe, chartType]);
+    // Add global total
+    legendContainer.append("div")
+      .attr("class", "col-span-1 mt-1 border-t border-gray-600 pt-1")
+      .html(`<div class="text-xs font-semibold text-gray-300">Global Total:</div>`);
+      
+    legendContainer.append("div")
+      .attr("class", "text-right mt-1 border-t border-gray-600 pt-1")
+      .html(`<div class="text-xs font-semibold text-yellow-300">${formatNumber(globalData.production)}</div>`);
+      
+    setIsLoading(false);
+  }, []);
+  
+  // Region details component
+  const RegionDetails = () => {
+    if (!selectedRegion) return null;
+    
+    const regionData = goldData[selectedRegion];
+    return (
+      <div className="bg-gray-900/50 backdrop-blur-md rounded-lg border border-yellow-500/20 p-3 mt-4">
+        <h4 className="font-bold text-yellow-500 mb-2">{selectedRegion} Details</h4>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <p className="text-sm text-gray-300">Gold Reserves:</p>
+            <p className="text-lg font-semibold text-yellow-300">{formatNumber(regionData.reserves)} tons</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-300">Annual Production:</p>
+            <p className="text-lg font-semibold text-yellow-300">{formatNumber(regionData.production)} tons</p>
+          </div>
+          <div className="col-span-2">
+            <p className="text-sm text-gray-300 mb-1">Major Producers:</p>
+            <div className="flex flex-wrap gap-1">
+              {regionData.countries.map(country => (
+                <span key={country} className="bg-yellow-500/10 text-yellow-200 text-xs px-2 py-1 rounded">
+                  {country}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-2 mt-1">
+            <p className="text-sm text-gray-300 mb-1">Top Mines:</p>
+            <div className="grid grid-cols-2 gap-2">
+              {regionData.majorMines.slice(0, 4).map(mine => (
+                <div key={mine.name} className="bg-gray-800/50 rounded p-2">
+                  <div className="font-semibold text-white text-sm">{mine.name}</div>
+                  <div className="text-xs text-yellow-200">{mine.production} tons/year</div>
+                  <div className="text-xs text-gray-400">({mine.coordinates[0].toFixed(1)}°, {mine.coordinates[1].toFixed(1)}°)</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
   
   return (
-    <div className="bg-gray-900/60 backdrop-blur-xl border border-yellow-500/20 rounded-xl overflow-hidden">
+    <div className="bg-gray-900/80 backdrop-blur-xl border border-yellow-500/20 rounded-xl overflow-hidden">
       <div className="flex justify-between items-center p-4 border-b border-yellow-500/20">
-        <h3 className="text-xl font-bold text-yellow-500">Gold Market Data</h3>
+        <div className="flex items-center">
+          <h3 className="text-xl font-bold text-yellow-500">Global Gold Data</h3>
+          {selectedRegion && (
+            <span className="ml-2 text-sm bg-yellow-500/20 text-yellow-300 px-2 py-0.5 rounded-full">
+              {selectedRegion}
+            </span>
+          )}
+        </div>
         <div className="flex space-x-2">
           {['1D', '1W', '1M', '1Y'].map((timeframe) => (
             <button 
@@ -722,33 +1052,206 @@ const MarketDataVisualization = () => {
           ))}
         </div>
       </div>
+      
       <div className="flex justify-between items-center p-2 px-4 border-b border-yellow-500/10">
-        <div className="text-sm text-gray-400">Last updated: April 25, 2025 09:30 AM EST</div>
+        <div className="text-sm text-gray-400">
+          {hoveredRegion ? `Exploring: ${hoveredRegion}` : 'Hover over regions to explore'}
+        </div>
         <div className="flex space-x-2">
           <button 
-            className={`p-1 rounded ${chartType === 'candle' ? 'text-yellow-500' : 'text-gray-400'}`}
-            onClick={() => setChartType('candle')}
-            title="Candlestick Chart"
+            className={`p-1 rounded flex items-center space-x-1 ${activeView === 'map' ? 'text-yellow-500' : 'text-gray-400'}`}
+            onClick={() => setActiveView('map')}
+            title="Map View"
           >
-            <BarChart size={16} />
+            <Globe size={16} />
+            <span className="text-xs">Map</span>
           </button>
           <button 
-            className={`p-1 rounded ${chartType === 'line' ? 'text-yellow-500' : 'text-gray-400'}`}
-            onClick={() => setChartType('line')}
-            title="Line Chart"
+            className={`p-1 rounded flex items-center space-x-1 ${activeView === 'chart' ? 'text-yellow-500' : 'text-gray-400'}`}
+            onClick={() => setActiveView('chart')}
+            title="Chart View"
           >
             <LineChart size={16} />
+            <span className="text-xs">Chart</span>
           </button>
+          {selectedRegion && (
+            <button 
+              className="px-2 py-1 text-xs rounded bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 flex items-center"
+              onClick={handleResetSelection}
+            >
+              <Globe size={12} className="mr-1" />
+              Global View
+            </button>
+          )}
         </div>
       </div>
-      <div className="relative p-2">
-        <svg ref={svgRef} width="100%" height="460"></svg>
-        <div ref={tooltipRef} className="absolute pointer-events-none transition-opacity duration-100 opacity-0 z-10"></div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+        <div className={`relative md:col-span-2 ${isLoading ? 'opacity-50' : ''}`}>
+          {activeView === 'map' ? (
+            <div className="relative h-[400px] bg-gray-900/30 rounded-lg overflow-hidden">
+              <MapContainer 
+                center={[20, 0]} 
+                zoom={2} 
+                style={{ height: '100%', width: '100%', background: '#0a1428' }}
+                zoomControl={false}
+                maxBounds={[[90, -180], [-90, 180]]} // Restrict the map to a single world view
+                maxBoundsViscosity={1.0} // Prevents panning outside the bounds
+                whenCreated={mapInstance => {
+                  mapRef.current = mapInstance;
+                }}
+              >
+                {/* Dark-themed map tiles */}
+                <TileLayer
+                  url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                  noWrap={true} // Prevents the map from repeating horizontally
+                />
+                
+                {/* Add region polygons */}
+                {Object.entries(goldData).map(([region, data]) => (
+                  data.borders.map((border, i) => (
+                    <Polygon
+                      key={`${region}-border-${i}`}
+                      positions={border}
+                      pathOptions={{
+                        fillColor: data.color,
+                        fillOpacity: selectedRegion === region ? 0.6 : 0.3,
+                        weight: 1,
+                        color: '#555',
+                        opacity: 0.8
+                      }}
+                      eventHandlers={{
+                        mouseover: (e) => {
+                          setHoveredRegion(region);
+                          e.target.setStyle({
+                            fillOpacity: 0.7
+                          });
+                        },
+                        mouseout: (e) => {
+                          setHoveredRegion(null);
+                          e.target.setStyle({
+                            fillOpacity: selectedRegion === region ? 0.6 : 0.3
+                          });
+                        },
+                        click: () => {
+                          handleRegionSelect(region);
+                        }
+                      }}
+                    >
+                      <Tooltip direction="center" permanent>
+                        <div className="font-bold text-xs">{region}</div>
+                      </Tooltip>
+                    </Polygon>
+                  ))
+                ))}
+                
+                {/* Add gold mines */}
+                {Object.entries(goldData).map(([region, data]) =>
+                  data.majorMines.map((mine, i) => (
+                    <CircleMarker
+                      key={`${region}-mine-${i}`}
+                      center={mine.coordinates}
+                      radius={Math.log(mine.production) * 1.2}
+                      pathOptions={{
+                        fillColor: '#FFD700',
+                        fillOpacity: 0.8,
+                        color: '#222',
+                        weight: 1
+                      }}
+                    >
+                      <Tooltip>
+                        <div className="p-1">
+                          <div className="font-bold text-yellow-500">{mine.name}</div>
+                          <div className="text-sm">Production: {mine.production} tons/year</div>
+                          <div className="text-sm">Region: {region}</div>
+                        </div>
+                      </Tooltip>
+                    </CircleMarker>
+                  ))
+                )}
+                
+                {/* Custom controls */}
+                <ZoomControl position="topright" />
+                <MapResetControl resetMapView={handleResetMapView} />
+              </MapContainer>
+            </div>
+          ) : (
+            <div>
+              <svg ref={chartRef} width="100%" height="350" className="bg-gray-900/30 rounded-lg"></svg>
+              {selectedRegion && <RegionDetails />}
+            </div>
+          )}
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
+            </div>
+          )}
+        </div>
+        
+        <div className="bg-gray-900/30 rounded-lg p-3">
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="text-yellow-500 font-bold">Gold Market Overview</h4>
+            <Search size={16} className="text-gray-400" />
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <h5 className="text-sm text-gray-300 mb-1">Global Gold Production</h5>
+              <div className="text-2xl font-bold text-yellow-300">{formatNumber(globalData.production)} tons <span className="text-xs text-green-400">/ year</span></div>
+              <div className="text-xs text-gray-400">Based on latest World Gold Council data</div>
+            </div>
+            
+            <div>
+              <h5 className="text-sm text-gray-300 mb-1">Known Reserves</h5>
+              <div className="text-2xl font-bold text-yellow-300">{formatNumber(globalData.reserves)} tons</div>
+              <div className="text-xs text-gray-400">Economically viable at current prices</div>
+            </div>
+            
+            <div>
+              <h5 className="text-sm text-gray-300 mb-1">Current Price Trends</h5>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                {Object.entries(goldData)
+                  .slice(0, 4)
+                  .map(([region, data]) => {
+                    const currentPrice = data.priceData[activeTimeframe][data.priceData[activeTimeframe].length - 1].price;
+                    const previousPrice = data.priceData[activeTimeframe][0].price;
+                    const change = ((currentPrice - previousPrice) / previousPrice) * 100;
+                    
+                    return (
+                      <div key={region} className="flex items-center space-x-2">
+                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: data.color }}></div>
+                        <div className="text-xs text-gray-300">{region}</div>
+                        <div className={`text-xs ${change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                          {change >= 0 ? '↑' : '↓'} {Math.abs(change).toFixed(1)}%
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+            
+            <div ref={legendRef} className="mt-4"></div>
+            
+            <div className="text-center mt-4">
+              <button className="px-3 py-1.5 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 rounded-lg text-xs flex items-center mx-auto">
+                <Download size={12} className="mr-1" />
+                Download Full Report
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      <div className="p-3 border-t border-yellow-500/10 flex justify-between items-center text-xs text-gray-400">
+        <div>Last updated: April 25, 2025 09:30 AM EST</div>
+        <div>© 2025 World Gold Council</div>
+      </div>
+      
+      <div ref={tooltipRef} className="fixed pointer-events-none transition-all duration-100 opacity-0 z-50"></div>
     </div>
   );
 };
-
 // Procedural Gold Bar SVG Generator
 const GoldBarPattern = ({ historyData = [] }) => {
   // Use history data to modulate the pattern
@@ -1304,406 +1807,6 @@ const GoldPortfolioAllocation = () => {
         <button className="bg-[#B8860B]/10 backdrop-blur-lg px-4 py-2 rounded-full border border-[#FFD700]/50 hover:bg-[#B8860B]/20 text-[#FFD700] transition-all text-sm">
           Save Portfolio Strategy
         </button>
-      </div>
-    </div>
-  );
-};
-
-// Authentication Portal Component
-const AuthenticationPortal = () => {
-  const [step, setStep] = useState(1);
-  const [fingerprintScanned, setFingerprintScanned] = useState(false);
-  const [fingerprintProgress, setFingerprintProgress] = useState(0);
-  const [passwordValue, setPasswordValue] = useState('');
-  const [authenticating, setAuthenticating] = useState(false);
-  const [biometricData, setBiometricData] = useState({
-    confidenceScore: 0,
-    verificationStatus: 'pending',
-    fingerprintFeatures: [],
-    scanQuality: 0
-  });
-  
-  // Background pattern for security visualization
-  const [securityPattern, setSecurityPattern] = useState([]);
-  const canvasRef = useRef(null);
-  
-  // Generate a unique security pattern based on biometric data
-  useEffect(() => {
-    if (step === 2 && fingerprintScanned) {
-      const features = [];
-      for (let i = 0; i < 12; i++) {
-        features.push({
-          angle: Math.random() * 360,
-          distance: Math.random() * 0.5 + 0.2,
-          strength: Math.random() * 0.8 + 0.2
-        });
-      }
-      
-      setBiometricData(prev => ({
-        ...prev,
-        confidenceScore: 0.92 + Math.random() * 0.08,
-        verificationStatus: 'verified',
-        fingerprintFeatures: features,
-        scanQuality: 0.85 + Math.random() * 0.15
-      }));
-      
-      // Generate security pattern
-      const newPattern = [];
-      for (let i = 0; i < 20; i++) {
-        newPattern.push({
-          x: Math.random(),
-          y: Math.random(),
-          size: Math.random() * 0.04 + 0.01,
-          opacity: Math.random() * 0.5 + 0.2,
-          angle: Math.random() * 360
-        });
-      }
-      setSecurityPattern(newPattern);
-    }
-  }, [step, fingerprintScanned]);
-  
-  // Render the security pattern
-  useEffect(() => {
-    if (canvasRef.current && securityPattern.length > 0) {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      const width = canvas.width;
-      const height = canvas.height;
-      
-      ctx.clearRect(0, 0, width, height);
-      
-      // Draw connections
-      ctx.strokeStyle = 'rgba(255, 215, 0, 0.3)';
-      ctx.lineWidth = 1;
-      
-      for (let i = 0; i < securityPattern.length; i++) {
-        const point1 = securityPattern[i];
-        
-        for (let j = i + 1; j < securityPattern.length; j++) {
-          const point2 = securityPattern[j];
-          const distance = Math.hypot(
-            point2.x - point1.x, 
-            point2.y - point1.y
-          );
-          
-          if (distance < 0.3) {
-            ctx.beginPath();
-            ctx.moveTo(point1.x * width, point1.y * height);
-            ctx.lineTo(point2.x * width, point2.y * height);
-            ctx.globalAlpha = (0.3 - distance) / 0.3 * 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-      
-      // Draw points
-      for (const point of securityPattern) {
-        ctx.beginPath();
-        ctx.arc(
-          point.x * width, 
-          point.y * height, 
-          point.size * width, 
-          0, 
-          Math.PI * 2
-        );
-        ctx.globalAlpha = point.opacity;
-        ctx.fillStyle = 'rgba(255, 215, 0, 0.8)';
-        ctx.fill();
-      }
-    }
-  }, [securityPattern]);
-  
-  useEffect(() => {
-    if (step === 2 && !fingerprintScanned) {
-      const interval = setInterval(() => {
-        setFingerprintProgress(prev => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            setFingerprintScanned(true);
-            return 100;
-          }
-          return prev + 2;
-        });
-      }, 50);
-      
-      return () => clearInterval(interval);
-    }
-  }, [step, fingerprintScanned]);
-  
-  const handleNext = () => {
-    if (step < 3) {
-      setStep(step + 1);
-    } else {
-      // Final authentication
-      setAuthenticating(true);
-      setTimeout(() => {
-        setAuthenticating(false);
-      }, 2000);
-    }
-  };
-  
-  return (
-    <div className="relative max-w-md mx-auto">
-      {/* Authentication Steps */}
-      <div className="absolute top-0 left-0 right-0 flex justify-between px-6 py-2">
-        {[1, 2, 3].map((s) => (
-          <div 
-            key={`step-${s}`} 
-            className="flex flex-col items-center"
-          >
-            <div 
-              className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                s < step 
-                  ? 'bg-yellow-500 text-black' 
-                  : s === step 
-                    ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500' 
-                    : 'bg-gray-800 text-gray-500 border border-gray-700'
-              }`}
-            >
-              {s < step ? (
-                <Check size={16} />
-              ) : (
-                s
-              )}
-            </div>
-            {s < 3 && (
-              <div 
-                className={`h-0.5 w-24 mt-4 ${
-                  s < step ? 'bg-yellow-500' : 'bg-gray-800'
-                }`}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-      
-      <div className="bg-gray-900/70 backdrop-blur-xl border border-yellow-500/20 rounded-xl overflow-hidden mt-16 shadow-lg">
-        <div className="p-6 pt-8">
-          <div className="text-center mb-6">
-            <h3 className="text-xl font-bold text-yellow-500">Secure Investor Portal</h3>
-            <p className="text-gray-400 text-sm mt-1">
-              {step === 1 ? 'Enter your credentials to access your portfolio' : 
-               step === 2 ? 'Biometric verification required' :
-               'Multi-factor authorization'}
-            </p>
-          </div>
-          
-          {/* Step 1: Username & Password */}
-          {step === 1 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4"
-            >
-              <div className="space-y-2">
-                <label className="text-sm text-gray-300">Username</label>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    className="w-full bg-gray-800/50 border border-gray-700 rounded-lg p-3 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/50 outline-none transition-all"
-                    placeholder="Enter your username"
-                    defaultValue="investor_hx792"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-sm text-gray-300">Password</label>
-                <div className="relative">
-                  <input 
-                    type="password" 
-                    className="w-full bg-gray-800/50 border border-gray-700 rounded-lg p-3 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/50 outline-none transition-all"
-                    placeholder="Enter your password"
-                    value={passwordValue}
-                    onChange={(e) => setPasswordValue(e.target.value)}
-                  />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400">
-                    <Lock size={16} />
-                  </div>
-                </div>
-                
-                <div className="flex justify-between text-xs mt-1">
-                  <label className="inline-flex items-center">
-                    <input type="checkbox" className="accent-yellow-500" />
-                    <span className="ml-2 text-gray-400">Remember me</span>
-                  </label>
-                  <a href="#" className="text-yellow-500 hover:underline">Forgot password?</a>
-                </div>
-              </div>
-            </motion.div>
-          )}
-          
-          {/* Step 2: Fingerprint Verification */}
-          {step === 2 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-center"
-            >
-              <div className="relative mx-auto w-40 h-40 mb-4">
-                <div 
-                  className={`absolute inset-0 rounded-full flex items-center justify-center transition-all ${
-                    fingerprintScanned 
-                      ? 'bg-yellow-500/20 border-4 border-yellow-500' 
-                      : 'bg-gray-800/70 border-2 border-gray-700'
-                  }`}
-                >
-                  <Fingerprint 
-                    size={64} 
-                    className={`${
-                      fingerprintScanned 
-                        ? 'text-yellow-500' 
-                        : 'text-gray-500'
-                    }`}
-                  />
-                  
-                  {/* Security pattern canvas for verified state */}
-                  {fingerprintScanned && (
-                    <canvas 
-                      ref={canvasRef}
-                      width="160"
-                      height="160"
-                      className="absolute inset-0 w-full h-full"
-                    />
-                  )}
-                </div>
-                
-                {!fingerprintScanned && (
-                  <>
-                    <svg
-                      className="absolute inset-0 w-full h-full"
-                      viewBox="0 0 100 100"
-                    >
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="46"
-                        fill="none"
-                        strokeWidth="4"
-                        stroke="#FFD700"
-                        strokeDasharray={`${fingerprintProgress * 2.9}, 290`}
-                        transform="rotate(-90 50 50)"
-                      />
-                      
-                      {/* Scanning effect */}
-                      <line
-                        x1="10"
-                        y1={50 - 40 + (fingerprintProgress * 0.8)}
-                        x2="90"
-                        y2={50 - 40 + (fingerprintProgress * 0.8)}
-                        stroke="#FFD700"
-                        strokeWidth="2"
-                        strokeOpacity="0.6"
-                      />
-                    </svg>
-                    
-                    {/* Scanning animation with laser line */}
-                    <div 
-                      className="absolute inset-x-0" 
-                      style={{
-                        top: `${(fingerprintProgress * 0.8)}%`,
-                        height: '2px',
-                        background: 'linear-gradient(to right, transparent, #FFD700, transparent)',
-                        boxShadow: '0 0 8px #FFD700'
-                      }}
-                    />
-                  </>
-                )}
-              </div>
-              
-              <p className="text-gray-300 mb-2">
-                {fingerprintScanned 
-                  ? 'Fingerprint scan complete' 
-                  : 'Place your finger on the sensor'}
-              </p>
-              
-              {fingerprintScanned ? (
-                <div className="space-y-2 mt-4">
-                  <div className="flex justify-between items-center mx-auto max-w-xs px-4 py-2 bg-gray-800/50 rounded-lg">
-                    <span className="text-gray-400 text-xs">Confidence Score</span>
-                    <span className="text-yellow-500 text-xs font-medium">{(biometricData.confidenceScore * 100).toFixed(1)}%</span>
-                  </div>
-                  <div className="flex justify-between items-center mx-auto max-w-xs px-4 py-2 bg-gray-800/50 rounded-lg">
-                    <span className="text-gray-400 text-xs">Scan Quality</span>
-                    <span className="text-yellow-500 text-xs font-medium">{(biometricData.scanQuality * 100).toFixed(1)}%</span>
-                  </div>
-                  <div className="mx-auto max-w-xs px-4 py-2 bg-green-900/20 border border-green-500/30 rounded-lg text-green-500 text-xs font-medium mt-2">
-                    Identity Verified ✓
-                  </div>
-                </div>
-              ) : (
-                <p className="text-gray-500 text-sm">
-                  Scanning fingerprint...
-                </p>
-              )}
-            </motion.div>
-          )}
-          
-          {/* Step 3: Multi-factor Code */}
-          {step === 3 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4"
-            >
-              <div className="text-center mb-2">
-                <p className="text-gray-300">Enter the verification code sent to your device</p>
-              </div>
-              
-              <div className="flex justify-center gap-2">
-                {[1, 2, 3, 4, 5, 6].map(digit => (
-                  <input
-                    key={`code-${digit}`}
-                    type="text"
-                    maxLength="1"
-                    className="w-10 h-12 text-center bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/50 outline-none transition-all text-lg"
-                    defaultValue={digit % 3 === 0 ? Math.floor(Math.random() * 10) : ''}
-                  />
-                ))}
-              </div>
-              
-              <div className="text-center">
-                <p className="text-gray-500 text-sm">
-                  Didn't receive the code? <a href="#" className="text-yellow-500 hover:underline">Resend</a>
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </div>
-        
-        <div className="p-4 border-t border-yellow-500/10 bg-gray-900/30 flex justify-between">
-          {step > 1 && (
-            <button 
-              className="bg-[#001a12]/10 backdrop-blur-lg px-4 py-2 rounded-full border border-[#FFD700]/30 hover:bg-[#001a12]/20 text-gray-300 transition-all hover:text-white text-sm"
-              onClick={() => setStep(step - 1)}
-            >
-              Previous
-            </button>
-          )}
-          
-          <button 
-            className={`flex items-center gap-2 bg-[#B8860B]/10 backdrop-blur-lg px-6 py-2 rounded-full border border-[#FFD700]/50 hover:bg-[#B8860B]/20 text-[#FFD700] transition-all text-sm ml-auto ${
-              (step === 2 && !fingerprintScanned) ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            onClick={handleNext}
-            disabled={step === 2 && !fingerprintScanned}
-          >
-            {authenticating ? (
-              <>
-                <div className="w-4 h-4 rounded-full border-2 border-yellow-500 border-t-transparent animate-spin"></div>
-                <span>Verifying...</span>
-              </>
-            ) : (
-              <>
-                <span>{step === 3 ? 'Complete Authentication' : 'Continue'}</span>
-                <ArrowRight size={16} />
-              </>
-            )}
-          </button>
-        </div>
       </div>
     </div>
   );
@@ -2939,7 +3042,7 @@ const GoldTokenization = () => {
             </p>
           </div>
           
-          <MarketDataVisualization />
+          <ContinentalGoldMap  />
         </div>
       </section>
       
@@ -2956,22 +3059,6 @@ const GoldTokenization = () => {
           </div>
           
           <GoldPortfolioAllocation />
-        </div>
-      </section>
-      
-      {/* Secure Access Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto mb-12 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              <span className="text-yellow-500">Enterprise-Grade</span> Security
-            </h2>
-            <p className="text-gray-400">
-              Access your gold investments with multi-factor authentication and advanced biometric verification.
-            </p>
-          </div>
-          
-          <AuthenticationPortal />
         </div>
       </section>
       
@@ -3022,86 +3109,7 @@ const GoldTokenization = () => {
           <TokenPurchaseFlow />
         </div>
       </section>
-      
-      {/* Footer */}
-      <footer className="bg-black py-12 border-t border-gray-800">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-yellow-500 font-bold text-lg mb-4">Gold Tokenization</h3>
-              <p className="text-gray-400 text-sm">
-                Revolutionizing gold investments with blockchain technology for a secure, 
-                transparent, and accessible precious metals market.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-medium mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                {['Home', 'About', 'Markets', 'Investments', 'Security', 'Support'].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-yellow-500 transition-colors text-sm">
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-medium mb-4">Resources</h4>
-              <ul className="space-y-2">
-                {['Whitepaper', 'Documentation', 'API', 'Legal', 'FAQ', 'Blog'].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-yellow-500 transition-colors text-sm">
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-medium mb-4">Contact</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>support@goldtokenization.com</li>
-                <li>+1 (555) 123-4567</li>
-                <li>123 Financial District, New York, NY 10004</li>
-              </ul>
-              
-              <div className="flex gap-4 mt-4">
-                {['Twitter', 'LinkedIn', 'Telegram', 'Discord'].map((social) => (
-                  <a 
-                    key={social} 
-                    href="#" 
-                    className="text-gray-400 hover:text-yellow-500 transition-colors text-xs"
-                  >
-                    {social}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-500 text-sm">
-              © 2025 Gold Tokenization Platform. All rights reserved.
-            </div>
-            
-            <div className="flex gap-4 mt-4 md:mt-0">
-              {['Terms', 'Privacy', 'Cookies', 'Disclosures'].map((item) => (
-                <a 
-                  key={item} 
-                  href="#" 
-                  className="text-gray-500 hover:text-gray-300 transition-colors text-xs"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+    
     </div>
   );
 };
