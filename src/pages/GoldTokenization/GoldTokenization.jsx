@@ -1116,7 +1116,7 @@ const ContinentalGoldMap = () => {
                       positions={border}
                       pathOptions={{
                         fillColor: data.color,
-                        fillOpacity: selectedRegion === region ? 0.6 : 0.3,
+                        fillOpacity: selectedRegion === region ? 0.0 : 0.0,
                         weight: 0.1,
                         color: '#555',
                         opacity: 0.1
@@ -1125,13 +1125,13 @@ const ContinentalGoldMap = () => {
                         mouseover: (e) => {
                           setHoveredRegion(region);
                           e.target.setStyle({
-                            fillOpacity: 0.7
+                            fillOpacity: 0.0
                           });
                         },
                         mouseout: (e) => {
                           setHoveredRegion(null);
                           e.target.setStyle({
-                            fillOpacity: selectedRegion === region ? 0.6 : 0.3
+                            fillOpacity: selectedRegion === region ? 0.0 : 0.0
                           });
                         },
                         click: () => {
@@ -1139,9 +1139,9 @@ const ContinentalGoldMap = () => {
                         }
                       }}
                     >
-                      <Tooltip direction="center" permanent>
+                      {/* <Tooltip direction="center" permanent>
                         <div className="font-bold text-xs">{region}</div>
-                      </Tooltip>
+                      </Tooltip> */}
                     </Polygon>
                   ))
                 ))}
