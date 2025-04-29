@@ -403,8 +403,8 @@ const ContinentalGoldMap = () => {
   const goldData = {
     "North America": {
       code: "NA",
-      color: "#FFD700",
-      fillColor: "#FFD700",
+      // color: "#FFD700",
+      // fillColor: "#FFD700",
       borders: [
         [[49, -125], [25, -125], [25, -65], [49, -65]]
       ],
@@ -420,8 +420,8 @@ const ContinentalGoldMap = () => {
     },
     "South America": {
       code: "SA",
-      color: "#FFA500",
-      fillColor: "#FFA500",
+      // color: "#FFA500",
+      // fillColor: "#FFA500",
       borders: [
         [[-4, -81], [-4, -35], [-55, -35], [-55, -81]]
       ],
@@ -437,8 +437,8 @@ const ContinentalGoldMap = () => {
     },
     "Europe": {
       code: "EU",
-      color: "#4169E1",
-      fillColor: "#4169E1",
+      // color: "#4169E1",
+      // fillColor: "#4169E1",
       borders: [
         [[35, -10], [35, 40], [70, 40], [70, -10]]
       ],
@@ -454,8 +454,8 @@ const ContinentalGoldMap = () => {
     },
     "Africa": {
       code: "AF",
-      color: "#32CD32",
-      fillColor: "#32CD32",
+      // color: "#32CD32",
+      // fillColor: "#32CD32",
       borders: [
         [[35, -18], [35, 50], [-35, 50], [-35, -18]]
       ],
@@ -471,8 +471,8 @@ const ContinentalGoldMap = () => {
     },
     "Asia": {
       code: "AS",
-      color: "#9932CC",
-      fillColor: "#9932CC",
+      // color: "#9932CC",
+      // fillColor: "#9932CC",
       borders: [
         [[35, 40], [35, 145], [0, 145], [0, 90], [10, 40]]
       ],
@@ -488,8 +488,8 @@ const ContinentalGoldMap = () => {
     },
     "Oceania": {
       code: "OC",
-      color: "#FF4500",
-      fillColor: "#FF4500",
+      // color: "#FF4500",
+      // fillColor: "#FF4500",
       borders: [
         [[-5, 120], [-5, 180], [-45, 180], [-45, 110], [-15, 110]]
       ],
@@ -1104,7 +1104,7 @@ const ContinentalGoldMap = () => {
                 {/* Dark-themed map tiles */}
                 <TileLayer
                   url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                  // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                   noWrap={true} // Prevents the map from repeating horizontally
                 />
                 
@@ -1117,9 +1117,9 @@ const ContinentalGoldMap = () => {
                       pathOptions={{
                         fillColor: data.color,
                         fillOpacity: selectedRegion === region ? 0.6 : 0.3,
-                        weight: 1,
+                        weight: 0.1,
                         color: '#555',
-                        opacity: 0.8
+                        opacity: 0.1
                       }}
                       eventHandlers={{
                         mouseover: (e) => {
@@ -1154,10 +1154,10 @@ const ContinentalGoldMap = () => {
                       center={mine.coordinates}
                       radius={Math.log(mine.production) * 1.2}
                       pathOptions={{
-                        fillColor: '#FFD700',
-                        fillOpacity: 0.8,
-                        color: '#222',
-                        weight: 1
+                        // fillColor: '#FFD700',
+                        // fillOpacity: 0.8,
+                        // color: '#222',
+                        // weight: 1
                       }}
                     >
                       <Tooltip>
