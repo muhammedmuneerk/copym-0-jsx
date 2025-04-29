@@ -990,7 +990,7 @@ const GoldTokenization = () => {
               className="flex justify-center"
             >
               <img
-                src="/assets/sections/3d-illustration-bitcoin-bank-storage-bgremoved-3.png"
+                src="/assets/sections/3d-illustration-bitcoin-bank-storage-bgremoved-4.png"
                 alt="Bitcoin gold Bank Storage"
                 style={{ width: "100%", height: "auto" }}
               />
