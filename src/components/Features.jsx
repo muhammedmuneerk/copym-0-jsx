@@ -30,6 +30,19 @@ const borderAnimationUp = keyframes`
   100% { width: 3px; height: 100%; bottom: 0; left: 0; opacity: 0; }
 `;
 
+// Add shimmer effect for glass
+const shimmerAnimation = keyframes`
+  0% { background-position: -500px 0; }
+  100% { background-position: 500px 0; }
+`;
+
+// Glass reflection effect
+const glassReflection = keyframes`
+  0% { opacity: 0.1; transform: translateY(100%) translateX(-100%); }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.1; transform: translateY(-100%) translateX(100%); }
+`;
+
 // Central element pulsating animation
 const pulseAnimation = keyframes`
   0% { transform: scale(1); opacity: 0.8; }
@@ -43,21 +56,82 @@ const orbitalRotation = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-// Styled component for the animated card
+// Noise overlay animation
+const noiseAnimation = keyframes`
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+`;
+
+// ENHANCED: Styled component for the animated card with advanced glassmorphism
 const AnimatedCard = styled(Box)(({ theme }) => ({
   position: "relative",
-  background: "rgba(18, 19, 26, 0.5)",
-  backdropFilter: "blur(10px)",
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  borderRadius: "1rem",
+  background: "rgba(15, 16, 22, 0.35)",
+  backdropFilter: "blur(20px) saturate(180%)",
+  border: "1px solid rgba(255, 255, 255, 0.07)",
+  borderRadius: "2rem",
   padding: "1.5rem",
   height: "100%",
   width: "100%",
   maxWidth: "350px",
-  transition: "transform 0.2s",
+  transition: "all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)", // Improved easing
   overflow: "hidden",
+  boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.6), 0 1px 5px rgba(0, 0, 0, 0.3)",
+  transformStyle: "preserve-3d", // Enable 3D transformations
+  transformOrigin: "center center",
+  willChange: "transform, box-shadow", // Optimize performance
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "150%",
+    background: "linear-gradient(130deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0) 100%)",
+    transform: "rotate(-45deg) translateY(-50%)",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    inset: 0,
+    background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+    backgroundSize: "200px",
+    opacity: 0.015,
+    mixBlendMode: "overlay",
+    pointerEvents: "none",
+    zIndex: 1,
+    animation: `${noiseAnimation} 8s infinite alternate`,
+  },
+  // Light edge effect at the top
+  "&:before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "1px",
+    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
+    zIndex: 3,
+  },
+  // Shimmer effect
+  "& .shimmer": {
+    position: "absolute",
+    top: 0,
+    left: -250,
+    width: "250px",
+    height: "100%",
+    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
+    animation: `${shimmerAnimation} 8s cubic-bezier(0.4, 0, 0.2, 1) infinite`,
+    pointerEvents: "none",
+    zIndex: 1,
+  },
   "&:hover": {
-    transform: "translateY(-4px)",
+    transform: "translateY(-10px) scale(1.02) rotateX(2deg)",
+    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(0, 255, 133, 0.2)",
+    borderColor: "rgba(0, 255, 133, 0.3)",
+    background: "rgba(18, 19, 26, 0.65)",
     "& .border-right": {
       animation: `${borderAnimationRight} 2.5s linear infinite`,
     },
@@ -75,35 +149,68 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
     },
     "& svg": {
       stroke: "#00FF85", // Turn the icon green on card hover
+      filter: "drop-shadow(0 0 3px rgba(0, 255, 133, 0.5))",
+    },
+    "& .glass-reflection": {
+      animation: `${glassReflection} 2.5s ease-in-out infinite`,
+    },
+    "& .card-content": {
+      transform: "translateZ(15px)",
+    },
+    "& .card-icon": {
+      boxShadow: "0 0 15px rgba(0, 255, 133, 0.2)",
+      background: "rgba(0, 255, 133, 0.05)",
     },
   },
   "& .border-right, & .border-down, & .border-left, & .border-up": {
     position: "absolute",
     animation: "none", // No animation by default
+    zIndex: 2,
   },
   "& .border-right": {
     top: 0,
     right: "100%",
     height: 3,
-    background: "linear-gradient(to right, #000, #00FF85, #000)",
+    background: "linear-gradient(to right, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
   },
   "& .border-down": {
     top: 0,
     right: 0,
     width: 3,
-    background: "linear-gradient(to bottom, #000, #00FF85, #000)",
+    background: "linear-gradient(to bottom, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
   },
   "& .border-left": {
     bottom: 0,
     right: 0,
     height: 3,
-    background: "linear-gradient(to left, #000, #00FF85, #000)",
+    background: "linear-gradient(to left, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
   },
   "& .border-up": {
     bottom: 0,
     left: 0,
     width: 3,
-    background: "linear-gradient(to top, #000, #00FF85, #000)",
+    background: "linear-gradient(to top, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
+  },
+  "& .glass-reflection": {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "200%",
+    height: "200%",
+    background: "linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0) 100%)",
+    transformOrigin: "0 0",
+    animation: "none",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "& .card-content": {
+    position: "relative",
+    zIndex: 5,
+    transition: "transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)",
   },
   [theme.breakpoints.between("md", "lg")]: {
     padding: "1.25rem",
@@ -374,7 +481,7 @@ export default function Features() {
           </Typography>
           <Typography
             variant="h2"
-            className="font-orbitron text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
           >
             <Box
               component="div"
@@ -475,36 +582,44 @@ export default function Features() {
                 viewport={{ once: true }}
                 className="h-full"
               >
-                <AnimatedCard>
+                <AnimatedCard style={{ perspective: "1000px" }}>
                   {/* Border animation elements */}
                   <div className="border-right"></div>
                   <div className="border-down"></div>
                   <div className="border-left"></div>
                   <div className="border-up"></div>
                   
-                  <Box
-                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center text-2xl card-icon"
-                    sx={{
-                      background: "rgba(255, 255, 255, 0.1)",
-                    }}
-                  >
-                    {feature.icon}
-                  </Box>
-                  <Typography variant="h5" className="mb-3">
-                    {feature.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    className="text-text-secondary mb-4"
-                  >
-                    {feature.description}
-                  </Typography>
-                  <Button
-                    endIcon={<ArrowForward />}
-                    className="text-primary hover:bg-primary/5 px-0"
-                  >
-                    Learn more
-                  </Button>
+                  {/* Glass reflection effect */}
+                  <div className="glass-reflection"></div>
+                  
+                  {/* Wrap content in a div for 3D effect */}
+                  <div className="card-content">
+                    <Box
+                      className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center text-2xl card-icon"
+                      sx={{
+                        background: "rgba(255, 255, 255, 0.05)",
+                        backdropFilter: "blur(5px)",
+                        boxShadow: "inset 0 0 0 1px rgba(255, 255, 255, 0.05)",
+                      }}
+                    >
+                      {feature.icon}
+                    </Box>
+                    <Typography variant="h5" className="mb-3">
+                      {feature.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      className="text-text-secondary mb-4"
+                    >
+                      {feature.description}
+                    </Typography>
+                    <Button
+                      endIcon={<ArrowForward />}
+                      className="text-primary hover:bg-primary/5 px-0"
+                    >
+                      Learn more
+                    </Button>
+                  </div>
                 </AnimatedCard>
               </motion.div>
             </OrbitalPosition>

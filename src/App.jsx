@@ -30,7 +30,7 @@ function HomePage() {
       <Hero />
       <GreenTokenizationPopup />
       <div style={{ position: 'relative' }}>
-        <SpinningBlockchain />
+        {/* <SpinningBlockchain /> */}
         <Blockchains />
         <Features />
         <GlobalMarkets />
