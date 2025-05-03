@@ -1,15 +1,17 @@
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Container } from "@mui/material";
 import { motion } from "framer-motion";
 import { Box } from "@mui/system";
+import BorderImages from "./BorderImages";
 
 export default function CTA() {
   return (
+    <Container maxWidth="xl" >
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="text-center mb-24 relative z-10"
+      className="text-center pt-14 mt-24 mb-10 relative z-10"
     >
    <Typography
   variant="h2"
@@ -94,8 +96,21 @@ export default function CTA() {
           </Button>
         </div>
       </div>
-
+      <BorderImages
+          src="/assets/sections/grid-bg-bottom.png"
+          alt="Blockchains Banner"
+        />
 
     </motion.div>
+      <Box
+        className="absolute inset-0 pointer-events-none"
+        sx={{
+          opacity: "0.2",
+          background:
+            "linear-gradient(90deg,rgba(11, 26, 161, 1) 0%, rgba(9, 121, 43, 1) 38%, rgba(24, 204, 14, 1) 100%)",
+        }}
+      />
+    </Container>
+
   );
 }

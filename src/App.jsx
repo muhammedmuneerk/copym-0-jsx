@@ -304,10 +304,10 @@ function HomePage() {
           <CTA />
         </section>
         
-        <BorderImages
+        {/* <BorderImages
           src="/assets/sections/grid-bg-bottom.png"
           alt="Blockchains Banner"
-        />
+        /> */}
       </div>
     </ScrollAnimationWrapper>
   );
