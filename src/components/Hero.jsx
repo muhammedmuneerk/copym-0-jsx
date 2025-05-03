@@ -27,7 +27,7 @@ export default function Hero() {
             >
               <Typography
                 variant="h1"
-                className="font-orbitron mt-20 text-3xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-snug text-center"
+                className=" mt-20 text-3xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-snug text-center"
                 sx={{ wordBreak: "break-word" }}
               >
                 {/* Large Screens: First line whole */}
@@ -36,7 +36,7 @@ export default function Hero() {
                     <Box
                       key={`line1-lg-${idx}`}
                       component="span"
-                      className="ultra-smooth-gradient-text"
+                      className="gradient-letter"
                     >
                       {char === " " ? "\u00A0" : char}
                     </Box>
@@ -49,7 +49,7 @@ export default function Hero() {
                     <Box
                       key={`line1-sm-1-${idx}`}
                       component="span"
-                      className="ultra-smooth-gradient-text"
+                      className="gradient-letter"
                     >
                       {char === " " ? "\u00A0" : char}
                     </Box>
@@ -60,7 +60,7 @@ export default function Hero() {
                     <Box
                       key={`line1-sm-2-${idx}`}
                       component="span"
-                      className="ultra-smooth-gradient-text"
+                      className="gradient-letter"
                     >
                       {char === " " ? "\u00A0" : char}
                     </Box>
@@ -73,7 +73,7 @@ export default function Hero() {
                     <Box
                       key={`line2-char-${idx}`}
                       component="span"
-                      className="ultra-smooth-gradient-text"
+                      className="gradient-letter"
                     >
                       {char === " " ? "\u00A0" : char}
                     </Box>
@@ -86,7 +86,7 @@ export default function Hero() {
                     <Box
                       key={`line2-sm-1-${idx}`}
                       component="span"
-                      className="ultra-smooth-gradient-text"
+                      className="gradient-letter"
                     >
                       {char === " " ? "\u00A0" : char}
                     </Box>
@@ -97,15 +97,13 @@ export default function Hero() {
                     <Box
                       key={`line2-sm-2-${idx}`}
                       component="span"
-                      className="ultra-smooth-gradient-text"
+                      className="gradient-letter"
                     >
                       {char === " " ? "\u00A0" : char}
                     </Box>
                   ))}
                 </Box>
               </Typography>
-
-
 
               <Typography
                 variant="body1"
@@ -134,8 +132,6 @@ export default function Hero() {
                   </div>
                 ))}
               </div>
-
-
             </motion.div>
           </motion.div>
 
@@ -169,30 +165,11 @@ export default function Hero() {
         <Box
           className="absolute inset-0 pointer-events-none"
           sx={{
-            opacity: "20",
-            background:
-              "radial-gradient(circle at 50% 2%, rgba(0, 255, 133, 0.1) 0%, rgba(10, 11, 13, 0) 50%)",
+            opacity: "0.2",
+            background: "linear-gradient(90deg,rgba(11, 26, 161, 1) 0%, rgba(9, 121, 43, 1) 38%, rgba(24, 204, 14, 1) 100%)",
           }}
         />
       </div>
-
-      {/* Add custom style for ultra-smooth gradient transitions */}
-      <style jsx global>{`
-  .ultra-smooth-gradient-text {
-    display: inline-block;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    background-image: linear-gradient(
-      90deg,
-rgb(95, 155, 121)  0%,
-rgba(0, 255, 132, 0.6) 100%
-    );
-  }
-`}</style>
-
-
     </Box>
   );
 }
