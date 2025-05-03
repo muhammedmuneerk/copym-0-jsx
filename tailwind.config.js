@@ -31,6 +31,7 @@ export default {
         'gradient-y': 'gradient-y 15s ease infinite',
         'gradient-xy': 'gradient-xy 15s ease infinite',
         'pulse-glow': 'pulse-glow 1.5s ease-in-out infinite',
+        'fade-loop': 'fade 2s ease-in-out infinite',
       },
       keyframes: {
         'gradient-y': {
@@ -72,7 +73,14 @@ export default {
             transform: 'scale(1.05)',
             'box-shadow': '0 0 20px #00FF7F, 0 0 40px #00FF7F',
           }
-        }
+        },
+        fade: {
+          '0%': { opacity: '0.7' },
+          '25%': { opacity: '0.85' },
+          '50%': { opacity: '1' },
+          '75%': { opacity: '0.85' },
+          '100%': { opacity: '0.7' },
+        },
       }
     },
   },

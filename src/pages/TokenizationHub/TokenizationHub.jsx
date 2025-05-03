@@ -653,9 +653,17 @@ export default function TokenizationHub() {
             </div>
             
             <h1 className="main-title">
-              Complete Asset
+              {Array.from("Complete Echo Asset").map((char, idx) => (
+                <span key={`title-1-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
               <br />
-              Tokenization Hub
+              {Array.from("Tokenization Hub").map((char, idx) => (
+                <span key={`title-2-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
             </h1>
             
             <p className="main-description">
@@ -664,19 +672,27 @@ export default function TokenizationHub() {
             </p>
             
             <div className="button-group">
-              <MorphingButton primary>
-                Explore Platform
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </MorphingButton>
+              <div className="relative rounded-full p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
+                <div className="bg-black rounded-full w-full h-full">
+                  <button className="rounded-full px-8 py-3 font-semibold w-full text-white backdrop-blur-md bg-white/5 hover:bg-white/10 whitespace-nowrap flex items-center justify-center gap-2">
+                    Explore Platform
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
               
-              <MorphingButton>
-                Watch Demo
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </MorphingButton>
+              <div className="relative rounded-full p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
+                <div className="bg-black rounded-full w-full h-full">
+                  <button className="rounded-full px-8 py-3 font-semibold w-full text-white backdrop-blur-md bg-white/5 hover:bg-white/10 whitespace-nowrap flex items-center justify-center gap-2">
+                    Watch Demo
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </motion.div>
           
@@ -708,7 +724,17 @@ export default function TokenizationHub() {
             className="section-header"
           >
             <h2 className="section-title">
-              Tokenize Any <GradientText>Asset Class</GradientText>
+              {Array.from("Tokenize Any").map((char, idx) => (
+                <span key={`asset-title-1-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+              {" "}
+              {Array.from("Asset Class").map((char, idx) => (
+                <span key={`asset-title-2-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
             </h2>
             
             <p className="section-description">
@@ -787,12 +813,20 @@ export default function TokenizationHub() {
                       </ul>
                       
                       <div className="asset-actions">
-                        <MorphingButton>
-                          View Examples
-                        </MorphingButton>
-                        <MorphingButton>
-                          Learn More
-                        </MorphingButton>
+                        <div className="relative rounded-full p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
+                          <div className="bg-black rounded-full w-full h-full">
+                            <button className="rounded-full px-6 py-2 font-semibold w-full text-white backdrop-blur-md bg-white/5 hover:bg-white/10 whitespace-nowrap">
+                              View Examples
+                            </button>
+                          </div>
+                        </div>
+                        <div className="relative rounded-full p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
+                          <div className="bg-black rounded-full w-full h-full">
+                            <button className="rounded-full px-6 py-2 font-semibold w-full text-white backdrop-blur-md bg-white/5 hover:bg-white/10 whitespace-nowrap">
+                              Learn More
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -815,7 +849,17 @@ export default function TokenizationHub() {
             className="section-header"
           >
             <h2 className="section-title">
-              How CopyM <GradientText>Compares</GradientText>
+              {Array.from("How CopyM").map((char, idx) => (
+                <span key={`compare-title-1-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+              {" "}
+              {Array.from("Compares").map((char, idx) => (
+                <span key={`compare-title-2-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
             </h2>
             
             <p className="section-description">
@@ -901,7 +945,17 @@ export default function TokenizationHub() {
             </div>
             
             <h2 className="section-title">
-              Ready to <GradientText>Tokenize Your Assets?</GradientText>
+              {Array.from("Ready to").map((char, idx) => (
+                <span key={`cta-title-1-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+              {" "}
+              {Array.from("Tokenize Your Assets?").map((char, idx) => (
+                <span key={`cta-title-2-${idx}`} className="gradient-letter">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
             </h2>
             
             <p className="section-description">
@@ -910,12 +964,16 @@ export default function TokenizationHub() {
             </p>
             
             <div style={{ marginTop: "32px" }}>
-              <MorphingButton primary>
-                Contact Our Team
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </MorphingButton>
+              <div className="relative rounded-full p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
+                <div className="bg-black rounded-full w-full h-full">
+                  <button className="rounded-full px-8 py-3 font-semibold w-full text-white backdrop-blur-md bg-white/5 hover:bg-white/10 whitespace-nowrap flex items-center justify-center gap-2">
+                    Contact Our Team
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </motion.div>
         </section>

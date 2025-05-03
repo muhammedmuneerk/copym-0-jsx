@@ -28,7 +28,7 @@ const navigationItems = [
   {
     label: "Tokenization",
     items: [
-      { label: "Asset Tokenization Hub", to: "/tokenization" },
+      { label: "Echo Asset Tokenization", to: "/tokenization" },
       { label: "Gold Tokenization Hub", to: "/tokenization/gold" },
       { label: "Real Estate", to: "/tokenization/real-estate" },
       { label: "Art & Collectibles", to: "/tokenization/art" },

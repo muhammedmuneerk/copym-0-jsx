@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import SectionImage from "./SectionImages";
 
+
 const blockchains = [
   {
     name: "Solana",
@@ -29,8 +30,8 @@ const blockchains = [
 export default function Blockchains() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [key, setKey] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [displayedBlockchains, setDisplayedBlockchains] = useState([]);
 
   // Function to handle visibility changes
   useEffect(() => {
@@ -39,6 +40,8 @@ export default function Blockchains() {
         // When element becomes visible
         if (entry.isIntersecting) {
           setIsVisible(true);
+          // Trigger reload animation by changing key
+          setKey(prevKey => prevKey + 1);
         } else {
           setIsVisible(false);
         }
@@ -59,37 +62,20 @@ export default function Blockchains() {
     };
   }, []);
 
-  // Function to get 3 random blockchains
-  const getRandomBlockchains = () => {
-    const shuffled = [...blockchains].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 3);
-  };
+  // Shuffle blockchains for reload effect
+  const [shuffledBlockchains, setShuffledBlockchains] = useState([...blockchains]);
 
-  // Initialize with 3 random blockchains
   useEffect(() => {
-    setDisplayedBlockchains(getRandomBlockchains());
-  }, []);
-
-  // Change displayed blockchains every 3-5 seconds
-  useEffect(() => {
-    if (isVisible) {
-      const changeInterval = setInterval(() => {
-        // Create a random delay between 3-5 seconds
-        const delay = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
-        
-        // Update the blockchains
-        setDisplayedBlockchains(getRandomBlockchains());
-        
-        // Clear and set new interval with random delay
-        clearInterval(changeInterval);
-        setTimeout(() => {
-          setDisplayedBlockchains(getRandomBlockchains());
-        }, delay);
-      }, 4000); // Initial delay of 4 seconds
-
-      return () => clearInterval(changeInterval);
+    if (!isMobile && isVisible) {
+      // Shuffle the array for visual reload effect
+      const shuffled = [...blockchains].sort(() => Math.random() - 0.5);
+      setShuffledBlockchains(shuffled);
     }
-  }, [isVisible, displayedBlockchains]);
+  }, [key, isMobile, isVisible]);
+
+  // Create a duplicate array for infinite scroll
+  // Triple the array to ensure smooth infinite animation
+  const duplicatedBlockchains = [...blockchains, ...blockchains, ...blockchains];
 
   return (
     <Box
@@ -110,21 +96,32 @@ export default function Blockchains() {
             >
               <Typography
                 variant="h2"
-                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+                className=" text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
               >
                 {/* First Line */}
                 <Box component="div" className="flex flex-wrap justify-center">
                   {Array.from("Unified Access to All").map((char, idx) => (
-                    <Box key={`line1-${idx}`} component="span" className="gradient-letter">
+                    <Box
+                      key={`line1-${idx}`}
+                      component="span"
+                      className="gradient-letter"
+                    >
                       {char === " " ? "\u00A0" : char}
                     </Box>
                   ))}
                 </Box>
 
                 {/* Second Line */}
-                <Box component="div" className="flex flex-wrap justify-center mt-1">
+                <Box
+                  component="div"
+                  className="flex flex-wrap justify-center mt-1"
+                >
                   {Array.from("Major Blockchains").map((char, idx) => (
-                    <Box key={`line2-${idx}`} component="span" className="gradient-letter">
+                    <Box
+                      key={`line2-${idx}`}
+                      component="span"
+                      className="gradient-letter"
+                    >
                       {char === " " ? "\u00A0" : char}
                     </Box>
                   ))}
@@ -133,7 +130,7 @@ export default function Blockchains() {
 
               <Typography
                 variant="body1"
-                className="text-text-secondary max-w-2xl mx-auto text-center"
+                className="text-text-secondary max-w-2xl text-center"
               >
                 Tokenize assets on your preferred blockchain. Copym provides
                 seamless integration with all major networks through a single,
@@ -147,8 +144,14 @@ export default function Blockchains() {
             item
             xs={12}
             md={6}
-            sx={{ display: { xs: "none", md: "block" }, opacity: "10", marginBottom: "-350px" }}
+            sx={{
+              display: { xs: "none", md: "block" },
+              opacity: "10",
+              marginBottom: "-350px",
+            }}
           >
+            {" "}
+            {/* didn't remove the image, jsut decreased the opacity */}
             <Box sx={{ position: "relative", width: "100%" }}>
               <SectionImage
                 src="/assets/sections/hero-graphic.png"
@@ -161,56 +164,82 @@ export default function Blockchains() {
         {/* Banner image - only visible on mobile, positioned at top */}
         {isMobile && (
           <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
-            {/* Mobile banner image removed as in original */}
+            {/* <SectionImage
+              src="/assets/sections/blockchain-removebg-preview.png"
+              alt="Blockchains Banner"
+            /> */}
           </Box>
         )}
 
-        {/* New blockchain icons display - 3 at a time with random changes */}
+        {/* Infinite scroll for both mobile and desktop with decreased spacing */}
         <Box
           sx={{
-            mt: 8,
+            position: "relative",
             width: "100%",
-            display: "flex",
-            justifyContent: "center",
+            overflow: "hidden",
+            mt: 5,
           }}
         >
-          <Grid 
-            container 
-            justifyContent="center" 
-            spacing={isMobile ? 2 : 4}
-            sx={{ maxWidth: isMobile ? "100%" : "80%", mx: "auto" }}
+          <Box
+            sx={{
+              display: "flex",
+              width: "fit-content",
+              animation: "scrollLeft 35s linear infinite", // Slower animation for smoother effect
+              "@keyframes scrollLeft": {
+                "0%": { transform: "translateX(0)" },
+                "100%": { transform: "translateX(calc(-100% / 3))" }, // Only move by 1/3 since we have 3x the items
+              },
+              "&:hover": { animationPlayState: "paused" },
+              "@media (hover: none)": {
+                "&:active": { animationPlayState: "paused" },
+              },
+            }}
           >
-            <AnimatePresence mode="wait">
-              {displayedBlockchains.map((blockchain, index) => (
-                <Grid item xs={4} sm={4} md={4} key={`${blockchain.name}-${index}`}>
-                  <motion.div
-                    key={`${blockchain.name}-${Date.now()}-${index}`}
-                    initial={{ opacity: 0, scale: 0.8, y: 100 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: -100 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center h-full flex flex-col items-center justify-center p-2"
+            {duplicatedBlockchains.map((blockchain, index) => (
+              <Box
+                key={`${blockchain.name}-${index}`}
+                sx={{
+                  width: isMobile ? "32.5vw" : "20vw", // Decreased width for desktop to reduce spacing
+                  padding: isMobile ? 2 : 1, // Reduce padding on desktop
+                  flexShrink: 0,
+                }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }} // Reduced delay for smoother appearance
+                  viewport={{ once: true }}
+                  className="text-center h-full flex flex-col items-center justify-center p-2"
+                >
+                  {/* Made icons bigger, especially for those with text */}
+                  <Box
+                    className={isMobile ? "w-20 h-20 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      opacity: "0.5",
+                      transition: "opacity 0.3s ease",
+                      "&:hover": {
+                        opacity: 1,
+                      },
+                      // padding:".5rem"
+                      // Adjust sizes for specific blockchains with text logos
+                    }}
                   >
-                    <Box
-                      className={isMobile ? "w-20 h-20" : "w-48 h-48"}
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        opacity: "0.5",
-                        transition: "opacity 0.3s ease",
-                        "&:hover": {
-                          opacity: 1,
-                        },
-                      }}
-                    >
-                      {blockchain.logo}
-                    </Box>
-                  </motion.div>
-                </Grid>
-              ))}
-            </AnimatePresence>
-          </Grid>
+                    {blockchain.logo}
+                  </Box>
+                  {/* <Typography 
+                    variant="h6" 
+                    className={isMobile ? "text-sm font-medium text-white" : "text-base font-medium text-white"}
+                    sx={{ opacity: 0.9 }}
+                  >
+                    {blockchain.name}
+                  </Typography> */}
+                </motion.div>
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Container>
 

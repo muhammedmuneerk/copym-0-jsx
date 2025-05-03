@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import NeonTunnelSplash from "./NeonTunnel";
+import { useEffect, useState, useRef } from "react";
 
 // Animation Variants
 const container = {
@@ -23,6 +22,7 @@ const letter = {
 const SplashScreen = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const checkDeviceType = () => {
@@ -32,6 +32,14 @@ const SplashScreen = () => {
 
     checkDeviceType();
     window.addEventListener("resize", checkDeviceType);
+
+    // Ensure video plays automatically and loops
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.log("Video autoplay failed:", error);
+      });
+    }
+
     return () => window.removeEventListener("resize", checkDeviceType);
   }, []);
 
@@ -39,12 +47,22 @@ const SplashScreen = () => {
 
   return (
     <Box className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black text-white font-orbitron">
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-green-900 opacity-20 z-0 pointer-events-none" />
-
-      {/* Blockchain Background */}
-      <div className="fixed inset-0 z-0 flex pointer-events-none w-full h-full">
-        <NeonTunnelSplash />
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <video 
+          ref={videoRef}
+          className="absolute min-w-full min-h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          {/* Replace with your actual video source */}
+          <source src="/assets/WelcomeScreen.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        {/* Overlay to control video brightness/contrast */}
+        <div className="absolute inset-0 bg-black opacity-30 z-1"></div>
       </div>
 
       {/* Centered Logo and Tagline */}

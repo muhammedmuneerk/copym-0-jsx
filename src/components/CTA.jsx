@@ -13,7 +13,7 @@ export default function CTA() {
     >
    <Typography
   variant="h2"
-  className="font-orbitron text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+  className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
 >
   <Box
     component="div"

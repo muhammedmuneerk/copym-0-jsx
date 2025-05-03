@@ -3,25 +3,6 @@ import { motion } from "framer-motion";
 import { Check, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Building, BarChart, ShieldCheck, Globe, Landmark, FileCheck, Coins, Repeat } from "lucide-react";
 
 // Custom components to replace MUI
-const Button = ({ variant, children, className, onClick }) => {
-  return (
-    <motion.button
-      onClick={onClick}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      className={`relative overflow-hidden ${
-        variant === "contained"
-          ? "bg-emerald-500 text-white hover:bg-emerald-600"
-          : "border border-emerald-500 text-emerald-500 hover:bg-emerald-900 hover:bg-opacity-20"
-      } rounded-md px-6 py-3 font-medium transition-all duration-300 ${className}`}
-    >
-      <span className="relative z-10 flex items-center justify-center">{children}</span>
-      {/* Subtle glow effect */}
-      <span className={`absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-30 ${variant === "contained" ? "bg-white" : "bg-emerald-500"}`}></span>
-    </motion.button>
-  );
-};
-
 const Card = ({ children, className, as3D = false }) => {
   return (
     <motion.div
@@ -359,7 +340,12 @@ const RealEstateTokenization = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
           >
-            <Button variant="contained" className="group">
+            <motion.button
+              onClick={() => {}}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 group"
+            >
               <span className="flex items-center">
                 Start Tokenizing
                 <motion.span
@@ -367,11 +353,18 @@ const RealEstateTokenization = () => {
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </motion.span>
               </span>
-            </Button>
-            <Button variant="outlined">Learn More</Button>
+            </motion.button>
+            <motion.button
+              onClick={() => {}}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105"
+            >
+              Learn More
+            </motion.button>
           </motion.div>
         </motion.div>
       </section>
@@ -602,18 +595,14 @@ const RealEstateTokenization = () => {
                     </div>
                   </motion.div>
 
-                  <Button variant="contained" className="w-full">
+                  <button 
+                    className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 w-full group"
+                  >
                     <span className="flex items-center justify-center">
                       View Investment Opportunity
-                      <motion.span
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </motion.span>
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </span>
-                  </Button>
+                  </button>
                 </div>
               </div>
             </Card>
@@ -873,24 +862,19 @@ const RealEstateTokenization = () => {
             className="flex flex-wrap justify-center gap-6"
             variants={itemVariants}
           >
-            <Button
-              variant="contained"
-              className="text-lg py-4 px-8 shadow-lg shadow-emerald-500/20"
+            <button
+              className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 text-lg group"
             >
               <span className="flex items-center">
                 Start Tokenizing
-                <motion.span
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </motion.span>
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
-            </Button>
-            <Button variant="outlined" className="text-lg py-4 px-8">
+            </button>
+            <button 
+              className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 text-lg"
+            >
               Schedule Consultation
-            </Button>
+            </button>
           </motion.div>
         </div>
       </motion.section>

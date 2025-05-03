@@ -7,10 +7,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
-import { createScope, createDraggable, createSpring } from "animejs";
 
 // Animation keyframes for the border effect
 const borderAnimationRight = keyframes`
@@ -285,48 +284,8 @@ export default function GlobalMarkets() {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
   const sectionRef = useRef(null);
-  const cardRefs = useRef([]);
-  const animeScope = useRef(null);
   const [cardVisible, setCardVisible] = useState(false);
   const [animationTrigger, setAnimationTrigger] = useState(0);
-
-  // Initialize card refs for each region
-  useEffect(() => {
-    cardRefs.current = Array(regions.length).fill().map(() => React.createRef());
-  }, []);
-
-  // Set up anime.js animations when cards become visible
-  useEffect(() => {
-    if (!cardVisible || !cardRefs.current.length) return;
-
-    // Create anime.js scope
-    animeScope.current = createScope().add(self => {
-      // Make each card draggable
-      cardRefs.current.forEach((cardRef, index) => {
-        if (cardRef.current) {
-          // Make the card draggable with a spring return effect
-          const draggable = createDraggable(cardRef.current, {
-            // Define draggable area constraints - adjust based on your layout
-            container: [-100, -50, 100, 50],
-            // Use spring physics for returning to original position
-            releaseEase: createSpring({ 
-              stiffness: 150,
-              damping: 15
-            }),
-            // Limit rotation while dragging
-            rotationOffset: 5,
-          });
-        }
-      });
-    });
-
-    // Clean up anime.js animations
-    return () => {
-      if (animeScope.current) {
-        animeScope.current.revert();
-      }
-    };
-  }, [cardVisible, cardRefs.current]);
 
   // Set up intersection observer to show/hide cards when section enters/exits viewport
   useEffect(() => {
@@ -422,74 +381,72 @@ export default function GlobalMarkets() {
                 variants={cardVariants}
                 className="h-full"
               >
-                {/* Added ref to track card for anime.js draggable */}
-                <Box ref={cardRefs.current[index]} className="draggable-card">
-                  <AnimatedCard>
-                    {/* Border animation elements */}
-                    <div className="border-right"></div>
-                    <div className="border-down"></div>
-                    <div className="border-left"></div>
-                    <div className="border-up"></div>
+                <AnimatedCard>
+                  {/* Border animation elements */}
+                  <div className="border-right"></div>
+                  <div className="border-down"></div>
+                  <div className="border-left"></div>
+                  <div className="border-up"></div>
 
-                    <div className="glass-reflection"></div>
+                  <div className="glass-reflection"></div>
 
-                    {/* Wrap content in a div for 3D effect */}
-                    <div className="card-content">
-                      <Typography variant="h6" className="mb-4">
-                        {region.name}
+                  {/* Wrap content in a div for 3D effect */}
+                <div className="card-content">
+                  
+                  <Typography variant="h6" className="mb-4">
+                    {region.name}
+                  </Typography>
+                  <Box className="mb-4">
+                    <Typography
+                      variant="overline"
+                      className="text-text-secondary block"
+                    >
+                      Tokenized Value:
+                    </Typography>
+                    <Typography variant="h5" className="text-primary">
+                      <AnimatedCounter
+                        value={region.tokenizedValue}
+                        duration={2.5}
+                        delay={index * 0.2}
+                        key={`value-${region.name}-${animationTrigger}`}
+                      />
+                    </Typography>
+                  </Box>
+                  <Box className="mb-4">
+                    <Typography
+                      variant="overline"
+                      className="text-text-secondary block"
+                    >
+                      YoY Growth:
+                    </Typography>
+                    <Typography variant="h5" className="text-primary">
+                      <AnimatedCounter
+                        value={region.growth}
+                        duration={2.5}
+                        delay={index * 0.2 + 0.5}
+                        key={`growth-${region.name}-${animationTrigger}`}
+                      />
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography
+                      variant="overline"
+                      className="text-text-secondary block mb-2"
+                    >
+                      Top Asset Classes:
+                    </Typography>
+                    {region.topAssets.map((asset, i) => (
+                      <Typography
+                        key={i}
+                        variant="body2"
+                        className="text-text-secondary"
+                      >
+                        {asset}
                       </Typography>
-                      <Box className="mb-4">
-                        <Typography
-                          variant="overline"
-                          className="text-text-secondary block"
-                        >
-                          Tokenized Value:
-                        </Typography>
-                        <Typography variant="h5" className="text-primary">
-                          <AnimatedCounter
-                            value={region.tokenizedValue}
-                            duration={2.5}
-                            delay={index * 0.2}
-                            key={`value-${region.name}-${animationTrigger}`}
-                          />
-                        </Typography>
-                      </Box>
-                      <Box className="mb-4">
-                        <Typography
-                          variant="overline"
-                          className="text-text-secondary block"
-                        >
-                          YoY Growth:
-                        </Typography>
-                        <Typography variant="h5" className="text-primary">
-                          <AnimatedCounter
-                            value={region.growth}
-                            duration={2.5}
-                            delay={index * 0.2 + 0.5}
-                            key={`growth-${region.name}-${animationTrigger}`}
-                          />
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography
-                          variant="overline"
-                          className="text-text-secondary block mb-2"
-                        >
-                          Top Asset Classes:
-                        </Typography>
-                        {region.topAssets.map((asset, i) => (
-                          <Typography
-                            key={i}
-                            variant="body2"
-                            className="text-text-secondary"
-                          >
-                            {asset}
-                          </Typography>
-                        ))}
-                      </Box>
-                    </div>
-                  </AnimatedCard>
-                </Box>
+                    ))}
+                  </Box>
+                </div>
+                </AnimatedCard>
               </motion.div>
             </Grid>
           ))}

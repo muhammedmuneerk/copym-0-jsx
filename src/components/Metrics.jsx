@@ -359,7 +359,7 @@ export default function Metrics() {
           >
             <Typography
               variant="h2"
-              className="font-orbitron text-3xl sm:text-4xl md:text-5xl mb-4 text-center"
+              className="text-3xl sm:text-4xl md:text-5xl mb-4 text-center"
             >
               <Box
                 component="div"
@@ -395,20 +395,13 @@ export default function Metrics() {
                 {/* Large Screens (2 lines) */}
                 <Box className="hidden lg:block">
                   <Box component="div" className="flex flex-wrap justify-center">
-                    {Array.from("Tokenization at").map((char, idx) => (
+                    {Array.from("Tokenization at Scale").map((char, idx) => (
                       <Box key={`lg-line1-${idx}`} component="span" className="gradient-letter">
                         {char === " " ? "\u00A0" : char}
                       </Box>
                     ))}
                   </Box>
 
-                  <Box component="div" className="flex flex-wrap justify-center">
-                    {Array.from("Scale").map((char, idx) => (
-                      <Box key={`lg-line2-${idx}`} component="span" className="gradient-letter">
-                        {char}
-                      </Box>
-                    ))}
-                  </Box>
                 </Box>
               </Box>
             </Typography>

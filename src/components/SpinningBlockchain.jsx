@@ -16,7 +16,15 @@ function SpinningLogo() {
   return (
     <mesh ref={meshRef} scale={1.8}>
       <torusKnotGeometry args={[1, 0.4, 64, 32]} />
-      <meshStandardMaterial color="#013220" wireframe />
+      <meshStandardMaterial 
+        color="#00394d" 
+        emissive="#00FFAA"
+        emissiveIntensity={0.10}
+        wireframe 
+        transparent
+        // opacity={0.65}
+        opacity={0.10}
+      />
     </mesh>
   );
 }
@@ -32,6 +40,7 @@ export default function SpinningBlockchain() {
         height: "100vh",
         zIndex: 0,
         pointerEvents: "none",
+        opacity: 0.8
       }}
     >
       <Canvas

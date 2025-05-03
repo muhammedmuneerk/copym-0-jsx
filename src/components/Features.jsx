@@ -1,4 +1,4 @@
-import { Container, Typography, Box, Grid, Button } from "@mui/material";
+import { Container, Typography, Box, Grid, Button, } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward } from "@mui/icons-material";
 import { keyframes } from "@emotion/react";
@@ -56,30 +56,20 @@ const orbitalRotation = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-// Noise overlay animation
-const noiseAnimation = keyframes`
-  0% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-  100% { background-position: 0% 0%; }
-`;
-
 // ENHANCED: Styled component for the animated card with advanced glassmorphism
 const AnimatedCard = styled(Box)(({ theme }) => ({
   position: "relative",
-  background: "rgba(15, 16, 22, 0.35)",
-  backdropFilter: "blur(20px) saturate(180%)",
+  background: "rgba(15, 16, 22, 0.4)",
+  backdropFilter: "blur(15px)",
   border: "1px solid rgba(255, 255, 255, 0.07)",
   borderRadius: "2rem",
   padding: "1.5rem",
   height: "100%",
   width: "100%",
   maxWidth: "350px",
-  transition: "all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)", // Improved easing
+  transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   overflow: "hidden",
-  boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.6), 0 1px 5px rgba(0, 0, 0, 0.3)",
-  transformStyle: "preserve-3d", // Enable 3D transformations
-  transformOrigin: "center center",
-  willChange: "transform, box-shadow", // Optimize performance
+  boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2)",
   "&::before": {
     content: '""',
     position: "absolute",
@@ -87,7 +77,7 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     height: "150%",
-    background: "linear-gradient(130deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0) 100%)",
+    background: "linear-gradient(130deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0) 100%)",
     transform: "rotate(-45deg) translateY(-50%)",
     pointerEvents: "none",
     zIndex: 1,
@@ -95,43 +85,21 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
   "&::after": {
     content: '""',
     position: "absolute",
-    inset: 0,
-    background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-    backgroundSize: "200px",
-    opacity: 0.015,
-    mixBlendMode: "overlay",
-    pointerEvents: "none",
-    zIndex: 1,
-    animation: `${noiseAnimation} 8s infinite alternate`,
-  },
-  // Light edge effect at the top
-  "&:before": {
-    content: '""',
-    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    height: "1px",
-    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
-    zIndex: 3,
-  },
-  // Shimmer effect
-  "& .shimmer": {
-    position: "absolute",
-    top: 0,
-    left: -250,
-    width: "250px",
-    height: "100%",
-    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
-    animation: `${shimmerAnimation} 8s cubic-bezier(0.4, 0, 0.2, 1) infinite`,
+    bottom: 0,
+    background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%)",
+    backgroundSize: "1000px 100%",
+    animation: `${shimmerAnimation} 8s linear infinite`,
     pointerEvents: "none",
     zIndex: 1,
   },
   "&:hover": {
-    transform: "translateY(-10px) scale(1.02) rotateX(2deg)",
-    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(0, 255, 133, 0.2)",
-    borderColor: "rgba(0, 255, 133, 0.3)",
-    background: "rgba(18, 19, 26, 0.65)",
+    transform: "translateY(-8px)",
+    boxShadow: "0 20px 40px -20px rgba(0, 0, 0, 0.7), 0 1px 5px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 133, 0.15)",
+    borderColor: "rgba(0, 255, 133, 0.2)",
+    background: "rgba(18, 19, 26, 0.6)",
     "& .border-right": {
       animation: `${borderAnimationRight} 2.5s linear infinite`,
     },
@@ -149,17 +117,12 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
     },
     "& svg": {
       stroke: "#00FF85", // Turn the icon green on card hover
-      filter: "drop-shadow(0 0 3px rgba(0, 255, 133, 0.5))",
     },
     "& .glass-reflection": {
       animation: `${glassReflection} 2.5s ease-in-out infinite`,
     },
     "& .card-content": {
-      transform: "translateZ(15px)",
-    },
-    "& .card-icon": {
-      boxShadow: "0 0 15px rgba(0, 255, 133, 0.2)",
-      background: "rgba(0, 255, 133, 0.05)",
+      transform: "translateZ(10px)",
     },
   },
   "& .border-right, & .border-down, & .border-left, & .border-up": {
@@ -172,28 +135,28 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
     right: "100%",
     height: 3,
     background: "linear-gradient(to right, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
-    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
   },
   "& .border-down": {
     top: 0,
     right: 0,
     width: 3,
     background: "linear-gradient(to bottom, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
-    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
   },
   "& .border-left": {
     bottom: 0,
     right: 0,
     height: 3,
     background: "linear-gradient(to left, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
-    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
   },
   "& .border-up": {
     bottom: 0,
     left: 0,
     width: 3,
     background: "linear-gradient(to top, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
-    boxShadow: "0 0 15px rgba(0, 255, 133, 0.7)",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
   },
   "& .glass-reflection": {
     position: "absolute",
@@ -201,7 +164,7 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
     left: 0,
     width: "200%",
     height: "200%",
-    background: "linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0) 100%)",
+    background: "linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)",
     transformOrigin: "0 0",
     animation: "none",
     pointerEvents: "none",
@@ -210,7 +173,7 @@ const AnimatedCard = styled(Box)(({ theme }) => ({
   "& .card-content": {
     position: "relative",
     zIndex: 5,
-    transition: "transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)",
+    transition: "transform 0.3s ease-out",
   },
   [theme.breakpoints.between("md", "lg")]: {
     padding: "1.25rem",

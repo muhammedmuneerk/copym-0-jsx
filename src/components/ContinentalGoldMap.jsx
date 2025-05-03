@@ -767,7 +767,7 @@ const ContinentalGoldMap = () => {
               <MapContainer
                 center={[20, 0]}
                 zoom={2}
-                style={{ height: "60vh", width: "100%", background: "#0a1428" }} // Adjust height for a landscape view
+                style={{ height: "100%", width: "100%", background: "#0a1428" }}
                 zoomControl={false} // Disable the default zoom controls
                 maxBounds={[
                   [90, -180],
