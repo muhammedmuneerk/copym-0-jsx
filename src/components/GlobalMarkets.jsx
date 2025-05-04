@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
+import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
 
 // Animation keyframes for the border effect
 const borderAnimationRight = keyframes`
@@ -452,15 +453,10 @@ export default function GlobalMarkets() {
           ))}
         </Grid>
       </Container>
-      {/* Background Glow Effect */}
-      <Box
-        className="absolute inset-0 pointer-events-none"
-        sx={{
-          opacity: "0.2",
-          background:
-            "linear-gradient(90deg,rgba(11, 26, 161, 1) 0%, rgba(9, 121, 43, 1) 38%, rgba(24, 204, 14, 1) 100%)",
-        }}
-      />
+
+      {/* Enhanced background gradient highlight with Glow Effect */}
+     {/* <BackgroundGlowEffect/> */}
+
     </Box>
   );
 }

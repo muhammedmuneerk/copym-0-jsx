@@ -2,6 +2,7 @@ import { Container, Typography, Box, Grid, useMediaQuery, useTheme } from "@mui/
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import SectionImage from "./SectionImages";
+import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
 
 
 const blockchains = [
@@ -243,15 +244,9 @@ export default function Blockchains() {
         </Box>
       </Container>
 
-      {/* Enhanced gradient highlight with pulse animation */}
-      <Box
-        className="absolute inset-0 pointer-events-none"
-        sx={{
-          opacity: "0.2",
-          background:
-            "linear-gradient(90deg,rgba(11, 26, 161, 1) 0%, rgba(9, 121, 43, 1) 38%, rgba(24, 204, 14, 1) 100%)",
-        }}
-      />
+      {/* Enhanced background gradient highlight with Glow Effect */}
+     {/* <BackgroundGlowEffect/> */}
+
     </Box>
   );
 }

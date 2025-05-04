@@ -351,7 +351,7 @@ function App() {
   }
 
   return (
-    <Box ref={appRef} className="min-h-screen bg-background text-text-primary overflow-x-hidden">
+    <Box ref={appRef} className="min-h-screen bg-custom-gradient text-text-primary overflow-x-hidden">
       <ScrollToTop />
       <Navbar />
       <main className="overflow-x-hidden">
