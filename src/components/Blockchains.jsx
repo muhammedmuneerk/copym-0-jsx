@@ -33,6 +33,9 @@ export default function Blockchains() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [key, setKey] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [slot1Icon, setSlot1Icon] = useState(0);
+  const [slot2Icon, setSlot2Icon] = useState(1);
+  const [slot3Icon, setSlot3Icon] = useState(2);
 
   // Function to handle visibility changes
   useEffect(() => {
@@ -63,20 +66,27 @@ export default function Blockchains() {
     };
   }, []);
 
-  // Shuffle blockchains for reload effect
-  const [shuffledBlockchains, setShuffledBlockchains] = useState([...blockchains]);
-
+  // Handle icon rotation
   useEffect(() => {
-    if (!isMobile && isVisible) {
-      // Shuffle the array for visual reload effect
-      const shuffled = [...blockchains].sort(() => Math.random() - 0.5);
-      setShuffledBlockchains(shuffled);
+    if (isVisible) {
+      const interval = setInterval(() => {
+        setSlot1Icon(prev => (prev + 1) % blockchains.length);
+        
+        // Add a slight delay for the second slot
+        setTimeout(() => {
+          setSlot2Icon(prev => (prev + 1) % blockchains.length);
+        }, 700);
+        
+        // Add more delay for the third slot
+        setTimeout(() => {
+          setSlot3Icon(prev => (prev + 1) % blockchains.length);
+        }, 1400);
+        
+      }, 3000);
+      
+      return () => clearInterval(interval);
     }
-  }, [key, isMobile, isVisible]);
-
-  // Create a duplicate array for infinite scroll
-  // Triple the array to ensure smooth infinite animation
-  const duplicatedBlockchains = [...blockchains, ...blockchains, ...blockchains];
+  }, [isVisible]);
 
   return (
     <Box
@@ -172,74 +182,107 @@ export default function Blockchains() {
           </Box>
         )}
 
-        {/* Infinite scroll for both mobile and desktop with decreased spacing */}
+        {/* New 3-slot blockchain icons display */}
         <Box
           sx={{
             position: "relative",
             width: "100%",
-            overflow: "hidden",
             mt: 5,
+            display: "flex",
+            justifyContent: "space-evenly",
           }}
         >
+          {/* Slot 1 */}
           <Box
             sx={{
-              display: "flex",
-              width: "fit-content",
-              animation: "scrollLeft 35s linear infinite", // Slower animation for smoother effect
-              "@keyframes scrollLeft": {
-                "0%": { transform: "translateX(0)" },
-                "100%": { transform: "translateX(calc(-100% / 3))" }, // Only move by 1/3 since we have 3x the items
-              },
-              "&:hover": { animationPlayState: "paused" },
-              "@media (hover: none)": {
-                "&:active": { animationPlayState: "paused" },
-              },
+              width: isMobile ? "30%" : "25%",
+              position: "relative",
+              height: isMobile ? "120px" : "180px",
+              overflow: "hidden",
             }}
           >
-            {duplicatedBlockchains.map((blockchain, index) => (
-              <Box
-                key={`${blockchain.name}-${index}`}
-                sx={{
-                  width: isMobile ? "32.5vw" : "20vw", // Decreased width for desktop to reduce spacing
-                  padding: isMobile ? 2 : 1, // Reduce padding on desktop
-                  flexShrink: 0,
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={`slot1-${slot1Icon}-${key}`}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 0.5, y: 0 }}
+                exit={{ opacity: 0, y: -100 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 20,
+                  duration: 0.8
                 }}
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                className="w-full h-full flex items-center justify-center"
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }} // Reduced delay for smoother appearance
-                  viewport={{ once: true }}
-                  className="text-center h-full flex flex-col items-center justify-center p-2"
-                >
-                  {/* Made icons bigger, especially for those with text */}
-                  <Box
-                    className={isMobile ? "w-20 h-20 mb-2" : "w-48 w-48 mb-2 "} // Increased size on both mobile and desktop
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      opacity: "0.5",
-                      transition: "opacity 0.3s ease",
-                      "&:hover": {
-                        opacity: 1,
-                      },
-                      // padding:".5rem"
-                      // Adjust sizes for specific blockchains with text logos
-                    }}
-                  >
-                    {blockchain.logo}
-                  </Box>
-                  {/* <Typography 
-                    variant="h6" 
-                    className={isMobile ? "text-sm font-medium text-white" : "text-base font-medium text-white"}
-                    sx={{ opacity: 0.9 }}
-                  >
-                    {blockchain.name}
-                  </Typography> */}
-                </motion.div>
-              </Box>
-            ))}
+                <Box className={isMobile ? "w-20 h-20" : "w-32 h-32"}>
+                  {blockchains[slot1Icon].logo}
+                </Box>
+              </motion.div>
+            </AnimatePresence>
+          </Box>
+          
+          {/* Slot 2 */}
+          <Box
+            sx={{
+              width: isMobile ? "30%" : "25%",
+              position: "relative",
+              height: isMobile ? "120px" : "180px",
+              overflow: "hidden",
+            }}
+          >
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={`slot2-${slot2Icon}-${key}`}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 0.5, y: 0 }}
+                exit={{ opacity: 0, y: -100 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 20,
+                  duration: 0.8
+                }}
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                className="w-full h-full flex items-center justify-center"
+              >
+                <Box className={isMobile ? "w-20 h-20" : "w-32 h-32"}>
+                  {blockchains[slot2Icon].logo}
+                </Box>
+              </motion.div>
+            </AnimatePresence>
+          </Box>
+          
+          {/* Slot 3 */}
+          <Box
+            sx={{
+              width: isMobile ? "30%" : "25%",
+              position: "relative",
+              height: isMobile ? "120px" : "180px",
+              overflow: "hidden",
+            }}
+          >
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={`slot3-${slot3Icon}-${key}`}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 0.5, y: 0 }}
+                exit={{ opacity: 0, y: -100 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 20,
+                  duration: 0.8
+                }}
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                className="w-full h-full flex items-center justify-center"
+              >
+                <Box className={isMobile ? "w-20 h-20" : "w-32 h-32"}>
+                  {blockchains[slot3Icon].logo}
+                </Box>
+              </motion.div>
+            </AnimatePresence>
           </Box>
         </Box>
       </Container>
