@@ -763,8 +763,9 @@ const ContinentalGoldMap = () => {
           className={`relative md:col-span-2 ${isLoading ? "opacity-50" : ""}`}
         >
           {activeView === "map" ? (
-            <div className="relative h-[400px] bg-gray-900/30 rounded-lg overflow-hidden">
+            <div className="relative h-[525px] bg-gray-900/30 rounded-lg overflow-hidden">
               <MapContainer
+              attributionControl={false} //remove the "Leaflet" text that appears in the bottom right corner of the map
                 center={[20, 0]}
                 zoom={2}
                 style={{ height: "100%", width: "100%", background: "#0a1428" }}
@@ -941,19 +942,9 @@ const ContinentalGoldMap = () => {
 
             <div ref={legendRef} className="mt-4"></div>
 
-            <div className="text-center mt-4">
-              <button className="px-3 py-1.5 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 rounded-lg text-xs flex items-center mx-auto">
-                <Download size={12} className="mr-1" />
-                Download Full Report
-              </button>
-            </div>
+          
           </div>
         </div>
-      </div>
-
-      <div className="p-3 border-t border-yellow-500/10 flex justify-between items-center text-xs text-gray-400">
-        <div>Last updated: April 25, 2025 09:30 AM EST</div>
-        <div>© 2025 World Gold Council</div>
       </div>
 
       <div
