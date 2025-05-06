@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import { TrendingUp, Users, Link, BarChart2 } from "lucide-react";
 import AnimatedCard from "../ui/AnimatedCard";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
+import GradientLetters from "./GradientLetters"; // Added GradientLetters import
 
 // Format numbers with suffixes (B, M, K)
 const formatNumber = (num, suffix) => {
@@ -276,43 +277,22 @@ export default function Metrics() {
                 component="div"
                 className="flex flex-col items-center justify-center leading-snug max-w-xs sm:max-w-xl lg:max-w-4xl mx-auto"
               >
-                {/* Small & Medium Screens (3 lines) */}
-                <Box className="block lg:hidden">
+                {/* Large Screens (1 lines) */}
+                <Box className="hidden lg:block">
                   <Box component="div" className="flex flex-wrap justify-center">
-                    {Array.from("Tokenization").map((char, idx) => (
-                      <Box key={`sm-line1-${idx}`} component="span" className="gradient-letter">
-                        {char === " " ? "\u00A0" : char}
-                      </Box>
-                    ))}
-                  </Box>
-
-                  <Box component="div" className="flex flex-wrap justify-center">
-                    {Array.from("at").map((char, idx) => (
-                      <Box key={`sm-line2-${idx}`} component="span" className="gradient-letter">
-                        {char === " " ? "\u00A0" : char}
-                      </Box>
-                    ))}
-                  </Box>
-
-                  <Box component="div" className="flex flex-wrap justify-center">
-                    {Array.from("Scale").map((char, idx) => (
-                      <Box key={`sm-line3-${idx}`} component="span" className="gradient-letter">
-                        {char}
-                      </Box>
-                    ))}
+                    <GradientLetters text="Tokenization at Scale" keyPrefix="lg-line1" />
                   </Box>
                 </Box>
 
-                {/* Large Screens (2 lines) */}
-                <Box className="hidden lg:block">
+                {/* Small & Medium Screens (2 lines) */}
+                <Box className="block lg:hidden">
                   <Box component="div" className="flex flex-wrap justify-center">
-                    {Array.from("Tokenization at Scale").map((char, idx) => (
-                      <Box key={`lg-line1-${idx}`} component="span" className="gradient-letter">
-                        {char === " " ? "\u00A0" : char}
-                      </Box>
-                    ))}
+                    <GradientLetters text="Tokenization at" keyPrefix="sm-line1" />
                   </Box>
 
+                  <Box component="div" className="flex flex-wrap justify-center">
+                    <GradientLetters text="Scale" keyPrefix="sm-line3" />
+                  </Box>
                 </Box>
               </Box>
             </Typography>

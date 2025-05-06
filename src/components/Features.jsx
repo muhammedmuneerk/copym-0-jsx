@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
 import AnimatedCard from "../ui/AnimatedCard";
+import GradientLetters from "./GradientLetters"; // Import GradientLetters component
 
 // Central element pulsating animation
 const pulseAnimation = keyframes`
@@ -285,46 +286,26 @@ export default function Features() {
               component="div"
               className="flex flex-col items-center justify-center leading-snug max-w-xs sm:max-w-xl lg:max-w-5xl mx-auto"
             >
-              {/* Small & Medium Screens (3 lines) */}
-              <Box className="block lg:hidden">
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Everything You").map((char, idx) => (
-                    <Box key={`sm-line1-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
-                </Box>
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Need In").map((char, idx) => (
-                    <Box key={`sm-line2-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
-                </Box>
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("One Place").map((char, idx) => (
-                    <Box key={`sm-line3-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-
               {/* Large Screens (2 lines) */}
               <Box className="hidden lg:block">
                 <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Everything You Need").map((char, idx) => (
-                    <Box key={`lg-line1-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters text="Everything You Need" keyPrefix="lg-line1" />
                 </Box>
                 <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("In One Place").map((char, idx) => (
-                    <Box key={`lg-line2-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters text="In One Place" keyPrefix="lg-line2" />
+                </Box>
+              </Box>
+
+              {/* Small & Medium Screens (3 lines) */}
+              <Box className="block lg:hidden">
+                <Box component="div" className="flex flex-wrap justify-center">
+                  <GradientLetters text="Everything You" keyPrefix="sm-line1" />
+                </Box>
+                <Box component="div" className="flex flex-wrap justify-center">
+                  <GradientLetters text="Need In" keyPrefix="sm-line2" />
+                </Box>
+                <Box component="div" className="flex flex-wrap justify-center">
+                  <GradientLetters text="One Place" keyPrefix="sm-line3" />
                 </Box>
               </Box>
             </Box>

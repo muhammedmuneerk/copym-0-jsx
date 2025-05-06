@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import AnimatedCard from "../ui/AnimatedCard";
 import AnimatedCounter from "../ui/AnimatedCounter";
+import GradientLetters from "./GradientLetters";
 
 // Region data
 const regions = [
@@ -101,10 +102,7 @@ export default function GlobalMarkets() {
           viewport={{ once: false }}
           className="text-center mb-16"
         >
-          <Typography
-            variant="overline"
-            className="gradient-letter"
-          >
+          <Typography variant="overline" className="gradient-letter">
             GLOBAL REACH
           </Typography>
           <Typography
@@ -112,11 +110,10 @@ export default function GlobalMarkets() {
             className="text-4xl md:text-5xl mb-4 pb-1 text-center"
           >
             <Box component="div" className="flex flex-wrap justify-center">
-              {Array.from("Connecting Global Markets").map((char, idx) => (
-                <Box key={`connecting-${idx}`} component="span" className="gradient-letter">
-                  {char === " " ? "\u00A0" : char}
-                </Box>
-              ))}
+              <GradientLetters
+                text="Connecting Global Markets"
+                keyPrefix="connecting"
+              />
             </Box>
           </Typography>
 

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import SectionImage from "./SectionImages";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
+import GradientLetters from "./GradientLetters"; // Import the GradientLetters component
 
 
 const blockchains = [
@@ -109,33 +110,17 @@ export default function Blockchains() {
                 variant="h2"
                 className=" text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
               >
-                {/* First Line */}
+                {/* First Line using GradientLetters component */}
                 <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Unified Access to All").map((char, idx) => (
-                    <Box
-                      key={`line1-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters text="Unified Access to All" keyPrefix="line1" />
                 </Box>
 
-                {/* Second Line */}
+                {/* Second Line using GradientLetters component */}
                 <Box
                   component="div"
                   className="flex flex-wrap justify-center mt-1"
                 >
-                  {Array.from("Major Blockchains").map((char, idx) => (
-                    <Box
-                      key={`line2-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters text="Major Blockchains" keyPrefix="line2" />
                 </Box>
               </Typography>
 

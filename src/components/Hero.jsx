@@ -2,18 +2,14 @@ import React from "react";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { motion } from "framer-motion";
 import { KeyboardArrowDown } from "@mui/icons-material";
-import BlockchainNetworkVisualization from "./BlockchainNetworkVisualization";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
+import GradientLetters from "./GradientLetters";
 
 export default function Hero() {
   return (
-    <Box className="min-h-screen relative overflow-hidden ">
-      {/* Three.js visualization */}
-      {/* <BlockchainNetworkVisualization /> */}
-
+    <Box className="min-h-screen relative overflow-hidden">
       {/* Overlay gradient for better text readability */}
-      <div className="absolute inset-0 ">
-
+      <div className="absolute inset-0">
         <Container maxWidth="xl" className="relative z-20">
           <motion.div
             className="flex flex-col items-center justify-center min-h-screen text-center"
@@ -26,84 +22,42 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
+
               <Typography
                 variant="h1"
-                className=" mt-20 text-3xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-snug text-center"
+                className="mt-20 text-3xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-snug text-center"
                 sx={{ wordBreak: "break-word" }}
               >
                 {/* Large Screens: First line whole */}
                 <Box component="div" className="hidden sm:block">
-                  {Array.from("The Complete Ecosystem").map((char, idx) => (
-                    <Box
-                      key={`line1-lg-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
-                </Box>
-
-                {/* Small Screens: First line split */}
-                <Box component="div" className="block sm:hidden">
-                  {Array.from("The Complete").map((char, idx) => (
-                    <Box
-                      key={`line1-sm-1-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
-                </Box>
-                <Box component="div" className="block sm:hidden">
-                  {Array.from("Ecosystem").map((char, idx) => (
-                    <Box
-                      key={`line1-sm-2-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters text="The Complete Ecosystem" keyPrefix="line1-lg" />
                 </Box>
 
                 {/* Line 2 (unchanged) for medium+ screens */}
                 <Box component="div" className="block mt-1 hidden sm:block">
-                  {Array.from("for Real World Asset Tokenization").map((char, idx) => (
-                    <Box
-                      key={`line2-char-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters 
+                    text="for Real World Asset Tokenization" 
+                    keyPrefix="line2-char" 
+                  />
+                </Box>
+
+
+                 {/* Small Screens: First line split */}
+                 <Box component="div" className="block sm:hidden">
+                  <GradientLetters text="The Complete" keyPrefix="line1-sm-1" />
+                </Box>
+                <Box component="div" className="block sm:hidden">
+                  <GradientLetters text="Ecosystem" keyPrefix="line1-sm-2" />
                 </Box>
 
                 {/* Line 2 split for small screens */}
                 <Box component="div" className="block mt-1 sm:hidden">
-                  {Array.from("for Real World").map((char, idx) => (
-                    <Box
-                      key={`line2-sm-1-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters text="for Real World" keyPrefix="line2-sm-1" />
                 </Box>
                 <Box component="div" className="block mt-1 sm:hidden">
-                  {Array.from("Asset Tokenization").map((char, idx) => (
-                    <Box
-                      key={`line2-sm-2-${idx}`}
-                      component="span"
-                      className="gradient-letter"
-                    >
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
+                  <GradientLetters text="Asset Tokenization" keyPrefix="line2-sm-2" />
                 </Box>
+                
               </Typography>
 
               <Typography
@@ -162,12 +116,10 @@ export default function Hero() {
             </Typography>
           </motion.div>
         </Container>
-        
-       {/* Enhanced background gradient highlight with Glow Effect */}
-     {/* <BackgroundGlowEffect/> */}
 
+      {/* Enhanced background gradient highlight with Glow Effect */}
+     {/* <BackgroundGlowEffect/> */}
       </div>
     </Box>
   );
 }
-// meta-llama/llama-3.3-70b-instruct:free
