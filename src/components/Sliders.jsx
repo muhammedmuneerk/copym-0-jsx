@@ -2,6 +2,231 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ExternalLink, Info } from 'lucide-react';
+import { keyframes } from '@emotion/react';
+import { styled } from '@mui/material/styles';
+import { Box } from '@mui/material';
+
+// Animation keyframes for the border effect
+const borderAnimationRight = keyframes`
+  0% { width: 0; height: 3px; top: 0; right: 100%; opacity: 1; }
+  25% { width: 100%; height: 3px; top: 0; right: 0; opacity: 0.7; }
+  100% { width: 100%; height: 3px; top: 0; right: 0; opacity: 0; }
+`;
+
+const borderAnimationDown = keyframes`
+  0% { width: 3px; height: 0; top: 0; right: 0; opacity: 1; }
+  25% { width: 3px; height: 100%; top: 0; right: 0; opacity: 0.7; }
+  100% { width: 3px; height: 100%; top: 0; right: 0; opacity: 0; }
+`;
+
+const borderAnimationLeft = keyframes`
+  0% { width: 0; height: 3px; bottom: 0; right: 0; opacity: 1; }
+  25% { width: 100%; height: 3px; bottom: 0; right: 0; opacity: 0.7; }
+  100% { width: 100%; height: 3px; bottom: 0; right: 0; opacity: 0; }
+`;
+
+const borderAnimationUp = keyframes`
+  0% { width: 3px; height: 0; bottom: 0; left: 0; opacity: 1; }
+  25% { width: 3px; height: 100%; bottom: 0; left: 0; opacity: 0.7; }
+  100% { width: 3px; height: 100%; bottom: 0; left: 0; opacity: 0; }
+`;
+
+// Add shimmer effect for glass
+const shimmerAnimation = keyframes`
+  0% { background-position: -500px 0; }
+  100% { background-position: 500px 0; }
+`;
+
+// Glass reflection effect
+const glassReflection = keyframes`
+  0% { opacity: 0.1; transform: translateY(100%) translateX(-100%); }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.1; transform: translateY(-100%) translateX(100%); }
+`;
+
+// Styled AnimatedCard component for the outer container - WITH border animations
+const AnimatedCardWrapper = styled(Box)(({ theme }) => ({
+  position: "relative",
+  background: "rgba(15, 16, 22, 0.4)",
+  backdropFilter: "blur(15px)",
+  border: "1px solid rgba(255, 255, 255, 0.07)",
+  borderRadius: "2rem",
+  height: "100%",
+  width: "100%",
+  transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+  overflow: "hidden",
+  boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2)",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "150%",
+    background: "linear-gradient(130deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0) 100%)",
+    transform: "rotate(-45deg) translateY(-50%)",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%)",
+    backgroundSize: "1000px 100%",
+    animation: `${shimmerAnimation} 8s linear infinite`,
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "&:hover": {
+    transform: "translateY(-8px)",
+    boxShadow: "0 20px 40px -20px rgba(0, 0, 0, 0.7), 0 1px 5px rgba(0, 0, 0, 0.3)",
+    borderColor: "rgba(255, 255, 255, 0.12)",
+    background: "rgba(18, 19, 26, 0.6)",
+    "& .border-right": {
+      animation: `${borderAnimationRight} 2.5s linear infinite`,
+    },
+    "& .border-down": {
+      animation: `${borderAnimationDown} 2.5s linear infinite`,
+      animationDelay: "1s",
+    },
+    "& .border-left": {
+      animation: `${borderAnimationLeft} 2.5s linear infinite`,
+      animationDelay: "1.5s",
+    },
+    "& .border-up": {
+      animation: `${borderAnimationUp} 2.5s linear infinite`,
+      animationDelay: "2s",
+    },
+    "& .glass-reflection": {
+      animation: `${glassReflection} 2.5s ease-in-out infinite`,
+    },
+    "& .card-content": {
+      transform: "translateZ(10px)",
+    },
+  },
+  "& .border-right, & .border-down, & .border-left, & .border-up": {
+    position: "absolute",
+    animation: "none", // No animation by default
+    zIndex: 2,
+  },
+  "& .border-right": {
+    top: 0,
+    right: "100%",
+    height: 3,
+    background: "linear-gradient(to right, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
+  },
+  "& .border-down": {
+    top: 0,
+    right: 0,
+    width: 3,
+    background: "linear-gradient(to bottom, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
+  },
+  "& .border-left": {
+    bottom: 0,
+    right: 0,
+    height: 3,
+    background: "linear-gradient(to left, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
+  },
+  "& .border-up": {
+    bottom: 0,
+    left: 0,
+    width: 3,
+    background: "linear-gradient(to top, rgba(0,0,0,0), #00FF85, rgba(0,0,0,0))",
+    boxShadow: "0 0 10px rgba(0, 255, 133, 0.5)",
+  },
+  "& .glass-reflection": {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "200%",
+    height: "200%",
+    background: "linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)",
+    transformOrigin: "0 0",
+    animation: "none",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "& .card-content": {
+    position: "relative",
+    zIndex: 5,
+    transition: "transform 0.3s ease-out",
+  },
+}));
+
+// Styled Inner Card component - WITH strong border colors, NO animations
+const InnerCardWrapper = styled(Box)(({ theme, color }) => ({
+  position: "relative",
+  background: "rgba(15, 16, 22, 0.4)",
+  backdropFilter: "blur(15px)",
+  border: "1px solid rgba(255, 255, 255, 0.07)", // Default transparent border
+  borderRadius: "2rem",
+  height: "100%",
+  width: "100%",
+  transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+  overflow: "hidden",
+  boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2)", // Default shadow without color
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "150%",
+    background: "linear-gradient(130deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0) 100%)",
+    transform: "rotate(-45deg) translateY(-50%)",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%)",
+    backgroundSize: "1000px 100%",
+    animation: `${shimmerAnimation} 8s linear infinite`,
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "&:hover": {
+    transform: "translateY(-8px)",
+    boxShadow: `0 20px 40px -20px rgba(0, 0, 0, 0.7), 0 1px 5px rgba(0, 0, 0, 0.3), 0 0 20px ${color || "rgba(0, 255, 133, 0.25)"}`,
+    borderColor: color || "rgba(0, 255, 133, 0.3)", // Colored border on hover
+    background: "rgba(18, 19, 26, 0.6)",
+    "& .glass-reflection": {
+      animation: `${glassReflection} 2.5s ease-in-out infinite`,
+    },
+    "& .card-content": {
+      transform: "translateZ(10px)",
+    },
+  },
+  "& .glass-reflection": {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "200%",
+    height: "200%",
+    background: "linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)",
+    transformOrigin: "0 0",
+    animation: "none",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+  "& .card-content": {
+    position: "relative",
+    zIndex: 5,
+    transition: "transform 0.3s ease-out",
+  },
+}));
 
 // Enhanced card data with additional fields
 const cardData = [
@@ -14,7 +239,8 @@ const cardData = [
     buttonText: 'View Details',
     link: '/tokenization/gold/',
     color: 'from-amber-400 to-yellow-600',
-    bgColor: 'from-amber-900/20 to-yellow-900/20'
+    bgColor: 'from-amber-900/20 to-yellow-900/20',
+    borderColor: '#FFD700'
   },
   {
     id: 'green',
@@ -25,7 +251,8 @@ const cardData = [
     buttonText: 'View Details',
     link: '/green-tokenization',
     color: 'from-emerald-400 to-green-600',
-    bgColor: 'from-emerald-900/20 to-green-900/20'
+    bgColor: 'from-emerald-900/20 to-green-900/20',
+    borderColor: '#00FF85'
   },
   {
     id: 'realestate',
@@ -36,7 +263,8 @@ const cardData = [
     buttonText: 'Explore',
     link: '/tokenization/real-estate/',
     color: 'from-blue-400 to-indigo-600',
-    bgColor: 'from-blue-900/20 to-indigo-900/20'
+    bgColor: 'from-blue-900/20 to-indigo-900/20',
+    borderColor: '#4169E1'
   },
   {
     id: 'art',
@@ -47,7 +275,8 @@ const cardData = [
     buttonText: 'View Details',
     link: '/tokenization/art',
     color: 'from-purple-400 to-pink-600',
-    bgColor: 'from-purple-900/20 to-pink-900/20'
+    bgColor: 'from-purple-900/20 to-pink-900/20',
+    borderColor: '#8A2BE2'
   },
   {
     id: 'commodities',
@@ -58,7 +287,8 @@ const cardData = [
     buttonText: 'View Details',
     link: '/tokenization/Commodities',
     color: 'from-orange-400 to-red-600',
-    bgColor: 'from-orange-900/20 to-red-900/20'
+    bgColor: 'from-orange-900/20 to-red-900/20',
+    borderColor: '#FF4500'
   },
   {
     id: 'carbon',
@@ -69,7 +299,8 @@ const cardData = [
     buttonText: 'View Details',
     link: '/tokenization/carbon-credits',
     color: 'from-teal-400 to-cyan-600',
-    bgColor: 'from-teal-900/20 to-cyan-900/20'
+    bgColor: 'from-teal-900/20 to-cyan-900/20',
+    borderColor: '#00CED1'
   },
   {
     id: 'equity',
@@ -80,7 +311,8 @@ const cardData = [
     buttonText: 'View Details',
     link: '/tokenization/private-equity',
     color: 'from-gray-500 to-slate-700',
-    bgColor: 'from-gray-900/20 to-slate-900/20'
+    bgColor: 'from-gray-900/20 to-slate-900/20',
+    borderColor: '#708090'
   },
   {
     id: 'diverse',
@@ -91,7 +323,8 @@ const cardData = [
     buttonText: 'View Details',
     link: '/tokenization/other-assets',
     color: 'from-violet-400 to-purple-600',
-    bgColor: 'from-violet-900/20 to-purple-900/20'
+    bgColor: 'from-violet-900/20 to-purple-900/20',
+    borderColor: '#9400D3'
   },
 ];
 
@@ -219,23 +452,38 @@ const TokenizationSlider = () => {
   };
 
   return (
-    <div className="relative max-w-full h-full py-24 px-8 overflow-hidden"
+    <AnimatedCardWrapper
+      sx={{
+        maxWidth: '100%',
+        height: '100%',
+        py: 2,
+        px: 4,
+        overflow: 'hidden',
+        borderRadius: '2rem',
+        background: 'rgba(15, 16, 22, 0.7)',
+      }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 z-0" />
+      {/* Border animation elements for outer container */}
+      <div className="border-right"></div>
+      <div className="border-down"></div>
+      <div className="border-left"></div>
+      <div className="border-up"></div>
+      
+      {/* Glass reflection effect */}
+      <div className="glass-reflection"></div>
       
       {/* Content wrapper */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="card-content relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mt-4 mb-1"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 mb-2">
             Tokenization Ecosystem
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
@@ -269,74 +517,76 @@ const TokenizationSlider = () => {
                   }
                 }}
               >
-                <div className={`relative flex flex-col h-full bg-gradient-to-br ${card.bgColor} backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 overflow-hidden group transform transition-all duration-500`}>
-                  {/* Card shine effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-transparent opacity-20 transform -translate-x-full -translate-y-full group-hover:translate-x-full group-hover:translate-y-full transition-transform duration-1500"></div>
-                  </div>
-                  
-                  {/* Card header/image section */}
-                  <div className="relative h-60 overflow-hidden">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-30 mix-blend-overlay`}></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 z-10"></div>
-                    
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-                    />
-                    
-                    {/* Label badge */}
-                    <div className={`absolute top-6 left-6 py-1.5 px-4 rounded-full bg-gradient-to-r ${card.color} text-white text-sm font-medium z-20 shadow-lg`}>
-                      {card.title}
-                    </div>
-                    
-                    {/* Card Title */}
-                    <h3 className="absolute bottom-6 left-6 text-2xl font-bold text-white drop-shadow-md z-20">
-                      {card.description}
-                    </h3>
-                  </div>
+                {/* Replace the original card with our InnerCardWrapper */}
+                <InnerCardWrapper color={card.borderColor}>
+                  {/* Glass reflection effect */}
+                  <div className="glass-reflection"></div>
                   
                   {/* Card content */}
-                  <div className="flex flex-col flex-grow p-6 space-y-6">
-                    <p className="text-gray-200 text-base flex-grow leading-relaxed">
-                      {card.detailText}
-                    </p>
+                  <div className="card-content">
+                    {/* Card header/image section */}
+                    <div className="relative h-60 overflow-hidden">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-30 mix-blend-overlay`}></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 z-10"></div>
+                      
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                      />
+                      
+                      {/* Label badge */}
+                      <div className={`absolute top-6 left-6 py-1.5 px-4 rounded-full bg-gradient-to-r ${card.color} text-white text-sm font-medium z-20 shadow-lg`}>
+                        {card.title}
+                      </div>
+                      
+                      {/* Card Title */}
+                      <h3 className="absolute bottom-6 left-6 text-2xl font-bold text-white drop-shadow-md z-20">
+                        {card.description}
+                      </h3>
+                    </div>
                     
-                    {/* Features list */}
-                    <ul className="space-y-2 text-sm text-gray-300">
-                      <li className="flex items-center space-x-2">
-                        <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
-                        <span>Fractional ownership</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
-                        <span>Blockchain secured</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
-                        <span>Instant liquidity</span>
-                      </li>
-                    </ul>
+                    {/* Card content */}
+                    <div className="flex flex-col flex-grow p-6 space-y-6">
+                      <p className="text-gray-200 text-base flex-grow leading-relaxed">
+                        {card.detailText}
+                      </p>
+                      
+                      {/* Features list */}
+                      <ul className="space-y-2 text-sm text-gray-300">
+                        <li className="flex items-center space-x-2">
+                          <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
+                          <span>Fractional ownership</span>
+                        </li>
+                        <li className="flex items-center space-x-2">
+                          <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
+                          <span>Blockchain secured</span>
+                        </li>
+                        <li className="flex items-center space-x-2">
+                          <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
+                          <span>Instant liquidity</span>
+                        </li>
+                      </ul>
+                      
+                      {/* CTA Button */}
+                      <motion.button 
+                        className={`w-full bg-gradient-to-r ${card.color} text-white py-3 px-6 rounded-xl font-medium text-base flex items-center justify-center gap-2 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105`}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(card.link);
+                        }}
+                      >
+                        {card.buttonText}
+                        <ExternalLink size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </motion.button>
+                    </div>
                     
-                    {/* CTA Button */}
-                    <motion.button 
-                      className={`w-full bg-gradient-to-r ${card.color} text-white py-3 px-6 rounded-xl font-medium text-base flex items-center justify-center gap-2 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105`}
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(card.link);
-                      }}
-                    >
-                      {card.buttonText}
-                      <ExternalLink size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </motion.button>
+                    {/* Card background accent */}
+                    <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${card.color}`}></div>
                   </div>
-                  
-                  {/* Card background accent */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${card.color}`}></div>
-                </div>
+                </InnerCardWrapper>
               </motion.div>
             ))}
           </div>
@@ -364,7 +614,7 @@ const TokenizationSlider = () => {
         </div>
         
         {/* Indicators */}
-        <div className="flex justify-center items-center gap-2 mt-12">
+        <div className="flex justify-center items-center gap-1 mt-1">
           {cardData.map((_, index) => (
             <motion.button
               key={index}
@@ -380,11 +630,11 @@ const TokenizationSlider = () => {
         </div>
         
         {/* Card counter */}
-        <div className="text-center mt-8 text-white/70 font-medium">
+        <div className="text-center mt-1 text-white/70 font-medium">
           <span className="text-white">{currentIndex + 1}</span> / {cardData.length}
         </div>
       </div>
-    </div>
+    </AnimatedCardWrapper>
   );
 };
 
