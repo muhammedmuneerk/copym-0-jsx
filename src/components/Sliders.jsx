@@ -12,49 +12,49 @@ import { useNavigate } from 'react-router-dom';
 const cardData = [
   {
     image: '/assets/images/img1.png',
-    description: 'This is card 1',
+    description: 'Tokenized Gold for the Digital Age',
     buttonText: 'View Details',
     link: '/tokenization/gold/'
   },
   {
     image: '/assets/images/img2.png',
-    description: 'This is card 2',
+    description: 'Green Tokenization ', // & ESG Integration
     buttonText: 'View Details',
     link:'/green-tokenization'
   },
   {
     image: '/assets/images/img3.png',
-    description: 'View Details',
+    description: 'Real Estate Tokenization',
     buttonText: 'Explore',
     link:'/tokenization/real-estate/'
   },
   {
     image: '/assets/images/img4.png',
-    description: 'This is card 4',
+    description: 'Art & Collectibles Tokenization',
     buttonText: 'View Details',
     link:'/tokenization/art'
   },
   {
     image: '/assets/images/img5.png',
-    description: 'This is card 5',
+    description: 'Commodities Tokenization',
     buttonText: 'View Details',
     link:'/tokenization/Commodities'
   },
   {
     image: '/assets/images/img6.png',
-    description: 'This is card 6',
+    description: 'Carbon Credits Tokenization',
     buttonText: 'View Details',
     link:'/tokenization/carbon-credits'
   },
   {
     image: '/assets/images/img7.png',
-    description: 'This is card 7',
+    description: 'Private Equity Tokenization',
     buttonText: 'View Details',
     link:'/tokenization/private-equity'
   },
   {
     image: '/assets/images/img8.png',
-    description: 'This is card 8',
+    description: 'Diverse Asset Tokenization',
     buttonText: 'View Details',
     link:'/tokenization/other-assets'
   },
