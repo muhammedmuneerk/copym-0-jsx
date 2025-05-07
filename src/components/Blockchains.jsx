@@ -9,7 +9,7 @@ import GradientLetters from "./GradientLetters"; // Import the GradientLetters c
 
 // Model component
 function EarthGlobeModel() {
-  const { scene } = useGLTF("/models/earth_globe_hologram_2mb_looping_animation.gltf");
+  const { scene } = useGLTF("/models/animated_sci-fi_globe/animated_sci-fi_globe.gltf");
   
   return <primitive object={scene} position={[0, 0, 0]} />;
 }
@@ -116,11 +116,11 @@ export default function Blockchains() {
          marginTop:"350px"
       }}>
         <Suspense fallback={null}>
-          <Canvas camera={{ position: [0, 0, 10], fov: 8 }}>
+          <Canvas camera={{ position: [0, 0, 10], fov: 10 }}>
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} />
             <EarthGlobeModel />
-            <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
+            <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.9} />
             <Environment preset="city" />
           </Canvas>
         </Suspense>
