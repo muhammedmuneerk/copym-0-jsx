@@ -1,18 +1,10 @@
 import { Container, Typography, Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { useGLTF, OrbitControls, Environment } from "@react-three/drei";
+import { useState, useEffect } from "react";
 import SectionImage from "./SectionImages";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
-import GradientLetters from "./GradientLetters"; // Import the GradientLetters component
-
-// Model component
-function EarthGlobeModel() {
-  const { scene } = useGLTF("/models/animated_sci-fi_globe/animated_sci-fi_globe.gltf");
-  
-  return <primitive object={scene} position={[0, 0, 0]} />;
-}
+import GradientLetters from "./GradientLetters";
+import EarthGlobeModel from "./EarthGlobeModel";
 
 const blockchains = [
   {
@@ -102,31 +94,10 @@ export default function Blockchains() {
       id="blockchains-section"
       className="py-12 md:py-16 relative overflow-hidden"
     >
-      {/* 3D Model Background Canvas - positioned absolutely to cover the entire section */}
-      <Box sx={{ 
-        position: "absolute", 
-        top: 0, 
-        left: 0, 
-        right: 0, 
-        bottom: 0, 
-        zIndex: 0, 
-        opacity: 0.5, 
-        width: "100%",
-         height: "600px",
-         marginTop:"350px"
-      }}>
-        <Suspense fallback={null}>
-          <Canvas camera={{ position: [0, 0, 10], fov: 10 }}>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} />
-            <EarthGlobeModel />
-            <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.9} />
-            <Environment preset="city" />
-          </Canvas>
-        </Suspense>
-      </Box>
+      {/* Import the 3D Model Background Component */}
+      <EarthGlobeModel />
 
-      {/* Existing content - now positioned on top of the 3D background */}
+      {/* Main content - positioned on top of the 3D background */}
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
         <Grid container spacing={2} alignItems="center">
           {/* Text section */}
@@ -140,7 +111,7 @@ export default function Blockchains() {
             >
               <Typography
                 variant="h2"
-                className=" text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
               >
                 {/* First Line using GradientLetters component */}
                 <Box component="div" className="flex flex-wrap justify-center">
@@ -158,7 +129,7 @@ export default function Blockchains() {
 
               <Typography
                 variant="body1"
-                className="text-text-secondary max-w-2xl text-center"
+                className="text-text-secondary max-w-2xl mx-auto text-center"
               >
                 Tokenize assets on your preferred blockchain. Copym provides
                 seamless integration with all major networks through a single,
@@ -178,14 +149,8 @@ export default function Blockchains() {
               marginBottom: "-50px",
             }}
           >
-            {" "}
-            {/* didn't remove the image, jsut decreased the opacity */}
             <Box sx={{ position: "relative", width: "100%", height: "700px" }}>
-              {/* Removed Canvas from here as it's now in the background */}
-              {/* <SectionImage
-                src="/assets/sections/hero-graphic.png"
-                alt="Blockchains Banner"
-              /> */}
+              {/* Space for the 3D model in the background */}
             </Box>
           </Grid>
         </Grid>
@@ -193,14 +158,11 @@ export default function Blockchains() {
         {/* Banner image - only visible on mobile, positioned at top */}
         {isMobile && (
           <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
-            {/* <SectionImage
-              src="/assets/sections/blockchain-removebg-preview.png"
-              alt="Blockchains Banner"
-            /> */}
+            {/* Mobile layout space */}
           </Box>
         )}
 
-        {/* New 3-slot blockchain icons display */}
+        {/* 3-slot blockchain icons display */}
         <Box
           sx={{
             position: "relative",
@@ -304,10 +266,6 @@ export default function Blockchains() {
           </Box>
         </Box>
       </Container>
-
-      {/* Enhanced background gradient highlight with Glow Effect */}
-     {/* <BackgroundGlowEffect/> */}
-
     </Box>
   );
 }
