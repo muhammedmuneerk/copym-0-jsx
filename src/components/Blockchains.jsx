@@ -1,10 +1,18 @@
 import { Container, Typography, Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { useGLTF, OrbitControls, Environment } from "@react-three/drei";
 import SectionImage from "./SectionImages";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
 import GradientLetters from "./GradientLetters"; // Import the GradientLetters component
 
+// Model component
+function EarthGlobeModel() {
+  const { scene } = useGLTF("/models/earth_globe_hologram_2mb_looping_animation.gltf");
+  
+  return <primitive object={scene} position={[0, 0, 0]} />;
+}
 
 const blockchains = [
   {
@@ -143,16 +151,25 @@ export default function Blockchains() {
             sx={{
               display: { xs: "none", md: "block" },
               opacity: "10",
-              marginBottom: "-350px",
+              marginBottom: "-150px",
             }}
           >
             {" "}
             {/* didn't remove the image, jsut decreased the opacity */}
-            <Box sx={{ position: "relative", width: "100%" }}>
-              <SectionImage
+            <Box sx={{ position: "relative", width: "100%", height: "700px" }}>
+            <Suspense fallback={<Box>Loading 3D Model...</Box>}>
+              <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} />
+                <EarthGlobeModel />
+                <OrbitControls enableZoom={false} autoRotate />
+                <Environment preset="city" />
+              </Canvas>
+            </Suspense>
+              {/* <SectionImage
                 src="/assets/sections/hero-graphic.png"
                 alt="Blockchains Banner"
-              />
+              /> */}
             </Box>
           </Grid>
         </Grid>
@@ -190,7 +207,7 @@ export default function Blockchains() {
               <motion.div
                 key={`slot1-${slot1Icon}-${key}`}
                 initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 0.5, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
                 transition={{ 
                   type: "spring",
@@ -221,7 +238,7 @@ export default function Blockchains() {
               <motion.div
                 key={`slot2-${slot2Icon}-${key}`}
                 initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 0.5, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
                 transition={{ 
                   type: "spring",
@@ -252,7 +269,7 @@ export default function Blockchains() {
               <motion.div
                 key={`slot3-${slot3Icon}-${key}`}
                 initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 0.5, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
                 transition={{ 
                   type: "spring",
