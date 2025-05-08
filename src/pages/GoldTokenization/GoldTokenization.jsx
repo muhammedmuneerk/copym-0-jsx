@@ -931,7 +931,7 @@ const GoldTokenization = () => {
   });
   
   return (
-    <div className="min-h-screen bg-[#09090b] text-white">
+    <div className="min-h-screen  text-white">
       {/* Fixed progress bar */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-yellow-500 origin-left z-50"
@@ -1027,7 +1027,7 @@ const GoldTokenization = () => {
       </section>
       
       {/* Portfolio Allocation Section */}
-      <section className="py-16 bg-black/30">
+      <section className="py-16 ">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12 text-center">
             <h2 className="text-3xl font-bold mb-4">
@@ -1043,7 +1043,7 @@ const GoldTokenization = () => {
       </section>
       
       {/* Investment Calculator Section */}
-      <section className="py-16 bg-black/30">
+      <section className="py-16 ">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12 text-center">
             <h2 className="text-3xl font-bold mb-4">
