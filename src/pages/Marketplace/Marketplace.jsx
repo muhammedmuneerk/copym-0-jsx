@@ -158,7 +158,7 @@ export default function Marketplace() {
   };
 
   return (
-    <Box className="min-h-screen bg-background py-16">
+    <Box className="min-h-screen py-16">
       <Container maxWidth="xl">
         {/* Header Section */}
         <Typography
