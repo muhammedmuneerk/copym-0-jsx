@@ -456,7 +456,6 @@ const TokenizationSlider = () => {
       sx={{
         maxWidth: '100%',
         height: '100%',
-        py: 2,
         px: 4,
         overflow: 'hidden',
         borderRadius: '2rem',
@@ -478,7 +477,7 @@ const TokenizationSlider = () => {
       <div className="card-content relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <motion.div 
-          className="text-center mt-4 mb-1"
+          className="text-center mt-5"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -630,7 +629,7 @@ const TokenizationSlider = () => {
         </div>
         
         {/* Card counter */}
-        <div className="text-center mt-1 text-white/70 font-medium">
+        <div className="text-center mb-2 text-white/70 font-medium">
           <span className="text-white">{currentIndex + 1}</span> / {cardData.length}
         </div>
       </div>
