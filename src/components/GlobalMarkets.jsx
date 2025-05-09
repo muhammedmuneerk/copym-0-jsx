@@ -108,7 +108,7 @@ export default function GlobalMarkets() {
           </Typography>
           <Typography
             variant="h2"
-            className="text-4xl md:text-5xl mb-4 pb-1 text-center"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
           >
             <Box component="div" className="flex flex-wrap justify-center">
               {Array.from("Connecting Global Markets").map((char, idx) => (

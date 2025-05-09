@@ -29,7 +29,7 @@ export default function Hero() {
               {/* Improved responsive heading with proper text scaling */}
               <Typography
                 variant="h1"
-                className="mt-16 sm:mt-20 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight sm:leading-snug text-center"
+                className="mt-16 sm:mt-20 text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight sm:leading-snug text-center"
                 sx={{ wordBreak: "break-word" }}
               >
                 {/* Large/Medium Screens: Full lines */}
