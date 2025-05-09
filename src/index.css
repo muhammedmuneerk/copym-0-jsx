@@ -123,12 +123,12 @@ body {
 
 .gradient-letter {
   display: inline-block;
-    font-family: 'Cormorant Garamond', sans-serif; /* Move this outside */
-    font-weight: 700; /* Bold */
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;;
+  font-family: 'Cormorant Garamond', sans-serif; /* Move this outside */
+  font-weight: 700; /* Bold */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;;
   background-image: linear-gradient(
     90deg, rgb(52, 152, 219) 0%, rgba(41, 128, 185, 0.7) 100%
 
