@@ -124,7 +124,7 @@ export default function Blockchains() {
   };
 
   const getIconSize = () => {
-    if (isMobile) return "w-16 h-16";
+    if (isMobile) return "w-20 h-20";
     if (isTablet) return "w-24 h-24";
     return "w-40 h-40";
   };
