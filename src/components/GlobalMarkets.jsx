@@ -48,10 +48,10 @@ export default function GlobalMarkets() {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
   const sectionRef = useRef(null);
-  const [cardVisible, setCardVisible] = useState(true); // Changed to default true
+  const [cardVisible, setCardVisible] = useState(true); // Set initial value to true
   const [animationTrigger, setAnimationTrigger] = useState(0);
 
-  // Set up intersection observer to show/hide cards when section enters/exits viewport
+  // Set up intersection observer to trigger animations when section enters viewport
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -59,34 +59,15 @@ export default function GlobalMarkets() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setCardVisible(true);
-            // Reset and trigger number animations when coming into view
+            // Keep cards visible and trigger animations when in view
             setAnimationTrigger((prev) => prev + 1);
-          } else {
-            // Optional: You can comment this line if you want cards to stay visible
-            // setCardVisible(false);
           }
         });
       },
-      { threshold: 0.1 } // Changed from 0.2 to 0.1 for earlier detection
+      { threshold: 0.1 } // Lower threshold to 0.1 (10% visible)
     );
 
     observer.observe(sectionRef.current);
-
-    // Check if already in viewport on initial load
-    const checkInitialVisibility = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        if (isVisible) {
-          setCardVisible(true);
-          setAnimationTrigger((prev) => prev + 1);
-        }
-      }
-    };
-    
-    // Run initial visibility check after a small delay to ensure rendering
-    setTimeout(checkInitialVisibility, 100);
 
     return () => {
       if (sectionRef.current) {
@@ -94,7 +75,7 @@ export default function GlobalMarkets() {
       }
     };
   }, []);
-
+  
   // Animation variants for cards
   const cardVariants = {
     hidden: (index) => ({
@@ -155,13 +136,13 @@ export default function GlobalMarkets() {
         <Grid container spacing={4}>
           {/* LEFT: Regional Cards (6 columns) */}
           <Grid item xs={12} md={6}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} className="justify-center md:justify-start">
               {regions.map((region, index) => (
-                <Grid item xs={12} sm={6} key={region.name}>
+                <Grid item xs={10} sm={6} key={region.name}>
                   <motion.div
                     custom={index}
                     initial="hidden"
-                    animate={cardVisible ? "visible" : "hidden"}
+                    animate="visible" // Always set to visible
                     variants={cardVariants}
                     className="h-full"
                   >
