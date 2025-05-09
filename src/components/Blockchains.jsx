@@ -5,12 +5,11 @@ import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Environment } from "@react-three/drei";
 import SectionImage from "./SectionImages";
 import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
-import GradientLetters from "./GradientLetters"; // Import the GradientLetters component
+import GradientLetters from "./GradientLetters";
 
 // Model component
 function EarthGlobeModel() {
   const { scene } = useGLTF("/models/animated_sci-fi_globe/animated_sci-fi_globe.gltf");
-  
   return <primitive object={scene} position={[0, 0, 0]} />;
 }
 
@@ -40,7 +39,7 @@ const blockchains = [
 export default function Blockchains() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const [key, setKey] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [slot1Icon, setSlot1Icon] = useState(0);
@@ -51,19 +50,16 @@ export default function Blockchains() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // When element becomes visible
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Trigger reload animation by changing key
           setKey(prevKey => prevKey + 1);
         } else {
           setIsVisible(false);
         }
       },
-      { threshold: 0.3 } // Trigger when 30% of the element is visible
+      { threshold: 0.3 }
     );
 
-    // Target element to observe
     const section = document.getElementById('blockchains-section');
     if (section) {
       observer.observe(section);
@@ -82,12 +78,10 @@ export default function Blockchains() {
       const interval = setInterval(() => {
         setSlot1Icon(prev => (prev + 1) % blockchains.length);
         
-        // Add a slight delay for the second slot
         setTimeout(() => {
           setSlot2Icon(prev => (prev + 1) % blockchains.length);
         }, 700);
         
-        // Add more delay for the third slot
         setTimeout(() => {
           setSlot3Icon(prev => (prev + 1) % blockchains.length);
         }, 1400);
@@ -98,40 +92,83 @@ export default function Blockchains() {
     }
   }, [isVisible]);
 
+  // Responsive styling variables
+  const getGlobePosition = () => {
+    if (isMobile) {
+      // For mobile, place the globe in the middle (after description, before icons)
+      return { 
+        position: "relative", 
+        height: "260px", 
+        marginTop: "-20px",
+        marginBottom: "-80px" // Creates overlap with icons below
+      };
+    }
+    if (isTablet) return { 
+      right: 0, 
+      height: "400px", 
+      marginTop: "100px",
+      position: "absolute"
+    };
+    return { 
+      right: 0, 
+      height: "600px", 
+      marginTop: "350px",
+      position: "absolute"
+    };
+  };
+
+  const getSlotSize = () => {
+    if (isMobile) return { width: "30%", height: "100px" };
+    if (isTablet) return { width: "28%", height: "140px" };
+    return { width: "25%", height: "180px" };
+  };
+
+  const getIconSize = () => {
+    if (isMobile) return "w-16 h-16";
+    if (isTablet) return "w-24 h-24";
+    return "w-40 h-40";
+  };
+
+  const globeStyles = getGlobePosition();
+  const slotStyles = getSlotSize();
+  const iconSizeClass = getIconSize();
+
   return (
     <Box
       id="blockchains-section"
-      className="py-12 md:py-16 relative overflow-hidden"
+      className="py-8 md:py-12 lg:py-16 relative overflow-hidden"
     >
-      {/* 3D Model Background Canvas - Now positioned to the right side */}
-      <Box sx={{ 
-        position: "absolute", 
-        top: 0, 
-        right: 0, // Changed from left: 0 to right: 0
-        width: isTablet ? "100%" : "50%", // Takes 50% width on desktop, full width on tablet/mobile
-        bottom: 0, 
-        zIndex: 0, 
-        opacity: 0.5,
-        height: "600px",
-        marginTop: isTablet ? "150px" : "350px", // Adjusted for different screen sizes
-        pointerEvents: "none", // Ensures it doesn't interfere with interaction
-        display: "flex",
-        justifyContent: "flex-end" // Aligns to the right
-      }}>
-        <Suspense fallback={null}>
-          <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} />
-            <EarthGlobeModel />
-            <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.9} />
-            <Environment preset="city" />
-          </Canvas>
-        </Suspense>
-      </Box>
+      {/* 3D Model Canvas - For tablet and desktop only */}
+      {!isMobile && (
+        <Box sx={{ 
+          position: globeStyles.position, 
+          top: 0, 
+          right: globeStyles.right,
+          width: isTablet ? "70%" : "50%",
+          bottom: 0, 
+          zIndex: 0, 
+          opacity: 0.5,
+          height: globeStyles.height,
+          marginTop: globeStyles.marginTop,
+          pointerEvents: "none",
+          display: "flex",
+          justifyContent: "flex-end"
+        }}>
+          <Suspense fallback={null}>
+            <Canvas camera={{ position: [0, 0, 10], fov: isTablet ? 18 : 15 }}>
+              <ambientLight intensity={0.5} />
+              <pointLight position={[10, 10, 10]} />
+              <EarthGlobeModel />
+              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.9} />
+              <Environment preset="city" />
+            </Canvas>
+          </Suspense>
+        </Box>
+      )}
 
-      {/* Existing content - now positioned on top of the 3D background */}
+      {/* Content Container */}
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
-        <Grid container spacing={2} alignItems="center">
+        <Grid container spacing={isMobile ? 1 : 2} alignItems="center">
           {/* Text section */}
           <Grid item xs={12} md={6}>
             <motion.div
@@ -139,29 +176,26 @@ export default function Blockchains() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="mb-6 md:mb-0"
+              className="mb-4 md:mb-6"
             >
               <Typography
                 variant="h2"
-                className=" text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 md:mb-4 pb-1 text-center"
               >
-                {/* First Line using GradientLetters component */}
+                {/* First Line */}
                 <Box component="div" className="flex flex-wrap justify-center">
                   <GradientLetters text="Unified Access to All" keyPrefix="line1" />
                 </Box>
 
-                {/* Second Line using GradientLetters component */}
-                <Box
-                  component="div"
-                  className="flex flex-wrap justify-center mt-1"
-                >
+                {/* Second Line */}
+                <Box component="div" className="flex flex-wrap justify-center mt-1">
                   <GradientLetters text="Major Blockchains" keyPrefix="line2" />
                 </Box>
               </Typography>
 
               <Typography
                 variant="body1"
-                className="text-text-secondary max-w-2xl text-center"
+                className="text-text-secondary max-w-2xl mx-auto text-center text-sm sm:text-base px-4"
               >
                 Tokenize assets on your preferred blockchain. Copym provides
                 seamless integration with all major networks through a single,
@@ -170,7 +204,7 @@ export default function Blockchains() {
             </motion.div>
           </Grid>
 
-          {/* Banner image section - only visible on desktop */}
+          {/* Hidden on mobile, visible on desktop */}
           <Grid
             item
             xs={12}
@@ -181,45 +215,54 @@ export default function Blockchains() {
               marginBottom: "-50px",
             }}
           >
-            {" "}
-            {/* didn't remove the image, just decreased the opacity */}
             <Box sx={{ position: "relative", width: "100%", height: "700px" }}>
-              {/* Removed Canvas from here as it's now in the background */}
-              {/* <SectionImage
-                src="/assets/sections/hero-graphic.png"
-                alt="Blockchains Banner"
-              /> */}
+              {/* Space reserved for the 3D model */}
             </Box>
           </Grid>
         </Grid>
-
-        {/* Banner image - only visible on mobile, positioned at top */}
+        
+        {/* 3D Model for Mobile - Between description and icons */}
         {isMobile && (
-          <Box sx={{ position: "relative", width: "100%", mb: 4 }}>
-            {/* <SectionImage
-              src="/assets/sections/blockchain-removebg-preview.png"
-              alt="Blockchains Banner"
-            /> */}
+          <Box sx={{ 
+            width: "100%",
+            zIndex: 0, 
+            opacity: 0.5,
+            height: globeStyles.height,
+            marginTop: globeStyles.marginTop,
+            marginBottom: globeStyles.marginBottom,
+            pointerEvents: "none",
+          }}>
+            <Suspense fallback={null}>
+              <Canvas camera={{ position: [0, 0, 10], fov: 18 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} />
+                <EarthGlobeModel />
+                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.9} />
+                <Environment preset="city" />
+              </Canvas>
+            </Suspense>
           </Box>
         )}
 
-        {/* New 3-slot blockchain icons display */}
+        {/* Blockchain icons display */}
+        {/* Blockchain icons display - positioned below the 3D model on mobile */}
         <Box
           sx={{
             position: "relative",
             width: "100%",
-            mt: 5,
+            mt: isMobile ? 0 : isTablet ? 3 : 5, // No additional margin needed on mobile due to globe's negative margin
             display: "flex",
             justifyContent: "space-evenly",
-            zIndex: 2, // Ensure icons are above the 3D model
+            zIndex: isMobile ? 2 : 1, // Higher z-index on mobile to ensure icons appear above the globe
+            px: isMobile ? 1 : 0
           }}
         >
           {/* Slot 1 */}
           <Box
             sx={{
-              width: isMobile ? "30%" : "25%",
+              width: slotStyles.width,
               position: "relative",
-              height: isMobile ? "120px" : "180px",
+              height: slotStyles.height,
               overflow: "hidden",
             }}
           >
@@ -238,7 +281,7 @@ export default function Blockchains() {
                 whileHover={{ opacity: 1, scale: 1.05 }}
                 className="w-full h-full flex items-center justify-center"
               >
-                <Box className={isMobile ? "w-20 h-20" : "w-40 h-40"}>
+                <Box className={iconSizeClass}>
                   {blockchains[slot1Icon].logo}
                 </Box>
               </motion.div>
@@ -248,9 +291,9 @@ export default function Blockchains() {
           {/* Slot 2 */}
           <Box
             sx={{
-              width: isMobile ? "30%" : "25%",
+              width: slotStyles.width,
               position: "relative",
-              height: isMobile ? "120px" : "180px",
+              height: slotStyles.height,
               overflow: "hidden",
             }}
           >
@@ -269,7 +312,7 @@ export default function Blockchains() {
                 whileHover={{ opacity: 1, scale: 1.05 }}
                 className="w-full h-full flex items-center justify-center"
               >
-                <Box className={isMobile ? "w-20 h-20" : "w-40 h-40"}>
+                <Box className={iconSizeClass}>
                   {blockchains[slot2Icon].logo}
                 </Box>
               </motion.div>
@@ -279,9 +322,9 @@ export default function Blockchains() {
           {/* Slot 3 */}
           <Box
             sx={{
-              width: isMobile ? "30%" : "25%",
+              width: slotStyles.width,
               position: "relative",
-              height: isMobile ? "120px" : "180px",
+              height: slotStyles.height,
               overflow: "hidden",
             }}
           >
@@ -300,7 +343,7 @@ export default function Blockchains() {
                 whileHover={{ opacity: 1, scale: 1.05 }}
                 className="w-full h-full flex items-center justify-center"
               >
-                <Box className={isMobile ? "w-20 h-20" : "w-40 h-40"}>
+                <Box className={iconSizeClass}>
                   {blockchains[slot3Icon].logo}
                 </Box>
               </motion.div>
@@ -309,9 +352,8 @@ export default function Blockchains() {
         </Box>
       </Container>
 
-      {/* Enhanced background gradient highlight with Glow Effect */}
-     {/* <BackgroundGlowEffect/> */}
-
+      {/* Background glow effect commented out as in original code */}
+      {/* <BackgroundGlowEffect/> */}
     </Box>
   );
 }

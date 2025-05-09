@@ -48,7 +48,7 @@ export default function GlobalMarkets() {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
   const sectionRef = useRef(null);
-  const [cardVisible, setCardVisible] = useState(false);
+  const [cardVisible, setCardVisible] = useState(true); // Changed to default true
   const [animationTrigger, setAnimationTrigger] = useState(0);
 
   // Set up intersection observer to show/hide cards when section enters/exits viewport
@@ -63,14 +63,30 @@ export default function GlobalMarkets() {
             // Reset and trigger number animations when coming into view
             setAnimationTrigger((prev) => prev + 1);
           } else {
-            setCardVisible(false);
+            // Optional: You can comment this line if you want cards to stay visible
+            // setCardVisible(false);
           }
         });
       },
-      { threshold: 0.2 } // 0.2 means 20% visible
+      { threshold: 0.1 } // Changed from 0.2 to 0.1 for earlier detection
     );
 
     observer.observe(sectionRef.current);
+
+    // Check if already in viewport on initial load
+    const checkInitialVisibility = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        if (isVisible) {
+          setCardVisible(true);
+          setAnimationTrigger((prev) => prev + 1);
+        }
+      }
+    };
+    
+    // Run initial visibility check after a small delay to ensure rendering
+    setTimeout(checkInitialVisibility, 100);
 
     return () => {
       if (sectionRef.current) {

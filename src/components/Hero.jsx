@@ -10,7 +10,10 @@ export default function Hero() {
     <Box className="min-h-screen relative overflow-hidden">
       {/* Overlay gradient for better text readability */}
       <div className="absolute inset-0">
-        <Container maxWidth="xl" className="relative z-20">
+        <Container 
+          maxWidth="xl" 
+          className="relative z-20 px-4 sm:px-6 md:px-8" // Added responsive padding
+        >
           <motion.div
             className="flex flex-col items-center justify-center min-h-screen text-center"
             initial={{ opacity: 0 }}
@@ -21,55 +24,60 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-full" // Added full width for better mobile alignment
             >
-
+              {/* Improved responsive heading with proper text scaling */}
               <Typography
                 variant="h1"
-                className="mt-20 text-3xl sm:text-3xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-snug text-center"
+                className="mt-16 sm:mt-20 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight sm:leading-snug text-center"
                 sx={{ wordBreak: "break-word" }}
               >
-                {/* Large Screens: First line whole */}
-                <Box component="div" className="hidden sm:block">
+                {/* Large/Medium Screens: Full lines */}
+                <Box component="div" className="hidden md:block">
                   <GradientLetters text="The Complete Ecosystem" keyPrefix="line1-lg" />
                 </Box>
-
-                {/* Line 2 (unchanged) for medium+ screens */}
-                <Box component="div" className="block mt-1 hidden sm:block">
+                <Box component="div" className="hidden md:block mt-1">
                   <GradientLetters 
                     text="for Real World Asset Tokenization" 
                     keyPrefix="line2-char" 
                   />
                 </Box>
 
+                {/* Tablet Screens: Adjusted lines */}
+                <Box component="div" className="hidden sm:block md:hidden">
+                  <GradientLetters text="The Complete Ecosystem" keyPrefix="line1-md-1" />
+                </Box>
+                <Box component="div" className="hidden sm:block md:hidden">
+                  <GradientLetters text="for Real World" keyPrefix="line1-md-2" />
+                </Box>
+                <Box component="div" className="hidden sm:block md:hidden mt-1">
+                  <GradientLetters text="Asset Tokenization" keyPrefix="line2-md-1" />
+                </Box>
 
-                 {/* Small Screens: First line split */}
-                 <Box component="div" className="block sm:hidden">
-                  <GradientLetters text="The Complete" keyPrefix="line1-sm-1" />
+                {/* Mobile Screens: More compact lines */}
+                <Box component="div" className="block sm:hidden">
+                  <GradientLetters text="The Complete Ecosystem for" keyPrefix="line1-sm-1" />
                 </Box>
                 <Box component="div" className="block sm:hidden">
-                  <GradientLetters text="Ecosystem" keyPrefix="line1-sm-2" />
+                  <GradientLetters text="Real World Asset" keyPrefix="line1-sm-2" />
                 </Box>
-
-                {/* Line 2 split for small screens */}
-                <Box component="div" className="block mt-1 sm:hidden">
-                  <GradientLetters text="for Real World" keyPrefix="line2-sm-1" />
+                <Box component="div" className="block sm:hidden">
+                  <GradientLetters text="Tokenization" keyPrefix="line1-sm-3" />
                 </Box>
-                <Box component="div" className="block mt-1 sm:hidden">
-                  <GradientLetters text="Asset Tokenization" keyPrefix="line2-sm-2" />
-                </Box>
-                
               </Typography>
 
+              {/* Improved subtitle with responsive text size and width */}
               <Typography
                 variant="body1"
-                className="text-text-secondary mb-12 max-w-3xl mx-auto text-lg text-white/80"
+                className="text-text-secondary mb-8 sm:mb-10 md:mb-12 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto text-base sm:text-lg text-white/80"
               >
                 One unified platform for tokenizing, managing, and trading any
                 real-world asset class. Access all the tools, networks, and
                 liquidity you need in a single ecosystem.
               </Typography>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {/* Responsive button container with improved spacing */}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
                 {["Explore Asset Tokenization", "Start Tokenizing Now"].map((label, index) => (
                   <div
                     key={index}
@@ -79,7 +87,7 @@ export default function Hero() {
                       <Button
                         variant="text"
                         size="large"
-                        className="rounded-full px-8 py-3 font-semibold w-full text-white backdrop-blur-md bg-white/5 hover:bg-white/10"
+                        className="rounded-full px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold w-full text-white backdrop-blur-md bg-white/5 hover:bg-white/10"
                       >
                         {label}
                       </Button>
@@ -90,8 +98,9 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
+          {/* Improved "Discover More" indicator with better mobile positioning */}
           <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -103,7 +112,7 @@ export default function Hero() {
           >
             <Typography
               variant="button"
-              className="text-white flex flex-col items-center cursor-pointer"
+              className="text-white flex flex-col items-center cursor-pointer text-sm sm:text-base"
               onClick={() =>
                 window.scrollTo({
                   top: window.innerHeight,
@@ -112,13 +121,13 @@ export default function Hero() {
               }
             >
               Discover More
-              <KeyboardArrowDown className="mt-2" />
+              <KeyboardArrowDown className="mt-1 sm:mt-2" />
             </Typography>
           </motion.div>
         </Container>
 
-      {/* Enhanced background gradient highlight with Glow Effect */}
-     {/* <BackgroundGlowEffect/> */}
+        {/* Background glow effect (commented out in original) */}
+        {/* <BackgroundGlowEffect /> */}
       </div>
     </Box>
   );
