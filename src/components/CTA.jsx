@@ -40,16 +40,13 @@ export default function CTA() {
             {/* Small and Medium screens: 3 lines */}
             <Box className="block lg:hidden">
               <Box component="div" className="flex flex-wrap justify-center">
-                <GradientLetters text="Ready to" keyPrefix="sm-line1" />
+                <GradientLetters text="Ready to Transform" keyPrefix="sm-line1" />
               </Box>
 
               <Box component="div" className="flex flex-wrap justify-center">
-                <GradientLetters text="Transform Your" keyPrefix="sm-line2" />
+                <GradientLetters text=" Your Assets?" keyPrefix="sm-line2" />
               </Box>
 
-              <Box component="div" className="flex flex-wrap justify-center">
-                <GradientLetters text="Assets?" keyPrefix="sm-line3" />
-              </Box>
             </Box>
           </Box>
         </Typography>

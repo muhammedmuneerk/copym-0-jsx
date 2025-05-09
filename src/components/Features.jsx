@@ -272,22 +272,15 @@ export default function Features() {
               {/* Small & Medium Screens (3 lines) */}
               <Box className="block lg:hidden">
                 <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Everything You").map((char, idx) => (
+                  {Array.from("Everything You Need").map((char, idx) => (
                     <Box key={`sm-line1-${idx}`} component="span" className="gradient-letter">
                       {char === " " ? "\u00A0" : char}
                     </Box>
                   ))}
                 </Box>
                 <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("Need In").map((char, idx) => (
+                  {Array.from("In One Place").map((char, idx) => (
                     <Box key={`sm-line2-${idx}`} component="span" className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </Box>
-                  ))}
-                </Box>
-                <Box component="div" className="flex flex-wrap justify-center">
-                  {Array.from("One Place").map((char, idx) => (
-                    <Box key={`sm-line3-${idx}`} component="span" className="gradient-letter">
                       {char === " " ? "\u00A0" : char}
                     </Box>
                   ))}
