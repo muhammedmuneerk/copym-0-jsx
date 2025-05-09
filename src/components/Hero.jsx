@@ -100,7 +100,7 @@ export default function Hero() {
 
           {/* Improved "Discover More" indicator with better mobile positioning */}
           <motion.div
-            className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-12 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
