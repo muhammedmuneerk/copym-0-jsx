@@ -27,7 +27,7 @@ export const Card = ({ children, className, as3D = false }) => {
 const RealEstateTokenization = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [currentProperty, setCurrentProperty] = useState(0);
-  const [animateTokens, setAnimateTokens] = useState(false);
+  const [animateTokens, setAnimateTokens] = useState(true); // Set to true initially to skip animation
 
   // Properties data
   const properties = [
@@ -53,32 +53,9 @@ const RealEstateTokenization = () => {
     },
   ];
 
-  // Trigger token animation on first render
-  useEffect(() => {
-    setTimeout(() => setAnimateTokens(true), 500);
-  }, []);
+  // Removed the useEffect for token animation so it starts immediately
 
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.8, 
-        staggerChildren: 0.2 
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
-  
+  // Removed animation variants that were used for initial loading
 
   return (
     <div>
@@ -86,60 +63,25 @@ const RealEstateTokenization = () => {
       {/* Hero Section */}
       <section className="relative container mx-auto px-6 py-24">
 
-        <motion.div
-          className="max-w-4xl mt-20 relative z-10"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            initial={{ width: "0%" }}
-            animate={{ width: "60%" }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-4 left-0"
-          />
-          <motion.div
-            initial={{ width: "0%" }}
-            animate={{ width: "30%" }}
-            transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-            className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-8 left-0"
-          />
+        <div className="max-w-4xl mt-20 relative z-10">
+          <div className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-4 left-0 w-[60%]" />
+          <div className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-8 left-0 w-[30%]" />
 
-          <motion.h1
-            className="font-['Orbitron'] text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
+          <h1 className="font-['Orbitron'] text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
             Real Estate <span className="text-emerald-400">Tokenization</span>
-          </motion.h1>
+          </h1>
 
-          <motion.h2
-            className="text-xl md:text-2xl font-medium mb-6 text-gray-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
+          <h2 className="text-xl md:text-2xl font-medium mb-6 text-gray-300">
             Transform Property Investment with Blockchain Technology
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            className="text-gray-400 mb-8 max-w-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
+          <p className="text-gray-400 mb-8 max-w-2xl">
             Democratize real estate investment through fractional ownership,
             enhanced liquidity, and global accessibility. The future of property
             investment is here.
-          </motion.p>
+          </p>
 
-          <motion.div
-            className="flex flex-wrap gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
+          <div className="flex flex-wrap gap-4">
             <motion.button
               onClick={() => {}}
               whileHover={{ scale: 1.03 }}
@@ -165,20 +107,14 @@ const RealEstateTokenization = () => {
             >
               Learn More
             </motion.button>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Revolutionize Section */}
-      <motion.section
-        className="container mx-auto px-6 py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
+      <section className="container mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <motion.div variants={itemVariants}>
+          <div>
             <div className="relative mb-8">
               <div className="absolute left-0 top-0 h-12 w-1 bg-emerald-500 opacity-80" />
               <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 pl-6">
@@ -238,10 +174,10 @@ const RealEstateTokenization = () => {
                 </Card>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Property Card */}
-          <motion.div variants={itemVariants} className="lg:w-full">
+          <div className="lg:w-full">
             <PropertyCard
               property={properties[currentProperty]}
               animateTokens={animateTokens}
@@ -254,53 +190,33 @@ const RealEstateTokenization = () => {
                 )
               }
             />
-          </motion.div>
+          </div>
           
         </div>
-      </motion.section>
+      </section>
 
       {/* Tokenization Process Section */}
-      <motion.section
-        className="container mx-auto px-6 py-20 relative"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
+      <section className="container mx-auto px-6 py-20 relative">
         <div className="text-center mb-16 relative">
-          <motion.div
+          <div
             className="absolute left-1/2 transform -translate-x-1/2 -top-10 w-24 h-24 rounded-full bg-emerald-500 filter blur-[80px] opacity-30"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.4, 0.3] }}
-            transition={{ duration: 5, repeat: Infinity }}
           />
 
-          <motion.h2
-            className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4"
-            variants={itemVariants}
-          >
+          <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4">
             Real Estate{" "}
             <span className="text-emerald-400">Tokenization Process</span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            className="text-gray-300 max-w-2xl mx-auto"
-            variants={itemVariants}
-          >
+          <p className="text-gray-300 max-w-2xl mx-auto">
             Our streamlined process makes tokenizing real estate assets simple
             and efficient
-          </motion.p>
+          </p>
         </div>
 
         {/* Process Steps with connecting lines */}
         <div className="relative">
-          {/* Connecting line */}
-          <motion.div
-            className="absolute hidden md:block top-1/2 left-[10%] right-[10%] h-1 bg-gray-800 -translate-y-1/2 z-0"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          />
+          {/* Connecting line - removed animation */}
+          <div className="absolute hidden md:block top-1/2 left-[10%] right-[10%] h-1 bg-gray-800 -translate-y-1/2 z-0" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
             {[
@@ -329,12 +245,7 @@ const RealEstateTokenization = () => {
                 desc: "Enable primary offering and secondary market trading for property tokens.",
               },
             ].map((process, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                custom={index}
-                className="flex justify-center"
-              >
+              <div key={index} className="flex justify-center">
                 <Card className="relative w-full">
                   <motion.div
                     className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-[#0a0a0a] border-4 border-emerald-500 flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20"
@@ -356,28 +267,19 @@ const RealEstateTokenization = () => {
                     </div>
                   </div>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Benefits Section */}
-      <motion.section
-        className="container mx-auto px-6 py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
+      <section className="container mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <motion.h2
-            className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4"
-            variants={itemVariants}
-          >
+          <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4">
             Benefits of{" "}
             <span className="text-emerald-400">Real Estate Tokenization</span>
-          </motion.h2>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -401,11 +303,7 @@ const RealEstateTokenization = () => {
               ],
             },
           ].map((benefitGroup, groupIndex) => (
-            <motion.div
-              key={groupIndex}
-              variants={itemVariants}
-              custom={groupIndex}
-            >
+            <div key={groupIndex}>
               <Card className="h-full backdrop-blur-sm group">
                 <div className="h-1 w-full bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-30 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="p-8">
@@ -415,44 +313,31 @@ const RealEstateTokenization = () => {
 
                   <ul className="space-y-6">
                     {benefitGroup.benefits.map((benefit, index) => (
-                      <motion.li
-                        key={index}
-                        className="flex items-center"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 + 0.2 }}
-                      >
+                      <li key={index} className="flex items-center">
                         <div className="rounded-full p-1 bg-emerald-500 bg-opacity-20 mr-4">
                           <Check className="h-5 w-5 text-emerald-500" />
                         </div>
                         <span className="text-white text-lg">{benefit}</span>
-                      </motion.li>
+                      </li>
                     ))}
                   </ul>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
       {/* Final CTA Section with enhanced background */}
-      <motion.section
-        className="container mx-auto px-6 py-20 text-center relative"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
-        {/* Advanced background glow */}
+      <section className="container mx-auto px-6 py-20 text-center relative">
+        {/* Advanced background glow - keeping animation as it's not a startup animation */}
         <motion.div
           className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-emerald-500 filter blur-[100px] opacity-15"
           animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
           transition={{ duration: 8, repeat: Infinity }}
         />
 
-        {/* Animated network lines in background */}
+        {/* Animated network lines in background - keeping animation as it provides ambient movement */}
         <div className="absolute inset-0 overflow-hidden opacity-15">
           <svg
             className="w-full h-full"
@@ -469,7 +354,7 @@ const RealEstateTokenization = () => {
                   stroke="#10b981"
                   strokeWidth="0.4"
                   fill="none"
-                  initial={{ pathLength: 0, opacity: 0 }}
+                  initial={{ pathLength: 1, opacity: 0.5 }} // Set initial state to final state
                   animate={{
                     pathLength: 1,
                     opacity: [0, 0.5, 0],
@@ -492,37 +377,34 @@ const RealEstateTokenization = () => {
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-20 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
           <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-10 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
 
-          <motion.h2
-            className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
-            variants={itemVariants}
-          >
+          <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
             Ready to Transform Your Real Estate Portfolio?
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            className="text-gray-300 mb-10 text-xl"
-            variants={itemVariants}
-          >
+          <p className="text-gray-300 mb-10 text-xl">
             Join thousands of property owners and investors already tokenizing
             real estate on the Copym platform.
-          </motion.p>
+          </p>
 
-          <motion.div
-            className="flex flex-wrap justify-center gap-6"
-            variants={itemVariants}
-          >
-            <button className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 text-lg group">
+          <div className="flex flex-wrap justify-center gap-6">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 text-lg group">
               <span className="flex items-center">
                 Start Tokenizing
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
-            </button>
-            <button className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 text-lg">
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 text-lg">
               Schedule Consultation
-            </button>
-          </motion.div>
+            </motion.button>
+          </div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 };
