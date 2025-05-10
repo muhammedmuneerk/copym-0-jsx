@@ -607,12 +607,6 @@ export default function TokenizationHub() {
       {/* Background pattern */}
       <BackgroundPattern />
       
-      {/* Background radial gradient */}
-      <div className="background-gradient" />
-      
-      {/* Background grain texture */}
-      <div className="background-grain" />
-      
       {/* Main content */}
       <div className="main-content">
         {/* Header Section */}
