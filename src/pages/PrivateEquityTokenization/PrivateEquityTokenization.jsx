@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import LockIcon from "@mui/icons-material/Lock";
 import { ArrowRightAlt } from "@mui/icons-material";
+import {Box, Typography,Grid, } from "@mui/material";
 import { Globe2, ChartBar, Shield, Building2, BarChart3 } from "lucide-react";
 import BackgroundTheme from "../../ui/GridBackgroundTheme";
+import GradientLetters from "../../components/GradientLetters";
 
 const FadeSection = ({ children }) => (
   <motion.div
@@ -33,35 +35,42 @@ const PrivateEquityTokenization = () => {
             {/* Content Section - Left */}
             <div className="relative w-full md:w-1/2 z-10 md:-mt-20">
               <div className="font-orbitron font-bold text-3xl sm:text-4xl md:text-5xl mb-6 text-center md:text-left">
-                {/* Mobile layout */}
-                <div className="block lg:hidden space-y-1">
-                  {"Private".split("").map((char, i) => (
-                    <span key={`sm-line1-${i}`} className="gradient-letter">
-                      {char === " " ? "\u00A0" : char}
-                    </span>
-                  ))}{" "}
-                  {"Equity".split("").map((char, i) => (
-                    <span key={`sm-line1b-${i}`} className="gradient-letter">{char}</span>
-                  ))}
-                </div>
+              <Typography
+                  variant="h1"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-1 text-center"
+                >
+                  <Box component="div" className="flex flex-wrap">
+                    {/* Large Screens (1 lines) */}
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Private Equity"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Tokenization"
+                        keyPrefix="lg-line2"
+                      />
+                    </Box>
 
-                {/* Desktop layout */}
-                <div className="hidden lg:block space-y-1">
-                  <div className="flex flex-wrap justify-start">
-                    {"Private Equity".split("").map((char, i) => (
-                      <span key={`lg-line1-${i}`} className="gradient-letter">
-                        {char === " " ? "\u00A0" : char}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap justify-start">
-                    {"Tokenization".split("").map((char, i) => (
-                      <span key={`lg-line2-${i}`} className="gradient-letter">
-                        {char === " " ? "\u00A0" : char}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                    {/* Small and Medium screens: 1 lines */}
+                    <Box className="block lg:hidden">
+                      <Box component="div" className="flex flex-wrap ">
+                        <GradientLetters
+                          text="Private Equity"
+                          keyPrefix="sm-line1"
+                        />
+                      </Box>
+                      <Box component="div" className="flex flex-wrap ">
+                        <GradientLetters
+                          text="Tokenization"
+                          keyPrefix="sm-line1"
+                        />
+                      </Box>
+                    </Box>
+                  </Box>
+                </Typography>
               </div>
 
               <p className="text-base md:text-lg text-[#CCCCCC] leading-relaxed font-futuristic text-center md:text-left">
