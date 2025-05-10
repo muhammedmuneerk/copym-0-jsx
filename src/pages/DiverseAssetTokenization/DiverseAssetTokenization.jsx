@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Container, Typography, Box, Grid } from "@mui/material";
+import GradientLetters from "../../components/GradientLetters";
 
 // Custom SVG Icons - Keeping original icons
 const TokenizationIcon = () => (
@@ -294,18 +296,34 @@ const DiverseAssetTokenization = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <div className="bg-[#121212] p-4 rounded-lg border border-gray-700 shadow-md relative overflow-hidden">
-                <DiversityIcon />
-              </div>
               
-              <motion.h1
-                className="font-['Orbitron'] text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-              >
-                Diverse Asset <span className="text-emerald-400">Tokenization</span>
-              </motion.h1>
+              <Typography
+            variant="h1"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-1 text-center"
+          >
+            <Box component="div" className="flex flex-wrap">
+              
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Diverse Asset Tokenization"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small and Medium screens: 3 lines */}
+              <Box className="block lg:hidden">
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters text="Diverse Asset" keyPrefix="sm-line1"
+                  />
+                </Box>
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters text="Tokenization" keyPrefix="sm-line2" />
+                </Box>
+              </Box>
+
+            </Box>
+          </Typography>
             </motion.div>
 
             <motion.h2
