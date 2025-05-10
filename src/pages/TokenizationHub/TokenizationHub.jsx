@@ -10,7 +10,8 @@ import {
   // HorizontalScrollContainer removed from import
 } from "./UIComponents";
 import "./TokenizationHub.css";
-
+import { Typography, Box } from "@mui/material";
+import GradientLetters from "../../components/GradientLetters";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
@@ -652,19 +653,45 @@ export default function TokenizationHub() {
               />
             </div>
             
-            <h1 className="main-title">
-              {Array.from("Complete Echo Asset").map((char, idx) => (
-                <span key={`title-1-${idx}`} className="gradient-letter">
-                  {char === " " ? "\u00A0" : char}
-                </span>
-              ))}
-              <br />
-              {Array.from("Tokenization Hub").map((char, idx) => (
-                <span key={`title-2-${idx}`} className="gradient-letter">
-                  {char === " " ? "\u00A0" : char}
-                </span>
-              ))}
-            </h1>
+            <Typography
+              variant="h1"
+              className="w-full text-4xl md:text-5xl lg:text-6xl font-bold mb-4 mt-1 text-center"
+            >
+              <Box
+                component="div"
+                className="flex flex-col items-center justify-center w-full"
+              >
+                {/* Large Screens (2 line) */}
+                <Box className="hidden lg:flex lg:justify-center w-full">
+                  <GradientLetters
+                    text="Complete Echo Asset"
+                    keyPrefix="lg-line1"
+                  />
+                </Box>
+                <Box className="hidden lg:flex lg:justify-center w-full">
+                  <GradientLetters
+                    text="Tokenization Hub"
+                    keyPrefix="lg-line2"
+                  />
+                </Box>
+
+                {/* Small and Medium screens: 2 lines */}
+                <Box className="flex flex-col items-center justify-center lg:hidden w-full">
+                  <Box component="div" className="flex justify-center w-full">
+                    <GradientLetters
+                      text="Complete Echo Asset"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box component="div" className="flex justify-center w-full">
+                    <GradientLetters
+                      text="Tokenization Hub"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                </Box>
+              </Box>
+            </Typography>
             
             <p className="main-description">
               Transform any real-world asset into digital tokens with CopyM's 
