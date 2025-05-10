@@ -13,6 +13,7 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
+import GradientLetters from "../../components/GradientLetters";
 
 
 const mockAssets = [
@@ -163,11 +164,33 @@ export default function Marketplace() {
         {/* Header Section */}
         <Typography
           variant="h1"
-          className="text-4xl md:text-5xl font-bold text-center mb-4 mt-20"
-          sx={{ color: "#00ff85", fontFamily: "'Orbitron', sans-serif" }}
+          className="w-full text-4xl md:text-5xl lg:text-6xl font-bold mb-4 mt-20 text-center"
         >
-          Asset Tokenization Marketplace
+          <Box
+            component="div"
+            className="flex flex-col items-center justify-center w-full"
+          >
+            {/* Large Screens (1 line) */}
+            <Box className="hidden lg:flex lg:justify-center w-full">
+              <GradientLetters
+                text="Asset Tokenization Marketplace"
+                keyPrefix="lg-line1"
+              />
+            </Box>
+
+            {/* Small and Medium screens: 2 lines */}
+            <Box className="flex flex-col items-center justify-center lg:hidden w-full">
+              <Box component="div" className="flex justify-center w-full">
+                <GradientLetters text="Asset Tokenization" keyPrefix="sm-line1" />
+              </Box>
+
+              <Box component="div" className="flex justify-center w-full">
+                <GradientLetters text="Marketplace" keyPrefix="sm-line2" />
+              </Box>
+            </Box>
+          </Box>
         </Typography>
+
         <Typography
           variant="body1"
           className="text-text-secondary text-center max-w-3xl mx-auto mb-12"
