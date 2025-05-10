@@ -4,15 +4,7 @@ import { Check, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Building, Ba
 import PropertyCard from "./PropertyCard";
 import BackgroundTheme from "../../ui/GridBackgroundTheme";
 import GradientLetters from "../../components/GradientLetters";
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  useMediaQuery,
-  useTheme,
-  Slider,
-} from "@mui/material";
+import { Container, Typography, Box, Grid } from "@mui/material";
 
 // Custom components to replace MUI
 

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@mui/material";
 import { ChevronLeft, ChevronRight, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import { motion } from "framer-motion"; // Added import for motion component
+import { Container, Typography, Box, Grid } from "@mui/material";
+import GradientLetters from "../../components/GradientLetters";
 
 // Custom Card component with glass-morphism effect
 const GlassCard = ({ children, className, hoverEffect = false }) => {
@@ -143,10 +145,31 @@ const CommoditiesTokenization = () => {
                 <span className="uppercase text-xs tracking-widest text-emerald-500 font-medium">Blockchain Innovation</span>
               </div>
             </div>
-            
-            <h1 className="font-['Orbitron'] text-5xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-              Commodities Tokenization
-            </h1>
+
+            <Typography
+            variant="h1"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-1 text-center"
+          >
+            <Box component="div" className="flex flex-wrap">
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters text="Commodities Tokenization" keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small and Medium screens: 2 lines */}
+              <Box className="block lg:hidden">
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters text="Commodities" keyPrefix="sm-line1"
+                  />
+                </Box>
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters text="Tokenization" keyPrefix="sm-line2" />
+                </Box>
+              </Box>
+
+            </Box>
+          </Typography>
             
             <h2 className="text-2xl md:text-3xl text-gray-300 mb-4 font-light">
               Transforming Physical Assets into <span className="text-emerald-400">Digital Investments</span>
