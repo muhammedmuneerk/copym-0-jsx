@@ -8,7 +8,9 @@ import {
   Shield,
   AccountBalance,
 } from "@mui/icons-material";
+import { Box, Typography, Container, Grid } from "@mui/material";
 import { ArrowRight, ArrowLeft, Globe2, Users } from "lucide-react";
+import GradientLetters from "../../components/GradientLetters";
 
 const FadeSection = ({ children }) => (
   <motion.div
@@ -58,7 +60,6 @@ const ArtTokenization = () => {
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
-
       {/* Content sections continue from here */}
       {/* Hero Section */}
       <section className="relative container mx-auto px-6 py-24">
@@ -67,37 +68,46 @@ const ArtTokenization = () => {
             {/* Content Section - Left */}
             <div className="relative w-full md:w-1/2 z-10 md:-mt-20">
               <div className="font-orbitron font-bold text-3xl sm:text-4xl md:text-5xl mb-6 text-center md:text-left">
-                {/* Mobile layout */}
-                <div className="block lg:hidden space-y-1">
-                  <div className="flex flex-wrap justify-center md:justify-start">
-                    {"Art".split("").map((char, i) => (
-                      <span key={`sm-line1-${i}`} className="gradient-letter">
-                        {char === " " ? "\u00A0" : char}
-                      </span>
-                    ))}{" "}
-                    {"Tokenization".split("").map((char, i) => (
-                      <span key={`sm-line1b-${i}`} className="gradient-letter">{char}</span>
-                    ))}
-        </div>
-      </div>
+                <Typography
+                  variant="h1"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-1 text-center"
+                >
+                  <Box component="div" className="flex flex-wrap">
+                    {/* Large Screens (1 lines) */}
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Art Tokenization"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
 
-                {/* Desktop layout */}
-                <div className="hidden lg:block space-y-1">
-                  <div className="flex flex-wrap justify-start">
-                    {"Art Tokenization".split("").map((char, i) => (
-                      <span key={`lg-line1-${i}`} className="gradient-letter">
-                        {char === " " ? "\u00A0" : char}
-                      </span>
-                    ))}
-            </div>
-          </div>
+                    {/* Small and Medium screens: 1 lines */}
+                    <Box className="block lg:hidden">
+                      <Box component="div" className="flex flex-wrap ">
+                        <GradientLetters
+                          text="Art Tokenization"
+                          keyPrefix="sm-line1"
+                        />
+                      </Box>
+                    </Box>
+                  </Box>
+                </Typography>
               </div>
 
               <p className="text-base md:text-lg text-[#CCCCCC] leading-relaxed font-futuristic text-center md:text-left">
                 <Globe2 className="inline-block w-5 h-5 text-[#00A86B] mr-2 mb-1" />
-                <span className="text-[#00A86B] font-semibold">Transform</span> art ownership through blockchain technology, making 
-                <span className="text-[#00A86B] font-medium"> valuable art</span> accessible to global investors for 
-                <span className="text-[#00A86B] font-semibold"> fractional ownership</span>.
+                <span className="text-[#00A86B] font-semibold">Transform</span>{" "}
+                art ownership through blockchain technology, making
+                <span className="text-[#00A86B] font-medium">
+                  {" "}
+                  valuable art
+                </span>{" "}
+                accessible to global investors for
+                <span className="text-[#00A86B] font-semibold">
+                  {" "}
+                  fractional ownership
+                </span>
+                .
               </p>
 
               <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
@@ -108,7 +118,7 @@ const ArtTokenization = () => {
                   Learn More
                 </button>
               </div>
-              </div>
+            </div>
 
             {/* Art GLB Section Placeholder - Right */}
             <div className="relative w-full md:w-1/2 flex items-start justify-center md:justify-start md:-mt-20">
@@ -128,22 +138,25 @@ const ArtTokenization = () => {
               <div className="flex flex-col lg:flex-row gap-10">
                 <div className="lg:w-1/2 mb-10 lg:mb-0">
                   <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
-                    {["Revolutionize", "Art", "Investment"].map((word, wordIndex) => (
-                      <span key={`word-${wordIndex}`} className="flex flex-wrap">
-                        {word.split("").map((char, i) => (
-                          <span
-                            key={`char-${i}`}
-                            className="gradient-letter"
-                          >
-                            {char}
-                          </span>
-                        ))}
-                        <span className="w-2" />
-                      </span>
-                    ))}
+                    {["Revolutionize", "Art", "Investment"].map(
+                      (word, wordIndex) => (
+                        <span
+                          key={`word-${wordIndex}`}
+                          className="flex flex-wrap"
+                        >
+                          {word.split("").map((char, i) => (
+                            <span key={`char-${i}`} className="gradient-letter">
+                              {char}
+                            </span>
+                          ))}
+                          <span className="w-2" />
+                        </span>
+                      )
+                    )}
                   </h2>
                   <p className="text-[#CCCCCC] mb-6">
-                    Empower your art investment strategy with fractional ownership and blockchain technology
+                    Empower your art investment strategy with fractional
+                    ownership and blockchain technology
                   </p>
 
                   <div className="flex flex-col gap-6">
@@ -152,9 +165,12 @@ const ArtTokenization = () => {
                       <div className="text-[#00A86B] mb-4">
                         <Palette fontSize="large" />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 text-[#DDFFDD]">Fractional Art Ownership</h3>
+                      <h3 className="text-xl font-bold mb-2 text-[#DDFFDD]">
+                        Fractional Art Ownership
+                      </h3>
                       <p className="text-[#CCCCCC]">
-                        Invest in high-value art pieces with lower entry barriers
+                        Invest in high-value art pieces with lower entry
+                        barriers
                       </p>
                     </div>
 
@@ -163,7 +179,9 @@ const ArtTokenization = () => {
                       <div className="text-[#00A86B] mb-4">
                         <Shield fontSize="large" />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 text-[#DDFFDD]">Provenance Verification</h3>
+                      <h3 className="text-xl font-bold mb-2 text-[#DDFFDD]">
+                        Provenance Verification
+                      </h3>
                       <p className="text-[#CCCCCC]">
                         Blockchain-backed authenticity and ownership tracking
                       </p>
@@ -174,7 +192,9 @@ const ArtTokenization = () => {
                       <div className="text-[#00A86B] mb-4">
                         <Language fontSize="large" />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 text-[#DDFFDD]">Global Art Market</h3>
+                      <h3 className="text-xl font-bold mb-2 text-[#DDFFDD]">
+                        Global Art Market
+                      </h3>
                       <p className="text-[#CCCCCC]">
                         Access international art investments seamlessly
                       </p>
@@ -189,7 +209,9 @@ const ArtTokenization = () => {
                       <div className="bg-gradient-to-r from-[#004b2f] to-[#00A86B] p-6">
                         <div className="flex justify-between items-center">
                           <div>
-                            <h3 className="text-2xl font-bold text-[#DDFFDD]">Digital Horizon</h3>
+                            <h3 className="text-2xl font-bold text-[#DDFFDD]">
+                              Digital Horizon
+                            </h3>
                             <p className="text-[#CCCCCC]">
                               Elena Rodriguez • Digital Art NFT
                             </p>
@@ -202,30 +224,35 @@ const ArtTokenization = () => {
                               <ArrowRight className="w-5 h-5 text-[#00A86B]" />
                             </button>
                           </div>
-              </div>
-            </div>
+                        </div>
+                      </div>
 
                       <div className="p-6 bg-[#001a12]/30 backdrop-blur-md">
                         <div className="grid grid-cols-3 gap-4 mb-8">
-                <div>
-                            <p className="text-[#999999] text-sm">Artwork Value</p>
+                          <div>
+                            <p className="text-[#999999] text-sm">
+                              Artwork Value
+                            </p>
                             <p className="text-lg flex items-center">
                               <span className="text-[#00A86B] mr-1">$</span>1.2M
                             </p>
-                </div>
-                <div>
-                            <p className="text-[#999999] text-sm">Total Tokens</p>
-                            <p className="text-lg flex items-center">
-                              <span className="text-[#00A86B] mr-1">#</span>12,000
+                          </div>
+                          <div>
+                            <p className="text-[#999999] text-sm">
+                              Total Tokens
                             </p>
-                </div>
-                <div>
+                            <p className="text-lg flex items-center">
+                              <span className="text-[#00A86B] mr-1">#</span>
+                              12,000
+                            </p>
+                          </div>
+                          <div>
                             <p className="text-[#999999] text-sm">Investors</p>
                             <p className="text-lg flex items-center">
                               <span className="text-[#00A86B] mr-1">👤</span>420
                             </p>
-                </div>
-              </div>
+                          </div>
+                        </div>
 
                         <div className="mb-4">
                           <div className="flex justify-between mb-2">
@@ -234,82 +261,92 @@ const ArtTokenization = () => {
                               Token Price{" "}
                               <span className="text-[#00A86B]">$100</span>
                             </p>
-                </div>
+                          </div>
 
                           {/* Token Distribution Chart */}
                           <div className="grid grid-cols-10 gap-1 mb-1">
                             {renderTokenDistributionChart()}
-                </div>
+                          </div>
 
                           <div className="flex justify-between mt-1">
                             <p className="text-sm text-[#00A86B]">75% Sold</p>
-                            <p className="text-sm text-[#999999]">25% Available</p>
-                </div>
-              </div>
+                            <p className="text-sm text-[#999999]">
+                              25% Available
+                            </p>
+                          </div>
+                        </div>
 
                         <button
                           className="flex justify-between items-center w-full bg-[#001a12]/20 backdrop-blur-lg border border-[#00A86B]/30 hover:bg-[#001a12]/30 p-3 rounded-full transition-all shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)]"
-                  onClick={() => setArtworkDetails(!artworkDetails)}
+                          onClick={() => setArtworkDetails(!artworkDetails)}
                         >
-                          <span className="font-medium text-[#00A86B] ml-4">Artwork Details</span>
+                          <span className="font-medium text-[#00A86B] ml-4">
+                            Artwork Details
+                          </span>
                           <ExpandMore
-                            className={`transform transition-transform text-[#00A86B] ${artworkDetails ? "rotate-180" : ""}`}
+                            className={`transform transition-transform text-[#00A86B] ${
+                              artworkDetails ? "rotate-180" : ""
+                            }`}
                           />
                         </button>
 
-                {artworkDetails && (
+                        {artworkDetails && (
                           <div className="bg-[#001a12]/30 -mt-4 mb-4 p-4 rounded-b-md">
                             <div className="grid grid-cols-2 gap-4 mb-4">
                               <div>
                                 <p className="text-[#999999] text-sm">
                                   Art Style
                                 </p>
-                                <p className="text-[#DDFFDD]">Digital Abstract</p>
+                                <p className="text-[#DDFFDD]">
+                                  Digital Abstract
+                                </p>
                               </div>
                               <div>
                                 <p className="text-[#999999] text-sm">
-                        Expected Returns
+                                  Expected Returns
                                 </p>
                                 <p className="text-[#DDFFDD]">7.5% annual</p>
                               </div>
-                    </div>
+                            </div>
 
-                    <div>
+                            <div>
                               <p className="text-[#999999] text-sm mb-2">
-                        Tokenization Benefits
+                                Tokenization Benefits
                               </p>
-                      <ul className="space-y-2">
-                        <li className="flex items-start">
+                              <ul className="space-y-2">
+                                <li className="flex items-start">
                                   <span className="text-[#00A86B] mr-2">→</span>
                                   <span className="text-[#DDFFDD]">
-                            Fractional ownership starting from $100
+                                    Fractional ownership starting from $100
                                   </span>
-                        </li>
-                        <li className="flex items-start">
+                                </li>
+                                <li className="flex items-start">
                                   <span className="text-[#00A86B] mr-2">→</span>
                                   <span className="text-[#DDFFDD]">
-                            Secondary market trading
+                                    Secondary market trading
                                   </span>
-                        </li>
-                        <li className="flex items-start">
+                                </li>
+                                <li className="flex items-start">
                                   <span className="text-[#00A86B] mr-2">→</span>
                                   <span className="text-[#DDFFDD]">
                                     Verified authenticity and provenance
                                   </span>
-                        </li>
-                        <li className="flex items-start">
+                                </li>
+                                <li className="flex items-start">
                                   <span className="text-[#00A86B] mr-2">→</span>
                                   <span className="text-[#DDFFDD]">
-                            Transparent ownership records
+                                    Transparent ownership records
                                   </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                )}
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        )}
 
                         <button className="w-full bg-[#00A86B]/10 backdrop-blur-lg py-3 px-6 rounded-full font-medium flex items-center justify-center transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105">
-                          <span className="text-[#00A86B]">View Investment Opportunity</span>
+                          <span className="text-[#00A86B]">
+                            View Investment Opportunity
+                          </span>
                           <ArrowRightAlt className="ml-2 text-[#00A86B]" />
                         </button>
                       </div>
@@ -345,7 +382,8 @@ const ArtTokenization = () => {
                 </div>
               </h2>
               <p className="text-[#CCCCCC] mb-10 max-w-2xl mx-auto">
-                Explore the diverse range of art assets available for tokenization
+                Explore the diverse range of art assets available for
+                tokenization
               </p>
 
               <div className="flex flex-wrap justify-center gap-3">
@@ -365,8 +403,8 @@ const ArtTokenization = () => {
                   Rare Collectibles
                 </button>
               </div>
-        </div>
-      </div>
+            </div>
+          </div>
         </FadeSection>
       </section>
 
@@ -408,30 +446,36 @@ const ArtTokenization = () => {
                 </div>
               </h2>
               <p className="text-[#CCCCCC] mb-8 max-w-2xl mx-auto">
-                Join a new era of art investment with transparent, accessible, and fractional ownership
+                Join a new era of art investment with transparent, accessible,
+                and fractional ownership
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <button className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105">
-            Start Investing
+                  Start Investing
                 </button>
                 <button className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105">
-            Learn More
+                  Learn More
                 </button>
               </div>
-        </div>
-      </div>
+            </div>
+          </div>
         </FadeSection>
       </section>
-      
+
       <style jsx global>{`
         .gradient-letter {
           @apply text-transparent bg-clip-text inline-block transition-all duration-300 bg-gradient-to-b from-[#00FFAA] via-[#00A86B] to-[#007d4f];
           animation: pulse-green 5s infinite;
         }
-        
+
         @keyframes pulse-green {
-          0%, 100% { opacity: 0.9; }
-          50% { opacity: 1; }
+          0%,
+          100% {
+            opacity: 0.9;
+          }
+          50% {
+            opacity: 1;
+          }
         }
       `}</style>
     </div>
