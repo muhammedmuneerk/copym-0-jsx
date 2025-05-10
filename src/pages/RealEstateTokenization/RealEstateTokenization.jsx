@@ -3,6 +3,16 @@ import { motion } from "framer-motion";
 import { Check, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Building, BarChart, ShieldCheck, Globe, Landmark, FileCheck, Coins, Repeat } from "lucide-react";
 import PropertyCard from "./PropertyCard";
 import BackgroundTheme from "../../ui/GridBackgroundTheme";
+import GradientLetters from "../../components/GradientLetters";
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  useMediaQuery,
+  useTheme,
+  Slider,
+} from "@mui/material";
 
 // Custom components to replace MUI
 
@@ -59,17 +69,40 @@ const RealEstateTokenization = () => {
 
   return (
     <div>
-      
       {/* Hero Section */}
       <section className="relative container mx-auto px-6 py-24">
-
         <div className="max-w-4xl mt-20 relative z-10">
           <div className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-4 left-0 w-[60%]" />
           <div className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-8 left-0 w-[30%]" />
 
-          <h1 className="font-['Orbitron'] text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-            Real Estate <span className="text-emerald-400">Tokenization</span>
-          </h1>
+          <Typography
+            variant="h1"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-1 text-center"
+          >
+            <Box component="div" className="flex flex-wrap">
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Real Estate Tokenization"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small and Medium screens: 3 lines */}
+              <Box className="block lg:hidden">
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters
+                    text="Real Estate"
+                    keyPrefix="sm-line1"
+                  />
+                </Box>
+
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters text="Tokenization" keyPrefix="sm-line2" />
+                </Box>
+              </Box>
+            </Box>
+          </Typography>
 
           <h2 className="text-xl md:text-2xl font-medium mb-6 text-gray-300">
             Transform Property Investment with Blockchain Technology
@@ -191,16 +224,13 @@ const RealEstateTokenization = () => {
               }
             />
           </div>
-          
         </div>
       </section>
 
       {/* Tokenization Process Section */}
       <section className="container mx-auto px-6 py-20 relative">
         <div className="text-center mb-16 relative">
-          <div
-            className="absolute left-1/2 transform -translate-x-1/2 -top-10 w-24 h-24 rounded-full bg-emerald-500 filter blur-[80px] opacity-30"
-          />
+          <div className="absolute left-1/2 transform -translate-x-1/2 -top-10 w-24 h-24 rounded-full bg-emerald-500 filter blur-[80px] opacity-30" />
 
           <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4">
             Real Estate{" "}
@@ -387,10 +417,11 @@ const RealEstateTokenization = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-6">
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 text-lg group">
+              className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 text-lg group"
+            >
               <span className="flex items-center">
                 Start Tokenizing
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -399,7 +430,8 @@ const RealEstateTokenization = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 text-lg">
+              className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 text-lg"
+            >
               Schedule Consultation
             </motion.button>
           </div>

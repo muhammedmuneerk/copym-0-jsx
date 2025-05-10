@@ -109,9 +109,9 @@ function App() {
   }, [showSplash]);
 
   // Show splash screen during initial load
-  if (showSplash) {
-    return <SplashScreen />;
-  }
+  // if (showSplash) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <Box 

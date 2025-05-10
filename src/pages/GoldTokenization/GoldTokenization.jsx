@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { Container, Typography, Button, Box } from "@mui/material";
 import { MapContainer, TileLayer, CircleMarker, Polygon, Tooltip, ZoomControl, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import GradientLetters from "../../components/GradientLetters";
 import * as d3 from 'd3';
 import {
   ArrowRight,
@@ -947,13 +949,20 @@ const GoldTokenization = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white "
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <GradientLetters text="Tokenized Gold" keyPrefix="line1-char"/>
+              </motion.h1>
+              <motion.h1 
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <span className="text-yellow-500">Tokenized Gold</span><br />
-                for the Digital Age
+                <GradientLetters text="for the Digital Age" keyPrefix="line2-char"/>
               </motion.h1>
               
               <motion.p 

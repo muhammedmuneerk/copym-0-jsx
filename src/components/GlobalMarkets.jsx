@@ -15,6 +15,7 @@ import BackgroundGlowEffect from "../ui/BackgroundGlowEffect";
 import Sliders from "./Sliders";
 import AnimatedCard from "../ui/AnimatedCard";
 import AnimatedCounter from "../ui/AnimatedCounter";
+import GradientLetters from "./GradientLetters";
 
 // Region data
 const regions = [
@@ -111,15 +112,21 @@ export default function GlobalMarkets() {
             className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
           >
             <Box component="div" className="flex flex-wrap justify-center">
-              {Array.from("Connecting Global Markets").map((char, idx) => (
-                <Box
-                  key={`connecting-${idx}`}
-                  component="span"
-                  className="gradient-letter"
-                >
-                  {char === " " ? "\u00A0" : char}
-                </Box>
-              ))}
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Connecting Global Markets"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small & Medium Screens (2 lines) */}
+              <Box className="block lg:hidden">
+                <GradientLetters
+                  text="Connecting Global Markets"
+                  keyPrefix="sm-line1"
+                />
+              </Box>
             </Box>
           </Typography>
 
@@ -136,7 +143,11 @@ export default function GlobalMarkets() {
         <Grid container spacing={4}>
           {/* LEFT: Regional Cards (6 columns) */}
           <Grid item xs={12} md={6}>
-            <Grid container spacing={2} className="justify-center md:justify-start">
+            <Grid
+              container
+              spacing={2}
+              className="justify-center md:justify-start"
+            >
               {regions.map((region, index) => (
                 <Grid item xs={10} sm={6} key={region.name}>
                   <motion.div
