@@ -267,7 +267,6 @@ const DiverseAssetTokenization = () => {
   
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
-      
       {/* Header Section with Parallax */}
       <div ref={headerRef} className="relative overflow-hidden">
         <section className="relative container mx-auto px-6 py-24">
@@ -290,40 +289,42 @@ const DiverseAssetTokenization = () => {
               className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-8 left-0"
             />
 
-            <motion.div 
+            <motion.div
               className="flex items-center gap-6 mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              
               <Typography
-            variant="h1"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-1 text-center"
-          >
-            <Box component="div" className="flex flex-wrap">
-              
-              {/* Large Screens (1 lines) */}
-              <Box className="hidden lg:block">
-                <GradientLetters
-                  text="Diverse Asset Tokenization"
-                  keyPrefix="lg-line1"
-                />
-              </Box>
+                variant="h1"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Diverse Asset Tokenization"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
 
-              {/* Small and Medium screens: 3 lines */}
-              <Box className="block lg:hidden">
-                <Box component="div" className="flex flex-wrap ">
-                  <GradientLetters text="Diverse Asset" keyPrefix="sm-line1"
-                  />
+                  {/* Small and Medium screens: 3 lines */}
+                  <Box className="block lg:hidden">
+                    <Box component="div" className="flex flex-wrap ">
+                      <GradientLetters
+                        text="Diverse Asset"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                    <Box component="div" className="flex flex-wrap ">
+                      <GradientLetters
+                        text="Tokenization"
+                        keyPrefix="sm-line2"
+                      />
+                    </Box>
+                  </Box>
                 </Box>
-                <Box component="div" className="flex flex-wrap ">
-                  <GradientLetters text="Tokenization" keyPrefix="sm-line2" />
-                </Box>
-              </Box>
-
-            </Box>
-          </Typography>
+              </Typography>
             </motion.div>
 
             <motion.h2
@@ -342,7 +343,8 @@ const DiverseAssetTokenization = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
             >
               Democratize asset ownership through fractional tokenization,
-              enhanced liquidity, and global accessibility. The future of diversified investment is here.
+              enhanced liquidity, and global accessibility. The future of
+              diversified investment is here.
             </motion.p>
 
             <motion.div
@@ -385,33 +387,47 @@ const DiverseAssetTokenization = () => {
           <motion.div variants={itemVariants}>
             <div className="relative mb-8">
               <div className="absolute left-0 top-0 h-12 w-1 bg-emerald-500 opacity-80" />
-              <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 pl-6">
-                Unlimited
-                <span className="block text-emerald-400">
-                  Tokenization Possibilities
-                </span>
-              </h2>
+
+              <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-2 md:mb-4 pb-1 text-center pl-6"
+              >
+                {/* First Line */}
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters
+                    text="Unlimited Tokenization"
+                    keyPrefix="line1"
+                  />
+                </Box>
+
+                {/* Second Line */}
+                <Box component="div" className="flex flex-wrap  mt-1">
+                  <GradientLetters text="Possibilities" keyPrefix="line2" />
+                </Box>
+              </Typography>
             </div>
 
             <p className="text-gray-300 mb-10 text-lg">
-              Our platform enables investors to tokenize and trade a diverse range of assets with unprecedented ease, transparency, and efficiency.
+              Our platform enables investors to tokenize and trade a diverse
+              range of assets with unprecedented ease, transparency, and
+              efficiency.
             </p>
 
             {/* Feature Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FeatureCard 
+              <FeatureCard
                 icon={<TokenizationIcon />}
                 title="Flexible Tokenization"
                 description="Tokenize virtually any asset with unique blockchain solutions tailored to your specific requirements"
               />
 
-              <FeatureCard 
+              <FeatureCard
                 icon={<GlobalIcon />}
                 title="Global Accessibility"
                 description="Open up new investment opportunities across diverse asset types with worldwide accessibility"
               />
 
-              <FeatureCard 
+              <FeatureCard
                 icon={<SecurityIcon />}
                 title="Comprehensive Compliance"
                 description="Robust legal and regulatory frameworks for diverse asset types with built-in verification systems"
@@ -424,9 +440,7 @@ const DiverseAssetTokenization = () => {
             <Card as3D={true} className="group overflow-hidden">
               <div className="relative">
                 <div className="bg-gradient-to-r from-emerald-900 to-emerald-700 p-6">
-                  <h3 className="text-2xl font-bold">
-                    Innovative Asset Types
-                  </h3>
+                  <h3 className="text-2xl font-bold">Innovative Asset Types</h3>
                   <p className="text-emerald-100">
                     Transform unique assets into tradable tokens
                   </p>
@@ -443,10 +457,8 @@ const DiverseAssetTokenization = () => {
                     <AssetTypeButton label="Specialized Equipment" />
                     <AssetTypeButton label="Government Contracts" />
                   </div>
-                  
-                  <button 
-                    className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 w-full group"
-                  >
+
+                  <button className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 w-full group">
                     <span className="flex items-center justify-center">
                       Explore Asset Types
                       <ArrowIcon className="ml-2" />
@@ -514,41 +526,54 @@ const DiverseAssetTokenization = () => {
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-20 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
           <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-10 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
 
-          <motion.h2
-            className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
-            variants={itemVariants}
+          <Typography
+            variant="h2"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
           >
-            Can't find your <span className="text-emerald-400">asset type</span>?
-          </motion.h2>
+            <Box component="div" className="flex flex-wrap justify-center">
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Can't find your asset type?"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small & Medium Screens (1 lines) */}
+              <Box className="block lg:hidden">
+                <GradientLetters
+                  text="Can't find your asset type?"
+                  keyPrefix="sm-line1"
+                />
+              </Box>
+            </Box>
+          </Typography>
 
           <motion.p
             className="text-gray-300 mb-10 text-xl"
             variants={itemVariants}
           >
-            Our team can create a custom tokenization solution tailored to your unique needs.
+            Our team can create a custom tokenization solution tailored to your
+            unique needs.
           </motion.p>
 
           <motion.div
             className="flex flex-wrap justify-center gap-6"
             variants={itemVariants}
           >
-            <button
-              className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 text-lg group"
-            >
+            <button className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105 text-lg group">
               <span className="flex items-center">
                 Explore Custom Solutions
                 <ArrowIcon className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
               </span>
             </button>
-            <button 
-              className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 text-lg"
-            >
+            <button className="bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] px-8 py-4 rounded-full font-medium transition-all border border-[#00A86B]/30 shadow-[0_0_15px_rgba(0,168,107,0.1)] hover:shadow-[0_0_25px_rgba(0,168,107,0.2)] hover:bg-[#001a12]/20 hover:scale-105 text-lg">
               Speak with Experts
             </button>
           </motion.div>
         </div>
       </motion.section>
-      
+
       {/* Add custom style tag for fonts */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
