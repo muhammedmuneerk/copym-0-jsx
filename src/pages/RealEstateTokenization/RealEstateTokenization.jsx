@@ -83,10 +83,7 @@ const RealEstateTokenization = () => {
               {/* Small and Medium screens: 3 lines */}
               <Box className="block lg:hidden">
                 <Box component="div" className="flex flex-wrap ">
-                  <GradientLetters
-                    text="Real Estate"
-                    keyPrefix="sm-line1"
-                  />
+                  <GradientLetters text="Real Estate" keyPrefix="sm-line1" />
                 </Box>
 
                 <Box component="div" className="flex flex-wrap ">
@@ -142,12 +139,23 @@ const RealEstateTokenization = () => {
           <div>
             <div className="relative mb-8">
               <div className="absolute left-0 top-0 h-12 w-1 bg-emerald-500 opacity-80" />
-              <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 pl-6">
-                Revolutionalize
-                <span className="block text-emerald-400">
-                  Real Estate Investment
-                </span>
-              </h2>
+              <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-2 md:mb-4 pb-1 text-center pl-6"
+              >
+                {/* First Line */}
+                <Box component="div" className="flex flex-wrap ">
+                  <GradientLetters
+                    text="Revolutionalize Real Estate"
+                    keyPrefix="line1"
+                  />
+                </Box>
+
+                {/* Second Line */}
+                <Box component="div" className="flex flex-wrap  mt-1">
+                  <GradientLetters text="Investment" keyPrefix="line2" />
+                </Box>
+              </Typography>
             </div>
 
             <p className="text-gray-300 mb-10 text-lg">
@@ -224,10 +232,31 @@ const RealEstateTokenization = () => {
         <div className="text-center mb-16 relative">
           <div className="absolute left-1/2 transform -translate-x-1/2 -top-10 w-24 h-24 rounded-full bg-emerald-500 filter blur-[80px] opacity-30" />
 
-          <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4">
-            Real Estate{" "}
-            <span className="text-emerald-400">Tokenization Process</span>
-          </h2>
+          <Typography
+            variant="h2"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+          >
+            <Box component="div" className="flex flex-wrap justify-center">
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Real Estate Tokenization Process"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small & Medium Screens (2 lines) */}
+              <Box className="block lg:hidden">
+                <GradientLetters
+                  text="Real Estate Tokenization"
+                  keyPrefix="sm-line1"
+                />
+              </Box>
+              <Box className="block lg:hidden">
+                <GradientLetters text="Process" keyPrefix="sm-line2" />
+              </Box>
+            </Box>
+          </Typography>
 
           <p className="text-gray-300 max-w-2xl mx-auto">
             Our streamlined process makes tokenizing real estate assets simple
@@ -298,10 +327,33 @@ const RealEstateTokenization = () => {
       {/* Benefits Section */}
       <section className="container mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-4">
-            Benefits of{" "}
-            <span className="text-emerald-400">Real Estate Tokenization</span>
-          </h2>
+
+        <Typography
+            variant="h2"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+          >
+            <Box component="div" className="flex flex-wrap justify-center">
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Benefits of Real Estate Tokenization"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small & Medium Screens (2 lines) */}
+              <Box className="block lg:hidden">
+                <GradientLetters
+                  text="Benefits of Real Estate"
+                  keyPrefix="sm-line1"
+                />
+              </Box>
+              <Box className="block lg:hidden">
+                <GradientLetters text="Tokenization" keyPrefix="sm-line2" />
+              </Box>
+            </Box>
+          </Typography>
+
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -399,9 +451,37 @@ const RealEstateTokenization = () => {
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-20 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
           <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-10 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
 
-          <h2 className="font-['Orbitron'] text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-            Ready to Transform Your Real Estate Portfolio?
-          </h2>
+          <Typography
+            variant="h2"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+          >
+            <Box component="div" className="flex flex-wrap justify-center">
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Ready to Transform Your"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Real Estate Portfolio?"
+                  keyPrefix="lg-line2"
+                />
+              </Box>
+
+              {/* Small & Medium Screens (2 lines) */}
+              <Box className="block lg:hidden">
+                <GradientLetters
+                  text="Ready to Transform Your"
+                  keyPrefix="sm-line1"
+                />
+              </Box>
+              <Box className="block lg:hidden">
+                <GradientLetters text="Real Estate Portfolio?" keyPrefix="sm-line2" />
+              </Box>
+            </Box>
+          </Typography>
 
           <p className="text-gray-300 mb-10 text-xl">
             Join thousands of property owners and investors already tokenizing
