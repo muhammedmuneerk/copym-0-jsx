@@ -137,23 +137,24 @@ const ArtTokenization = () => {
             <div className="container mx-auto px-4 md:px-12">
               <div className="flex flex-col lg:flex-row gap-10">
                 <div className="lg:w-1/2 mb-10 lg:mb-0">
-                  <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
-                    {["Revolutionize", "Art", "Investment"].map(
-                      (word, wordIndex) => (
-                        <span
-                          key={`word-${wordIndex}`}
-                          className="flex flex-wrap"
-                        >
-                          {word.split("").map((char, i) => (
-                            <span key={`char-${i}`} className="gradient-letter">
-                              {char}
-                            </span>
-                          ))}
-                          <span className="w-2" />
-                        </span>
-                      )
-                    )}
-                  </h2>
+                  <Typography
+                    variant="h2"
+                    className="text-3xl sm:text-4xl md:text-5xl mb-2 md:mb-4 pb-1 text-center"
+                  >
+                    {/* First Line */}
+                    <Box component="div" className="flex flex-wrap ">
+                      <GradientLetters
+                        text="Revolutionalize Art"
+                        keyPrefix="line1"
+                      />
+                    </Box>
+
+                    {/* Second Line */}
+                    <Box component="div" className="flex flex-wrap  mt-1">
+                      <GradientLetters text="Investment" keyPrefix="line2" />
+                    </Box>
+                  </Typography>
+
                   <p className="text-[#CCCCCC] mb-6">
                     Empower your art investment strategy with fractional
                     ownership and blockchain technology
@@ -364,23 +365,29 @@ const ArtTokenization = () => {
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
-              <h2 className="font-orbitron text-xl sm:text-3xl md:text-4xl font-bold mb-6">
-                <div className="flex flex-wrap justify-center gap-1">
-                  {"Tokenizable Art Types".split(" ").map((word, wordIndex) => (
-                    <span key={`assets-word-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span
-                          key={`assets-letter-${wordIndex}-${i}`}
-                          className="gradient-letter"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </div>
-              </h2>
+              <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Tokenizable Art Types"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Tokenizable Art Types"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
               <p className="text-[#CCCCCC] mb-10 max-w-2xl mx-auto">
                 Explore the diverse range of art assets available for
                 tokenization
@@ -413,38 +420,43 @@ const ArtTokenization = () => {
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
-              <h2 className="font-orbitron text-xl sm:text-3xl md:text-4xl font-bold mb-6">
-                <div className="flex flex-wrap justify-center gap-1">
-                  {"Ready to Invest in".split(" ").map((word, wordIndex) => (
-                    <span key={`cta-word-1-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span
-                          key={`cta-letter-1-${wordIndex}-${i}`}
-                          className="gradient-letter"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </div>
-                <div className="flex flex-wrap justify-center gap-1 mt-2">
-                  {"Tokenized Art?".split(" ").map((word, wordIndex) => (
-                    <span key={`cta-word-2-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span
-                          key={`cta-letter-2-${wordIndex}-${i}`}
-                          className="gradient-letter"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </div>
-              </h2>
+
+              <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Ready to Invest In "
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Tokenized Art ?"
+                      keyPrefix="lg-line2"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Ready to Invest In"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="tokenized Art ?"
+                      keyPrefix="sm-line2"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
               <p className="text-[#CCCCCC] mb-8 max-w-2xl mx-auto">
                 Join a new era of art investment with transparent, accessible,
                 and fractional ownership
