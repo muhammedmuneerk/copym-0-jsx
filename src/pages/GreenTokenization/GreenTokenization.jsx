@@ -138,20 +138,29 @@ const GreenTokenization = () => {
           <FadeSection>
             <div className="py-16">
               <div className="container mx-auto px-4 md:px-12 text-center">
-                <h2 className="font-orbitron text-xl sm:text-3xl md:text-4xl font-bold mb-6">
-                  <div className="flex flex-wrap justify-center gap-1">
-                    {"Our ESG Commitments".split(" ").map((word, wordIndex) => (
-                      <span key={`esg-word-${wordIndex}`} className="flex">
-                        {word.split("").map((char, i) => (
-                          <span key={`esg-letter-${wordIndex}-${i}`} className="gradient-letter">
-                            {char}
-                          </span>
-                        ))}
-                        <span className="w-1" />
-                      </span>
-                    ))}
-                  </div>
-                </h2>
+
+          <Typography
+            variant="h2"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+            >
+            <Box component="div" className="flex flex-wrap justify-center">
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <GradientLetters
+                  text="Our ESG Commitments"
+                  keyPrefix="lg-line1"
+                />
+              </Box>
+
+              {/* Small & Medium Screens (1 lines) */}
+              <Box className="block lg:hidden">
+                <GradientLetters
+                  text="Our ESG Commitments"
+                  keyPrefix="sm-line1"
+                />
+              </Box>
+            </Box>
+          </Typography>
 
                 <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mb-16">
                   {esgData.map((section, idx) => (
@@ -189,30 +198,42 @@ const GreenTokenization = () => {
                 <div className="order-2 md:order-1">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
                     <Coins className="w-8 h-8 text-[#00A86B] flex-shrink-0" />
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-orbitron font-bold">
-                      <div className="flex flex-wrap gap-x-3 gap-y-1">
-                        {"Focus on Metals:".split(" ").map((word, wordIndex) => (
-                          <span key={`metals-word-1-${wordIndex}`} className="flex">
-                            {word.split("").map((char, i) => (
-                              <span key={`metals-letter-1-${wordIndex}-${i}`} className="ultra-smooth-gradient-text">
-                                {char}
-                              </span>
-                            ))}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1">
-                        {"Our Core Offering".split(" ").map((word, wordIndex) => (
-                          <span key={`metals-word-2-${wordIndex}`} className="flex">
-                            {word.split("").map((char, i) => (
-                              <span key={`metals-letter-2-${wordIndex}-${i}`} className="ultra-smooth-gradient-text">
-                                {char}
-                              </span>
-                            ))}
-                          </span>
-                        ))}
-                      </div>
-                    </h2>
+
+                <Typography
+                  variant="h2"
+                  className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+                  >
+                  <Box component="div" className="flex flex-wrap ">
+                    {/* Large Screens (1 lines) */}
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Focus on Metals:"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Our Core Offering"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+
+                    {/* Small & Medium Screens (1 lines) */}
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Focus on Metals:"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Our Core Offering"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                  </Box>
+                </Typography>
+
                   </div>
                   <div className="space-y-4">
                     <p className="text-base sm:text-lg font-futuristic text-left leading-relaxed">
@@ -240,18 +261,42 @@ const GreenTokenization = () => {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <LineChart className="w-8 h-8 text-[#00A86B]" />
-                  <h2 className="text-2xl md:text-4xl font-orbitron font-bold flex flex-wrap gap-1">
-                    {"Diversified ESG Commodities Portfolio".split(" ").map((word, wordIndex) => (
-                      <span key={`portfolio-word-${wordIndex}`} className="flex">
-                        {word.split("").map((char, i) => (
-                          <span key={`portfolio-letter-${wordIndex}-${i}`} className="ultra-smooth-gradient-text">
-                            {char}
-                          </span>
-                        ))}
-                        <span className="w-1" />
-                      </span>
-                    ))}
-                  </h2>
+
+                  <Typography
+                  variant="h2"
+                  className="text-2xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+                  >
+                  <Box component="div" className="flex flex-wrap ">
+                    {/* Large Screens (1 lines) */}
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Diversified ESG"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Commodities Portfolio"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+
+                    {/* Small & Medium Screens (1 lines) */}
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Diversified ESG"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Commodities Portfolio"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                  </Box>
+                </Typography>
+
                 </div>
                 <p className="text-base font-futuristic text-left leading-normal">
                   While <span className="text-[#00A86B] font-semibold">metals</span> are our flagship, we are expanding into other ESG-aligned asset categories. This diversified approach ensures investors can build a balanced and impactful <span className="text-[#00A86B] font-medium">ESG portfolio</span>.
@@ -263,18 +308,30 @@ const GreenTokenization = () => {
             <div className=" rounded-2xl p-8">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 text-center sm:text-left">
                 <Lock className="w-8 h-8 text-[#00A86B]" />
-                <h2 className="text-xl sm:text-2xl md:text-4xl font-orbitron font-bold flex flex-wrap justify-center sm:justify-start gap-1">
-                  {"The Role of Blockchain".split(" ").map((word, wordIndex) => (
-                    <span key={`blockchain-word-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span key={`blockchain-letter-${wordIndex}-${i}`} className="ultra-smooth-gradient-text">
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </h2>
+
+                <Typography
+                  variant="h2"
+                  className="text-3xl sm:text-4xl md:text-5xl   text-center"
+                  >
+                  <Box component="div" className="flex flex-wrap justify-center">
+                    {/* Large Screens (1 lines) */}
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="The Role of Blockchain"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+
+                    {/* Small & Medium Screens (1 lines) */}
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="The Role of Blockchain"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                  </Box>
+                </Typography>
+                
               </div>
               <ul className="text-sm sm:text-base font-futuristic text-left space-y-4 max-w-3xl mx-auto leading-normal">
                 <li className="flex items-start sm:items-center gap-2">
@@ -311,32 +368,48 @@ const GreenTokenization = () => {
             {/* Comparison */}
             <div className="max-w-6xl mx-auto relative rounded-2xl p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
               <div className="bg-black/90 backdrop-blur-md rounded-2xl p-8 text-center">
-                <h2 className="text-xl sm:text-2xl md:text-4xl font-orbitron font-bold mb-6">
-                  <div className="flex flex-wrap justify-center gap-1 px-2">
-                    {"Comparative Snapshot:".split(" ").map((word, wordIndex) => (
-                      <span key={`compare-word-1-${wordIndex}`} className="flex">
-                        {word.split("").map((char, i) => (
-                          <span key={`compare-letter-1-${wordIndex}-${i}`} className="ultra-smooth-gradient-text">
-                            {char}
-                          </span>
-                        ))}
-                        <span className="w-1" />
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-1 px-2 mt-2">
-                    {"Metals vs. Other ESG Assets".split(" ").map((word, wordIndex) => (
-                      <span key={`compare-word-2-${wordIndex}`} className="flex">
-                        {word.split("").map((char, i) => (
-                          <span key={`compare-letter-2-${wordIndex}-${i}`} className="ultra-smooth-gradient-text">
-                            {char}
-                          </span>
-                        ))}
-                        <span className="w-1" />
-                      </span>
-                    ))}
-                  </div>
-                </h2>
+
+              <Typography
+                  variant="h2"
+                  className="text-3xl sm:text-4xl md:text-5xl text-center"
+                  >
+                  <Box component="div" className="flex flex-col flex-wrap justify-center">
+                    {/* Large Screens (1 lines) */}
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Comparative Snapshot:"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Metals vs. Other ESG Assets"
+                        keyPrefix="lg-line2"
+                      />
+                    </Box>
+
+                    {/* Small & Medium Screens (3 lines) */}
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Comparative Snapshot:"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Metals vs. Other ESG"
+                        keyPrefix="sm-line2"
+                      />
+                    </Box>
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Assets"
+                        keyPrefix="sm-line3"
+                      />
+                    </Box>
+                  </Box>
+                </Typography>
+
                 <div className="overflow-x-auto">
                   <ComparativeSnapshot />
                 </div>
@@ -353,34 +426,40 @@ const GreenTokenization = () => {
           <FadeSection>
             <div className="py-16">
               <div className="container mx-auto px-4 md:px-12 text-center">
-                <h2 className="font-orbitron text-xl sm:text-3xl md:text-4xl font-bold mb-6">
-                  <div className="flex flex-wrap justify-center gap-1">
-                    {"Transform Your".split(" ").map((word, wordIndex) => (
-                      <span key={`cta-word-1-${wordIndex}`} className="flex">
-                        {word.split("").map((char, i) => (
-                          <span key={`cta-letter-1-${wordIndex}-${i}`} className="gradient-letter">
-                            {char}
-                          </span>
-                        ))}
-                        <span className="w-1" />
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-1 mt-2">
-                    {"Investment Impact".split(" ").map((word, wordIndex) => (
-                      <span key={`cta-word-2-${wordIndex}`} className="flex">
-                        {word.split("").map((char, i) => (
-                          <span key={`cta-letter-2-${wordIndex}-${i}`} className="gradient-letter">
-                            {char}
-                          </span>
-                        ))}
-                        <span className="w-1" />
-                      </span>
-                    ))}
-                  </div>
-                </h2>
+
+              <Typography
+                  variant="h2"
+                  className="text-3xl sm:text-4xl md:text-5xl text-center mb-4 pb-1"
+                  >
+                  <Box component="div" className="flex flex-col flex-wrap justify-center">
+                    {/* Large Screens (1 lines) */}
+                    <Box className="hidden lg:block">
+                      <GradientLetters
+                        text="Transform Your Investment Impact"
+                        keyPrefix="lg-line1"
+                      />
+                    </Box>
+
+                    {/* Small & Medium Screens (3 lines) */}
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Transform Your"
+                        keyPrefix="sm-line1"
+                      />
+                    </Box>
+                    <Box className="block lg:hidden">
+                      <GradientLetters
+                        text="Investment Impact"
+                        keyPrefix="sm-line2"
+                      />
+                    </Box>
+                  </Box>
+                </Typography>
+
                 <p className="text-[#CCCCCC] mb-8 max-w-2xl mx-auto">
-                  Join the sustainable revolution in asset tokenization. Make your investments count for the planet.
+                  Join the sustainable revolution in asset tokenization.
+                  <br/> 
+                  Make your investments count for the planet.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <button className="bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] px-8 py-3 rounded-full font-medium transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105">
