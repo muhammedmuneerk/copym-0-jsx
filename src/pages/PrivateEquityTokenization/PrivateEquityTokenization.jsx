@@ -102,11 +102,30 @@ const PrivateEquityTokenization = () => {
         {/* Features Section */}
         <FadeSection>
           <div className="container mx-auto">
-            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-center mb-16">
-              {"Key Features".split("").map((char, i) => (
-                <span key={`features-${i}`} className="gradient-letter">{char}</span>
-              ))}
-            </h2>
+            
+          <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Key Features"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Key Features"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Card 1 */}
               <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
@@ -148,23 +167,36 @@ const PrivateEquityTokenization = () => {
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
-              <h2 className="font-orbitron text-xl sm:text-3xl md:text-4xl font-bold mb-6">
-                <div className="flex flex-wrap justify-center gap-1">
-                  {"Tokenizable Private Equity Types".split(" ").map((word, wordIndex) => (
-                    <span key={`types-word-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span
-                          key={`types-letter-${wordIndex}-${i}`}
-                          className="gradient-letter"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </div>
-              </h2>
+
+            <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Tokenizable Private Equity Types"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Tokenizable Private"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Equity Types"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+              
               <p className="text-[#CCCCCC] mb-10 max-w-2xl mx-auto">
                 Explore the diverse range of private equity assets available for tokenization
               </p>
@@ -280,11 +312,36 @@ const PrivateEquityTokenization = () => {
         {/* Benefits Section */}
         <FadeSection>
           <div className="container mx-auto">
-            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-center mb-16">
-              {"Benefits".split("").map((char, i) => (
-                <span key={`benefits-${i}`} className="gradient-letter">{char}</span>
-              ))}
-            </h2>
+
+          <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Benefits of Private Equity Tokenization"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Benefits of Private "
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Equity Tokenization"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Card 1 */}
               <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
@@ -327,11 +384,31 @@ const PrivateEquityTokenization = () => {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-b from-[#00A86B]/5 to-transparent"></div>
             <div className="container mx-auto text-center relative z-10 px-6 py-24">
-              <h2 className="text-3xl md:text-4xl font-orbitron font-bold mb-8">
-                {"Get Started".split("").map((char, i) => (
-                  <span key={`cta-${i}`} className="gradient-letter">{char}</span>
-                ))}
-              </h2>
+
+            <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Ready to Get Started ?"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Ready to Get Started ?"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
+
               <p className="text-lg mb-12 max-w-2xl mx-auto text-[#CCCCCC]">
                 Join the future of private equity investment. Start tokenizing your assets today.
               </p>
