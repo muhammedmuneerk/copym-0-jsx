@@ -102,20 +102,35 @@ const CarbonCreditsTokenization = () => {
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto">
-              <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-12 text-center">
-                {["Revolutionize", "Environmental", "Investment"].map((word, wordIndex) => (
-                  <span key={`word-${wordIndex}`} className="flex flex-wrap justify-center inline-flex mr-2">
-                    {word.split("").map((char, i) => (
-                      <span
-                        key={`char-${i}`}
-                        className="gradient-letter"
-                      >
-                        {char}
-                      </span>
-                    ))}
-                  </span>
-                ))}
-              </h2>
+
+            <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Revolutionize Environmental Investment"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Revolutionize"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Environmental Investment"
+                      keyPrefix="sm-line2"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Card 1 */}
@@ -161,23 +176,36 @@ const CarbonCreditsTokenization = () => {
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
-              <h2 className="font-orbitron text-xl sm:text-3xl md:text-4xl font-bold mb-6">
-                <div className="flex flex-wrap justify-center gap-1">
-                  {"Tokenizable Carbon Credit Types".split(" ").map((word, wordIndex) => (
-                    <span key={`types-word-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span
-                          key={`types-letter-${wordIndex}-${i}`}
-                          className="gradient-letter"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </div>
-              </h2>
+              
+            <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Tokenizable Carbon Credit Types"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Tokenizable Carbon"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Credit Types"
+                      keyPrefix="sm-line2"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
               <p className="text-[#CCCCCC] mb-10 max-w-2xl mx-auto">
                 Explore the diverse range of carbon credit assets available for tokenization
               </p>
@@ -211,18 +239,36 @@ const CarbonCreditsTokenization = () => {
             <div className="max-w-6xl mx-auto bg-[#001a12]/30 backdrop-blur-x4 border border-[#00A86B]/20 p-4 sm:p-8 rounded-2xl shadow-xl">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 text-center sm:text-left">
                 <Users className="w-8 h-8 text-[#00A86B]" />
-                <h2 className="text-xl sm:text-2xl md:text-4xl font-orbitron font-bold flex flex-wrap justify-center sm:justify-start gap-1">
-                  {"Key Benefits of Carbon Credit Tokenization".split(" ").map((word, wordIndex) => (
-                    <span key={`benefits-word-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span key={`benefits-letter-${wordIndex}-${i}`} className="gradient-letter">
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-          </h2>
+
+                <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Key Benefits of Carbon Credit Tokenization"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Key Benefits of Carbon"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Credit Tokenization"
+                      keyPrefix="sm-line2"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
               </div>
               <p className="text-[#CCCCCC] text-center mb-8 max-w-3xl mx-auto">
                 Unlock the potential of sustainable investments through blockchain technology
@@ -275,38 +321,36 @@ const CarbonCreditsTokenization = () => {
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
-              <h2 className="font-orbitron text-xl sm:text-3xl md:text-4xl font-bold mb-6">
-                <div className="flex flex-wrap justify-center gap-1">
-                  {"Ready to Make a".split(" ").map((word, wordIndex) => (
-                    <span key={`cta-word-1-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span
-                          key={`cta-letter-1-${wordIndex}-${i}`}
-                          className="gradient-letter"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </div>
-                <div className="flex flex-wrap justify-center gap-1 mt-2">
-                  {"Sustainable Impact?".split(" ").map((word, wordIndex) => (
-                    <span key={`cta-word-2-${wordIndex}`} className="flex">
-                      {word.split("").map((char, i) => (
-                        <span
-                          key={`cta-letter-2-${wordIndex}-${i}`}
-                          className="gradient-letter"
-                        >
-                          {char}
-                        </span>
-                      ))}
-                      <span className="w-1" />
-                    </span>
-                  ))}
-                </div>
-          </h2>
+              
+            <Typography
+                variant="h2"
+                className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+                <Box component="div" className="flex flex-wrap justify-center">
+                  {/* Large Screens (1 lines) */}
+                  <Box className="hidden lg:block">
+                    <GradientLetters
+                      text="Ready to Make a Sustainable Impact ?"
+                      keyPrefix="lg-line1"
+                    />
+                  </Box>
+
+                  {/* Small & Medium Screens (2 lines) */}
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Ready to Make a"
+                      keyPrefix="sm-line1"
+                    />
+                  </Box>
+                  <Box className="block lg:hidden">
+                    <GradientLetters
+                      text="Sustainable Impact ?"
+                      keyPrefix="sm-line2"
+                    />
+                  </Box>
+                </Box>
+              </Typography>
+
               <p className="text-[#CCCCCC] mb-8 max-w-2xl mx-auto">
                 Join the future of environmental investment by tokenizing carbon credits 
                 and supporting global sustainability efforts.
