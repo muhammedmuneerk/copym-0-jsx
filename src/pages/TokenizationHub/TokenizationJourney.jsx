@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GlassMorphismCard, InteractiveTimeline } from "./UIComponents";
+import { Typography, Box } from "@mui/material";
+import GradientLetters from "../../components/GradientLetters";
 
 // Step feature icons
 const featureIcons = {
@@ -210,9 +212,34 @@ const TokenizationJourney = ({ id = "journey", className = "", customSteps = nul
         viewport={{ once: true, margin: "-100px" }}
         className="section-header"
       >
-        <h2 className="section-title">
-          Complete Tokenization <span className="gradient-text">Journey</span>
-        </h2>
+
+            <Typography
+              variant="h2"
+              className="text-3xl sm:text-4xl md:text-5xl mb-4 pb-1 text-center"
+              >
+              <Box component="div" className="flex flex-wrap justify-center">
+                {/* Large Screens (1 lines) */}
+                <Box className="hidden lg:block">
+                  <GradientLetters
+                    text="Complete Tokenization Journey"
+                    keyPrefix="lg-line1"
+                  />
+                </Box>
+                {/* Small & Medium Screens (2 lines) */}
+                <Box className="block lg:hidden">
+                  <GradientLetters
+                    text="Complete Tokenization"
+                    keyPrefix="sm-line1"
+                  />
+                </Box>
+                <Box className="block lg:hidden">
+                  <GradientLetters
+                    text="Journey"
+                    keyPrefix="sm-line1"
+                  />
+                </Box>
+              </Box>
+            </Typography>
         
         <p className="section-description">
           CopyM guides you through every step of the tokenization process with
