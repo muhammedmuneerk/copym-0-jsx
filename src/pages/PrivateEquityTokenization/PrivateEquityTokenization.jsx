@@ -382,7 +382,7 @@ const PrivateEquityTokenization = () => {
         {/* CTA Section */}
         <FadeSection>
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-[#00A86B]/5 to-transparent"></div>
+            <div className="absolute"></div>
             <div className="container mx-auto text-center relative z-10 px-6 py-24">
 
             <Typography
