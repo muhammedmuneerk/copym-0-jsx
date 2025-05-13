@@ -7,6 +7,7 @@ import Features from "./components/Features";
 import Hero from "./components/Hero";
 import Blockchains from "./components/Blockchains";
 import GlobalMarkets from "./components/GlobalMarkets";
+import Sliders from "./components/Sliders";
 import Metrics from "./components/Metrics";
 import Footer from "./components/Footer";
 import CTA from "./components/CTA";
@@ -49,8 +50,12 @@ function HomePage() {
           <Features />
         </section>
         
-        <section className="global-markets-section">
+        {/* <section className="global-markets-section">
           <GlobalMarkets />
+        </section> */}
+
+        <section className="sliders-section">
+          <Sliders/>
         </section>
         
         <section className="metrics-section">

@@ -1,106 +1,119 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
-import { AnimatedCardWrapper, InnerCardWrapper } from '../ui/AnimatedCardWrapper';
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import {
+  AnimatedCardWrapper,
+  InnerCardWrapper,
+} from "../ui/AnimatedCardWrapper";
+import { Box, Typography } from "@mui/material";
+import GradientLetters from "./GradientLetters";
 
 // Enhanced card data with additional fields
 const cardData = [
   {
-    id: 'gold',
-    image: '/assets/images/img1.png',
-    title: 'Gold Tokenization',
-    description: 'Tokenized Gold for the Digital Age',
-    detailText: 'Access fractional ownership of gold assets with blockchain security and liquidity.',
-    buttonText: 'View Details',
-    link: '/tokenization/gold/',
-    color: 'from-amber-400 to-yellow-600',
-    bgColor: 'from-amber-900/20 to-yellow-900/20',
-    borderColor: '#FFD700'
+    id: "gold",
+    image: "/assets/images/img1.png",
+    title: "Gold Tokenization",
+    description: "Tokenized Gold for the Digital Age",
+    detailText:
+      "Access fractional ownership of gold assets with blockchain security and liquidity.",
+    buttonText: "View Details",
+    link: "/tokenization/gold/",
+    color: "from-amber-400 to-yellow-600",
+    bgColor: "from-amber-900/20 to-yellow-900/20",
+    borderColor: "#FFD700",
   },
   {
-    id: 'green',
-    image: '/assets/images/img2.png',
-    title: 'Green Tokenization',
-    description: 'Sustainable ESG Integration',
-    detailText: 'Invest in green projects with transparent impact tracking and reporting.',
-    buttonText: 'View Details',
-    link: '/green-tokenization',
-    color: 'from-emerald-400 to-green-600',
-    bgColor: 'from-emerald-900/20 to-green-900/20',
-    borderColor: '#00FF85'
+    id: "green",
+    image: "/assets/images/img2.png",
+    title: "Green Tokenization",
+    description: "Sustainable ESG Integration",
+    detailText:
+      "Invest in green projects with transparent impact tracking and reporting.",
+    buttonText: "View Details",
+    link: "/green-tokenization",
+    color: "from-emerald-400 to-green-600",
+    bgColor: "from-emerald-900/20 to-green-900/20",
+    borderColor: "#00FF85",
   },
   {
-    id: 'realestate',
-    image: '/assets/images/img3.png',
-    title: 'Real Estate',
-    description: 'Real Estate Tokenization',
-    detailText: 'Fractional ownership of premium properties with global market access.',
-    buttonText: 'Explore',
-    link: '/tokenization/real-estate/',
-    color: 'from-blue-400 to-indigo-600',
-    bgColor: 'from-blue-900/20 to-indigo-900/20',
-    borderColor: '#4169E1'
+    id: "realestate",
+    image: "/assets/images/img3.png",
+    title: "Real Estate",
+    description: "Real Estate Tokenization",
+    detailText:
+      "Fractional ownership of premium properties with global market access.",
+    buttonText: "Explore",
+    link: "/tokenization/real-estate/",
+    color: "from-blue-400 to-indigo-600",
+    bgColor: "from-blue-900/20 to-indigo-900/20",
+    borderColor: "#4169E1",
   },
   {
-    id: 'art',
-    image: '/assets/images/img4.png',
-    title: 'Art & Collectibles',
-    description: 'Art & Collectibles Tokenization',
-    detailText: 'Own fractions of museum-quality art and rare collectibles with provenance.',
-    buttonText: 'View Details',
-    link: '/tokenization/art',
-    color: 'from-purple-400 to-pink-600',
-    bgColor: 'from-purple-900/20 to-pink-900/20',
-    borderColor: '#8A2BE2'
+    id: "art",
+    image: "/assets/images/img4.png",
+    title: "Art & Collectibles",
+    description: "Art & Collectibles Tokenization",
+    detailText:
+      "Own fractions of museum-quality art and rare collectibles with provenance.",
+    buttonText: "View Details",
+    link: "/tokenization/art",
+    color: "from-purple-400 to-pink-600",
+    bgColor: "from-purple-900/20 to-pink-900/20",
+    borderColor: "#8A2BE2",
   },
   {
-    id: 'commodities',
-    image: '/assets/images/img5.png',
-    title: 'Commodities',
-    description: 'Commodities Tokenization',
-    detailText: 'Trade tokenized commodities with higher liquidity and lower fees.',
-    buttonText: 'View Details',
-    link: '/tokenization/Commodities',
-    color: 'from-orange-400 to-red-600',
-    bgColor: 'from-orange-900/20 to-red-900/20',
-    borderColor: '#FF4500'
+    id: "commodities",
+    image: "/assets/images/img5.png",
+    title: "Commodities",
+    description: "Commodities Tokenization",
+    detailText:
+      "Trade tokenized commodities with higher liquidity and lower fees.",
+    buttonText: "View Details",
+    link: "/tokenization/Commodities",
+    color: "from-orange-400 to-red-600",
+    bgColor: "from-orange-900/20 to-red-900/20",
+    borderColor: "#FF4500",
   },
   {
-    id: 'carbon',
-    image: '/assets/images/img6.png',
-    title: 'Carbon Credits',
-    description: 'Carbon Credits Tokenization',
-    detailText: 'Trade verified carbon offsets with transparent impact metrics.',
-    buttonText: 'View Details',
-    link: '/tokenization/carbon-credits',
-    color: 'from-teal-400 to-cyan-600',
-    bgColor: 'from-teal-900/20 to-cyan-900/20',
-    borderColor: '#00CED1'
+    id: "carbon",
+    image: "/assets/images/img6.png",
+    title: "Carbon Credits",
+    description: "Carbon Credits Tokenization",
+    detailText:
+      "Trade verified carbon offsets with transparent impact metrics.",
+    buttonText: "View Details",
+    link: "/tokenization/carbon-credits",
+    color: "from-teal-400 to-cyan-600",
+    bgColor: "from-teal-900/20 to-cyan-900/20",
+    borderColor: "#00CED1",
   },
   {
-    id: 'equity',
-    image: '/assets/images/img7.png',
-    title: 'Private Equity',
-    description: 'Private Equity Tokenization',
-    detailText: 'Access institutional-grade private equity investments with lower minimums.',
-    buttonText: 'View Details',
-    link: '/tokenization/private-equity',
-    color: 'from-gray-500 to-slate-700',
-    bgColor: 'from-gray-900/20 to-slate-900/20',
-    borderColor: '#708090'
+    id: "equity",
+    image: "/assets/images/img7.png",
+    title: "Private Equity",
+    description: "Private Equity Tokenization",
+    detailText:
+      "Access institutional-grade private equity investments with lower minimums.",
+    buttonText: "View Details",
+    link: "/tokenization/private-equity",
+    color: "from-gray-500 to-slate-700",
+    bgColor: "from-gray-900/20 to-slate-900/20",
+    borderColor: "#708090",
   },
   {
-    id: 'diverse',
-    image: '/assets/images/img8.png',
-    title: 'Alternative Assets',
-    description: 'Diverse Asset Tokenization',
-    detailText: 'Explore unique alternative assets with blockchain-powered ownership.',
-    buttonText: 'View Details',
-    link: '/tokenization/other-assets',
-    color: 'from-violet-400 to-purple-600',
-    bgColor: 'from-violet-900/20 to-purple-900/20',
-    borderColor: '#9400D3'
+    id: "diverse",
+    image: "/assets/images/img8.png",
+    title: "Alternative Assets",
+    description: "Diverse Asset Tokenization",
+    detailText:
+      "Explore unique alternative assets with blockchain-powered ownership.",
+    buttonText: "View Details",
+    link: "/tokenization/other-assets",
+    color: "from-violet-400 to-purple-600",
+    bgColor: "from-violet-900/20 to-purple-900/20",
+    borderColor: "#9400D3",
   },
 ];
 
@@ -119,7 +132,7 @@ const TokenizationSlider = () => {
         nextSlide();
       }, 5000);
     }
-    
+
     return () => {
       if (autoplayRef.current) {
         clearTimeout(autoplayRef.current);
@@ -129,11 +142,11 @@ const TokenizationSlider = () => {
 
   const nextSlide = () => {
     if (isAnimating) return;
-    
+
     setDirection(1);
     setIsAnimating(true);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % cardData.length);
-    
+
     setTimeout(() => {
       setIsAnimating(false);
     }, 600);
@@ -141,11 +154,13 @@ const TokenizationSlider = () => {
 
   const prevSlide = () => {
     if (isAnimating) return;
-    
+
     setDirection(-1);
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + cardData.length) % cardData.length);
-    
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + cardData.length) % cardData.length
+    );
+
     setTimeout(() => {
       setIsAnimating(false);
     }, 600);
@@ -154,7 +169,7 @@ const TokenizationSlider = () => {
   // Calculate positions for each card
   const getCardStyle = (index) => {
     const diff = (index - currentIndex + cardData.length) % cardData.length;
-    
+
     // Main card (current)
     if (diff === 0) {
       return {
@@ -171,7 +186,7 @@ const TokenizationSlider = () => {
         zIndex: 20,
         scale: 0.85,
         opacity: 0.7,
-        x: '40%',
+        x: "40%",
         rotateY: 15,
       };
     }
@@ -181,7 +196,7 @@ const TokenizationSlider = () => {
         zIndex: 10,
         scale: 0.7,
         opacity: 0.5,
-        x: '70%',
+        x: "70%",
         rotateY: 30,
       };
     }
@@ -191,7 +206,7 @@ const TokenizationSlider = () => {
         zIndex: 20,
         scale: 0.85,
         opacity: 0.7,
-        x: '-40%',
+        x: "-40%",
         rotateY: -15,
       };
     }
@@ -201,7 +216,7 @@ const TokenizationSlider = () => {
         zIndex: 10,
         scale: 0.7,
         opacity: 0.5,
-        x: '-70%',
+        x: "-70%",
         rotateY: -30,
       };
     }
@@ -211,7 +226,7 @@ const TokenizationSlider = () => {
         zIndex: 5,
         scale: 0.5,
         opacity: 0,
-        x: diff < cardData.length / 2 ? '100%' : '-100%',
+        x: diff < cardData.length / 2 ? "100%" : "-100%",
         rotateY: diff < cardData.length / 2 ? 45 : -45,
       };
     }
@@ -223,19 +238,21 @@ const TokenizationSlider = () => {
     return {
       scale: isActive ? 1.5 : 1,
       opacity: isActive ? 1 : 0.5,
-      backgroundColor: isActive ? 'rgb(255, 255, 255)' : 'rgba(255, 255, 255, 0.3)',
+      backgroundColor: isActive
+        ? "rgb(255, 255, 255)"
+        : "rgba(255, 255, 255, 0.3)",
     };
   };
 
   return (
     <AnimatedCardWrapper
       sx={{
-        maxWidth: '100%',
-        height: '100%',
+        maxWidth: "100%",
+        height: "100%",
         px: 4,
-        overflow: 'hidden',
-        borderRadius: '2rem',
-        background: 'rgba(15, 16, 22, 0.7)',
+        overflow: "hidden",
+        borderRadius: "2rem",
+        background: "rgba(15, 16, 22, 0.7)",
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -245,24 +262,52 @@ const TokenizationSlider = () => {
       <div className="border-down"></div>
       <div className="border-left"></div>
       <div className="border-up"></div>
-      
+
       {/* Glass reflection effect */}
       <div className="glass-reflection"></div>
-      
+
       {/* Content wrapper */}
       <div className="card-content relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center mt-5"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 mb-2">
-            Tokenization Ecosystem
-          </h2>
+          <Typography
+            variant="h2"
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 text-center"
+          >
+            <Box
+              component="div"
+              className="flex flex-col items-center justify-center leading-snug max-w-xs sm:max-w-xl lg:max-w-4xl mx-auto"
+            >
+              {/* Large Screens (1 lines) */}
+              <Box className="hidden lg:block">
+                <Box component="div" className="flex flex-wrap justify-center">
+                  <GradientLetters
+                    text="Tokenization Ecosystem"
+                    keyPrefix="lg-line1"
+                  />
+                </Box>
+              </Box>
+
+              {/* Small & Medium Screens (2 lines) */}
+              <Box className="block lg:hidden">
+                <Box component="div" className="flex flex-wrap justify-center">
+                  <GradientLetters
+                    text="Tokenization Ecosystem"
+                    keyPrefix="sm-line1"
+                  />
+                </Box>
+              </Box>
+            </Box>
+          </Typography>
+
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-            Discover our premium tokenization solutions across diverse asset classes
+            Discover our premium tokenization solutions across diverse asset
+            classes
           </p>
         </motion.div>
 
@@ -274,13 +319,13 @@ const TokenizationSlider = () => {
               <motion.div
                 key={card.id}
                 className="absolute w-full max-w-lg h-[480px] cursor-pointer"
-                style={{ transformStyle: 'preserve-3d' }}
+                style={{ transformStyle: "preserve-3d" }}
                 animate={getCardStyle(index)}
                 transition={{
-                  type: 'spring',
+                  type: "spring",
                   stiffness: 300,
                   damping: 30,
-                  mass: 1
+                  mass: 1,
                 }}
                 onClick={() => {
                   if (index === currentIndex) {
@@ -296,55 +341,65 @@ const TokenizationSlider = () => {
                 <InnerCardWrapper color={card.borderColor}>
                   {/* Glass reflection effect */}
                   <div className="glass-reflection"></div>
-                  
+
                   {/* Card content */}
                   <div className="card-content">
                     {/* Card header/image section */}
                     <div className="relative h-60 overflow-hidden">
-                      <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-30 mix-blend-overlay`}></div>
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-30 mix-blend-overlay`}
+                      ></div>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 z-10"></div>
-                      
+
                       <img
                         src={card.image}
                         alt={card.title}
                         className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                       />
-                      
+
                       {/* Label badge */}
-                      <div className={`absolute top-6 left-6 py-1.5 px-4 rounded-full bg-gradient-to-r ${card.color} text-white text-sm font-medium z-20 shadow-lg`}>
+                      <div
+                        className={`absolute top-6 left-6 py-1.5 px-4 rounded-full bg-gradient-to-r ${card.color} text-white text-sm font-medium z-20 shadow-lg`}
+                      >
                         {card.title}
                       </div>
-                      
+
                       {/* Card Title */}
                       <h3 className="absolute bottom-6 left-6 text-2xl font-bold text-white drop-shadow-md z-20">
                         {card.description}
                       </h3>
                     </div>
-                    
+
                     {/* Card content */}
                     <div className="flex flex-col flex-grow p-6 space-y-6">
                       <p className="text-gray-200 text-base flex-grow leading-relaxed">
                         {card.detailText}
                       </p>
-                      
+
                       {/* Features list */}
                       <ul className="space-y-2 text-sm text-gray-300">
                         <li className="flex items-center space-x-2">
-                          <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
+                          <span
+                            className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}
+                          ></span>
                           <span>Fractional ownership</span>
                         </li>
                         <li className="flex items-center space-x-2">
-                          <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
+                          <span
+                            className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}
+                          ></span>
                           <span>Blockchain secured</span>
                         </li>
                         <li className="flex items-center space-x-2">
-                          <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}></span>
+                          <span
+                            className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.color}`}
+                          ></span>
                           <span>Instant liquidity</span>
                         </li>
                       </ul>
-                      
+
                       {/* CTA Button */}
-                      <motion.button 
+                      <motion.button
                         className={`w-full bg-gradient-to-r ${card.color} text-white py-3 px-6 rounded-xl font-medium text-base flex items-center justify-center gap-2 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105`}
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.98 }}
@@ -354,12 +409,17 @@ const TokenizationSlider = () => {
                         }}
                       >
                         {card.buttonText}
-                        <ExternalLink size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        <ExternalLink
+                          size={18}
+                          className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                        />
                       </motion.button>
                     </div>
-                    
+
                     {/* Card background accent */}
-                    <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${card.color}`}></div>
+                    <div
+                      className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${card.color}`}
+                    ></div>
                   </div>
                 </InnerCardWrapper>
               </motion.div>
@@ -376,7 +436,7 @@ const TokenizationSlider = () => {
           >
             <ChevronLeft size={24} />
           </motion.button>
-          
+
           <motion.button
             className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-40 bg-white/10 backdrop-blur-md text-white p-4 rounded-full shadow-lg hover:bg-white/20 transition-all duration-300 border border-white/20"
             whileHover={{ scale: 1.1 }}
@@ -387,7 +447,7 @@ const TokenizationSlider = () => {
             <ChevronRight size={24} />
           </motion.button>
         </div>
-        
+
         {/* Indicators */}
         <div className="flex justify-center items-center gap-1 mt-1">
           {cardData.map((_, index) => (
@@ -403,10 +463,11 @@ const TokenizationSlider = () => {
             />
           ))}
         </div>
-        
+
         {/* Card counter */}
         <div className="text-center mb-2 text-white/70 font-medium">
-          <span className="text-white">{currentIndex + 1}</span> / {cardData.length}
+          <span className="text-white">{currentIndex + 1}</span> /{" "}
+          {cardData.length}
         </div>
       </div>
     </AnimatedCardWrapper>
