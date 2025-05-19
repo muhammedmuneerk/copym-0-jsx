@@ -28,345 +28,9 @@ import {
 import { Download, RefreshCw } from 'react-feather';
 import ContinentalGoldMap from "../../components/ContinentalGoldMap";
 import InvestmentCalculator from "../../components/InvestmentCalculator";
-
-// WebGL Gold Particle Flow Component
-const GoldParticleFlow = () => {
-  const canvasRef = useRef(null);
-  const mousePos = useRef({ x: 0, y: 0 });
-  const scrollPos = useRef(0);
-  const animationRef = useRef(null);
-  
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    // Try to get WebGL context with error handling
-    let gl;
-    try {
-      gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-    } catch (e) {
-      console.error("WebGL initialization error:", e);
-      return;
-    }
-    
-    if (!gl) {
-      console.error("WebGL not supported in this browser");
-      return;
-    }
-    
-    // Resize canvas to full width/height
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    };
-    
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    
-    // Handle mouse movement
-    const handleMouseMove = (e) => {
-      mousePos.current = {
-        x: e.clientX / canvas.width,
-        y: 1 - e.clientY / canvas.height
-      };
-    };
-    
-    // Handle scroll
-    const handleScroll = () => {
-      scrollPos.current = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
-    
-    // Simplified vertex shader for better compatibility
-    const vsSource = `
-      attribute vec4 aVertexPosition;
-      attribute vec2 aTextureCoord;
-      
-      uniform mat4 uModelViewMatrix;
-      uniform mat4 uProjectionMatrix;
-      uniform float uTime;
-      
-      varying highp vec2 vTextureCoord;
-      varying highp float vTime;
-      
-      void main(void) {
-        gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-        vTextureCoord = aTextureCoord;
-        vTime = uTime;
-      }
-    `;
-    
-    // Simplified fragment shader for better compatibility
-    const fsSource = `
-      precision mediump float;
-      varying highp vec2 vTextureCoord;
-      varying highp float vTime;
-      
-      uniform vec2 uResolution;
-      uniform float uTime;
-      
-      void main(void) {
-        vec2 uv = vTextureCoord;
-        
-        // Simple gold color with time-based animation
-        float t = uTime * 0.5;
-        vec3 gold = vec3(0.8 + 0.2 * sin(t), 0.6 + 0.1 * sin(t + 1.0), 0.2);
-        
-        // Simple pattern
-        float pattern = sin(uv.x * 20.0 + t) * sin(uv.y * 20.0 + t);
-        pattern = 0.5 + 0.5 * pattern;
-        
-        // Final color
-        vec3 color = gold * pattern;
-        float alpha = 0.3;  // Semi-transparent
-        
-        gl_FragColor = vec4(color, alpha);
-      }
-    `;
-    
-    // Helper function to compile shader with better error handling
-    function loadShader(gl, type, source) {
-      const shader = gl.createShader(type);
-      gl.shaderSource(shader, source);
-      gl.compileShader(shader);
-      
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        const info = gl.getShaderInfoLog(shader);
-        console.error(`Could not compile WebGL shader: ${info}`);
-        gl.deleteShader(shader);
-        return null;
-      }
-      
-      return shader;
-    }
-    
-    // Initialize shaders with proper error handling
-    const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
-    const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
-    
-    if (!vertexShader || !fragmentShader) {
-      console.error("Shader compilation failed - can't continue WebGL setup");
-      return; // Exit without trying to use invalid shaders
-    }
-    
-    // Create shader program with error checking
-    const shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
-    
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-      console.error(`Unable to initialize shader program: ${gl.getProgramInfoLog(shaderProgram)}`);
-      return;
-    }
-    
-    const programInfo = {
-      program: shaderProgram,
-      attribLocations: {
-        vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-        textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
-      },
-      uniformLocations: {
-        projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-        modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
-        time: gl.getUniformLocation(shaderProgram, 'uTime'),
-        resolution: gl.getUniformLocation(shaderProgram, 'uResolution'),
-      },
-    };
-    
-    // Create buffers for positions and texture coordinates
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    
-    // Create a unit quad
-    const positions = [
-      -1.0, -1.0,  0.0,
-       1.0, -1.0,  0.0,
-       1.0,  1.0,  0.0,
-      -1.0,  1.0,  0.0,
-    ];
-    
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-    
-    const textureCoordBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
-    
-    const textureCoordinates = [
-      0.0,  0.0,
-      1.0,  0.0,
-      1.0,  1.0,
-      0.0,  1.0,
-    ];
-    
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates), gl.STATIC_DRAW);
-    
-    const indexBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    
-    const indices = [
-      0, 1, 2,    0, 2, 3,
-    ];
-    
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
-    
-    const buffers = {
-      position: positionBuffer,
-      textureCoord: textureCoordBuffer,
-      indices: indexBuffer,
-    };
-    
-    let startTime = Date.now();
-    
-    // Simple matrix creation function
-    const mat4 = {
-      create: function() {
-        return new Float32Array([
-          1, 0, 0, 0,
-          0, 1, 0, 0,
-          0, 0, 1, 0,
-          0, 0, 0, 1
-        ]);
-      },
-      perspective: function(out, fovy, aspect, near, far) {
-        const f = 1.0 / Math.tan(fovy / 2);
-        out[0] = f / aspect;
-        out[1] = 0;
-        out[2] = 0;
-        out[3] = 0;
-        out[4] = 0;
-        out[5] = f;
-        out[6] = 0;
-        out[7] = 0;
-        out[8] = 0;
-        out[9] = 0;
-        out[10] = (far + near) / (near - far);
-        out[11] = -1;
-        out[12] = 0;
-        out[13] = 0;
-        out[14] = (2 * far * near) / (near - far);
-        out[15] = 0;
-        return out;
-      }
-    };
-    
-    // Render function
-    const render = () => {
-      const currentTime = (Date.now() - startTime) * 0.001; // time in seconds
-      
-      gl.clearColor(0.0, 0.0, 0.0, 0.0);
-      gl.clearDepth(1.0);
-      gl.enable(gl.DEPTH_TEST);
-      gl.enable(gl.BLEND);
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-      gl.depthFunc(gl.LEQUAL);
-      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      
-      // Create projection matrix
-      const fieldOfView = (45 * Math.PI) / 180;
-      const aspect = canvas.clientWidth / canvas.clientHeight;
-      const zNear = 0.1;
-      const zFar = 100.0;
-      const projectionMatrix = mat4.create();
-      
-      mat4.perspective(
-        projectionMatrix,
-        fieldOfView,
-        aspect,
-        zNear,
-        zFar
-      );
-      
-      // Set position to identity - drawing a full-screen quad
-      const modelViewMatrix = mat4.create();
-      
-      // Bind position buffer
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
-      gl.vertexAttribPointer(
-        programInfo.attribLocations.vertexPosition,
-        3,          // numComponents
-        gl.FLOAT,   // type
-        false,      // normalize
-        0,          // stride
-        0           // offset
-      );
-      gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-      
-      // Bind texture coordinate buffer
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord);
-      gl.vertexAttribPointer(
-        programInfo.attribLocations.textureCoord,
-        2,          // numComponents
-        gl.FLOAT,   // type
-        false,      // normalize
-        0,          // stride
-        0           // offset
-      );
-      gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
-      
-      // Bind index buffer
-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
-      
-      // Use shader program
-      gl.useProgram(programInfo.program);
-      
-      // Set uniforms
-      gl.uniformMatrix4fv(
-        programInfo.uniformLocations.projectionMatrix,
-        false,
-        projectionMatrix
-      );
-      gl.uniformMatrix4fv(
-        programInfo.uniformLocations.modelViewMatrix,
-        false,
-        modelViewMatrix
-      );
-      gl.uniform1f(programInfo.uniformLocations.time, currentTime);
-      gl.uniform2f(
-        programInfo.uniformLocations.resolution, 
-        canvas.width, 
-        canvas.height
-      );
-      
-      // Draw
-      gl.drawElements(
-        gl.TRIANGLES,
-        6,
-        gl.UNSIGNED_SHORT,
-        0
-      );
-      
-      animationRef.current = requestAnimationFrame(render);
-    };
-    
-    // Start rendering with try-catch for safety
-    try {
-      render();
-    } catch (e) {
-      console.error("WebGL rendering error:", e);
-    }
-    
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, []);
-  
-  return (
-    <canvas 
-      ref={canvasRef} 
-      className="fixed inset-0 pointer-events-none z-[1]"
-    />
-  );
-};
-
-
+import BackgroundPattern from "../../ui/BackgroundPattern";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
 
 
 // Portfolio Allocation System
@@ -924,6 +588,17 @@ const AdvancedSearch = () => {
 const GoldTokenization = () => {
   const { scrollYProgress } = useScroll();
   const scrollProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
+
+  // Define sections for navigation
+  const sections = [
+    { id: "hero", title: "Overview" },
+    { id: "analytics", title: "Analytics" },
+    { id: "portfolio", title: "Portfolio" },
+    { id: "calculator", title: "Calculator" },
+    { id: "opportunities", title: "Opportunities" },
+  ];
+  
+  const activeSection = useSectionObserver(sections);
   
   // Use spring for smooth scrollbar
   const scaleX = useSpring(scrollProgress, {
@@ -933,18 +608,12 @@ const GoldTokenization = () => {
   });
   
   return (
-    <div className="min-h-screen  text-white">
-      {/* Fixed progress bar */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-yellow-500 origin-left z-50"
-        style={{ scaleX }}
-      />
-      
-      {/* Animated background particle effect */}
-      <GoldParticleFlow />
-      
+    <div className="min-h-screen relative text-white">
+
+      <BackgroundPattern />
+     
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center">
+      <section id="hero" className="relative min-h-[90vh] flex items-center">
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
@@ -966,7 +635,7 @@ const GoldTokenization = () => {
               </motion.h1>
               
               <motion.p 
-                className="text-xl text-gray-300 mb-8 max-w-2xl"
+                className="text-lg text-gray-300 mb-8 max-w-2xl"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -1008,7 +677,7 @@ const GoldTokenization = () => {
         </div>
         
         {/* Scrolldown indicator */}
-        <motion.div 
+        {/* <motion.div 
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: [0, 10, 0] }}
@@ -1016,11 +685,11 @@ const GoldTokenization = () => {
         >
           <div className="text-gray-400 text-sm mb-2">Scroll to explore</div>
           <ChevronDown size={24} className="text-yellow-500" />
-        </motion.div>
+        </motion.div> */}
       </section>
       
       {/* Market Data Section */}
-      <section className="py-16">
+      <section id="analytics" className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12 text-center">
 
@@ -1063,7 +732,7 @@ const GoldTokenization = () => {
       </section>
       
       {/* Portfolio Allocation Section */}
-      <section className="py-16 ">
+      <section id="portfolio" className="py-16 ">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12 text-center">
 
@@ -1106,7 +775,7 @@ const GoldTokenization = () => {
       </section>
       
       {/* Investment Calculator Section */}
-      <section className="py-16 ">
+      <section id="calculator" className="py-16 ">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12 text-center">
 
@@ -1149,7 +818,7 @@ const GoldTokenization = () => {
       </section>
       
       {/* Search Interface Section */}
-      <section className="py-16">
+      <section id="opportunities" className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12 text-center">
 
@@ -1190,7 +859,7 @@ const GoldTokenization = () => {
           <AdvancedSearch />
         </div>
       </section>
-    
+      <FloatingNavigation sections={sections} activeSection={activeSection} />
     </div>
   );
 };

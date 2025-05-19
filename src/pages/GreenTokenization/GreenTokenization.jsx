@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { Box, Typography, Container, Grid  } from "@mui/material";
 import { ArrowLeft, ArrowRight, Leaf, Users, Shield, Coins, Recycle, LineChart, Globe2, TreePine, Building2, Lock, Sparkles } from "lucide-react";
 import GreenGlobe from "../../components/GreenGlobe";
-import { useEffect } from "react";
-import EarthGlb from "../../components/EarthGlb"
+import EarthGlb from "../../components/EarthGlb";
 import ComparativeSnapshot from "./ComparisonCard";
 import GradientLetters from "../../components/GradientLetters";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
+import BackgroundPattern from "../../ui/BackgroundPattern";
 
 const esgData = [
   {
@@ -45,14 +47,29 @@ const FadeSection = ({ children }) => (
 );
 
 const GreenTokenization = () => {
+  // Define sections for navigation
+  const sections = [
+    { id: "hero", title: "Overview" },
+    { id: "esg-commitments", title: "ESG" },
+    { id: "metals", title: "Metals" },
+    { id: "portfolio", title: "Portfolio" },
+    { id: "blockchain", title: "Blockchain" },
+    { id: "comparison", title: "Comparison" },
+    // { id: "cta", title: "Start" },
+  ];
+  
+  // Use the custom hook to track active section
+  const activeSection = useSectionObserver(sections);
+
   return (
     <>
       <div className="text-white min-h-screen relative overflow-hidden font-sans">
+        <BackgroundPattern /> 
+        {/* Floating Navigation */}
+        <FloatingNavigation sections={sections} activeSection={activeSection} />
        
-
-        {/* Content sections continue from here */}
         {/* Hero Section */}
-        <section className="relative container mx-auto px-6 py-24">
+        <section id="hero" className="relative container mx-auto px-6 py-24">
           <FadeSection>
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left pt-8">
               {/* Content Section - Left */}
@@ -85,12 +102,6 @@ const GreenTokenization = () => {
                             keyPrefix="sm-line1"
                           />
                         </Box>
-                        {/* <Box component="div" className="flex flex-wrap ">
-                          <GradientLetters
-                            text="&"
-                            keyPrefix="sm-line2"
-                          />
-                        </Box> */}
                         <Box component="div" className="flex flex-wrap ">
                           <GradientLetters
                             text="& ESG Integration"
@@ -134,7 +145,7 @@ const GreenTokenization = () => {
         </section>
 
         {/* ESG Commitment Boxes */}
-        <section className="relative container mx-auto px-6 py-20">
+        <section id="esg-commitments" className="relative container mx-auto px-6 py-20">
           <FadeSection>
             <div className="py-16">
               <div className="container mx-auto px-4 md:px-12 text-center">
@@ -193,7 +204,7 @@ const GreenTokenization = () => {
         <FadeSection>
           <section className="space-y-32 text-[#CCCCCC] px-4">
             {/* Metals */}
-            <div className="max-w-6xl mx-auto">
+            <div id="metals" className="max-w-6xl mx-auto">
               <div className="p-8 grid md:grid-cols-2 gap-8 sm:gap-12">
                 <div className="order-2 md:order-1">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
@@ -246,7 +257,7 @@ const GreenTokenization = () => {
                 </div>
                 <div className="relative h-[300px] md:h-full min-h-[300px] rounded-xl overflow-hidden shadow-lg order-1 md:order-2">
                   <img 
-                    src="/images/sustainable-metals.jpg" 
+                    src="assets/images/sustainable-metals.jpeg" 
                     alt="Sustainable Metals Mining" 
                     className="absolute inset-0 w-full h-full object-cover rounded-xl"
                   />
@@ -256,10 +267,10 @@ const GreenTokenization = () => {
             </div>
 
             {/* Portfolio */}
-            <div className=" p-8 grid md:grid-cols-2 gap-6">
-              <img src="/images/esg-diversified.jpg" alt="Diversified ESG Portfolio" className="rounded-xl shadow-md" />
+            <div id="portfolio" className="p-8 grid md:grid-cols-2 gap-6">
+              <img src="assets/images/Diversified-ESG-Portfolio.jpeg" alt="Diversified ESG Portfolio" className="rounded-xl shadow-md" />
               <div>
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-4 lg:mt-14">
                   <LineChart className="w-8 h-8 text-[#00A86B]" />
 
                   <Typography
@@ -305,13 +316,13 @@ const GreenTokenization = () => {
             </div>
 
             {/* Blockchain Role */}
-            <div className=" rounded-2xl p-8">
+            <div id="blockchain" className="rounded-2xl p-8">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 text-center sm:text-left">
                 <Lock className="w-8 h-8 text-[#00A86B]" />
 
                 <Typography
                   variant="h2"
-                  className="text-3xl sm:text-4xl md:text-5xl   text-center"
+                  className="text-3xl sm:text-4xl md:text-5xl text-center"
                   >
                   <Box component="div" className="flex flex-wrap justify-center">
                     {/* Large Screens (1 lines) */}
@@ -366,7 +377,7 @@ const GreenTokenization = () => {
             </div>
 
             {/* Comparison */}
-            <div className="max-w-6xl mx-auto relative rounded-2xl p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
+            <div id="comparison" className="max-w-6xl mx-auto relative rounded-2xl p-[2px] bg-[linear-gradient(90deg,rgba(1,132,58,0.73)_0%,rgba(0,255,132,0.6)_100%)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,132,0.5)]">
               <div className="bg-black/90 backdrop-blur-md rounded-2xl p-8 text-center">
 
               <Typography
@@ -422,7 +433,7 @@ const GreenTokenization = () => {
         </FadeSection>
 
         {/* Final CTA Section */}
-        <section className="relative container mx-auto px-6 py-20">
+        <section id="cta" className="relative container mx-auto px-6 py-20">
           <FadeSection>
             <div className="py-16">
               <div className="container mx-auto px-4 md:px-12 text-center">

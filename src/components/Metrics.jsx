@@ -269,7 +269,7 @@ export default function Metrics() {
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
             viewport={{ once: false }} // Changed to false to re-trigger animation
           >
-           <Typography
+            <Typography
               variant="h2"
               className="text-3xl sm:text-4xl md:text-5xl mb-4 text-center"
             >

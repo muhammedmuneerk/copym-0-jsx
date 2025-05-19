@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container, Typography, Box, Grid } from "@mui/material";
 import GradientLetters from "../../components/GradientLetters";
+import BackgroundPattern from "../../ui/BackgroundPattern";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
+import AnimatedCard from "../../ui/AnimatedCard";
 
 // Custom SVG Icons - Keeping original icons
 const TokenizationIcon = () => (
@@ -55,54 +59,12 @@ const SecurityIcon = () => (
   </svg>
 );
 
-const DiversityIcon = () => (
-  <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="xs:w-10 xs:h-10 w-8 h-8">
-    <circle cx="15" cy="12" r="4" stroke="url(#paint0_linear)" strokeWidth="1.5"/>
-    <circle cx="25" cy="12" r="4" stroke="url(#paint0_linear)" strokeWidth="1.5"/>
-    <path d="M11 21C11 19.3431 12.3431 18 14 18H16C17.6569 18 19 19.3431 19 21V32H11V21Z" stroke="url(#paint1_linear)" strokeWidth="1.5"/>
-    <path d="M21 21C21 19.3431 22.3431 18 24 18H26C27.6569 18 29 19.3431 29 21V32H21V21Z" stroke="url(#paint1_linear)" strokeWidth="1.5"/>
-    <defs>
-      <linearGradient id="paint0_linear" x1="6" y1="6" x2="34" y2="34" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#10B981"/>
-        <stop offset="1" stopColor="#065F46"/>
-      </linearGradient>
-      <linearGradient id="paint1_linear" x1="11" y1="18" x2="29" y2="32" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#10B981"/>
-        <stop offset="1" stopColor="#065F46"/>
-      </linearGradient>
-    </defs>
-  </svg>
-);
 
 const ArrowIcon = () => (
   <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline">
     <path d="M4.16667 15.8333L15.8333 4.16667M15.8333 4.16667H7.5M15.8333 4.16667V12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
-
-// Animated Button Component adapted to match Real Estate theme
-const AnimatedButton = ({ children, className, primary }) => {
-  return (
-    <motion.button
-      className={`relative overflow-hidden group ${
-        primary 
-          ? "bg-[#00A86B]/10 backdrop-blur-lg text-[#00A86B] border border-[#00A86B]/50" 
-          : "bg-[#001a12]/10 backdrop-blur-lg text-[#DDFFDD] border border-[#00A86B]/30"
-      } rounded-full px-3 xs:px-4 sm:px-6 py-2 xs:py-2.5 sm:py-3 text-xs xs:text-sm font-medium tracking-wide ${className}`}
-      style={{
-        boxShadow: primary ? 
-          '0 0 15px rgba(0,168,107,0.2)' : 
-          '0 0 15px rgba(0,168,107,0.1)'
-      }}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <span className="relative z-10 flex items-center justify-center gap-2">
-        {children}
-      </span>
-    </motion.button>
-  );
-};
 
 // Asset Type Button with tooltip
 const AssetTypeButton = ({ label }) => {
@@ -150,23 +112,6 @@ const AssetTypeButton = ({ label }) => {
         )}
       </AnimatePresence>
     </div>
-  );
-};
-
-// Section Header with animation - adapted to match Real Estate theme
-const SectionHeader = ({ children, accent }) => {
-  return (
-    <motion.h2 
-      className={`font-['Orbitron'] font-bold text-xl xs:text-2xl sm:text-3xl md:text-4xl mb-4 xs:mb-6 md:mb-12 tracking-tight ${
-        accent ? "text-emerald-400" : "text-white"
-      }`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-    >
-      {children}
-    </motion.h2>
   );
 };
 
@@ -225,6 +170,16 @@ const DiverseAssetTokenization = () => {
   const [isHeaderVisible, setHeaderVisible] = useState(false);
   const headerRef = useRef(null);
   
+  // Define sections for navigation
+  const sections = [
+    { id: "intro", title: "Intro" },
+    { id: "assets", title: "Asset Types" },
+    // { id: "features", title: "Features" },
+    { id: "cta", title: "Get Started" }
+  ];
+
+  const activeSection = useSectionObserver(sections);
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -267,9 +222,11 @@ const DiverseAssetTokenization = () => {
   
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
+      <BackgroundPattern />
+       <FloatingNavigation sections={sections} activeSection={activeSection} />
       {/* Header Section with Parallax */}
       <div ref={headerRef} className="relative overflow-hidden">
-        <section className="relative container mx-auto px-6 py-24">
+        <section id="intro" className="relative container mx-auto px-6 py-24">
           <motion.div
             className="max-w-4xl mt-20 relative z-10"
             initial={{ opacity: 0, y: 50 }}
@@ -382,6 +339,7 @@ const DiverseAssetTokenization = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
+        id="assets"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <motion.div variants={itemVariants}>
@@ -413,26 +371,52 @@ const DiverseAssetTokenization = () => {
               efficiency.
             </p>
 
-            {/* Feature Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FeatureCard
-                icon={<TokenizationIcon />}
-                title="Flexible Tokenization"
-                description="Tokenize virtually any asset with unique blockchain solutions tailored to your specific requirements"
-              />
-
-              <FeatureCard
-                icon={<GlobalIcon />}
-                title="Global Accessibility"
-                description="Open up new investment opportunities across diverse asset types with worldwide accessibility"
-              />
-
-              <FeatureCard
-                icon={<SecurityIcon />}
-                title="Comprehensive Compliance"
-                description="Robust legal and regulatory frameworks for diverse asset types with built-in verification systems"
-              />
+           {/* Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <AnimatedCard>
+              <div className="p-1 ">
+                <div className="mb-3 xs:mb-4 relative z-10">
+                  <div className="w-12 h-12 rounded-md bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4 transition-transform duration-300">
+                    <TokenizationIcon />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-white transition-colors duration-300">Flexible Tokenization</h3>
+                <p className="text-gray-400">
+                  Tokenize virtually any asset with unique blockchain solutions tailored to your specific requirements
+                </p>
+              </div>
+            </AnimatedCard>
+            
+            <AnimatedCard>
+              <div className="p-1 ">
+                <div className="mb-3 xs:mb-4 relative z-10">
+                  <div className="w-12 h-12 rounded-md bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4 transition-transform duration-300">
+                    <GlobalIcon />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-white transition-colors duration-300">Global Accessibility</h3>
+                <p className="text-gray-400">
+                  Open up new investment opportunities across diverse asset types with worldwide accessibility
+                </p>
+              </div>
+            </AnimatedCard>
+            
+            <div className="col-span-1 md:col-span-2 md:mx-auto w-full md:w-1/2">
+              <AnimatedCard>
+                <div className="p-1 ">
+                  <div className="mb-3 xs:mb-4 relative z-10">
+                    <div className="w-12 h-12 rounded-md bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4 transition-transform duration-300">
+                      <SecurityIcon />
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-white transition-colors duration-300">Comprehensive Compliance</h3>
+                  <p className="text-gray-400">
+                    Robust legal and regulatory frameworks for diverse asset types with built-in verification systems
+                  </p>
+                </div>
+              </AnimatedCard>
             </div>
+          </div>
           </motion.div>
 
           {/* Right Side - Asset Types with Interactive Elements */}
@@ -478,6 +462,7 @@ const DiverseAssetTokenization = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
+        id="cta"
       >
         {/* Advanced background glow */}
         <motion.div
@@ -574,79 +559,6 @@ const DiverseAssetTokenization = () => {
         </div>
       </motion.section>
 
-      {/* Add custom style tag for fonts */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
-        
-        .xs\\:text-base {
-          font-size: 1rem; /* 16px */
-          line-height: 1.5rem; /* 24px */
-        }
-        .xs\\:text-sm {
-          font-size: 0.875rem; /* 14px */
-          line-height: 1.25rem; /* 20px */
-        }
-        .xs\\:text-xs {
-          font-size: 0.75rem; /* 12px */
-          line-height: 1rem; /* 16px */
-        }
-        .xs\\:text-lg {
-          font-size: 1.125rem; /* 18px */
-          line-height: 1.75rem; /* 28px */
-        }
-        .xs\\:text-xl {
-          font-size: 1.25rem; /* 20px */
-          line-height: 1.75rem; /* 28px */
-        }
-        .xs\\:text-2xl {
-          font-size: 1.5rem; /* 24px */
-          line-height: 2rem; /* 32px */
-        }
-        .xs\\:text-3xl {
-          font-size: 1.875rem; /* 30px */
-          line-height: 2.25rem; /* 36px */
-        }
-        .xs\\:text-4xl {
-          font-size: 2.25rem; /* 36px */
-          line-height: 2.5rem; /* 40px */
-        }
-        .xs\\:p-2 {
-          padding: 0.5rem; /* 8px */
-        }
-        .xs\\:p-3 {
-          padding: 0.75rem; /* 12px */
-        }
-        .xs\\:p-4 {
-          padding: 1rem; /* 16px */
-        }
-        .xs\\:px-3 {
-          padding-left: 0.75rem; /* 12px */
-          padding-right: 0.75rem; /* 12px */
-        }
-        .xs\\:py-1\\.5 {
-          padding-top: 0.375rem; /* 6px */
-          padding-bottom: 0.375rem; /* 6px */
-        }
-        .xs\\:py-1 {
-          padding-top: 0.25rem; /* 4px */
-          padding-bottom: 0.25rem; /* 4px */
-        }
-        .xs\\:mb-2 {
-          margin-bottom: 0.5rem; /* 8px */
-        }
-        .xs\\:mb-4 {
-          margin-bottom: 1rem; /* 16px */
-        }
-        .xs\\:mb-6 {
-          margin-bottom: 1.5rem; /* 24px */
-        }
-        .xs\\:gap-2 {
-          gap: 0.5rem; /* 8px */
-        }
-        .xs\\:rounded-xl {
-          border-radius: 0.75rem; /* 12px */
-        }
-      `}</style>
     </div>
   );
 };

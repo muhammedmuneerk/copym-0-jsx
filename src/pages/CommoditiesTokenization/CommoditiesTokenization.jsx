@@ -4,6 +4,10 @@ import { ChevronLeft, ChevronRight, ArrowRight, ChevronDown, ChevronUp } from "l
 import { motion } from "framer-motion"; // Added import for motion component
 import { Container, Typography, Box, Grid } from "@mui/material";
 import GradientLetters from "../../components/GradientLetters";
+import BackgroundPattern from "../../ui/BackgroundPattern";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
+import AnimatedCard from "../../ui/AnimatedCard";
 
 // Custom Card component with glass-morphism effect
 const GlassCard = ({ children, className, hoverEffect = false }) => {
@@ -95,9 +99,9 @@ const GoldenCoin = () => {
 // Feature card component
 const FeatureCard = ({ icon, title, description }) => {
   return (
-    <div className="group relative bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-800 p-6 rounded-lg transition-all duration-300 ease-in-out hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5 overflow-hidden">
+    <AnimatedCard>
+    <div className="group relative  p-4 overflow-hidden">
       {/* Border glow overlay */}
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 border border-emerald-500/30 rounded-lg"></div>
       
       <div className="text-emerald-500 mb-6 group-hover:scale-110 transition-transform duration-300">
         {icon}
@@ -109,6 +113,7 @@ const FeatureCard = ({ icon, title, description }) => {
         {description}
       </p>
     </div>
+    </AnimatedCard>
   );
 };
 
@@ -117,16 +122,29 @@ const CommoditiesTokenization = () => {
   const [detailsOpen, setDetailsOpen] = useState(false); // Set to false to start closed
   const [activeTab, setActiveTab] = useState("preciousMetals");
   const heroRef = useRef(null);
+  
+  // Define sections for navigation
+  const sections = [
+    { id: "hero", title: "Intro" },
+    { id: "redefine", title: "Benefits" },
+    { id: "commodity-types", title: "Assets" },
+    { id: "tokenization-benefits", title: "Advantages" },
+    { id: "cta", title: "Get Started" }
+  ];
 
+  const activeSection = useSectionObserver(sections);
+  
   const toggleDetails = () => {
     setDetailsOpen(prevState => !prevState);
   };
 
   return (
-    <div className="min-h-screen  text-white relative overflow-hidden">
+    <div className="min-h-screen text-white relative overflow-hidden">
+      <BackgroundPattern />
       <div className="relative z-10">
         {/* Hero Section */}
         <section
+          id="hero"
           ref={heroRef}
           className="px-8 py-24 md:px-16 lg:px-24 min-h-[90vh] flex flex-col justify-center relative"
         >
@@ -139,12 +157,6 @@ const CommoditiesTokenization = () => {
           {/* Hero content without parallax */}
           <div className="relative z-10 max-w-3xl transition-all duration-1000">
             <div className="mb-2 inline-block">
-              <div className="flex items-center mb-1">
-                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
-                <span className="uppercase text-xs tracking-widest text-emerald-500 font-medium">
-                  Blockchain Innovation
-                </span>
-              </div>
             </div>
 
             <Typography
@@ -197,19 +209,10 @@ const CommoditiesTokenization = () => {
             </div>
           </div>
 
-          {/* Scrolling indicator */}
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-            <span className="text-gray-500 text-sm mb-2">
-              Scroll to explore
-            </span>
-            <div className="w-6 h-10 border border-gray-700 rounded-full flex items-center justify-center p-1">
-              <div className="w-1 h-1 bg-emerald-500 rounded-full animate-scroll-indicator"></div>
-            </div>
-          </div>
         </section>
 
         {/* Redefine Commodity Investment Section */}
-        <section className="px-8 py-16 md:px-16 lg:px-24 flex flex-col md:flex-row relative">
+        <section id="redefine" className="px-8 py-16 lg:mt-20 md:px-16 lg:px-24 flex flex-col md:flex-row relative">
           {/* Background blobs */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-900/20 rounded-full filter blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-900/10 rounded-full filter blur-3xl"></div>
@@ -453,7 +456,7 @@ const CommoditiesTokenization = () => {
         </section>
 
         {/* Tokenizable Commodity Types */}
-        <section className="px-8 py-16 md:px-16 lg:px-24 text-center relative">
+        <section id="commodity-types" className="px-8 py-16 md:px-16 lg:px-24 text-center relative">
           {/* Background effect */}
           <div className="absolute inset-0 z-0">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-900/20 rounded-full filter blur-3xl"></div>
@@ -524,7 +527,7 @@ const CommoditiesTokenization = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {activeTab === "preciousMetals" && (
                 <>
-                  <GlassCard
+                  <AnimatedCard
                     className="p-6 text-left transform transition-all duration-500 hover:translate-y-[-8px]"
                     hoverEffect
                   >
@@ -542,9 +545,9 @@ const CommoditiesTokenization = () => {
                       <span className="text-gray-500">Min. Investment</span>
                       <span className="text-white">$100</span>
                     </div>
-                  </GlassCard>
+                  </AnimatedCard>
 
-                  <GlassCard
+                  <AnimatedCard
                     className="p-6 text-left transform transition-all duration-500 hover:translate-y-[-8px]"
                     hoverEffect
                   >
@@ -562,9 +565,9 @@ const CommoditiesTokenization = () => {
                       <span className="text-gray-500">Min. Investment</span>
                       <span className="text-white">$50</span>
                     </div>
-                  </GlassCard>
+                  </AnimatedCard>
 
-                  <GlassCard
+                  <AnimatedCard
                     className="p-6 text-left transform transition-all duration-500 hover:translate-y-[-8px]"
                     hoverEffect
                   >
@@ -582,7 +585,7 @@ const CommoditiesTokenization = () => {
                       <span className="text-gray-500">Min. Investment</span>
                       <span className="text-white">$150</span>
                     </div>
-                  </GlassCard>
+                  </AnimatedCard>
                 </>
               )}
 
@@ -592,7 +595,7 @@ const CommoditiesTokenization = () => {
         </section>
 
         {/* Benefits */}
-        <section className="px-8 py-16 md:px-16 lg:px-24 text-center relative">
+        <section id="tokenization-benefits" className="px-8 py-16 md:px-16 lg:px-24 text-center relative">
           <div className="relative z-10">
             <Typography
               variant="h2"
@@ -709,7 +712,7 @@ const CommoditiesTokenization = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="px-8 py-20 md:px-16 lg:px-24 text-center relative">
+        <section id="cta" className="px-8 py-20 md:px-16 lg:px-24 text-center relative">
           {/* Advanced background glow */}
           <motion.div
             className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-emerald-500 filter blur-[100px] opacity-15"
@@ -778,181 +781,11 @@ const CommoditiesTokenization = () => {
               </button>
             </div>
 
-            {/* Additional trust indicators */}
-            <div className="mt-16 flex flex-wrap justify-center gap-8 text-gray-500 text-sm">
-              <div className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2 text-emerald-500"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-                Secure Blockchain Technology
-              </div>
-
-              <div className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2 text-emerald-500"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                24/7 Global Trading
-              </div>
-
-              <div className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2 text-emerald-500"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
-                Real-time Market Analytics
-              </div>
-            </div>
           </div>
         </section>
       </div>
+      <FloatingNavigation sections={sections} activeSection={activeSection} />
 
-      {/* Custom CSS for animations */}
-      <style jsx global>{`
-        @keyframes pulse-subtle {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.7;
-          }
-        }
-
-        @keyframes pulse-slow {
-          0%,
-          100% {
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.2);
-          }
-          50% {
-            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
-          }
-        }
-
-        @keyframes float {
-          0% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-          }
-          50% {
-            opacity: 0.5;
-          }
-          100% {
-            transform: translateY(-100px) translateX(20px);
-            opacity: 0;
-          }
-        }
-
-        @keyframes scroll-indicator {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(5px);
-          }
-        }
-
-        @keyframes slow-spin {
-          0% {
-            transform: rotateY(0deg);
-          }
-          100% {
-            transform: rotateY(360deg);
-          }
-        }
-
-        @keyframes fade-in {
-          0% {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-pulse-subtle {
-          animation: pulse-subtle 2s infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 3s infinite;
-        }
-
-        .animate-float {
-          animation: float 15s infinite;
-        }
-
-        .animate-scroll-indicator {
-          animation: scroll-indicator 1.5s infinite;
-        }
-
-        .animate-slow-spin {
-          animation: slow-spin 8s linear infinite;
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out;
-        }
-
-        .perspective {
-          perspective: 1000px;
-        }
-
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-
-        .rotate-y-0 {
-          transform: rotateY(0deg);
-        }
-
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-
-        .rotate-y-5 {
-          transform: rotateY(5deg);
-        }
-
-        .bg-radial-gradient {
-          background: radial-gradient(
-            circle at 50% 50%,
-            rgba(5, 5, 5, 0),
-            rgba(5, 5, 5, 1) 70%
-          );
-        }
-
-        .transform-gpu {
-          transform: translate3d(0, 0, 0);
-        }
-      `}</style>
     </div>
   );
 };

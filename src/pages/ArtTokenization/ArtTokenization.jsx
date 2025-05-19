@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRightAlt,
@@ -11,6 +11,11 @@ import {
 import { Box, Typography, Container, Grid } from "@mui/material";
 import { ArrowRight, ArrowLeft, Globe2, Users } from "lucide-react";
 import GradientLetters from "../../components/GradientLetters";
+import BackgroundPattern from "../../ui/BackgroundPattern";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
+import AnimatedCard from "../../ui/AnimatedCard";
+
 
 const FadeSection = ({ children }) => (
   <motion.div
@@ -25,7 +30,18 @@ const FadeSection = ({ children }) => (
 );
 
 const ArtTokenization = () => {
-  const [artworkDetails, setArtworkDetails] = useState(true);
+  // Changed initial state from true to false to ensure details are closed on startup
+  const [artworkDetails, setArtworkDetails] = useState(false);
+  
+  // Define sections for navigation
+  const sections = [
+    { id: "hero", title: "Art Tokenization" },
+    { id: "features", title: "Features" },
+    { id: "artTypes", title: "Art Types" },
+    { id: "invest", title: "Invest Now" }
+  ];
+  
+  const activeSection = useSectionObserver(sections);
 
   // Function to render an accurate token distribution chart
   const renderTokenDistributionChart = () => {
@@ -60,9 +76,10 @@ const ArtTokenization = () => {
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
+      <BackgroundPattern /> 
       {/* Content sections continue from here */}
       {/* Hero Section */}
-      <section className="relative container mx-auto px-6 py-24">
+      <section id="hero" className="relative container mx-auto px-6 py-24">
         <FadeSection>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left pt-8">
             {/* Content Section - Left */}
@@ -131,7 +148,7 @@ const ArtTokenization = () => {
       </section>
 
       {/* Features & Artwork */}
-      <section className="relative container mx-auto px-6 py-20">
+      <section id="features" className="relative container mx-auto px-6 py-20">
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12">
@@ -160,9 +177,11 @@ const ArtTokenization = () => {
                     ownership and blockchain technology
                   </p>
 
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Feature Card 1 */}
-                    <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+                    <AnimatedCard>
+                    <div className="  p-6 ">
                       <div className="text-[#00A86B] mb-4">
                         <Palette fontSize="large" />
                       </div>
@@ -174,9 +193,11 @@ const ArtTokenization = () => {
                         barriers
                       </p>
                     </div>
+                    </AnimatedCard>
 
                     {/* Feature Card 2 */}
-                    <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+                    <AnimatedCard>
+                    <div className="p-6 ">
                       <div className="text-[#00A86B] mb-4">
                         <Shield fontSize="large" />
                       </div>
@@ -187,9 +208,14 @@ const ArtTokenization = () => {
                         Blockchain-backed authenticity and ownership tracking
                       </p>
                     </div>
+                    </AnimatedCard>
+                    </div>
 
+                    <div className="flex justify-center">
+                      <div className="w-full md:w-1/2">
                     {/* Feature Card 3 */}
-                    <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+                    <AnimatedCard>
+                    <div className="p-6 ">
                       <div className="text-[#00A86B] mb-4">
                         <Language fontSize="large" />
                       </div>
@@ -200,6 +226,10 @@ const ArtTokenization = () => {
                         Access international art investments seamlessly
                       </p>
                     </div>
+                    </AnimatedCard>
+                    </div>
+                    </div>
+
                   </div>
                 </div>
 
@@ -292,7 +322,7 @@ const ArtTokenization = () => {
                         </button>
 
                         {artworkDetails && (
-                          <div className="bg-[#001a12]/30 -mt-4 mb-4 p-4 rounded-b-md">
+                          <div className="bg-[#001a12]/30 mt-4 mb-4 p-4 rounded-b-md">
                             <div className="grid grid-cols-2 gap-4 mb-4">
                               <div>
                                 <p className="text-[#999999] text-sm">
@@ -344,7 +374,7 @@ const ArtTokenization = () => {
                           </div>
                         )}
 
-                        <button className="w-full bg-[#00A86B]/10 backdrop-blur-lg py-3 px-6 rounded-full font-medium flex items-center justify-center transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105">
+                        <button className="w-full bg-[#00A86B]/10 backdrop-blur-lg py-3 px-6 mt-4 rounded-full font-medium flex items-center justify-center transition-all border border-[#00A86B]/50 shadow-[0_0_15px_rgba(0,168,107,0.2)] hover:shadow-[0_0_25px_rgba(0,168,107,0.4)] hover:bg-[#00A86B]/20 hover:scale-105">
                           <span className="text-[#00A86B]">
                             View Investment Opportunity
                           </span>
@@ -361,7 +391,7 @@ const ArtTokenization = () => {
       </section>
 
       {/* Tokenizable Art Types Section */}
-      <section className="relative container mx-auto px-6 py-20">
+      <section id="artTypes" className="relative container mx-auto px-6 py-20">
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
@@ -416,7 +446,7 @@ const ArtTokenization = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="relative container mx-auto px-6 py-20">
+      <section id="invest" className="relative container mx-auto px-6 py-20">
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
@@ -473,6 +503,7 @@ const ArtTokenization = () => {
           </div>
         </FadeSection>
       </section>
+      <FloatingNavigation sections={sections} activeSection={activeSection} />
 
       <style jsx global>{`
         .gradient-letter {

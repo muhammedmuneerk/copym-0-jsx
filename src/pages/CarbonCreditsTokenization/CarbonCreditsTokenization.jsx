@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRightAlt,
@@ -8,6 +8,10 @@ import {
 import { Leaf, Globe2, Shield, Users } from "lucide-react";
 import { Box, Typography, Grid, Container } from "@mui/material";
 import GradientLetters from "../../components/GradientLetters";
+import BackgroundPattern from "../../ui/BackgroundPattern";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
+import AnimatedCard from "../../ui/AnimatedCard";
 
 const FadeSection = ({ children }) => (
   <motion.div
@@ -21,12 +25,26 @@ const FadeSection = ({ children }) => (
   </motion.div>
 );
 
+
+
 const CarbonCreditsTokenization = () => {
+  
+  // Define sections for navigation
+  const sections = [
+    { id: "hero", title: "Overview" },
+    { id: "features", title: "Features" },
+    { id: "types", title: "Credit Types" },
+    { id: "benefits", title: "Benefits" },
+    { id: "cta", title: "Get Started" }
+  ];
+  
+const activeSection = useSectionObserver(sections);
+
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
-
-        {/* Hero Section */}
-      <section className="relative container mx-auto px-6 py-24">
+      <BackgroundPattern />
+      {/* Hero Section */}
+      <section id="hero" className="relative container mx-auto px-6 py-24">
         <FadeSection>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left pt-8">
             {/* Content Section - Left */}
@@ -98,7 +116,7 @@ const CarbonCreditsTokenization = () => {
       </section>
 
       {/* Feature Cards Section */}
-      <section className="relative container mx-auto px-6 py-20">
+      <section id="features" className="relative container mx-auto px-6 py-20">
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto">
@@ -134,7 +152,8 @@ const CarbonCreditsTokenization = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Card 1 */}
-                <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+                <AnimatedCard>
+                <div className=" p-6 ">
                   <div className="text-[#00A86B] mb-4">
                     <Leaf className="w-8 h-8" />
                   </div>
@@ -143,9 +162,11 @@ const CarbonCreditsTokenization = () => {
                     Direct investment in carbon offset and sustainability projects
                   </p>
                 </div>
+                </AnimatedCard>
 
                 {/* Card 2 */}
-                <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+                <AnimatedCard>
+                <div className=" p-6 ">
                   <div className="text-[#00A86B] mb-4">
                     <Globe2 className="w-8 h-8" />
                   </div>
@@ -154,9 +175,11 @@ const CarbonCreditsTokenization = () => {
                 Trade carbon credits across international markets
               </p>
             </div>
+            </AnimatedCard>
 
                 {/* Card 3 */}
-                <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+                <AnimatedCard>
+                <div className=" p-6 ">
                   <div className="text-[#00A86B] mb-4">
                     <Shield className="w-8 h-8" />
                   </div>
@@ -165,6 +188,7 @@ const CarbonCreditsTokenization = () => {
                     Blockchain-verified carbon credit authenticity and tracking
                   </p>
                 </div>
+                </AnimatedCard>
               </div>
             </div>
           </div>
@@ -172,7 +196,7 @@ const CarbonCreditsTokenization = () => {
       </section>
 
       {/* Tokenizable Carbon Credit Types */}
-      <section className="relative container mx-auto px-6 py-20">
+      <section id="types" className="relative container mx-auto px-6 py-20">
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
@@ -233,7 +257,7 @@ const CarbonCreditsTokenization = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="relative container mx-auto px-6 py-20">
+      <section id="benefits" className="relative container mx-auto px-6 py-20">
         <FadeSection>
           <div className="py-16">
             <div className="max-w-6xl mx-auto bg-[#001a12]/30 backdrop-blur-x4 border border-[#00A86B]/20 p-4 sm:p-8 rounded-2xl shadow-xl">
@@ -317,7 +341,7 @@ const CarbonCreditsTokenization = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative container mx-auto px-6 py-20">
+      <section id="cta" className="relative container mx-auto px-6 py-20">
         <FadeSection>
           <div className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
@@ -368,6 +392,9 @@ const CarbonCreditsTokenization = () => {
       </div>
         </FadeSection>
       </section>
+      
+      {/* Floating Navigation */}
+      <FloatingNavigation sections={sections} activeSection={activeSection} />
       
       <style jsx global>{`
         .gradient-letter {

@@ -75,10 +75,10 @@ export default function CTA() {
             </Button>
           </div>
         </div>
-        <BorderImages
+        {/* <BorderImages
           src="/assets/sections/grid-bg-bottom.png"
           alt="Blockchains Banner"
-        />
+        /> */}
       </motion.div>
 
       {/* Enhanced background gradient highlight with Glow Effect */}

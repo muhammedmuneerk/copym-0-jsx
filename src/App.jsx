@@ -26,6 +26,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import GreenTokenizationPopup from "./components/GreenTokenizationPopup";
 import GoldTokenizationPopup from "./components/GoldTokenizatinPopup";
 import ScrollAnimationWrapper from "./components/ScrollAnimationWrapper";
+import BackgroundPattern from "./ui/BackgroundPattern";
+import { div } from "framer-motion/client";
 
 /**
  * HomePage component - Main landing page layout
@@ -33,6 +35,8 @@ import ScrollAnimationWrapper from "./components/ScrollAnimationWrapper";
  */
 function HomePage() {
   return (
+    <div className="relative">
+      <BackgroundPattern/>
     <ScrollAnimationWrapper>
       <section className="hero-section">
         <Hero />
@@ -55,7 +59,7 @@ function HomePage() {
         </section> */}
 
         <section className="sliders-section">
-          <Sliders/>
+          <Sliders />
         </section>
         
         <section className="metrics-section">
@@ -72,6 +76,7 @@ function HomePage() {
         /> */}
       </div>
     </ScrollAnimationWrapper>
+      </div>
   );
 }
 

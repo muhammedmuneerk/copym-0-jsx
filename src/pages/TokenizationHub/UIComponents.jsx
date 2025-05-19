@@ -285,8 +285,8 @@ export const InteractiveTimeline = ({ steps, activeStep, setActiveStep }) => {
                     width: "8px",
                     height: "8px",
                     borderRadius: "50%",
-                    background: "#fff",
-                    boxShadow: "0 0 10px rgba(255, 255, 255, 0.8)"
+                    // background: "#fff",
+                    // boxShadow: "0 0 10px rgba(255, 255, 255, 0.8)"
                   }}
                 />
               </motion.div>

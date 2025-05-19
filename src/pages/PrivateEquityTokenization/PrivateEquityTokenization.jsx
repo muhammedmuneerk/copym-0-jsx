@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import LockIcon from "@mui/icons-material/Lock";
@@ -7,6 +7,10 @@ import {Box, Typography,Grid, } from "@mui/material";
 import { Globe2, ChartBar, Shield, Building2, BarChart3 } from "lucide-react";
 import BackgroundTheme from "../../ui/GridBackgroundTheme";
 import GradientLetters from "../../components/GradientLetters";
+import BackgroundPattern from "../../ui/BackgroundPattern";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
+import AnimatedCard from "../../ui/AnimatedCard";
 
 const FadeSection = ({ children }) => (
   <motion.div
@@ -22,16 +26,31 @@ const FadeSection = ({ children }) => (
 
 const PrivateEquityTokenization = () => {
   const [investmentDetails, setInvestmentDetails] = useState(false);
+  
+  // Define sections for navigation
+  const sections = [
+    { id: "hero", title: "Overview" },
+    { id: "features", title: "Features" },
+    { id: "types", title: "Asset Types" },
+    { id: "investment", title: "Investment" },
+    { id: "benefits", title: "Benefits" },
+    { id: "cta", title: "Get Started" }
+  ];
+  
+  const activeSection = useSectionObserver(sections);
 
   return (
     <div className="text-white min-h-screen relative overflow-hidden font-sans">
-      
+      <BackgroundPattern/>      
+
+      {/* Floating Navigation */}
+      <FloatingNavigation sections={sections} activeSection={activeSection} />
 
       {/* Content */}
       <div className="relative z-10 px-6 pt-24 pb-24 space-y-24">
         {/* Hero Section */}
         <FadeSection>
-          <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left">
+          <div id="hero" className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 text-left">
             {/* Content Section - Left */}
             <div className="relative w-full md:w-1/2 z-10 md:-mt-20">
               <div className="font-orbitron font-bold text-3xl sm:text-4xl md:text-5xl mb-6 text-center md:text-left">
@@ -101,7 +120,7 @@ const PrivateEquityTokenization = () => {
 
         {/* Features Section */}
         <FadeSection>
-          <div className="container mx-auto">
+          <div id="features" className="container mx-auto">
             
           <Typography
                 variant="h2"
@@ -128,7 +147,8 @@ const PrivateEquityTokenization = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Card 1 */}
-              <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+              <AnimatedCard>
+              <div className=" p-6 ">
                 <div className="text-[#00A86B] mb-4">
                   <TrendingUpIcon fontSize="large" />
                 </div>
@@ -137,9 +157,11 @@ const PrivateEquityTokenization = () => {
                   Transform illiquid private equity investments into tradable assets
                 </p>
               </div>
+              </AnimatedCard>
 
               {/* Card 2 */}
-              <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+              <AnimatedCard>
+              <div className=" p-6 ">
                 <div className="text-[#00A86B] mb-4">
                   <Shield className="w-8 h-8" />
                 </div>
@@ -148,9 +170,11 @@ const PrivateEquityTokenization = () => {
                   Comprehensive legal frameworks for secure tokenization
                 </p>
               </div>
+              </AnimatedCard>
 
               {/* Card 3 */}
-              <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+              <AnimatedCard>
+              <div className=" p-6 ">
                 <div className="text-[#00A86B] mb-4">
                   <Globe2 className="w-8 h-8" />
                 </div>
@@ -159,13 +183,14 @@ const PrivateEquityTokenization = () => {
                 Democratize access to premium investment opportunities
                 </p>
               </div>
+              </AnimatedCard>
             </div>
           </div>
         </FadeSection>
 
         {/* Tokenizable Types */}
         <FadeSection>
-          <div className="py-16">
+          <div id="types" className="py-16">
             <div className="container mx-auto px-4 md:px-12 text-center">
 
             <Typography
@@ -224,7 +249,7 @@ const PrivateEquityTokenization = () => {
 
         {/* Featured Investment Card */}
         <FadeSection>
-          <div className="py-16">
+          <div id="investment" className="py-16">
             <div className="container mx-auto px-4 md:px-12">
               <div className="max-w-4xl mx-auto">
                 <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 rounded-2xl overflow-hidden">
@@ -311,7 +336,7 @@ const PrivateEquityTokenization = () => {
 
         {/* Benefits Section */}
         <FadeSection>
-          <div className="container mx-auto">
+          <div id="benefits" className="container mx-auto">
 
           <Typography
                 variant="h2"
@@ -344,7 +369,8 @@ const PrivateEquityTokenization = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Card 1 */}
-              <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+              <AnimatedCard>
+              <div className=" p-6 ">
                 <div className="text-[#00A86B] mb-4">
                   <TrendingUpIcon fontSize="large" />
                 </div>
@@ -353,9 +379,11 @@ const PrivateEquityTokenization = () => {
                   Transform illiquid private equity investments into tradable assets
                 </p>
               </div>
+              </AnimatedCard>
 
               {/* Card 2 */}
-              <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+              <AnimatedCard>
+              <div className=" p-6 ">
                 <div className="text-[#00A86B] mb-4">
                   <Shield className="w-8 h-8" />
                 </div>
@@ -364,9 +392,11 @@ const PrivateEquityTokenization = () => {
                   Comprehensive legal frameworks for secure tokenization
                 </p>
               </div>
+              </AnimatedCard>
 
               {/* Card 3 */}
-              <div className="bg-[#001a12]/30 backdrop-blur-md border border-[#00A86B]/20 p-6 rounded-2xl transition-all hover:bg-[#001a12]/40">
+              <AnimatedCard>
+              <div className=" p-6 ">
                 <div className="text-[#00A86B] mb-4">
                   <Globe2 className="w-8 h-8" />
                 </div>
@@ -375,14 +405,15 @@ const PrivateEquityTokenization = () => {
                 Democratize access to premium investment opportunities
                 </p>
               </div>
+              </AnimatedCard>
             </div>
           </div>
         </FadeSection>
 
         {/* CTA Section */}
         <FadeSection>
-          <div className="relative">
-            <div className="absolute"></div>
+          <div id="cta" className="relative">
+            <div className="absolute "></div>
             <div className="container mx-auto text-center relative z-10 px-6 py-24">
 
             <Typography

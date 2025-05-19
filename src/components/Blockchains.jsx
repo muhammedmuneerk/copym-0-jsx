@@ -111,8 +111,8 @@ export default function Blockchains() {
     };
     return { 
       right: 0, 
-      height: "600px", 
-      marginTop: "350px",
+      height: "700px", 
+      marginTop: "200px",
       position: "absolute"
     };
   };
@@ -144,7 +144,7 @@ export default function Blockchains() {
           position: globeStyles.position, 
           top: 0, 
           right: globeStyles.right,
-          width: isTablet ? "70%" : "50%",
+          width: isTablet ? "70%" : "60%",
           bottom: 0, 
           zIndex: 0, 
           opacity: 0.5,
@@ -155,11 +155,11 @@ export default function Blockchains() {
           justifyContent: "flex-end"
         }}>
           <Suspense fallback={null}>
-            <Canvas camera={{ position: [0, 0, 10], fov: isTablet ? 18 : 15 }}>
+            <Canvas camera={{ position: [0, 0, 10], fov: isTablet ? 18 : 18 }}>
               <ambientLight intensity={0.5} />
               <pointLight position={[10, 10, 10]} />
               <EarthGlobeModel />
-              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.9} />
+              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
               <Environment preset="city" />
             </Canvas>
           </Suspense>

@@ -5,6 +5,10 @@ import PropertyCard from "./PropertyCard";
 import BackgroundTheme from "../../ui/GridBackgroundTheme";
 import GradientLetters from "../../components/GradientLetters";
 import { Container, Typography, Box, Grid } from "@mui/material";
+import BackgroundPattern from "../../ui/BackgroundPattern";
+import FloatingNavigation from '../../components/FloatingNavigation';
+import useSectionObserver from '../../hooks/useSectionObserver';
+import AnimatedCard from "../../ui/AnimatedCard";
 
 // Custom components to replace MUI
 
@@ -30,6 +34,17 @@ const RealEstateTokenization = () => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [currentProperty, setCurrentProperty] = useState(0);
   const [animateTokens, setAnimateTokens] = useState(true); // Set to true initially to skip animation
+
+    // Define sections for navigation
+  const sections = [
+    { id: "hero", title: "Intro" },
+    { id: "redefine", title: "Advantages" },
+    { id: "tokenization-process", title: "Process" },
+    { id: "tokenization-benefits", title: "Benefits" },
+    { id: "cta", title: "Get Started" }
+  ];
+
+  const activeSection = useSectionObserver(sections);
 
   // Properties data
   const properties = [
@@ -60,9 +75,10 @@ const RealEstateTokenization = () => {
   // Removed animation variants that were used for initial loading
 
   return (
-    <div>
+    <div className="relative">
+      <BackgroundPattern />
       {/* Hero Section */}
-      <section className="relative container mx-auto px-6 py-24">
+      <section id="hero" className="relative container mx-auto px-6 py-24">
         <div className="max-w-4xl mt-20 relative z-10">
           <div className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-4 left-0 w-[60%]" />
           <div className="h-px bg-gradient-to-r from-emerald-500 to-transparent absolute -top-8 left-0 w-[30%]" />
@@ -134,7 +150,7 @@ const RealEstateTokenization = () => {
       </section>
 
       {/* Revolutionize Section */}
-      <section className="container mx-auto px-6 py-20">
+      <section id="redefine" className="container mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
             <div className="relative mb-8">
@@ -187,16 +203,16 @@ const RealEstateTokenization = () => {
                   desc: "Trade and invest in international real estate markets without geographical limitations.",
                 },
               ].map((feature, index) => (
-                <Card
+                <AnimatedCard
                   key={index}
                   className="group hover:border-emerald-900 transition-all duration-500 overflow-hidden"
                 >
-                  <div className="p-6">
-                    <div className="mb-4">
+                  <div className="p-4">
+                    <div className="mb-1">
                       <div className="w-12 h-12 rounded-md bg-emerald-500 bg-opacity-10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         {feature.icon}
                       </div>
-                      <h3 className="text-xl font-bold mb-2 text-white">
+                      <h3 className="text-lg font-bold mb-2 text-white">
                         {feature.title}
                       </h3>
                       <p className="text-gray-400">{feature.desc}</p>
@@ -204,7 +220,7 @@ const RealEstateTokenization = () => {
                   </div>
                   {/* Border animation now positioned inside the card boundaries */}
                   <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-emerald-600 to-emerald-400 group-hover:w-full transition-all duration-700" />
-                </Card>
+                </AnimatedCard>
               ))}
             </div>
           </div>
@@ -228,7 +244,7 @@ const RealEstateTokenization = () => {
       </section>
 
       {/* Tokenization Process Section */}
-      <section className="container mx-auto px-6 py-20 relative">
+      <section id="tokenization-process" className="container mx-auto px-6 py-20 relative">
         <div className="text-center mb-16 relative">
           <div className="absolute left-1/2 transform -translate-x-1/2 -top-10 w-24 h-24 rounded-full bg-emerald-500 filter blur-[80px] opacity-30" />
 
@@ -297,27 +313,27 @@ const RealEstateTokenization = () => {
               },
             ].map((process, index) => (
               <div key={index} className="flex justify-center">
-                <Card className="relative w-full">
+                <AnimatedCard className="relative w-full">
                   <motion.div
-                    className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-[#0a0a0a] border-4 border-emerald-500 flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20"
+                    className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-[#0a0a0a] border-4 border-emerald-500 flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20"
                     whileHover={{ y: -5 }}
                     transition={{ duration: 0.3 }}
                   >
                     {process.step}
                   </motion.div>
 
-                  <div className="pt-12 p-6">
-                    <div className="mb-4 flex flex-col items-center text-center">
-                      <div className="w-16 h-16 rounded-md bg-emerald-900 bg-opacity-20 flex items-center justify-center mb-6">
+                  <div className="pt-8 p-1">
+                    <div className="mb-1 flex flex-col items-center text-center">
+                      <div className="w-14 h-14 rounded-2xl bg-emerald-900 bg-opacity-20 flex items-center justify-center mb-4 mt-0">
                         {process.icon}
                       </div>
-                      <h3 className="text-xl font-bold mb-3 text-white">
+                      <h3 className="text-xl font-bold mb-3 -mt-3 text-white">
                         {process.title}
                       </h3>
                       <p className="text-gray-400">{process.desc}</p>
                     </div>
                   </div>
-                </Card>
+                </AnimatedCard>
               </div>
             ))}
           </div>
@@ -325,7 +341,7 @@ const RealEstateTokenization = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="container mx-auto px-6 py-20">
+      <section id="tokenization-benefits" className="container mx-auto px-6 py-20">
         <div className="text-center mb-16">
 
         <Typography
@@ -403,7 +419,7 @@ const RealEstateTokenization = () => {
       </section>
 
       {/* Final CTA Section with enhanced background */}
-      <section className="container mx-auto px-6 py-20 text-center relative">
+      <section id="cta" className="container mx-auto px-6 py-20 text-center relative">
         {/* Advanced background glow - keeping animation as it's not a startup animation */}
         <motion.div
           className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-emerald-500 filter blur-[100px] opacity-15"
@@ -509,6 +525,7 @@ const RealEstateTokenization = () => {
           </div>
         </div>
       </section>
+      <FloatingNavigation sections={sections} activeSection={activeSection} />
     </div>
   );
 };
